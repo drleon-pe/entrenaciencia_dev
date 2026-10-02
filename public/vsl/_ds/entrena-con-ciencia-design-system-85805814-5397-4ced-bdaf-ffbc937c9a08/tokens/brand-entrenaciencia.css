@@ -1006,3 +1006,12 @@ html:has(.m-cta-barra) footer[data-screen-label="Footer"]{padding-bottom:calc(va
   html:has(.m-cta-barra) body .ecc-cta{padding-left:16px!important;padding-right:20px!important;gap:8px!important;justify-content:center!important}
   html:has(.m-cta-barra) body .ecc-cta > span:first-child{white-space:nowrap;font-size:13px;letter-spacing:.05em}
 }
+
+/* ---------- Móvil: párrafos largos justificados, como el texto de "Por qué funciona" en escritorio ----------
+   (mismo estilo que .ecc-sintesis: justificado con separación en sílabas para que no queden huecos).
+   Títulos, frases cortas centradas, listas y botones no cambian. */
+html:has(.m-cta-barra) body section[data-screen-label^="01"] h1 ~ p,
+html:has(.m-cta-barra) body section[data-screen-label]:not(#j1):not(#j2):not(#j3):not(#j4):not(#j5):not(#j6):not(#j7):not(#j8):not(#j9):not(#j10):not(#j11):not(#j12):not(#j13):not(#j14):not(#j15):not(#j16):not(#j17) .ecc-prose p:not(.ecc-destacado):not([style*="text-align:center"]),
+html:has(.m-cta-barra) body section[data-screen-label^="05"] p,
+html:has(.m-cta-barra) body section[data-screen-label]:is([data-screen-label^="03 "],[data-screen-label^="03b"],[data-screen-label^="04 "]) .ecc-bezel-core p:not([style*="text-align:center"]){
+  text-align:justify!important;text-justify:inter-word;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
