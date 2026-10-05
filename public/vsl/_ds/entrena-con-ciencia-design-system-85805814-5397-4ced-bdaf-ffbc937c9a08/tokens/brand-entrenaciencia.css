@@ -1038,3 +1038,10 @@ html:not(:has(.m-cta-barra)) header .sc-host-x span{white-space:nowrap}
   /* "Cómo funciona": 2 × 2 en vez de 3 tarjetas arriba y 1 sola abajo. */
   html:not(:has(.m-cta-barra)) body section[data-screen-label^="03b"] div[style*="auto-fit"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+
+/* Testimonios en video (escritorio en iPad vertical, ≤1023px): 2 arriba y el tercero centrado abajo,
+   en vez de quedar suelto a la izquierda. En pantallas más anchas entran los 3 en una fila. */
+@media (max-width:1023px){
+  html:not(:has(.m-cta-barra)) body section[data-screen-label^="04b"] .ecc-pad > div[style*="auto-fit"]{display:flex!important;flex-wrap:wrap;justify-content:center}
+  html:not(:has(.m-cta-barra)) body section[data-screen-label^="04b"] .ecc-pad > div[style*="auto-fit"] > .ecc-bezel{flex:0 0 calc((100% - var(--space-5)) / 2)}
+}
