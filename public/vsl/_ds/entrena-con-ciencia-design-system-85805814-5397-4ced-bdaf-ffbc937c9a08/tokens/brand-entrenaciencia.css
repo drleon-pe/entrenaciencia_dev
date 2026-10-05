@@ -1055,3 +1055,7 @@ html:not(:has(.m-cta-barra)) body section[data-screen-label^="01"] h1 ~ p,
 html:not(:has(.m-cta-barra)) body section[data-screen-label^="05"] p,
 html:not(:has(.m-cta-barra)) body section[data-screen-label]:is([data-screen-label^="03 "],[data-screen-label^="03b"],[data-screen-label^="04 "]) .ecc-bezel-core p:not([style*="text-align:center"]){
   text-align:justify!important;text-justify:inter-word;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
+
+/* Nunca se cortan palabras con guion, en ninguna vista ni dispositivo (pedido del Dr. León, 5 oct).
+   Anula la separación en sílabas de los párrafos justificados y de .ecc-sintesis. */
+html:root body, html:root body *{-webkit-hyphens:manual!important;hyphens:manual!important;word-break:normal!important;overflow-wrap:normal}
