@@ -1015,3 +1015,26 @@ html:has(.m-cta-barra) body section[data-screen-label]:not(#j1):not(#j2):not(#j3
 html:has(.m-cta-barra) body section[data-screen-label^="05"] p,
 html:has(.m-cta-barra) body section[data-screen-label]:is([data-screen-label^="03 "],[data-screen-label^="03b"],[data-screen-label^="04 "]) .ecc-bezel-core p:not([style*="text-align:center"]){
   text-align:justify!important;text-justify:inter-word;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
+
+/* ======================= Tablets (iPad) y todos los dispositivos · 5 oct ======================= */
+
+/* Párrafos: corte de línea normal. El modo "pretty" de la base hace que Safari reparta las líneas
+   y deje renglones cortos y disparejos (p. ej. en el equipo médico). */
+html:root body section[data-screen-label] p{text-wrap:wrap}
+
+/* Logo de la barra de escritorio: "con Ciencia" nunca se separa en dos líneas. */
+html:not(:has(.m-cta-barra)) header .sc-host-x span{white-space:nowrap}
+
+/* Escritorio en pantallas medianas (iPad vertical y horizontal angosto, 769–1099px). */
+@media (min-width:769px) and (max-width:1099px){
+  /* Inicio y cierre: dos columnas iguales y menos separación, para que la caja del precio no quede angosta. */
+  html:not(:has(.m-cta-barra)) body :is(section[data-screen-label^="01"],#empezar) .ecc-split{grid-template-columns:1fr 1fr!important;gap:var(--space-8)!important}
+}
+/* Por debajo de 1100px (incluye 768px, iPad mini vertical, donde las columnas ya se apilan). */
+@media (max-width:1099px){
+  /* Botones en una sola línea con la flecha pegada (antes se partían en dos). */
+  html:not(:has(.m-cta-barra)) body .ecc-cta{padding-left:16px!important;padding-right:16px!important;gap:8px!important;justify-content:center!important}
+  html:not(:has(.m-cta-barra)) body .ecc-cta > span:first-child{white-space:nowrap;font-size:13px;letter-spacing:.05em}
+  /* "Cómo funciona": 2 × 2 en vez de 3 tarjetas arriba y 1 sola abajo. */
+  html:not(:has(.m-cta-barra)) body section[data-screen-label^="03b"] div[style*="auto-fit"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
