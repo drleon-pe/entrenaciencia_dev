@@ -1048,3 +1048,10 @@ html:not(:has(.m-cta-barra)) header .sc-host-x span{white-space:nowrap}
 
 /* Logo de la barra superior de escritorio en dos líneas, como en el celular: "Entrena" arriba y "con Ciencia" abajo. */
 html:not(:has(.m-cta-barra)) header.ecc-island .sc-host-x > span[style*="inline-flex"] > span{flex-direction:column!important;align-items:flex-start!important;gap:3px!important;line-height:1!important}
+
+/* Escritorio (computadora e iPad): los mismos párrafos largos justificados que en el celular,
+   para que el texto se vea parejo en todos los dispositivos. */
+html:not(:has(.m-cta-barra)) body section[data-screen-label^="01"] h1 ~ p,
+html:not(:has(.m-cta-barra)) body section[data-screen-label^="05"] p,
+html:not(:has(.m-cta-barra)) body section[data-screen-label]:is([data-screen-label^="03 "],[data-screen-label^="03b"],[data-screen-label^="04 "]) .ecc-bezel-core p:not([style*="text-align:center"]){
+  text-align:justify!important;text-justify:inter-word;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
