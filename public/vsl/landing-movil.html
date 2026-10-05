@@ -1220,5 +1220,27 @@ class Component extends DCLogic {
   addEventListener('load',pedir); setTimeout(pedir,800);
 })();
 </script>
+<script>
+/* Cajas parejas: en "Qué incluye", "Cómo funciona" y el equipo médico, todas las cajas de una sección
+   toman el alto de la más alta. En el celular solo se igualan las cajas de texto (fotos y videos ya son
+   del mismo tamaño). Se recalcula al cambiar el ancho de la pantalla. */
+(function(){
+  function igualar(){
+    var movil = !!document.querySelector('.m-cta-barra') || innerWidth < 769;
+    [['03 ', '.ecc-split > .ecc-bezel', true], ['04 ', '.ecc-split > .ecc-bezel', true], ['03b', '.ecc-bezel', false]].forEach(function(g){
+      var s = document.querySelector('section[data-screen-label^="' + g[0] + '"]'); if (!s) return;
+      var cajas = [].slice.call(s.querySelectorAll(g[1])).filter(function(c){ return !c.closest('.ecc-ej') && !c.querySelector('.ecc-bezel'); });
+      if (movil && g[2]) cajas = cajas.filter(function(c){ return !c.querySelector('image-slot,img'); });
+      cajas.forEach(function(c){ c.style.minHeight = ''; });
+      var max = 0; cajas.forEach(function(c){ max = Math.max(max, c.getBoundingClientRect().height); });
+      if (max) cajas.forEach(function(c){ c.style.minHeight = Math.ceil(max) + 'px'; });
+    });
+  }
+  var t; function pedir(){ clearTimeout(t); t = setTimeout(igualar, 120); }
+  addEventListener('load', pedir); addEventListener('resize', pedir); addEventListener('orientationchange', pedir);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(pedir);
+  setTimeout(pedir, 1200); setTimeout(pedir, 3000);
+})();
+</script>
 </body>
 </html>
