@@ -1045,3 +1045,6 @@ html:not(:has(.m-cta-barra)) header .sc-host-x span{white-space:nowrap}
   html:not(:has(.m-cta-barra)) body section[data-screen-label^="04b"] .ecc-pad > div[style*="auto-fit"]{display:flex!important;flex-wrap:wrap;justify-content:center}
   html:not(:has(.m-cta-barra)) body section[data-screen-label^="04b"] .ecc-pad > div[style*="auto-fit"] > .ecc-bezel{flex:0 0 calc((100% - var(--space-5)) / 2)}
 }
+
+/* Logo de la barra superior de escritorio en dos líneas, como en el celular: "Entrena" arriba y "con Ciencia" abajo. */
+html:not(:has(.m-cta-barra)) header.ecc-island .sc-host-x > span[style*="inline-flex"] > span{flex-direction:column!important;align-items:flex-start!important;gap:3px!important;line-height:1!important}
