@@ -1152,3 +1152,5 @@ html:root body .m-cta-barra .m-cta-barra-btn{background:#FFC300!important;color:
 html:root body .m-cta-barra .m-cta-barra-btn i{color:#010D15!important}
 /* Títulos de todas las cajas en negrita */
 html:root body section[data-screen-label] :is(.ecc-bezel,.ecc-fila-sola) :is(h3,h4){font-weight:700!important}
+/* barra inferior: azul más suave que la barra superior (se distingue y molesta menos) */
+html:root body .m-cta-fixed.m-cta-barra{background:rgba(42,92,134,.93)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.22)!important;box-shadow:0 -8px 24px -14px rgba(10,37,64,.35)}
