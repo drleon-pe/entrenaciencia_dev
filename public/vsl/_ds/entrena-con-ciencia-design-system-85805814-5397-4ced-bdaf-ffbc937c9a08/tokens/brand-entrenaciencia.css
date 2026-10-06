@@ -1115,3 +1115,15 @@ html:root body section[data-screen-label^="05"] sc-if > p,html:root body section
   .ecc-testi-prev{left:calc(50% - 52px)}.ecc-testi-next{right:calc(50% - 52px)}
   .ecc-testi-btn:disabled{opacity:.3!important;pointer-events:none}
 }
+/* Testimonios en móvil: tarjeta compacta para que fotos y texto entren en una pantalla */
+@media (max-width:600px){
+  .ecc-testi-fotos .ecc-ad-foto{aspect-ratio:1/1}
+  html:root body .ecc-testi-card{gap:var(--space-3)}
+  .ecc-testi-texto{gap:var(--space-2)}
+  .ecc-testi-texto > i{display:none}
+  html:root body .ecc-testi-cita{font-size:14.5px;line-height:1.6}
+  html:root body section[data-screen-label] .ecc-testi p.ecc-testi-gancho{font-size:19px!important}
+}
+/* barra de oferta de abajo: se esconde mientras se ven los testimonios */
+.m-cta-barra{transition:transform .35s ease,opacity .35s ease}
+html:root body .m-cta-barra.m-cta-oculta{transform:translateY(110%)!important;opacity:0;pointer-events:none}
