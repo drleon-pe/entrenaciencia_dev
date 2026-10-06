@@ -1081,3 +1081,8 @@ html:root body .ecc-testi-nombre{font-size:14px;font-weight:600;letter-spacing:.
 .ecc-testi-dot[aria-current="true"]{width:26px;background:#017FA7}
 .ecc-testi-uno .ecc-testi-nav{display:none}
 @media (max-width:820px){html:root body .ecc-testi-card{grid-template-columns:1fr;gap:var(--space-5)}.ecc-testi-texto{padding:0 var(--space-2) var(--space-2)}}
+/* Cita del testimonio: texto de párrafo (no titular), con negrita/resaltado/cursiva alternados. */
+html:root body .ecc-testi-cita{font-family:var(--font-body);font-size:16px;font-weight:400;line-height:1.7;color:#2A3F4F;text-align:justify!important;text-justify:inter-word}
+html:root body .ecc-testi-cita strong,html:root body .ecc-testi-cita .ecc-hl{color:#0A2540;font-weight:700}
+html:root body .ecc-testi-cita em{color:#017FA7}
+html:root body .ecc-testi-nombre{color:#0A2540;font-weight:700}
