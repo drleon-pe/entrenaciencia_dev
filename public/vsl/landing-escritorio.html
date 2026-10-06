@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Escritorio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=66">
+<style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
+html{background:#F5FAFC}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
+<script>(function(){var h=document.documentElement,t0=Date.now();
+function listo(){h.classList.add('ecc-listo')}
+function ok(){var ls=document.querySelectorAll('link[rel="stylesheet"]');if(!document.querySelector('link[href*="brand-entrenaciencia"][rel="stylesheet"]'))return false;for(var i=0;i<ls.length;i++){try{if(!ls[i].sheet||!ls[i].sheet.cssRules)return false}catch(e){}}var b=document.body;if(!b||/\{\{/.test(b.innerText||''))return false;return true}
+function revisar(){if(h.classList.contains('ecc-listo'))return;if(ok()){(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){requestAnimationFrame(listo)});return}if(Date.now()-t0>6000){listo();return}setTimeout(revisar,50)}
+setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)});})();</script>
 <script>/* Vista de ejemplo: visible en el servidor local (localhost) o con ?ejemplo=1; nunca en el dominio publicado. ?ejemplo=0 la apaga. */(function(){var q=location.search,h=location.hostname,local=(h==="localhost"||h==="127.0.0.1"||h==="");if(!/[?&]ejemplo=0/.test(q)&&(local||/[?&]ejemplo=1/.test(q)))document.documentElement.classList.add("ecc-ejemplo");})();</script>
 <script>/* Temas de color: sin parámetro = actual (celeste tornasol) · ?tema=original = branding entrenaciencia.com · ?tema=anterior = antes de cambiar los fondos */(function(){var m=location.search.match(/[?&]tema=(original|anterior|actual)/);var t=m?m[1]:"original";if(t!=="anterior")document.documentElement.classList.add("tema-"+t);})();</script>
 <script>/* Servidor local: muestra la barra de edición del prototipo */if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname))document.documentElement.classList.add("ecc-local");</script>
