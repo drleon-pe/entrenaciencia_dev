@@ -1088,3 +1088,8 @@ html:root body .ecc-testi-nombre{font-size:14px;font-weight:700;letter-spacing:.
 .ecc-testi-uno .ecc-testi-slide{flex-basis:100%}
 @media (max-width:900px){.ecc-testi-slide{flex-basis:86%}html:root body .ecc-testi-card{grid-template-columns:1fr;gap:var(--space-5)}.ecc-testi-texto{padding:0 var(--space-2) var(--space-2)}.ecc-testi-prev{left:-14px}.ecc-testi-next{right:-14px}}
 @media (prefers-reduced-motion:reduce){.ecc-testi-track,.ecc-testi-slide{transition:none}}
+/* Testimonios: frase gancho (lo que se lee primero) y rol bajo el nombre */
+html:root body .ecc-testi-gancho{font-family:var(--font-display);font-size:clamp(19px,1.7vw,23px);font-weight:700;line-height:1.3;letter-spacing:-.01em;color:#0A2540;text-align:left!important}
+html:root body .ecc-testi-nombre{display:flex;flex-direction:column;gap:2px}
+html:root body .ecc-testi-rol{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#015373}
+html:root body section[data-screen-label] .ecc-testi p.ecc-testi-gancho{font-family:var(--font-display)!important;font-size:clamp(20px,1.8vw,24px)!important;font-weight:700!important;line-height:1.3!important;color:#0A2540!important}
