@@ -65,7 +65,7 @@
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=63">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=66">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -555,7 +555,7 @@
             <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
               <div class="ecc-ad-par ecc-testi-fotos">
                 <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-3-antes.jpg" alt="Rodolfo V, antes" loading="lazy" style="object-position:50% 40%"><span>Antes</span></div>
-                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-3-despues.jpg?v=3" alt="Rodolfo V, después" loading="lazy" style="object-position:55% 20%"><span>Después · 8 semanas</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-3-despues.jpg?v=3" alt="Rodolfo V, después" loading="lazy" style="object-position:55% 20%"><span class="ecc-ad-con-t">Después<b class="ecc-ad-t"><i> · </i>8 semanas</b></span></div>
               </div>
               <div class="ecc-testi-texto">
                 <i class="ph-fill ph-quotes" aria-hidden="true"></i>
@@ -569,7 +569,7 @@
             <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
               <div class="ecc-ad-par ecc-testi-fotos">
                 <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-4-antes.jpg?v=2" alt="Diego L, antes" loading="lazy" style="object-position:50% 30%"><span>Antes</span></div>
-                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-4-despues.jpg?v=3" alt="Diego L, después" loading="lazy" style="object-position:50% 35%"><span>Después · 4 meses</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-4-despues.jpg?v=3" alt="Diego L, después" loading="lazy" style="object-position:50% 35%"><span class="ecc-ad-con-t">Después<b class="ecc-ad-t"><i> · </i>4 meses</b></span></div>
               </div>
               <div class="ecc-testi-texto">
                 <i class="ph-fill ph-quotes" aria-hidden="true"></i>
@@ -1242,8 +1242,8 @@ class Component extends DCLogic {
       function hojas(){return t.querySelectorAll('.ecc-testi-slide');}
       function base(){
         var h=hojas(), n=h.length; if(!n) return 0;
-        var u=h[n-1], max=Math.max(0,u.offsetLeft+u.offsetWidth-vista.clientWidth);
-        return Math.min(h[i].offsetLeft,max);
+        /* la tarjeta activa queda al centro: asoma la anterior a la izquierda y la siguiente a la derecha */
+        return h[i].offsetLeft-(vista.clientWidth-h[i].offsetWidth)/2;
       }
       function pintar(){
         var h=hojas(), n=h.length; i=Math.max(0,Math.min(n-1,i));
