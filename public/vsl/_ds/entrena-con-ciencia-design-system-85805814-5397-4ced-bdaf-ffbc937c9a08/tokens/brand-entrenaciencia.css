@@ -1060,29 +1060,33 @@ html:not(:has(.m-cta-barra)) body section[data-screen-label]:is([data-screen-lab
    Anula la separación en sílabas de los párrafos justificados y de .ecc-sintesis. */
 html:root body, html:root body *{-webkit-hyphens:manual!important;hyphens:manual!important;word-break:normal!important;overflow-wrap:normal}
 
-/* ---------- Testimonios con antes y después: carrusel que desliza hacia la derecha ---------- */
-.ecc-testi{display:flex;flex-direction:column;gap:var(--space-5)}
+/* ---------- Testimonios con antes y después: libro abierto (dos páginas), flechas a los lados al pasar el mouse ---------- */
+.ecc-testi{position:relative;max-width:1120px;width:100%;margin:0 auto}
+html:root body .ecc-testi-hojas{position:relative;padding:0!important;background:#fff;overflow:hidden}
 .ecc-testi-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;outline:none}
 .ecc-testi-track::-webkit-scrollbar{display:none}
-.ecc-testi-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;padding:4px 2px 24px;box-sizing:border-box}
-.ecc-testi-slide > .ecc-bezel{max-width:920px;margin:0 auto}
-html:root body .ecc-testi-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:var(--space-8);align-items:center;padding:var(--space-5)!important;background:#fff}
+.ecc-testi-slide{flex:0 0 50%;min-width:0;scroll-snap-align:start;box-sizing:border-box;padding:var(--space-6) var(--space-8)}
+.ecc-testi-card{display:flex;flex-direction:column;gap:var(--space-5);height:100%}
 .ecc-testi-fotos .ecc-ad-foto{aspect-ratio:3/4}
-.ecc-testi-texto{display:flex;flex-direction:column;gap:var(--space-4);padding-right:var(--space-4)}
-.ecc-testi-texto > i{font-size:34px;color:#017FA7;line-height:1}
-html:root body .ecc-testi-cita{font-family:var(--font-display);font-size:clamp(18px,1.6vw,22px);font-weight:600;line-height:1.45;color:#0A2540;text-align:left!important}
-html:root body .ecc-testi-nombre{font-size:14px;font-weight:600;letter-spacing:.04em;color:#44596A;text-align:left!important}
-.ecc-testi-nav{display:flex;align-items:center;justify-content:center;gap:var(--space-5)}
-.ecc-testi-btn{width:46px;height:46px;border-radius:999px;border:1px solid #D9E8F0;background:#fff;color:#0A2540;display:inline-flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;box-shadow:0 6px 18px -10px rgba(10,37,64,.35);transition:background .2s,color .2s,opacity .2s}
-.ecc-testi-btn:hover:not(:disabled){background:#0A2540;color:#fff}
-.ecc-testi-btn:disabled{opacity:.35;cursor:default}
-.ecc-testi-dots{display:flex;gap:8px}
-.ecc-testi-dot{width:9px;height:9px;padding:0;border:0;border-radius:999px;background:#C5D8E3;cursor:pointer;transition:width .25s,background .25s}
-.ecc-testi-dot[aria-current="true"]{width:26px;background:#017FA7}
-.ecc-testi-uno .ecc-testi-nav{display:none}
-@media (max-width:820px){html:root body .ecc-testi-card{grid-template-columns:1fr;gap:var(--space-5)}.ecc-testi-texto{padding:0 var(--space-2) var(--space-2)}}
-/* Cita del testimonio: texto de párrafo (no titular), con negrita/resaltado/cursiva alternados. */
-html:root body .ecc-testi-cita{font-family:var(--font-body);font-size:16px;font-weight:400;line-height:1.7;color:#2A3F4F;text-align:justify!important;text-justify:inter-word}
+.ecc-testi-texto{display:flex;flex-direction:column;gap:var(--space-3)}
+.ecc-testi-texto > i{font-size:30px;color:#017FA7;line-height:1}
+html:root body .ecc-testi-cita{font-family:var(--font-body);font-size:15.5px;font-weight:400;line-height:1.7;color:#2A3F4F;text-align:justify!important;text-justify:inter-word}
 html:root body .ecc-testi-cita strong,html:root body .ecc-testi-cita .ecc-hl{color:#0A2540;font-weight:700}
 html:root body .ecc-testi-cita em{color:#017FA7}
-html:root body .ecc-testi-nombre{color:#0A2540;font-weight:700}
+html:root body .ecc-testi-nombre{font-size:14px;font-weight:700;letter-spacing:.04em;color:#0A2540;text-align:left!important}
+/* lomo del libro: sombra suave al centro */
+.ecc-testi-lomo{position:absolute;top:0;bottom:0;left:50%;width:56px;transform:translateX(-50%);pointer-events:none;
+  background:linear-gradient(90deg,rgba(10,37,64,0) 0%,rgba(10,37,64,.07) 46%,rgba(10,37,64,.16) 50%,rgba(10,37,64,.07) 54%,rgba(10,37,64,0) 100%)}
+/* flechas a los costados: aparecen al pasar el mouse por los testimonios */
+.ecc-testi-btn{position:absolute;top:50%;z-index:3;width:52px;height:52px;margin-top:-26px;border-radius:999px;border:1px solid #D9E8F0;background:#fff;color:#0A2540;
+  display:inline-flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;box-shadow:0 10px 26px -12px rgba(10,37,64,.45);
+  opacity:0;transition:opacity .25s,transform .25s,background .2s,color .2s}
+.ecc-testi-prev{left:-26px;transform:translateX(8px)}
+.ecc-testi-next{right:-26px;transform:translateX(-8px)}
+.ecc-testi:hover .ecc-testi-btn:not(:disabled),.ecc-testi-btn:focus-visible{opacity:1;transform:none}
+.ecc-testi-btn:hover{background:#0A2540;color:#fff}
+.ecc-testi-btn:disabled{opacity:0!important;pointer-events:none}
+@media (hover:none){.ecc-testi-btn:not(:disabled){opacity:1;transform:none}}
+.ecc-testi-todo .ecc-testi-btn{display:none}
+/* pantallas angostas: una página a la vez, sin lomo */
+@media (max-width:900px){.ecc-testi-slide{flex-basis:100%;padding:var(--space-5)}.ecc-testi-lomo{display:none}.ecc-testi-prev{left:-14px}.ecc-testi-next{right:-14px}}
