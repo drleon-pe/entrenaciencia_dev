@@ -67,7 +67,7 @@
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=60">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=62">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -542,22 +542,83 @@
         <span class="ecc-eyebrow">En sus palabras</span>
         <h2 style="max-width:28ch">Personas como tú, que dejaron de volver a empezar</h2>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-5)">
-        <div class="ecc-bezel ecc-reveal" style="min-width:0">
-          <div class="ecc-bezel-core" style="position:relative;aspect-ratio:9/16">
-            <image-slot id="prueba-video-1" shape="rect" placeholder="Video testimonio vertical, con subtítulos"></image-slot><div class="ecc-ej ecc-ej-video ecc-ej-video--foto"><img src="assets/ejemplo/ejemplo-video-1.jpg" alt="Portada de video testimonio (imagen de ejemplo)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"><span class="ecc-ej-badge">Ejemplo · no publicar</span><span class="ecc-ej-play"><i class="ph-fill ph-play"></i></span><span class="ecc-ej-dur">0:48</span><div class="ecc-ej-cap"><p>«Por primera vez no abandoné en la semana tres.»</p><p>Valeria G., 37 · Cusco</p></div></div>
+      <div class="ecc-testi ecc-reveal" aria-roledescription="carrusel" aria-label="Testimonios">
+        <div class="ecc-testi-vista">
+        <div class="ecc-testi-track">
+          <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="1 de 5">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
+              <div class="ecc-ad-par ecc-testi-fotos">
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-1-antes.jpg" alt="Héctor V, antes" loading="lazy" style="object-position:50% 45%"><span>Antes</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-1-despues.jpg" alt="Héctor V, después" loading="lazy" style="object-position:42% 28%"><span>Después</span></div>
+              </div>
+              <div class="ecc-testi-texto">
+                <i class="ph-fill ph-quotes" aria-hidden="true"></i>
+                <p class="ecc-testi-gancho">Me dijeron que era mi genética.</p>
+                <p class="ecc-testi-cita">Varias veces fui al gimnasio y nunca conseguí resultados. Siempre me dijeron que no iba a ganar músculo porque esa era mi genética, hasta que conocí el programa de <strong>Entrena con Ciencia</strong> y aprendí que nada era imposible. Me ayudaron a gestionar mi entrenamiento con base científica y me enseñaron a tener un <em>plan nutricional flexible</em>, que me permitió <span class="ecc-hl">ganar en menos de un año todo lo que no había ganado en 5</span>.</p>
+                <p class="ecc-testi-nombre">Héctor V, 27 · Miami, USA<span class="ecc-testi-rol">Alumno del programa</span></p>
+              </div>
+            </div></div>
+          </div>
+          <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="2 de 5">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
+              <div class="ecc-ad-par ecc-testi-fotos">
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-2-antes.jpg" alt="Luis F, antes" loading="lazy" style="object-position:40% 25%"><span>Antes</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-2-despues.jpg" alt="Luis F, después" loading="lazy" style="object-position:50% 45%"><span>Después</span></div>
+              </div>
+              <div class="ecc-testi-texto">
+                <i class="ph-fill ph-quotes" aria-hidden="true"></i>
+                <p class="ecc-testi-gancho">Por fin pude ganar músculo.</p>
+                <p class="ecc-testi-cita">Anteriormente, intenté mejorar mi físico con dietas, suplementos y rutinas de todo tipo. Mi principal error fue no considerar un método que me diera <strong>flexibilidad y constancia</strong>. Desde que cambié a un <em>entrenamiento basado en la última ciencia</em> y entendí la <em>psicología del cambio de comportamiento</em>, entrenar se volvió parte de mi vida. Con esa constancia y una buena nutrición, <span class="ecc-hl">en menos de 8 meses gané músculo como nunca antes</span>.</p>
+                <p class="ecc-testi-nombre">Luis F, 31 · Nueva York, USA<span class="ecc-testi-rol">Alumno del programa</span></p>
+              </div>
+            </div></div>
+          </div>
+          <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="3 de 5">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
+              <div class="ecc-ad-par ecc-testi-fotos">
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-3-antes.jpg" alt="Rodolfo V, antes" loading="lazy" style="object-position:50% 40%"><span>Antes</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-3-despues.jpg?v=3" alt="Rodolfo V, después" loading="lazy" style="object-position:55% 20%"><span>Después · 8 semanas</span></div>
+              </div>
+              <div class="ecc-testi-texto">
+                <i class="ph-fill ph-quotes" aria-hidden="true"></i>
+                <p class="ecc-testi-gancho">Estoy más fit que nunca.</p>
+                <p class="ecc-testi-cita">Entrené pesas harto tiempo convencido de que me iba a ver definido, pero solo ganaba fuerza y algo de músculo: nunca lograba <strong>bajar mi porcentaje de grasa</strong>. Desde que ordené mi entrenamiento y mi nutrición con Entrena con Ciencia, <span class="ecc-hl">en 8 semanas logré resultados sorprendentes</span> que mantengo hasta hoy. Lo mejor es que ya no necesito que nadie me diga cómo entrenar o comer, ¿cachai? El equipo me dio todo para ser <em>autónomo</em>.</p>
+                <p class="ecc-testi-nombre">Rodolfo V, 31 · Santiago, Chile<span class="ecc-testi-rol">Alumno del programa</span></p>
+              </div>
+            </div></div>
+          </div>
+          <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="4 de 5">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
+              <div class="ecc-ad-par ecc-testi-fotos">
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-4-antes.jpg?v=2" alt="Diego L, antes" loading="lazy" style="object-position:50% 30%"><span>Antes</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-4-despues.jpg?v=3" alt="Diego L, después" loading="lazy" style="object-position:50% 35%"><span>Después · 4 meses</span></div>
+              </div>
+              <div class="ecc-testi-texto">
+                <i class="ph-fill ph-quotes" aria-hidden="true"></i>
+                <p class="ecc-testi-gancho">Dejé las dietas extremas y gané músculo.</p>
+                <p class="ecc-testi-cita">Siempre me dijeron que para bajar de peso tenía que dejar de comer antes de cada viaje, y eso hacía. La foto de la izquierda es de esa época. Volvía, comía, engordaba y otra vez a cortar: un <em>ciclo de apretar y aflojar</em> que no terminaba nunca. Ahora sé que para bajar tenés que comer menos, pero eso solo no te da un cuerpo definido: te falta músculo. Con el programa, entrenando 3 veces por semana, <span class="ecc-hl">gané 5 kilos de músculo en 4 meses</span>, y con una <strong>nutrición flexible</strong> como y salgo sin culpa. Posta, me cambió la cabeza.</p>
+                <p class="ecc-testi-nombre">Diego L, 34 · Buenos Aires, Argentina<span class="ecc-testi-rol">Alumno del programa</span></p>
+              </div>
+            </div></div>
+          </div>
+          <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="5 de 5">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
+              <div class="ecc-ad-par ecc-testi-fotos">
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-5-antes.jpg" alt="Alejandro F, antes" loading="lazy" style="object-position:50% 50%"><span>Antes</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-5-despues.jpg" alt="Alejandro F, después" loading="lazy" style="object-position:50% 50%"><span>Después</span></div>
+              </div>
+              <div class="ecc-testi-texto">
+                <i class="ph-fill ph-quotes" aria-hidden="true"></i>
+                <p class="ecc-testi-gancho">El problema no era yo, era el plan.</p>
+                <p class="ecc-testi-cita">Siempre empezaba el lunes con todo: dieta estricta, gimnasio todos los días y cero salidas. Para el miércoles ya estaba full cansado y a las pocas semanas lo dejaba. Pensaba que me faltaba disciplina. Con Entrena con Ciencia entendí que <strong>el problema no era yo, era el plan</strong>. Ahora entreno 3 veces por semana, como lo que me gusta sin culpa y, gracias a <span class="ecc-hl">un plan y una estrategia claros, tuve resultados en poco tiempo</span>. Lo que más valoro es saber que, de todas maneras, <em>los puedo mantener</em>.</p>
+                <p class="ecc-testi-nombre">Alejandro F, 29 · Lima, Perú<span class="ecc-testi-rol">Alumno del programa</span></p>
+              </div>
+            </div></div>
           </div>
         </div>
-        <div class="ecc-bezel ecc-reveal" style="min-width:0">
-          <div class="ecc-bezel-core" style="position:relative;aspect-ratio:9/16">
-            <image-slot id="prueba-video-2" shape="rect" placeholder="Video testimonio vertical, con subtítulos"></image-slot><div class="ecc-ej ecc-ej-video ecc-ej-video--foto"><img src="assets/ejemplo/ejemplo-video-2.jpg" alt="Portada de video testimonio (imagen de ejemplo)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"><span class="ecc-ej-badge">Ejemplo · no publicar</span><span class="ecc-ej-play"><i class="ph-fill ph-play"></i></span><span class="ecc-ej-dur">1:12</span><div class="ecc-ej-cap"><p>«Entreno en casa tres días. Me alcanza.»</p><p>Jorge T., 45 · Quito</p></div></div>
-          </div>
         </div>
-        <div class="ecc-bezel ecc-reveal" style="min-width:0">
-          <div class="ecc-bezel-core" style="position:relative;aspect-ratio:9/16">
-            <image-slot id="prueba-video-3" shape="rect" placeholder="Video testimonio vertical, con subtítulos"></image-slot><div class="ecc-ej ecc-ej-video ecc-ej-video--foto"><img src="assets/ejemplo/ejemplo-video-3.jpg" alt="Portada de video testimonio (imagen de ejemplo)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"><span class="ecc-ej-badge">Ejemplo · no publicar</span><span class="ecc-ej-play"><i class="ph-fill ph-play"></i></span><span class="ecc-ej-dur">0:56</span><div class="ecc-ej-cap"><p>«Los protocolos para comer fuera me salvaron los fines de semana.»</p><p>Daniela S., 31 · Santiago</p></div></div>
-          </div>
-        </div>
+        <button type="button" class="ecc-testi-btn ecc-testi-prev" data-dir="-1" aria-label="Testimonio anterior"><i class="ph-light ph-arrow-left"></i></button>
+        <button type="button" class="ecc-testi-btn ecc-testi-next" data-dir="1" aria-label="Testimonio siguiente"><i class="ph-light ph-arrow-right"></i></button>
       </div>
       <p style="text-align:center;font-size:var(--text-caption);color:var(--text-muted)">Los resultados varían entre personas.</p>
     </div>
@@ -1215,6 +1276,54 @@ class Component extends DCLogic {
   addEventListener('load', pedir); addEventListener('resize', pedir); addEventListener('orientationchange', pedir);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(pedir);
   setTimeout(pedir, 1200); setTimeout(pedir, 3000);
+})();
+</script>
+<script>
+/* Testimonios como catálogo: uno al frente, el siguiente asoma a la derecha y se acerca al mover el mouse; flechas para avanzar y volver. */
+(function(){
+  function init(){
+    document.querySelectorAll('.ecc-testi').forEach(function(c){
+      if(c.dataset.listo) return; c.dataset.listo='1';
+      var vista=c.querySelector('.ecc-testi-vista'), t=c.querySelector('.ecc-testi-track');
+      var prev=c.querySelector('.ecc-testi-prev'), next=c.querySelector('.ecc-testi-next');
+      var i=0, asomo=0;
+      function hojas(){return t.querySelectorAll('.ecc-testi-slide');}
+      function base(){
+        var h=hojas(), n=h.length; if(!n) return 0;
+        var u=h[n-1], max=Math.max(0,u.offsetLeft+u.offsetWidth-vista.clientWidth);
+        return Math.min(h[i].offsetLeft,max);
+      }
+      function pintar(){
+        var h=hojas(), n=h.length; i=Math.max(0,Math.min(n-1,i));
+        var x=-base()-asomo;
+        t.style.transform='translate3d('+x+'px,0,0)';
+        [].forEach.call(h,function(s,k){s.classList.toggle('es-actual',k===i);s.setAttribute('aria-hidden',k===i?'false':'true');});
+        prev.disabled=i<=0; next.disabled=i>=n-1;
+        c.classList.toggle('ecc-testi-uno',n<2);
+      }
+      function ir(k){i=k;asomo=0;pintar();}
+      prev.onclick=function(){ir(i-1)}; next.onclick=function(){ir(i+1)};
+      t.addEventListener('click',function(e){var s=e.target.closest('.ecc-testi-slide');if(!s)return;var k=[].indexOf.call(hojas(),s);if(k!==i){e.preventDefault();ir(k);}});
+      /* el mouse acerca el siguiente (a la derecha) o el anterior (a la izquierda) */
+      vista.addEventListener('mousemove',function(e){
+        var r=vista.getBoundingClientRect(), p=(e.clientX-r.left)/r.width, n=hojas().length, a=0;
+        if(p>.55&&i<n-1) a=(p-.55)/.45*90;
+        if(p<.45&&i>0) a=-(.45-p)/.45*90;
+        if(Math.abs(a-asomo)>1){asomo=a;t.classList.add('es-asomo');pintar();}
+      });
+      vista.addEventListener('mouseleave',function(){asomo=0;pintar();});
+      /* deslizar con el dedo */
+      var x0=null;
+      vista.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+      vista.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>40)ir(i+(d<0?1:-1));},{passive:true});
+      c.tabIndex=0;
+      c.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();ir(i+1)}if(e.key==='ArrowLeft'){e.preventDefault();ir(i-1)}});
+      addEventListener('resize',pintar); pintar();
+      if(document.fonts&&document.fonts.ready) document.fonts.ready.then(pintar);
+    });
+  }
+  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
+  new MutationObserver(function(){if(document.querySelector('.ecc-testi:not([data-listo])'))init()}).observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
 </body>
