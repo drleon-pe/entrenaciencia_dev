@@ -1096,3 +1096,5 @@ html:root body section[data-screen-label] .ecc-testi p.ecc-testi-gancho{font-fam
 /* Comunidad Privada sin video: la caja queda sola y centrada; en móvil ocupa todo el ancho como las demás */
 html:has(.m-cta-barra) .ecc-fila-sola > .ecc-bezel{max-width:100%!important}
 @media (max-width:820px){html:not(:has(.m-cta-barra)) .ecc-fila-sola > .ecc-bezel{max-width:100%!important}}
+/* FAQ: la respuesta usa todo el ancho de la caja (antes se cortaba en 64ch) */
+html:root body section[data-screen-label^="05"] sc-if > p,html:root body section[data-screen-label^="05"] p[style*="64ch"]{max-width:none!important}
