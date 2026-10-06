@@ -1152,3 +1152,25 @@ html:root body .m-cta-barra .m-cta-barra-btn{background:#FFC300!important;color:
 html:root body .m-cta-barra .m-cta-barra-btn i{color:#010D15!important}
 /* Títulos de todas las cajas en negrita */
 html:root body section[data-screen-label] :is(.ecc-bezel,.ecc-fila-sola) :is(h3,h4){font-weight:700!important}
+/* Testimonios: título de la sección más compacto para que título y tarjeta entren en una pantalla */
+html:root body section[data-screen-label^="04b"]{padding-top:var(--space-12)!important}
+html:root body section[data-screen-label^="04b"] > .ecc-pad{gap:var(--space-6)!important}
+html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child{gap:var(--space-2)!important}
+@media (max-width:600px){
+  html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child h2{font-size:24px!important;line-height:1.2!important;max-width:20ch!important}
+  html:root body section[data-screen-label^="04b"] > .ecc-pad{gap:var(--space-4)!important}
+  .ecc-testi .ecc-testi-texto > i{display:none}
+  html:root body .ecc-testi-card{gap:var(--space-3)!important;padding:var(--space-3)!important}
+  html:root body .ecc-testi-cita{font-size:14px!important;line-height:1.55!important}
+  html:root body section[data-screen-label] .ecc-testi p.ecc-testi-gancho{font-size:18px!important}
+}
+@media (max-width:600px){
+  html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child .ecc-eyebrow{display:none!important}
+  html:root body section[data-screen-label^="04b"]{padding-top:var(--space-10)!important}
+  html:root body .ecc-testi-nombre{font-size:12.5px!important;letter-spacing:.02em!important;gap:1px!important}
+  html:root body .ecc-testi-rol{font-size:10px!important}
+  .ecc-testi-texto{gap:6px!important}
+  html:root body .ecc-testi-cita{line-height:1.5!important}
+}
+@media (max-width:600px){html:root body section[data-screen-label^="04b"] > .ecc-pad{gap:10px!important}html:root body .ecc-testi-card{gap:8px!important}}
+@media (max-width:600px){html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child h2{max-width:none!important;text-wrap:balance}}
