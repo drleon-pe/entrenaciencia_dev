@@ -1305,16 +1305,16 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   var hd=document.querySelector('header');var off=Math.max(hd?hd.getBoundingClientRect().bottom:0,[].reduce.call(document.querySelectorAll('body *'),function(m,el){var cs=getComputedStyle(el);if((cs.position==='fixed'||cs.position==='sticky')&&el.getBoundingClientRect().top<=1&&el.offsetHeight<200)return Math.max(m,el.getBoundingClientRect().bottom);return m},0))+12;var top=0,el=c;while(el){top+=el.offsetTop;el=el.offsetParent}var y=top-(c.offsetHeight+off<innerHeight?(innerHeight-c.offsetHeight+off)/2:off);scrollTo({top:Math.max(0,y),behavior:'smooth'});});
 </script>
 <script>
-/* Imán suave en testimonios: si el scroll se detiene cerca, la página se acomoda para ver el título y la tarjeta enteros. */
+/* Imán suave en testimonios: solo al bajar hacia la sección y con el scroll ya detenido, acomoda la página para ver el título y la tarjeta enteros. Nunca tira hacia arriba. */
 (function(){
-  var t=0,dedo=false,ultimo=0;
+  var t=0,dedo=false,ultimo=0,yPrev=scrollY,bajando=false;
   function objetivo(){var s=document.querySelector('section[data-screen-label^="04b"] > .ecc-pad > div:first-child');if(!s)return null;
     var y=0,el=s;while(el){y+=el.offsetTop;el=el.offsetParent}var hd=document.querySelector('header');var off=(hd?hd.offsetHeight+(parseFloat(getComputedStyle(hd).marginTop)||0):0)+12;return y-off;}
-  function revisar(){if(dedo)return;var y=objetivo();if(y==null)return;var d=y-scrollY;
-    if(Math.abs(d)>4&&Math.abs(d)<Math.min(220,innerHeight*.34)&&Date.now()-ultimo>1200){ultimo=Date.now();scrollTo({top:y,behavior:'smooth'});}}
-  addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(revisar,dedo?400:160)},{passive:true});
-  addEventListener('touchstart',function(){dedo=true},{passive:true});
-  addEventListener('touchend',function(){dedo=false;clearTimeout(t);t=setTimeout(revisar,260)},{passive:true});
+  function revisar(){if(dedo||!bajando)return;var y=objetivo();if(y==null)return;var d=y-scrollY;
+    if(d>6&&d<innerHeight*.3&&Date.now()-ultimo>2500){ultimo=Date.now();scrollTo({top:y,behavior:'smooth'});}}
+  addEventListener('scroll',function(){var y=scrollY;if(Math.abs(y-yPrev)>2)bajando=y>yPrev;yPrev=y;clearTimeout(t);t=setTimeout(revisar,280)},{passive:true});
+  addEventListener('touchstart',function(){dedo=true;clearTimeout(t)},{passive:true});
+  addEventListener('touchend',function(){dedo=false;clearTimeout(t);t=setTimeout(revisar,280)},{passive:true});
 })();
 </script>
 </body>
