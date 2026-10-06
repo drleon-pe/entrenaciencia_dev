@@ -65,7 +65,7 @@
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=58">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=59">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -400,30 +400,14 @@
         </div>
       </div>
 
-      <div class="ecc-split ecc-reveal" style="grid-template-columns:1fr 1fr;align-items:stretch">
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;min-height:0">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" data-no-video="" style="position:relative;overflow:hidden;cursor:pointer;min-height:340px;height:100%">
-            <image-slot id="mod-comunidad-privada" shape="rect" placeholder="Video o portada de la comunidad privada"></image-slot>
-          </div>
-        </div>
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+      <div class="ecc-split ecc-reveal ecc-fila-sola" style="grid-template-columns:minmax(0,1fr);align-items:stretch;justify-items:center">
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;width:100%;max-width:calc((100% - var(--space-12)) / 2)">
           <div class="ecc-bezel-core ecc-bezel-core-on-dark" data-no-video="" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;justify-content:center;gap:var(--space-4)">
             <span class="ecc-label" style="color:var(--cyan-300)">Soporte y Información</span>
             <h3 style="color:var(--text-on-dark)">Comunidad Privada</h3>
             <p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Accede a nuestra <strong>comunidad privada</strong>, donde tendrás a otras personas <em>igual de motivadas</em> para <span class="ecc-hl">transformar tu cuerpo</span>.</p>
           </div>
         </div>
-      </div>
-
-    </div>
-  </section>
-
-<!-- NUEVO (marco de landing): estructura agregada; el texto entre [corchetes] lo llena el equipo; el resto del copy nuevo está por aprobar -->
-  <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
-  <section data-screen-label="03b Cómo funciona" style="padding:var(--gap-section) 0">
-    <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:var(--space-10)">
-      <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
-        <span class="ecc-eyebrow">Cómo funciona</span>
       </div>
       <div style="width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-5)">
         <div class="ecc-bezel ecc-reveal" style="min-width:0">
@@ -649,24 +633,6 @@
           </div>
           <sc-if value="{{ open3 }}" hint-placeholder-val="{{ false }}">
             <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">No. Un plan que te saca de la comida familiar del domingo es un plan que vas a abandonar, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p>
-          </sc-if>
-        </div>
-        <div style="border-top:1px solid var(--border-subtle)">
-          <div onClick="{{ toggle4 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
-            <span>¿Y si no me funciona?</span>
-            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot4 }}"></i>
-          </div>
-          <sc-if value="{{ open4 }}" hint-placeholder-val="{{ false }}">
-            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">Tienes 30 días de garantía. Si no te sirve, te devolvemos el 100% de tu dinero.</p>
-          </sc-if>
-        </div>
-        <div style="border-top:1px solid var(--border-subtle)">
-          <div onClick="{{ toggle5 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
-            <span>¿Voy a quedar amarrado a una suscripción?</span>
-            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot5 }}"></i>
-          </div>
-          <sc-if value="{{ open5 }}" hint-placeholder-val="{{ false }}">
-            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">No. Cancelas desde la app cuando quieras, en un clic, sin escribir correos ni hablar con nadie. El primer mes va incluido en los $40; a partir del segundo son $20 mensuales, y el día que no lo quieras lo cancelas.</p>
           </sc-if>
         </div>
         <div style="border-top:1px solid var(--border-subtle)">
@@ -1240,7 +1206,7 @@ class Component extends DCLogic {
     var movil = !!document.querySelector('.m-cta-barra') || innerWidth < 769;
     [['03 ', '.ecc-split > .ecc-bezel', true], ['04 ', '.ecc-split > .ecc-bezel', true], ['03b', '.ecc-bezel', false]].forEach(function(g){
       var s = document.querySelector('section[data-screen-label^="' + g[0] + '"]'); if (!s) return;
-      var cajas = [].slice.call(s.querySelectorAll(g[1])).filter(function(c){ return !c.closest('.ecc-ej') && !c.querySelector('.ecc-bezel'); });
+      var cajas = [].slice.call(s.querySelectorAll(g[1])).filter(function(c){ return !c.closest('.ecc-ej') && !c.closest('.ecc-fila-sola') && !c.querySelector('.ecc-bezel'); });
       if (movil && g[2]) cajas = cajas.filter(function(c){ return !c.querySelector('image-slot,img'); });
       cajas.forEach(function(c){ c.style.minHeight = ''; });
       var max = 0; cajas.forEach(function(c){ max = Math.max(max, c.getBoundingClientRect().height); });
