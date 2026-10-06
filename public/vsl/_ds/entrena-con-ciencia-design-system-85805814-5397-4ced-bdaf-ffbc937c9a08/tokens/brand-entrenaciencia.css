@@ -1174,3 +1174,5 @@ html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child{ga
 }
 @media (max-width:600px){html:root body section[data-screen-label^="04b"] > .ecc-pad{gap:10px!important}html:root body .ecc-testi-card{gap:8px!important}}
 @media (max-width:600px){html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child h2{max-width:none!important;text-wrap:balance}}
+/* Sin "scroll anchoring": al recalcular el alto de las cajas, el navegador no debe mover la página */
+html:root,html:root body{overflow-anchor:none}
