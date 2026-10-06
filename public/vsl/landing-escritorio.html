@@ -65,7 +65,7 @@
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=51">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=52">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -525,21 +525,39 @@
         <span class="ecc-eyebrow">En sus palabras</span>
         <h2 style="max-width:28ch">Personas como tú, que dejaron de volver a empezar</h2>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-5)">
-        <div class="ecc-bezel ecc-reveal" style="min-width:0">
-          <div class="ecc-bezel-core" style="position:relative;aspect-ratio:9/16">
-            <image-slot id="prueba-video-1" shape="rect" placeholder="Video testimonio vertical, con subtítulos"></image-slot><div class="ecc-ej ecc-ej-video ecc-ej-video--foto"><img src="assets/ejemplo/ejemplo-video-1.jpg" alt="Portada de video testimonio (imagen de ejemplo)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"><span class="ecc-ej-badge">Ejemplo · no publicar</span><span class="ecc-ej-play"><i class="ph-fill ph-play"></i></span><span class="ecc-ej-dur">0:48</span><div class="ecc-ej-cap"><p>«Por primera vez no abandoné en la semana tres.»</p><p>Valeria G., 37 · Cusco</p></div></div>
+      <div class="ecc-testi ecc-reveal" aria-roledescription="carrusel" aria-label="Testimonios">
+        <div class="ecc-testi-track" tabindex="0">
+          <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="1 de 2">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
+              <div class="ecc-ad-par ecc-testi-fotos">
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-1-antes.jpg" alt="Testimonio 1: antes" loading="lazy" style="object-position:50% 45%"><span>Antes</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-1-despues.jpg" alt="Testimonio 1: después" loading="lazy" style="object-position:42% 28%"><span>Después</span></div>
+              </div>
+              <div class="ecc-testi-texto">
+                <i class="ph-fill ph-quotes" aria-hidden="true"></i>
+                <p class="ecc-testi-cita">[Testimonio breve, en sus palabras: qué cambió y en cuánto tiempo.]</p>
+                <p class="ecc-testi-nombre">[Nombre, edad · ciudad]</p>
+              </div>
+            </div></div>
+          </div>
+          <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="2 de 2">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
+              <div class="ecc-ad-par ecc-testi-fotos">
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-2-antes.jpg" alt="Testimonio 2: antes" loading="lazy" style="object-position:40% 25%"><span>Antes</span></div>
+                <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-2-despues.jpg" alt="Testimonio 2: después" loading="lazy" style="object-position:50% 45%"><span>Después</span></div>
+              </div>
+              <div class="ecc-testi-texto">
+                <i class="ph-fill ph-quotes" aria-hidden="true"></i>
+                <p class="ecc-testi-cita">[Testimonio breve, en sus palabras: qué cambió y en cuánto tiempo.]</p>
+                <p class="ecc-testi-nombre">[Nombre, edad · ciudad]</p>
+              </div>
+            </div></div>
           </div>
         </div>
-        <div class="ecc-bezel ecc-reveal" style="min-width:0">
-          <div class="ecc-bezel-core" style="position:relative;aspect-ratio:9/16">
-            <image-slot id="prueba-video-2" shape="rect" placeholder="Video testimonio vertical, con subtítulos"></image-slot><div class="ecc-ej ecc-ej-video ecc-ej-video--foto"><img src="assets/ejemplo/ejemplo-video-2.jpg" alt="Portada de video testimonio (imagen de ejemplo)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"><span class="ecc-ej-badge">Ejemplo · no publicar</span><span class="ecc-ej-play"><i class="ph-fill ph-play"></i></span><span class="ecc-ej-dur">1:12</span><div class="ecc-ej-cap"><p>«Entreno en casa tres días. Me alcanza.»</p><p>Jorge T., 45 · Quito</p></div></div>
-          </div>
-        </div>
-        <div class="ecc-bezel ecc-reveal" style="min-width:0">
-          <div class="ecc-bezel-core" style="position:relative;aspect-ratio:9/16">
-            <image-slot id="prueba-video-3" shape="rect" placeholder="Video testimonio vertical, con subtítulos"></image-slot><div class="ecc-ej ecc-ej-video ecc-ej-video--foto"><img src="assets/ejemplo/ejemplo-video-3.jpg" alt="Portada de video testimonio (imagen de ejemplo)" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%"><span class="ecc-ej-badge">Ejemplo · no publicar</span><span class="ecc-ej-play"><i class="ph-fill ph-play"></i></span><span class="ecc-ej-dur">0:56</span><div class="ecc-ej-cap"><p>«Los protocolos para comer fuera me salvaron los fines de semana.»</p><p>Daniela S., 31 · Santiago</p></div></div>
-          </div>
+        <div class="ecc-testi-nav">
+          <button type="button" class="ecc-testi-btn" data-dir="-1" aria-label="Testimonio anterior"><i class="ph-light ph-arrow-left"></i></button>
+          <div class="ecc-testi-dots" role="tablist"></div>
+          <button type="button" class="ecc-testi-btn" data-dir="1" aria-label="Testimonio siguiente"><i class="ph-light ph-arrow-right"></i></button>
         </div>
       </div>
       <p style="text-align:center;font-size:var(--text-caption);color:var(--text-muted)">Los resultados varían entre personas.</p>
@@ -1190,6 +1208,31 @@ class Component extends DCLogic {
   addEventListener('load', pedir); addEventListener('resize', pedir); addEventListener('orientationchange', pedir);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(pedir);
   setTimeout(pedir, 1200); setTimeout(pedir, 3000);
+})();
+</script>
+<script>
+/* Carrusel de testimonios (antes y después): flechas, puntos y deslizamiento. */
+(function(){
+  function init(){
+    document.querySelectorAll('.ecc-testi').forEach(function(c){
+      if(c.dataset.listo) return; c.dataset.listo='1';
+      var t=c.querySelector('.ecc-testi-track'), dots=c.querySelector('.ecc-testi-dots');
+      var slides=[].slice.call(t.querySelectorAll('.ecc-testi-slide'));
+      dots.innerHTML='';
+      slides.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.className='ecc-testi-dot';b.setAttribute('aria-label','Ver testimonio '+(i+1));b.onclick=function(){ir(i)};dots.appendChild(b);});
+      function actual(){return Math.round(t.scrollLeft/Math.max(1,t.clientWidth));}
+      function ir(i){i=Math.max(0,Math.min(slides.length-1,i));t.scrollTo({left:slides[i].offsetLeft-t.offsetLeft,behavior:'smooth'});}
+      function pintar(){var k=actual();[].forEach.call(dots.children,function(d,i){d.setAttribute('aria-current',i===k?'true':'false')});
+        c.querySelector('[data-dir="-1"]').disabled=k<=0;c.querySelector('[data-dir="1"]').disabled=k>=slides.length-1;
+        c.classList.toggle('ecc-testi-uno',slides.length<2);}
+      c.querySelectorAll('.ecc-testi-btn').forEach(function(b){b.onclick=function(){ir(actual()+(+b.dataset.dir))}});
+      t.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();ir(actual()+1)}if(e.key==='ArrowLeft'){e.preventDefault();ir(actual()-1)}});
+      var tm;t.addEventListener('scroll',function(){clearTimeout(tm);tm=setTimeout(pintar,60)},{passive:true});
+      addEventListener('resize',pintar);pintar();
+    });
+  }
+  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
+  new MutationObserver(function(){if(document.querySelector('.ecc-testi:not([data-listo])'))init()}).observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
 </body>
