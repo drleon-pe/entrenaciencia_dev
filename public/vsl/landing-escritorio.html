@@ -65,7 +65,7 @@
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=54">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=56">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -526,11 +526,10 @@
         <h2 style="max-width:28ch">Personas como tú, que dejaron de volver a empezar</h2>
       </div>
       <div class="ecc-testi ecc-reveal" aria-roledescription="carrusel" aria-label="Testimonios">
-        <button type="button" class="ecc-testi-btn ecc-testi-prev" data-dir="-1" aria-label="Testimonios anteriores"><i class="ph-light ph-arrow-left"></i></button>
-        <div class="ecc-bezel ecc-testi-libro"><div class="ecc-bezel-core ecc-testi-hojas">
-        <div class="ecc-testi-track" tabindex="0">
+        <div class="ecc-testi-vista">
+        <div class="ecc-testi-track">
           <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="1 de 2">
-            <div class="ecc-testi-card">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
               <div class="ecc-ad-par ecc-testi-fotos">
                 <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-1-antes.jpg" alt="Testimonio 1: antes" loading="lazy" style="object-position:50% 45%"><span>Antes</span></div>
                 <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-1-despues.jpg" alt="Testimonio 1: después" loading="lazy" style="object-position:42% 28%"><span>Después</span></div>
@@ -540,10 +539,10 @@
                 <p class="ecc-testi-cita">[Testimonio breve, en sus palabras: qué cambió y en cuánto tiempo.]</p>
                 <p class="ecc-testi-nombre">[Nombre, edad · ciudad]</p>
               </div>
-            </div>
+            </div></div>
           </div>
           <div class="ecc-testi-slide" role="group" aria-roledescription="testimonio" aria-label="2 de 2">
-            <div class="ecc-testi-card">
+            <div class="ecc-bezel"><div class="ecc-bezel-core ecc-testi-card">
               <div class="ecc-ad-par ecc-testi-fotos">
                 <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-2-antes.jpg" alt="Luis F, antes" loading="lazy" style="object-position:40% 25%"><span>Antes</span></div>
                 <div class="ecc-ad-foto"><img src="assets/testimonios/testimonio-2-despues.jpg" alt="Luis F, después" loading="lazy" style="object-position:50% 45%"><span>Después</span></div>
@@ -553,12 +552,12 @@
                 <p class="ecc-testi-cita">Anteriormente, intenté mejorar mi físico con dietas, suplementos y rutinas de todo tipo. Mi principal error fue no considerar un método que me diera <strong>flexibilidad y constancia</strong>. Desde que empecé a entender la <em>psicología del comportamiento humano</em>, todo se hizo más fácil. El entrenamiento basado en evidencia científica me dio mucho con poco y, <span class="ecc-hl">en menos de 6 meses, conseguí increíbles resultados</span>.</p>
                 <p class="ecc-testi-nombre">Luis F, 31 · Nueva York</p>
               </div>
-            </div>
+            </div></div>
           </div>
         </div>
-        <span class="ecc-testi-lomo" aria-hidden="true"></span>
-        </div></div>
-        <button type="button" class="ecc-testi-btn ecc-testi-next" data-dir="1" aria-label="Testimonios siguientes"><i class="ph-light ph-arrow-right"></i></button>
+        </div>
+        <button type="button" class="ecc-testi-btn ecc-testi-prev" data-dir="-1" aria-label="Testimonio anterior"><i class="ph-light ph-arrow-left"></i></button>
+        <button type="button" class="ecc-testi-btn ecc-testi-next" data-dir="1" aria-label="Testimonio siguiente"><i class="ph-light ph-arrow-right"></i></button>
       </div>
       <p style="text-align:center;font-size:var(--text-caption);color:var(--text-muted)">Los resultados varían entre personas.</p>
     </div>
@@ -1211,27 +1210,47 @@ class Component extends DCLogic {
 })();
 </script>
 <script>
-/* Testimonios como libro abierto: dos páginas a la vista; flechas a los lados, visibles al pasar el mouse. */
+/* Testimonios como catálogo: uno al frente, el siguiente asoma a la derecha y se acerca al mover el mouse; flechas para avanzar y volver. */
 (function(){
   function init(){
     document.querySelectorAll('.ecc-testi').forEach(function(c){
       if(c.dataset.listo) return; c.dataset.listo='1';
-      var t=c.querySelector('.ecc-testi-track');
-      function hojas(){return t.querySelectorAll('.ecc-testi-slide');}
+      var vista=c.querySelector('.ecc-testi-vista'), t=c.querySelector('.ecc-testi-track');
       var prev=c.querySelector('.ecc-testi-prev'), next=c.querySelector('.ecc-testi-next');
-      function ancho(){var h=hojas()[0];return h?h.getBoundingClientRect().width:t.clientWidth;}
-      function porVista(){return Math.max(1,Math.round(t.clientWidth/ancho()));}
-      function actual(){return Math.round(t.scrollLeft/Math.max(1,ancho()));}
-      function ir(i){i=Math.max(0,Math.min(hojas().length-porVista(),i));t.scrollTo({left:i*ancho(),behavior:'smooth'});}
-      function pintar(){var k=actual(),max=hojas().length-porVista();
-        prev.disabled=k<=0; next.disabled=k>=max;
-        c.classList.toggle('ecc-testi-todo',max<=0);
-        c.classList.toggle('ecc-testi-una',porVista()<2);}
-      prev.onclick=function(){ir(actual()-porVista())};
-      next.onclick=function(){ir(actual()+porVista())};
-      t.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();next.click()}if(e.key==='ArrowLeft'){e.preventDefault();prev.click()}});
-      var tm;t.addEventListener('scroll',function(){clearTimeout(tm);tm=setTimeout(pintar,60)},{passive:true});
-      addEventListener('resize',pintar);pintar();
+      var i=0, asomo=0;
+      function hojas(){return t.querySelectorAll('.ecc-testi-slide');}
+      function base(){
+        var h=hojas(), n=h.length; if(!n) return 0;
+        var u=h[n-1], max=Math.max(0,u.offsetLeft+u.offsetWidth-vista.clientWidth);
+        return Math.min(h[i].offsetLeft,max);
+      }
+      function pintar(){
+        var h=hojas(), n=h.length; i=Math.max(0,Math.min(n-1,i));
+        var x=-base()-asomo;
+        t.style.transform='translate3d('+x+'px,0,0)';
+        [].forEach.call(h,function(s,k){s.classList.toggle('es-actual',k===i);s.setAttribute('aria-hidden',k===i?'false':'true');});
+        prev.disabled=i<=0; next.disabled=i>=n-1;
+        c.classList.toggle('ecc-testi-uno',n<2);
+      }
+      function ir(k){i=k;asomo=0;pintar();}
+      prev.onclick=function(){ir(i-1)}; next.onclick=function(){ir(i+1)};
+      t.addEventListener('click',function(e){var s=e.target.closest('.ecc-testi-slide');if(!s)return;var k=[].indexOf.call(hojas(),s);if(k!==i){e.preventDefault();ir(k);}});
+      /* el mouse acerca el siguiente (a la derecha) o el anterior (a la izquierda) */
+      vista.addEventListener('mousemove',function(e){
+        var r=vista.getBoundingClientRect(), p=(e.clientX-r.left)/r.width, n=hojas().length, a=0;
+        if(p>.55&&i<n-1) a=(p-.55)/.45*90;
+        if(p<.45&&i>0) a=-(.45-p)/.45*90;
+        if(Math.abs(a-asomo)>1){asomo=a;t.classList.add('es-asomo');pintar();}
+      });
+      vista.addEventListener('mouseleave',function(){asomo=0;pintar();});
+      /* deslizar con el dedo */
+      var x0=null;
+      vista.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+      vista.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>40)ir(i+(d<0?1:-1));},{passive:true});
+      c.tabIndex=0;
+      c.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();ir(i+1)}if(e.key==='ArrowLeft'){e.preventDefault();ir(i-1)}});
+      addEventListener('resize',pintar); pintar();
+      if(document.fonts&&document.fonts.ready) document.fonts.ready.then(pintar);
     });
   }
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
