@@ -1140,3 +1140,15 @@ html:root body .m-cta-barra.m-cta-testi{transform:translate(-50%,110%)!important
   .ecc-testi .ecc-ad-t{font-size:8.5px;letter-spacing:.08em;opacity:.9}
   .ecc-testi .ecc-ad-t i{display:none}
 }
+/* franja de testimonios del inicio */
+.ecc-hero-testi{cursor:pointer}
+.ecc-hero-testi-ver{color:#017FA7;font-weight:600;white-space:nowrap}
+.ecc-hero-testi:hover .ecc-hero-testi-ver{text-decoration:underline}
+/* Barra de oferta de abajo (móvil) en azul: rótulo blanco, 40% OFF y botón en amarillo */
+html:root body .m-cta-fixed.m-cta-barra{background:rgba(10,37,64,.97)!important;border-top:1px solid rgba(255,255,255,.12)!important;box-shadow:0 -10px 30px -12px rgba(1,13,21,.45)}
+html:root body .m-cta-barra .m-cta-barra-rotulo{color:#FFFFFF}
+html:root body .m-cta-barra .m-cta-barra-off{background:#FFC300;color:#0A2540}
+html:root body .m-cta-barra .m-cta-barra-btn{background:#FFC300!important;color:#010D15!important;box-shadow:0 8px 22px -10px rgba(255,195,0,.7)!important}
+html:root body .m-cta-barra .m-cta-barra-btn i{color:#010D15!important}
+/* Títulos de todas las cajas en negrita */
+html:root body section[data-screen-label] :is(.ecc-bezel,.ecc-fila-sola) :is(h3,h4){font-weight:700!important}
