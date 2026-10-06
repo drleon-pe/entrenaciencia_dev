@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=74">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=76">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -75,7 +75,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=74">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=76">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -1356,6 +1356,19 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   var k=+a.getAttribute('data-testi');var c=document.querySelector('.ecc-testi');if(!c)return;
   if(window.eccTestiIr)window.eccTestiIr(k);
   var hd=document.querySelector('header');var off=Math.max(hd?hd.getBoundingClientRect().bottom:0,[].reduce.call(document.querySelectorAll('body *'),function(m,el){var cs=getComputedStyle(el);if((cs.position==='fixed'||cs.position==='sticky')&&el.getBoundingClientRect().top<=1&&el.offsetHeight<200)return Math.max(m,el.getBoundingClientRect().bottom);return m},0))+12;var top=0,el=c;while(el){top+=el.offsetTop;el=el.offsetParent}var y=top-(c.offsetHeight+off<innerHeight?(innerHeight-c.offsetHeight+off)/2:off);scrollTo({top:Math.max(0,y),behavior:'smooth'});});
+</script>
+<script>
+/* Imán suave en testimonios: si el scroll se detiene cerca, la página se acomoda para ver el título y la tarjeta enteros. */
+(function(){
+  var t=0,dedo=false,ultimo=0;
+  function objetivo(){var s=document.querySelector('section[data-screen-label^="04b"] > .ecc-pad > div:first-child');if(!s)return null;
+    var y=0,el=s;while(el){y+=el.offsetTop;el=el.offsetParent}var hd=document.querySelector('header');var off=(hd?hd.offsetHeight+(parseFloat(getComputedStyle(hd).marginTop)||0):0)+12;return y-off;}
+  function revisar(){if(dedo)return;var y=objetivo();if(y==null)return;var d=y-scrollY;
+    if(Math.abs(d)>4&&Math.abs(d)<Math.min(220,innerHeight*.34)&&Date.now()-ultimo>1200){ultimo=Date.now();scrollTo({top:y,behavior:'smooth'});}}
+  addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(revisar,dedo?400:160)},{passive:true});
+  addEventListener('touchstart',function(){dedo=true},{passive:true});
+  addEventListener('touchend',function(){dedo=false;clearTimeout(t);t=setTimeout(revisar,260)},{passive:true});
+})();
 </script>
 </body>
 </html>
