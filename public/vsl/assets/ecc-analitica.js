@@ -8,7 +8,7 @@
   /* ======= IDs de los pixeles: pegar aquí cuando existan (vacío = apagado) ======= */
   var IDS = {
     meta: '2069598364433552',  // Meta Pixel "Entrena con Ciencia - Web" (portafolio Entrena Con Ciencia)
-    ga4: '',     // Google Analytics 4, p. ej. 'G-XXXXXXXXXX'
+    ga4: 'G-886ZK53GJD',  // Google Analytics 4, propiedad "Entrena con Ciencia" (cuenta dr.gleond)
     tiktok: 'D7VLMO3C77U44OJJ0RN0'  // TikTok Pixel "Pagina Web" (Business Center Entrena con Ciencia)
   };
   var RECURSO = 'Landing Curso VSL';
