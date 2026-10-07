@@ -1188,3 +1188,6 @@ html:root body ul.ecc-reserva-nota{list-style:none;margin:2px auto 0;padding:0;d
 html:root body ul.ecc-reserva-nota li{font-size:11px;line-height:1.45;color:#5B6B77;text-align:center!important;font-weight:400}
 html:root body ul.ecc-reserva-nota a{color:#5B6B77;text-decoration:underline}
 html:root body .ecc-legal-links a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+/* Fin de página en el celular: sin rebote más allá del pie y, si el navegador rebota igual, se ve el color del pie */
+html:has(.m-cta-barra){overscroll-behavior-y:none;background:linear-gradient(to bottom,#F4F9FB 0 50%,#010D15 50% 100%)}
+html:has(.m-cta-barra) body{overscroll-behavior-y:none}
