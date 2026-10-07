@@ -9,7 +9,7 @@
   var IDS = {
     meta: '2069598364433552',  // Meta Pixel "Entrena con Ciencia - Web" (portafolio Entrena Con Ciencia)
     ga4: '',     // Google Analytics 4, p. ej. 'G-XXXXXXXXXX'
-    tiktok: ''   // TikTok Pixel, p. ej. 'CXXXXXXXXXXXXXXXXXXX'
+    tiktok: 'D7VLMO3C77U44OJJ0RN0'  // TikTok Pixel "Pagina Web" (Business Center Entrena con Ciencia)
   };
   var RECURSO = 'Landing Curso VSL';
 
