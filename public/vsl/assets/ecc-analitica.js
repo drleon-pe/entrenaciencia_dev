@@ -66,6 +66,9 @@
   /* ---------- pixeles ---------- */
   function cargarPixeles() {
     if (LOCAL) return;
+    /* Vercel Web Analytics (activado en el proyecto): visitas, páginas, países, UTM y eventos clave */
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    var v = document.createElement('script'); v.defer = true; v.src = '/_vercel/insights/script.js'; document.head.appendChild(v);
     if (IDS.ga4) {
       var g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + IDS.ga4; document.head.appendChild(g);
       window.dataLayer = window.dataLayer || []; window.gtag = function () { window.dataLayer.push(arguments); };
@@ -88,6 +91,10 @@
       anonymous_id: aid(), session_id: sid()
     }, atribucion()), {}));
     if (LOCAL) return;
+    /* a Vercel solo los eventos que mueven el negocio (el plan incluye eventos con 2 propiedades) */
+    if (/^(checkout_click|cta_click|video_play|scroll_75)$/.test(tipo) && window.va) {
+      try { window.va('event', { name: tipo, data: { detalle: (extra || '').slice(0, 100), fuente: (atribucion().utm_source || 'directo') } }); } catch (e) {}
+    }
     try {
       if (meta && window.fbq) window.fbq(meta[0] === '!' ? 'trackCustom' : 'track', meta.replace('!', ''), { content_name: 'Curso Entrena con Ciencia', detalle: extra || '' });
       if (ga && window.gtag) window.gtag('event', ga, { detalle: extra || '' });
