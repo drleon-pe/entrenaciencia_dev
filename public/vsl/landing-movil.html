@@ -1230,7 +1230,7 @@ class Component extends DCLogic {
     const conDias=dd>=1;
     const timerHrs=pad(conDias?dd:hh), timerMin=pad(conDias?hh:mm), timerSeg=pad(conDias?mm:ss);
     const lbl1=conDias?'Días':'Hrs', lbl2=conDias?'Hrs':'Min', lbl3=conDias?'Min':'Seg';
-    const timer4=pad(ss), lbl4='Seg', t4disp=conDias?'flex':'none';
+    const timer4=pad(ss), lbl4='Seg', t4disp='none'; /* casilla de segundos apagada a pedido; poner conDias?'flex':'none' para mostrarla */
     const testiIdx=Math.floor((this.state.ahora||Date.now())/5000)%6, testiTrack='translateX(-'+(testiIdx*100)+'%)';
     const vals={ cuentaRegresiva, timerHrs, timerMin, timerSeg, lbl1, lbl2, lbl3, timer4, lbl4, t4disp, testiTrack, carouselPrev:()=>scroll(-1), carouselNext:()=>scroll(1) };
     for(let i=0;i<7;i++){
