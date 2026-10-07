@@ -1180,3 +1180,6 @@ html:root,html:root body{overflow-anchor:none}
 html:root body .ecc-reserva-nota{margin:2px 0 0;font-size:12.5px;line-height:1.5;text-align:center!important;color:var(--text-on-dark-muted,#44596A)}
 html:root body .ecc-reserva-nota strong{color:#0A2540;font-weight:600}
 html:root body .ecc-reserva-nota a{color:#017FA7;text-decoration:underline;word-break:break-word!important}
+/* Sello de pago con el logo de Hotmart */
+html:root body .ecc-pago-logo--hotmart{height:18px!important;width:auto}
+@media (max-width:600px){html:root body .ecc-pago-logo--hotmart{height:15px!important}}
