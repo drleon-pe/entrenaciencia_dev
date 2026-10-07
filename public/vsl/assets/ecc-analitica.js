@@ -7,7 +7,7 @@
 
   /* ======= IDs de los pixeles: pegar aquí cuando existan (vacío = apagado) ======= */
   var IDS = {
-    meta: '',    // Meta Pixel / conjunto de datos, p. ej. '1234567890123456'
+    meta: '2069598364433552',  // Meta Pixel "Entrena con Ciencia - Web" (portafolio Entrena Con Ciencia)
     ga4: '',     // Google Analytics 4, p. ej. 'G-XXXXXXXXXX'
     tiktok: ''   // TikTok Pixel, p. ej. 'CXXXXXXXXXXXXXXXXXXX'
   };
