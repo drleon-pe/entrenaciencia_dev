@@ -1183,3 +1183,7 @@ html:root body .ecc-reserva-nota a{color:#017FA7;text-decoration:underline;word-
 /* Sello de pago con el logo de Hotmart */
 html:root body .ecc-pago-logo--hotmart{height:18px!important;width:auto}
 @media (max-width:600px){html:root body .ecc-pago-logo--hotmart{height:15px!important}}
+/* Condiciones de la reserva: letra chica, gris, una por renglón */
+html:root body ul.ecc-reserva-nota{list-style:none;margin:2px auto 0;padding:0;display:flex;flex-direction:column;gap:3px;max-width:380px}
+html:root body ul.ecc-reserva-nota li{font-size:11px;line-height:1.45;color:#5B6B77;text-align:center!important;font-weight:400}
+html:root body ul.ecc-reserva-nota a{color:#5B6B77;text-decoration:underline}
