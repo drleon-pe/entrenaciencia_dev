@@ -128,7 +128,17 @@
       var seccion = (cta.closest('section[data-screen-label]') || {}).dataset;
       var donde = seccion ? seccion.screenLabel : (cta.closest('.m-cta-barra') ? 'barra inferior' : 'otro');
       /* Intento de compra solo cuando lleva al pago; los que bajan a la oferta cuentan como clic al CTA. */
-      if (cta.hasAttribute('data-ecc-checkout')) evento('checkout_click', donde + ' · ' + texto, 'InitiateCheckout', 'begin_checkout', 'InitiateCheckout');
+      if (cta.hasAttribute('data-ecc-checkout')) {
+        evento('checkout_click', donde + ' · ' + texto, 'InitiateCheckout', 'begin_checkout', 'InitiateCheckout');
+        /* Al pago de Hotmart se le pasa el origen: src = fuente del anuncio, sck = campaña|id de la persona (une la venta con su visita) */
+        try {
+          var at = atribucion(), u = new URL(cta.href);
+          u.searchParams.set('src', (at.utm_source || at.first_touch_utm_source || 'directo').slice(0, 30));
+          u.searchParams.set('sck', [(at.utm_campaign || at.first_touch_utm_campaign || 'sin_campana').slice(0, 40), aid()].join('|'));
+          if (!LOCAL) { e.preventDefault(); var destino = u.toString(); setTimeout(function () { location.href = destino; }, 250); }
+          else cta.href = u.toString();
+        } catch (er) {}
+      }
       else evento('cta_click', donde + ' · ' + texto, '!ClicCTA', 'cta_click', 'ClickButton');
       return;
     }

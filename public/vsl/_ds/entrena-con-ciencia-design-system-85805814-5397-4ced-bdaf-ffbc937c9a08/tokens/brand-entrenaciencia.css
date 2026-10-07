@@ -1176,3 +1176,7 @@ html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child{ga
 @media (max-width:600px){html:root body section[data-screen-label^="04b"] > .ecc-pad > div:first-child h2{max-width:none!important;text-wrap:balance}}
 /* Sin "scroll anchoring": al recalcular el alto de las cajas, el navegador no debe mover la página */
 html:root,html:root body{overflow-anchor:none}
+/* Línea de confianza bajo los botones de reserva */
+html:root body .ecc-reserva-nota{margin:2px 0 0;font-size:12.5px;line-height:1.5;text-align:center!important;color:var(--text-on-dark-muted,#44596A)}
+html:root body .ecc-reserva-nota strong{color:#0A2540;font-weight:600}
+html:root body .ecc-reserva-nota a{color:#017FA7;text-decoration:underline;word-break:break-word!important}
