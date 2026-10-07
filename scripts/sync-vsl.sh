@@ -21,7 +21,7 @@ rm -rf "$DESTINO"
 mkdir -p "$DESTINO"
 
 # Solo lo que la landing necesita para funcionar (sin listicles, docs ni configuración).
-for item in index.html landing-escritorio.html landing-movil.html support.js image-slot.js _ds assets vendor; do
+for item in index.html legal.html landing-escritorio.html landing-movil.html support.js image-slot.js _ds assets vendor; do
   cp -R "$ORIGEN/$item" "$DESTINO/"
 done
 

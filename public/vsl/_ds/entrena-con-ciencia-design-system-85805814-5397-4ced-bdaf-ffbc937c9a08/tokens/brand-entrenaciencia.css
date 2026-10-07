@@ -1187,3 +1187,4 @@ html:root body .ecc-pago-logo--hotmart{height:18px!important;width:auto}
 html:root body ul.ecc-reserva-nota{list-style:none;margin:2px auto 0;padding:0;display:flex;flex-direction:column;gap:3px;max-width:380px}
 html:root body ul.ecc-reserva-nota li{font-size:11px;line-height:1.45;color:#5B6B77;text-align:center!important;font-weight:400}
 html:root body ul.ecc-reserva-nota a{color:#5B6B77;text-decoration:underline}
+html:root body .ecc-legal-links a{color:inherit;text-decoration:underline;text-underline-offset:3px}
