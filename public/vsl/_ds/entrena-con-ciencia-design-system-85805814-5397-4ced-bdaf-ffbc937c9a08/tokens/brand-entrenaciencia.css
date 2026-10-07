@@ -1194,3 +1194,8 @@ html:has(.m-cta-barra) body{overscroll-behavior-y:none}
 /* Testimonios: aire entre las fotos y el texto */
 @media (max-width:600px){html:root body .ecc-testi-card{gap:18px!important}html:root body .ecc-testi-texto{padding-top:2px}}
 @media (min-width:601px){html:root body .ecc-testi-card{gap:var(--space-10)!important}}
+/* Celular: el gancho va entre comillas (reemplaza al ícono de comillas sin ocupar otra línea) */
+@media (max-width:600px){
+  html:root body section[data-screen-label] .ecc-testi p.ecc-testi-gancho::before{content:"\201C";color:#017FA7}
+  html:root body section[data-screen-label] .ecc-testi p.ecc-testi-gancho::after{content:"\201D";color:#017FA7}
+}
