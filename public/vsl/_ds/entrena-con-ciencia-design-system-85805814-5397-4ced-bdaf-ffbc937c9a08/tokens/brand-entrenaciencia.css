@@ -1191,3 +1191,6 @@ html:root body .ecc-legal-links a{color:inherit;text-decoration:underline;text-u
 /* Fin de página en el celular: sin rebote más allá del pie y, si el navegador rebota igual, se ve el color del pie */
 html:has(.m-cta-barra){overscroll-behavior-y:none;background:linear-gradient(to bottom,#F4F9FB 0 50%,#010D15 50% 100%)}
 html:has(.m-cta-barra) body{overscroll-behavior-y:none}
+/* Testimonios: aire entre las fotos y el texto */
+@media (max-width:600px){html:root body .ecc-testi-card{gap:18px!important}html:root body .ecc-testi-texto{padding-top:2px}}
+@media (min-width:601px){html:root body .ecc-testi-card{gap:var(--space-10)!important}}
