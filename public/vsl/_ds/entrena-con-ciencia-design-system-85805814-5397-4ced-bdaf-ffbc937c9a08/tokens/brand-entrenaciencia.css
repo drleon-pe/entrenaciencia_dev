@@ -1204,3 +1204,17 @@ html:root body .ecc-hl.ecc-hl-split{background-image:none!important}
 html:root body .ecc-hl .ecc-hl-w{
   background-image:linear-gradient(to bottom,transparent var(--ecc-hl-desde,31%),var(--ecc-hl-color,rgba(255,195,0,.5)) var(--ecc-hl-desde,31%),var(--ecc-hl-color,rgba(255,195,0,.5)) var(--ecc-hl-hasta,59%),transparent var(--ecc-hl-hasta,59%))!important;
   background-repeat:no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* Barra de oferta de abajo también en escritorio, misma pieza que en el móvil pero a escala:
+   franja azul a todo el ancho, contenido centrado en el ancho de la página. */
+.d-cta-barra{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(10,37,64,.97);border-top:1px solid rgba(255,255,255,.12);
+  box-shadow:0 -12px 34px -14px rgba(1,13,21,.45);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  transition:transform .35s ease,opacity .35s ease}
+.d-cta-barra.m-cta-oculta,.d-cta-barra.m-cta-testi{transform:translateY(110%);opacity:0;pointer-events:none}
+.d-cta-barra-in{max-width:1120px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.d-cta-barra .m-cta-barra-txt{flex-direction:row;align-items:center;gap:14px}
+.d-cta-barra .m-cta-barra-rotulo{color:#FFFFFF;font-size:15px;letter-spacing:.1em}
+.d-cta-barra .m-cta-barra-off{background:#FFC300;color:#0A2540;font-size:13px;padding:5px 12px}
+.d-cta-barra .m-cta-barra-btn{min-height:54px;padding:0 30px;font-size:16px;background:#FFC300!important;color:#010D15!important;box-shadow:0 10px 26px -10px rgba(255,195,0,.7)}
+.d-cta-barra .m-cta-barra-btn i{color:#010D15!important}
+.d-cta-barra .m-cta-barra-btn:hover{filter:brightness(1.05)}
+html:has(.d-cta-barra) footer[data-screen-label="Footer"]{padding-bottom:calc(var(--space-10) + 90px)!important}
