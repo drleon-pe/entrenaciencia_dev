@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=124">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=126">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -75,7 +75,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=124">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=126">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -407,6 +407,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
           </svg>
           <div class="ecc-ap-auto" aria-hidden="true">En automático</div>
           <div class="ecc-ap-tachar" aria-hidden="true"><span>Otra dieta</span><span>Otro plan de ejercicios</span></div>
+          <svg class="ecc-ap-flechas" aria-hidden="true"><defs><marker id="apPunta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#017FA7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><path pathLength="100"/><path pathLength="100"/><path pathLength="100"/></svg>
           <div class="ecc-ap-equipo" aria-hidden="true"><figure><img src="assets/dr-gonzalo-leon-equipo.jpg" alt=""><figcaption>Ciencia del<br>deporte</figcaption></figure><figure><img src="assets/rafaela-silva-equipo.jpg" alt=""><figcaption>Nutrición</figcaption></figure><figure><img src="assets/ana-paula-ceballos-equipo.jpg" alt=""><figcaption>Neurociencia</figcaption></figure></div>
           <div class="ecc-ap-dias" aria-hidden="true"><div class="ecc-ap-dias-n"><b>0</b><span>días</span></div><div class="ecc-ap-barra"><i></i><u></u><em style="left:calc(60/66*100%)">60</em></div></div>
           </div>
@@ -618,7 +619,8 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
           <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;gap:var(--space-4)">
             <span class="ecc-label" style="color:var(--cyan-300)">Psicóloga clínica · TCA y obesidad</span>
             <h3 style="color:var(--text-on-dark)">Ps. Ana Paula Ceballos</h3>
-            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Psicóloga clínica</strong> especialista en <span class="ecc-hl">trastornos de la conducta alimentaria (TCA) y obesidad</span>, con formación en <em>terapia cognitivo-conductual</em>. <strong>Máster en Trastornos Alimenticios y Obesidad</strong> (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Se formó en las <em>Unidades de TCA</em> del Hospital Universitario Santa Cristina y del Hospital Infantil Universitario Niño Jesús, en Madrid, y hoy atiende en la <strong>Clínica San Felipe</strong>, en Lima. Certificada en <em>ansiedad y trastornos relacionados</em> (American Psychological Association) y en <em>fundamentos de TCC</em> (Beck Institute).</p>
+            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Psicóloga clínica</strong> especialista en <span class="ecc-hl">trastornos de la conducta alimentaria (TCA) y obesidad</span>, con formación en <em>terapia cognitivo-conductual</em>. <strong>Máster en Trastornos Alimenticios y Obesidad</strong> (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Hoy atiende en la <strong>Clínica San Felipe</strong>, en Lima.</p>
+            <!-- PENDIENTE: confirmar con Ana Paula este párrafo sobre su aporte (basado en la llamada del 5 oct 2026) --><p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">En Entrena con Ciencia diseñó el <strong>módulo de cambio de hábitos</strong>, con la <em>Teoría de la Autodeterminación</em> como marco: por qué la motivación no es suficiente y cómo desarrollar <span class="ecc-hl">autonomía, competencia y relación</span> para que un hábito se sostenga en el tiempo.</p>
           </div>
         </div>
       </div>
@@ -1396,11 +1398,17 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       var s=lerp(.27,.4,sube)*(1-baja*.14), x=lerp(326,500-1629*s/2,sube), y=lerp(8,40,sube)-baja*60;
       cer.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') scale('+s.toFixed(4)+')');
       callout(cp,230,450,-1,x,y,s); callout(cb,712,600,1,x,y,s);
-      var v={'--tachar':cl((t-3.55)/.4)*(1-cl((t-4.6)/.35)),'--raya':cl((t-3.95)/.45),'--lazo':cl((t-1.65)/.7)*(1-cl((t-2.6)/.4)),'--equipo':cl((t-6.6)/.6),'--abierto':sube,'--pfc':cl((t-.2)/.25)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.2)/.25)*(1-sVia),'--auto':sAuto*(1-cl((t-2.6)/.4)),
+      var v={'--tachar':cl((t-3.55)/.4)*(1-cl((t-4.6)/.35)),'--raya':cl((t-3.95)/.45),'--lazo':cl((t-1.65)/.7)*(1-cl((t-2.6)/.4)),'--equipo':cl((t-6.85)/.45),'--abierto':sube,'--pfc':cl((t-.2)/.25)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.2)/.25)*(1-sVia),'--auto':sAuto*(1-cl((t-2.6)/.4)),
              '--dias':cl((t-2.6)/.4)*(1-sFin),'--meta':sMeta,'--fin':sFin,'--prog':sDias,'--hint':1-cl((t-n+1.4)/.4),'--etq':cl((t-.2)/.25)*(1-sFin)};
       for(var k in v) box.style.setProperty(k,v[k].toFixed(3));
       if(via.getPointAtLength){parts.forEach(function(c,i){var f=((sVia*1.6+i*.2)%1); var pt=via.getPointAtLength(len*f); c.setAttribute('cx',pt.x); c.setAttribute('cy',pt.y); c.style.opacity=(sVia>0&&sVia<1?Math.sin(f*Math.PI):0).toFixed(2);});}
       if(num) num.textContent=Math.round(66*sDias);
+      /* último paso: tres flechas salen del logo hacia cada profesional */
+      var fl=box.querySelector('.ecc-ap-flechas'), lg=box.querySelector('.ecc-hd-logo'), fotos=box.querySelectorAll('.ecc-ap-equipo img'), vb=box.querySelector('.ecc-ap-vis').getBoundingClientRect();
+      if(fl&&lg&&fotos.length){var L=lg.getBoundingClientRect(), ox=L.left+L.width/2-vb.left, oy=L.bottom-vb.top+6, pr=cl((t-6.55)/.45);
+        [].forEach.call(fl.querySelectorAll('path:not(marker path)'),function(p,i){var F=fotos[i].getBoundingClientRect(), fx=F.left+F.width/2-vb.left, fy=F.top-vb.top-8, my=(oy+fy)/2;
+          p.setAttribute('d','M'+ox.toFixed(1)+' '+oy.toFixed(1)+' C'+ox.toFixed(1)+' '+my.toFixed(1)+' '+fx.toFixed(1)+' '+my.toFixed(1)+' '+fx.toFixed(1)+' '+fy.toFixed(1));
+          var k=cl((pr-i*.12)/.76); p.style.strokeDashoffset=(100-100*k).toFixed(1); p.style.opacity=k>0?1:0; p.setAttribute('marker-end',k>.96?'url(#apPunta)':'');});}
       var act=Math.min(n-1,Math.floor(tt));
       ts.forEach(function(el,i){var c=i+.5, d=Math.abs(tt-c); var o=cl(1-(d-.3)/.2); if(i===0&&tt<.5)o=1; if(i===n-1&&tt>n-.5)o=1; el.style.opacity=o.toFixed(3); el.style.setProperty('--ty',((tt<c?1:-1)*(1-o)*14).toFixed(1)+'px'); el.setAttribute('aria-hidden',i===act?'false':'true');});
       dots.forEach(function(el,i){el.classList.toggle('on',i===act);});
