@@ -1356,8 +1356,6 @@ html:root body section[data-screen-label] p.ecc-hero-lema{font-weight:500!import
 .m-cta-barra-precio s{font-size:13px;color:#9FB4C6}
 .d-cta-barra .m-cta-barra-precio b{font-size:24px}
 .d-cta-barra .m-cta-barra-precio s{font-size:15px}
-/* El resumen de "Qué incluye" del hero ya no hace falta: la sección completa va justo después */
-html:root body section[data-screen-label^="01"] div:has(> #ecc-carrusel){display:none!important}
 /* Mi historia dentro de "Quién está detrás" */
 section[data-screen-label^="04 "] .ecc-historia{margin:0 auto var(--space-4)}
 .m-cta-barra-precio .m-cta-barra-off{white-space:nowrap}
