@@ -1411,5 +1411,5 @@ html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema b{f
 .ecc-hd-iris{fill:#0A2540!important;stroke:none!important}
 .ecc-hd-ceja{stroke-width:4!important}
 .ecc-hd-mandibula{stroke:#9DB4C3!important;stroke-width:1.6!important}
-.ecc-pie-cred{margin:10px 0 0!important;font-size:11px!important;line-height:1.4!important;color:#8FA8B7!important}
+.ecc-pie-cred{display:block;width:100%;margin:18px 0 0!important;font-size:9px!important;line-height:1.3!important;color:#6F8695!important;text-align:center!important;opacity:.85}
 .ecc-pie-cred a{color:inherit;text-decoration:underline}
