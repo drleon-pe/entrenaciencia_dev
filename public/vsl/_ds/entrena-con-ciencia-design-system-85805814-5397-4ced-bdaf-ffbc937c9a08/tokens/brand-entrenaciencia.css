@@ -1464,3 +1464,19 @@ html:root body .ecc-hd-via{opacity:calc(var(--via) * (1 - var(--fin)))!important
 /* el contador de días deja aire antes del texto */
 html:root body .ecc-ap-dias{bottom:22px}
 @media (max-width:767px){html:root body .ecc-ap-stage{height:auto!important;min-height:0!important}html:root body .ecc-ap-vis{flex:none;height:min(52svh,400px)}html:root body .ecc-ap-dias{bottom:26px}}
+/* ===== Animación propia de cada paso ===== */
+/* paso 3: lazo que se dibuja alrededor de los ganglios (se repite solo, en automático) */
+.ecc-hd-lazo{fill:none;stroke:#0A2540;stroke-width:16;stroke-dasharray:100;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--lazo) * 100)}
+.ecc-hd-lazo-punta{fill:none;stroke:#0A2540;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;opacity:clamp(0,calc((var(--lazo) - .9) * 10),1)}
+/* paso 5: "otra dieta" y "otro plan de ejercicios" aparecen y se tachan */
+.ecc-ap-tachar{position:absolute;left:50%;top:6%;transform:translateX(-50%);display:flex;gap:10px;white-space:nowrap;opacity:var(--tachar);pointer-events:none;z-index:2}
+.ecc-ap-tachar span{position:relative;background:#fff;border:1px solid #E6C9C2;border-radius:999px;padding:7px 14px;font:600 14px var(--font-body);color:#7A4A40;box-shadow:0 8px 20px -12px rgba(10,37,64,.35)}
+.ecc-ap-tachar span::after{content:"";position:absolute;left:10px;top:50%;height:2.5px;border-radius:2px;background:#D0453A;width:calc((100% - 20px) * var(--raya))}
+/* paso 6: se pinta el tramo de los primeros 60 días */
+.ecc-ap-barra u{position:absolute;left:0;top:-2px;height:7px;border-radius:4px;background:#FFC300;box-shadow:0 0 12px rgba(255,195,0,.6);width:calc(60 / 66 * 100% * var(--meta))}
+/* paso 8: el equipo aparece alrededor del logo */
+.ecc-ap-equipo{position:absolute;left:50%;bottom:4%;transform:translate(-50%,calc((1 - var(--equipo)) * 14px));display:flex;gap:22px;opacity:var(--equipo);pointer-events:none}
+.ecc-ap-equipo figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.ecc-ap-equipo img{width:74px;height:74px;border-radius:50%;object-fit:cover;object-position:50% 30%;border:3px solid #fff;box-shadow:0 10px 24px -12px rgba(10,37,64,.5)}
+.ecc-ap-equipo figcaption{font:600 11px var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:#0A2540;white-space:nowrap}
+@media (max-width:767px){.ecc-ap-tachar span{font-size:12px;padding:5px 11px}.ecc-ap-equipo{gap:12px}.ecc-ap-equipo img{width:58px;height:58px}.ecc-ap-equipo figcaption{font-size:9.5px}}

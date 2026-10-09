@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Escritorio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=119">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=121">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -73,7 +73,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=119">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=121">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -368,6 +368,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
                 <ellipse class="ecc-hd-bgglow" cx="760" cy="560" rx="420" ry="300" fill="url(#hdBg)"/>
                 <path class="ecc-hd-caudado" d="M560 560 C548 430 690 360 830 366 C980 372 1100 436 1112 548 C1122 640 1060 704 950 732"/>
                 <ellipse class="ecc-hd-putamen" cx="712" cy="600" rx="150" ry="98"/>
+                <path class="ecc-hd-lazo" d="M712 400 a240 200 0 1 1 -0.1 0" pathLength="100"/><path class="ecc-hd-lazo-punta" d="M700 386 L728 400 L700 414"/>
               </g>
               <path class="ecc-hd-via" d="M236 448 C330 330 540 380 660 570"/>
               <path class="ecc-hd-via-on" d="M236 448 C330 330 540 380 660 570"/>
@@ -381,7 +382,9 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
             <image class="ecc-hd-logo" href="assets/isotipo-teal.png" x="410" y="230" width="180" height="180"/>
           </svg>
           <div class="ecc-ap-auto" aria-hidden="true">En automático</div>
-          <div class="ecc-ap-dias" aria-hidden="true"><div class="ecc-ap-dias-n"><b>0</b><span>días</span></div><div class="ecc-ap-barra"><i></i><em style="left:calc(60/66*100%)">60</em></div></div>
+          <div class="ecc-ap-tachar" aria-hidden="true"><span>Otra dieta</span><span>Otro plan de ejercicios</span></div>
+          <div class="ecc-ap-equipo" aria-hidden="true"><figure><img src="assets/dr-gonzalo-leon-equipo.jpg" alt=""><figcaption>Ciencia del deporte</figcaption></figure><figure><img src="assets/rafaela-silva-equipo.jpg" alt=""><figcaption>Nutrición</figcaption></figure><figure><img src="assets/ana-paula-ceballos-equipo.jpg" alt=""><figcaption>Neurociencia</figcaption></figure></div>
+          <div class="ecc-ap-dias" aria-hidden="true"><div class="ecc-ap-dias-n"><b>0</b><span>días</span></div><div class="ecc-ap-barra"><i></i><u></u><em style="left:calc(60/66*100%)">60</em></div></div>
           </div>
           <div class="ecc-ap-txts">
             <p class="ecc-ap-t" data-i="0">Cuando empiezas algo nuevo, cada decisión pasa por algo que se conoce como la <strong>corteza prefrontal</strong>: <em>¿entreno hoy?, ¿me como esto?</em> Funciona, pero te obliga a decidir una y otra vez.</p>
@@ -1360,7 +1363,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       var s=lerp(.27,.4,sube)*(1-baja*.14), x=lerp(326,500-1629*s/2,sube), y=lerp(8,40,sube)-baja*60;
       cer.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') scale('+s.toFixed(4)+')');
       callout(cp,230,450,-1,x,y,s); callout(cb,712,600,1,x,y,s);
-      var v={'--abierto':sube,'--pfc':cl((t-.2)/.25)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.2)/.25)*(1-sVia),'--auto':sAuto*(1-cl((t-2.6)/.4)),
+      var v={'--tachar':cl((t-3.55)/.4)*(1-cl((t-4.6)/.35)),'--raya':cl((t-3.95)/.45),'--lazo':cl((t-1.65)/.7)*(1-cl((t-2.6)/.4)),'--equipo':cl((t-6.6)/.6),'--abierto':sube,'--pfc':cl((t-.2)/.25)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.2)/.25)*(1-sVia),'--auto':sAuto*(1-cl((t-2.6)/.4)),
              '--dias':cl((t-2.6)/.4)*(1-sFin),'--meta':sMeta,'--fin':sFin,'--prog':sDias,'--hint':1-cl((t-n+1.4)/.4),'--etq':cl((t-.2)/.25)*(1-sFin)};
       for(var k in v) box.style.setProperty(k,v[k].toFixed(3));
       if(via.getPointAtLength){parts.forEach(function(c,i){var f=((sVia*1.6+i*.2)%1); var pt=via.getPointAtLength(len*f); c.setAttribute('cx',pt.x); c.setAttribute('cy',pt.y); c.style.opacity=(sVia>0&&sVia<1?Math.sin(f*Math.PI):0).toFixed(2);});}
