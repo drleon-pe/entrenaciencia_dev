@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Escritorio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=116">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=117">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -73,7 +73,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=116">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=117">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -393,7 +393,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
             <p class="ecc-ap-t" data-i="6"><strong>Justamente ese es el método que hemos desarrollado en Entrena con Ciencia.</strong></p>
             <p class="ecc-ap-t" data-i="7">Nuestro grupo de profesionales en ciencia del deporte, nutrición y neurociencia ha construido un plan basado en la última neurociencia para ayudarte a hacer esto.</p>
           </div>
-          <div class="ecc-ap-pie" aria-hidden="true"><div class="ecc-ap-prog"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="ecc-ap-hint">Sigue bajando<svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="ecc-ap-pie"><button type="button" class="ecc-ap-prev" aria-label="Paso anterior"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="ecc-ap-nums" role="group" aria-label="Pasos"><button type="button" class="ecc-ap-num" aria-label="Paso 1">1</button><button type="button" class="ecc-ap-num" aria-label="Paso 2">2</button><button type="button" class="ecc-ap-num" aria-label="Paso 3">3</button><button type="button" class="ecc-ap-num" aria-label="Paso 4">4</button><button type="button" class="ecc-ap-num" aria-label="Paso 5">5</button><button type="button" class="ecc-ap-num" aria-label="Paso 6">6</button><button type="button" class="ecc-ap-num" aria-label="Paso 7">7</button><button type="button" class="ecc-ap-num" aria-label="Paso 8">8</button></div><button type="button" class="ecc-ap-next"><span>Siguiente</span><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
         </div>
       </div>
 
@@ -1348,8 +1348,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     function medir(){var m=0;ts.forEach(function(p){m=Math.max(m,p.scrollHeight)});if(m)cajaT.style.height=(m+6)+'px';}
     function pintar(){
       raf=0;
-      var r=box.getBoundingClientRect(), rango=Math.max(1,box.offsetHeight-st.offsetHeight);
-      var t=cl(-r.top/rango)*n;
+      var t=T;
       /* Cada transición ocurre ENTRE dos pasos; en el centro de cada paso (donde se acomoda el scroll) la imagen queda quieta y completa. */
       var abre=ease(cl(t/.3)), sube=ease(cl((t-.08)/.34));
       var sVia=cl((t-.6)/.5), sBg=cl((t-.85)/.5), sAuto=cl((t-1.6)/.6), sDias=cl((t-2.6)/.8), sMeta=cl((t-4.6)/.6), sFin=cl((t-5.6)/.7), baja=cl((t-2.6)/.6)*(1-sFin);
@@ -1371,73 +1370,24 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       dots.forEach(function(el,i){el.classList.toggle('on',i===act);});
     }
     function pedir(){if(!raf) raf=requestAnimationFrame(pintar);}
+    /* Pasos: botones 1..n, anterior/siguiente, deslizar a los lados y flechas. Cada cambio reproduce su animación completa. */
+    var T=0, anim=0, act=-1, DUR=1100, nums=[].slice.call(box.querySelectorAll('.ecc-ap-num')), prev=box.querySelector('.ecc-ap-prev'), next=box.querySelector('.ecc-ap-next');
+    function suave(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+    function irA(i,rapido){i=Math.max(0,Math.min(n-1,i)); if(i===act&&!rapido) return; act=i;
+      var a0=T, a1=i+.5, t0=performance.now(), dur=rapido?0:Math.min(2600,DUR*Math.max(.6,Math.abs(a1-a0)));
+      nums.forEach(function(b,k){b.classList.toggle('on',k===i);b.setAttribute('aria-current',k===i?'step':'false');});
+      prev.disabled=i===0; next.disabled=i===n-1; next.querySelector('span').textContent=i===n-1?'Listo':'Siguiente';
+      cancelAnimationFrame(anim);
+      (function cuadro(now){var k=dur?Math.min(1,(now-t0)/dur):1;T=a0+(a1-a0)*suave(k);pintar();if(k<1)anim=requestAnimationFrame(cuadro);})(t0);}
+    nums.forEach(function(b,k){b.addEventListener('click',function(){irA(k)});});
+    prev.addEventListener('click',function(){irA(act-1)}); next.addEventListener('click',function(){irA(act+1)});
+    var x0=null,y0=null; st.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+    st.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)irA(act+(dx<0?1:-1));},{passive:true});
+    st.setAttribute('tabindex','0'); st.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();irA(act+1)}if(e.key==='ArrowLeft'){e.preventDefault();irA(act-1)}});
+    /* La cabeza se abre sola la primera vez que el escenario aparece en pantalla. */
+    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting&&act<0){irA(0);io.disconnect();}})},{threshold:.45});io.observe(st);} else irA(0,true);
     addEventListener('scroll',pedir,{passive:true}); addEventListener('resize',function(){medir();pedir()}); addEventListener('load',function(){medir();pedir()}); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){medir();pedir()}); medir(); pintar();
   }
-  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
-  new MutationObserver(function(){init()}).observe(document.documentElement,{childList:true,subtree:true});
-})();
-/* Escenario del cerebro paso a paso: dentro del escenario cada gesto (rueda, deslizar o flechas) avanza un solo paso,
-   la imagen se queda quieta ~1 s y recién ahí acepta el siguiente. En el primer y último paso el scroll vuelve a ser libre. */
-(function(){
-  function init(){
-    var box=document.querySelector('.ecc-ap'); if(!box||box.dataset.snap) return; box.dataset.snap='1';
-    var st=box.querySelector('.ecc-ap-stage'), n=box.querySelectorAll('.ecc-ap-t').length;
-    var paso=null, bloqueo=0, tY=null, acum=0, tm=0, prog=false;
-    function geo(){return {top:box.getBoundingClientRect().top+scrollY, rango:Math.max(1,box.offsetHeight-st.offsetHeight)};}
-    function yDe(i){var g=geo();return Math.round(g.top+((i+.5)/n)*g.rango);}
-    function pAct(){var g=geo();return (scrollY-g.top)/g.rango*n-.5;}
-    function dentro(){var p=pAct();return p>-.5&&p<n-.5;}
-    /* La transición entre pasos se reproduce completa, a ritmo pausado (como scrollear despacio), y recién al terminar acepta el siguiente gesto. */
-    var DUR=1300, QUIETO=250, anim=0;
-    function suave(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
-    function ir(i){i=Math.max(0,Math.min(n-1,i));paso=i;var y0=scrollY,y1=yDe(i),t0=performance.now(),dur=Math.abs(y1-y0)<4?0:DUR;
-      prog=true;bloqueo=Date.now()+dur+QUIETO;cancelAnimationFrame(anim);
-      if(!dur){window.scrollTo(0,y1);setTimeout(function(){prog=false},QUIETO);return;}
-      (function cuadro(ahora){var k=Math.min(1,(ahora-t0)/dur);window.scrollTo(0,Math.round(y0+(y1-y0)*suave(k)));
-        if(k<1) anim=requestAnimationFrame(cuadro); else setTimeout(function(){prog=false},QUIETO);})(t0);}
-    /* decide qué hacer con un gesto: true = lo consumimos (no se mueve la página por su cuenta) */
-    function gesto(dir){
-      if(!dentro()) return false;
-      var cur=paso==null?Math.round(Math.max(0,Math.min(n-1,pAct()))):paso;
-      if((dir>0&&cur>=n-1&&Date.now()>bloqueo)||(dir<0&&cur<=0&&Date.now()>bloqueo)){paso=null;return false;}   /* salir libre */
-      if(Date.now()<bloqueo) return true;          /* en pausa: ignorar */
-      if(paso==null){ir(Math.round(pAct()));return true;}   /* al entrar: primer paso visible */
-      ir(cur+dir); return true;
-    }
-    addEventListener('wheel',function(e){
-      if(!dentro()){acum=0;return;}
-      var d=e.deltaY; if(Math.abs(d)<1) return;
-      var cur=paso==null?Math.round(pAct()):paso;
-      if(Date.now()>bloqueo&&((d>0&&cur>=n-1)||(d<0&&cur<=0))){paso=null;return;}
-      e.preventDefault(); acum+=d;
-      if(Math.abs(acum)>=30){var dir=acum>0?1:-1;acum=0;gesto(dir);}
-    },{passive:false});
-    var tomado=false, libre=false;
-    addEventListener('touchstart',function(e){tY=e.touches[0].clientY;tomado=false;libre=false;},{passive:true});
-    addEventListener('touchmove',function(e){
-      if(libre||tY==null) return;
-      if(!tomado&&!dentro()) return;
-      var dy=tY-e.touches[0].clientY, cur=paso==null?Math.round(pAct()):paso;
-      if(!tomado&&Date.now()>bloqueo&&((dy>0&&cur>=n-1)||(dy<0&&cur<=0))){libre=true;return;}
-      e.preventDefault();                       /* todo el gesto queda bajo control: la página no se mueve sola */
-      if(!tomado&&Math.abs(dy)>28){tomado=true;gesto(dy>0?1:-1);}
-    },{passive:false});
-    addEventListener('touchend',function(){tY=null;tomado=false;},{passive:true});
-    addEventListener('keydown',function(e){
-      var k=e.key, dir=(k==='ArrowDown'||k==='PageDown'||k===' ')?1:(k==='ArrowUp'||k==='PageUp')?-1:0;
-      if(dir&&gesto(dir)) e.preventDefault();
-    });
-    /* si se entra al escenario con inercia (o arrastrando la barra), se acomoda en el primer/último paso o en el más cercano */
-    addEventListener('scroll',function(){
-      if(prog) return; clearTimeout(tm);
-      tm=setTimeout(function(){ if(prog||!dentro()){ if(!dentro()) paso=null; return;}
-        var p=pAct(), i=Math.round(p); if(paso==null){ i=Math.max(0,Math.min(n-1,i)); }
-        else if(Math.abs(p-paso)<.05) return; else i=Math.max(0,Math.min(n-1,i));
-        ir(i);
-      },120);
-    },{passive:true});
-  }
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
   new MutationObserver(function(){init()}).observe(document.documentElement,{childList:true,subtree:true});
 })();

@@ -1438,3 +1438,23 @@ html:root body .ecc-ap-prog i.on{width:32px}
 html:root body .ecc-ap-hint{font-size:13.5px;gap:8px;color:#0A2540}
 html:root body .ecc-ap-hint svg{width:20px;height:20px}
 @media (max-width:767px){html:root body .ecc-ap-stage{padding-bottom:128px!important}html:root body .ecc-ap-pie{gap:10px}html:root body .ecc-ap-hint{font-size:12.5px}}
+/* ===== Escenario del cerebro como pasos (sin secuestrar el scroll) ===== */
+html:root body .ecc-ap{height:auto!important}
+html:root body .ecc-ap-stage{position:relative!important;top:auto!important;height:clamp(600px,82svh,820px)!important;padding:18px 20px 22px!important;outline:none}
+html:root body .ecc-ap-pie{flex-direction:row!important;align-items:center;justify-content:center;gap:14px!important;margin-top:4px}
+.ecc-ap-nums{display:flex;gap:6px}
+.ecc-ap-num{width:34px;height:34px;border-radius:50%;border:1px solid #C9DCE7;background:#fff;color:#0A2540;font:600 13px var(--font-body);cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
+.ecc-ap-num.on{background:#0A2540;border-color:#0A2540;color:#fff}
+.ecc-ap-num:hover{border-color:#017FA7}
+.ecc-ap-prev,.ecc-ap-next{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;border-radius:999px;cursor:pointer;font:600 14px var(--font-body);transition:opacity .2s}
+.ecc-ap-prev{width:40px;border:1px solid #C9DCE7;background:#fff;color:#0A2540}
+.ecc-ap-next{padding:0 18px;border:0;background:#0A2540;color:#fff}
+.ecc-ap-prev:disabled,.ecc-ap-next:disabled{opacity:.35;cursor:default}
+.ecc-ap-num:focus-visible,.ecc-ap-prev:focus-visible,.ecc-ap-next:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(1,127,167,.3)}
+@media (max-width:767px){
+  html:root body .ecc-ap-stage{height:clamp(560px,80svh,760px)!important;padding:10px 12px 16px!important}
+  html:root body .ecc-ap-pie{flex-wrap:wrap;gap:10px!important}
+  .ecc-ap-nums{order:-1;width:100%;justify-content:center;gap:5px}
+  .ecc-ap-num{width:30px;height:30px;font-size:12px}
+}
+@media (max-width:360px){.ecc-ap-num{width:27px;height:27px;font-size:11px}.ecc-ap-nums{gap:4px}}
