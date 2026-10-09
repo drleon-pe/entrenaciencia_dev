@@ -12,14 +12,15 @@
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--body);font-family:Poppins,Arial,sans-serif;font-size:15px;line-height:1.7}
-  header{background:#010D15;color:#fff;padding:18px 16px}
+  header{background:#010D15;color:#fff;padding:12px 16px}
   .wrap{max-width:760px;margin:0 auto}
   header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
   .logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;line-height:1.05;letter-spacing:.02em;font-size:15px}
   .logo img{width:36px;height:36px}
   .logo span span{color:#23D3FF}
   header a.volver{color:#C9D8E4;font-size:13px}
-  nav.indice{position:sticky;top:env(safe-area-inset-top,0px);z-index:3;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px}
+  .fijo{position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top,0px);background:#010D15}
+  nav.indice{position:relative;z-index:3;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px}
   nav.indice .wrap{display:flex;gap:8px;flex-wrap:nowrap;justify-content:center}
   nav.indice a{flex:none;white-space:nowrap;font-size:12px;font-weight:600;color:var(--navy);text-decoration:none;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);transition:background-color .2s,color .2s,border-color .2s}
   nav.indice a.activo{background:var(--navy);border-color:var(--navy);color:#fff}
@@ -28,8 +29,8 @@
   main{padding:28px 16px 64px}
   h1{color:var(--navy);font-size:clamp(24px,5vw,32px);line-height:1.2;margin:0 0 6px}
   .actualizado{color:var(--muted);font-size:13px;margin:0 0 28px}
-  section{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 22px 24px;margin:0 0 20px;scroll-margin-top:58px;box-shadow:0 10px 30px -22px rgba(10,37,64,.35)}
-  h2{position:sticky;top:calc(env(safe-area-inset-top,0px) + 51px);z-index:2;background:#fff;color:var(--navy);font-size:20px;line-height:1.3;margin:0 -22px 12px;padding:18px 22px 12px;border-radius:16px 16px 0 0;border-bottom:1px solid var(--line)}
+  section{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 22px 24px;margin:0 0 20px;scroll-margin-top:calc(var(--fijo,112px) + 8px);box-shadow:0 10px 30px -22px rgba(10,37,64,.35)}
+  h2{position:sticky;top:calc(var(--fijo,112px) - 2px);z-index:2;background:#fff;color:var(--navy);font-size:20px;line-height:1.3;margin:0 -22px 12px;padding:18px 22px 12px;border-radius:16px 16px 0 0;border-bottom:1px solid var(--line)}
   @media (max-width:420px){h2{font-size:18px}}
   h3{color:var(--ink);font-size:15px;margin:18px 0 6px}
   p,li{margin:0 0 10px}
@@ -41,6 +42,7 @@
 </style>
 </head>
 <body>
+<div class="fijo">
 <header>
   <div class="wrap">
     <a class="logo" href="./"><img src="assets/isotipo-ecc.png" alt=""><span>ENTRENA<br><span>CON CIENCIA</span></span></a>
@@ -54,6 +56,7 @@
     <a href="#cancelacion">Cancelación</a>
   </div>
 </nav>
+</div>
 <main>
   <div class="wrap">
     <h1>Términos, privacidad y reembolsos</h1>
@@ -144,6 +147,8 @@
 </main>
 <footer>© 2026 Entrena con Ciencia · <a href="mailto:contacto@entrenaciencia.com">contacto@entrenaciencia.com</a></footer>
 <script>
+/* Alto de la cabecera fija, para que el título de cada sección quede justo debajo. */
+(function(){var f=document.querySelector('.fijo');function m(){document.documentElement.style.setProperty('--fijo',f.getBoundingClientRect().height+'px')}m();addEventListener('resize',m);addEventListener('load',m);})();
 /* Índice: marca la sección que se está leyendo. */
 (function(){
   var links=[].slice.call(document.querySelectorAll('nav.indice a'));
