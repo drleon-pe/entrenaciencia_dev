@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=121">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=123">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -75,7 +75,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=121">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=123">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -373,6 +373,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       <div class="ecc-ap" style="--n:8">
         <div class="ecc-ap-stage">
           <div class="ecc-ap-vis">
+          <button type="button" class="ecc-ap-lado ecc-ap-lado-izq" aria-label="Paso anterior"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="ecc-ap-lado ecc-ap-lado-der" aria-label="Paso siguiente"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div class="ecc-ap-dudas" aria-hidden="true"><span>¿entreno hoy?</span><span>¿me como esto?</span></div>
           <svg class="ecc-hd" viewBox="-90 -40 1180 840" aria-hidden="true">
             <defs>
@@ -410,6 +411,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
           <div class="ecc-ap-dias" aria-hidden="true"><div class="ecc-ap-dias-n"><b>0</b><span>días</span></div><div class="ecc-ap-barra"><i></i><u></u><em style="left:calc(60/66*100%)">60</em></div></div>
           </div>
           <div class="ecc-ap-txts">
+            <p class="ecc-ap-t ecc-ap-intro"><span class="ecc-ap-intro-t">Conoce el mecanismo por el cual se crean los hábitos</span><span class="ecc-ap-intro-s">Toca la flecha o desliza para empezar</span></p>
             <p class="ecc-ap-t" data-i="0">Cuando empiezas algo nuevo, cada decisión pasa por algo que se conoce como la <strong>corteza prefrontal</strong>: <em>¿entreno hoy?, ¿me como esto?</em> Funciona, pero te obliga a decidir una y otra vez.</p>
             <p class="ecc-ap-t" data-i="1">Cuando repites una conducta a lo largo del tiempo, poco a poco esta decisión pasa de la corteza prefrontal a los <strong>ganglios basales</strong>, que responden en automático.</p>
             <p class="ecc-ap-t" data-i="2">Eso significa que <span class="ecc-hl">construiste un hábito</span>. Nunca más tienes que pensar en ello y deja de fatigarte tomar tantas decisiones.</p>
@@ -1382,7 +1384,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     function medir(){var m=0;ts.forEach(function(p){m=Math.max(m,p.scrollHeight)});if(m)cajaT.style.height=(m+6)+'px';}
     function pintar(){
       raf=0;
-      var t=T;
+      var tt=T, t=T-1;   /* tt: índice de texto (0 = portada); t: línea de tiempo del dibujo */
       /* Cada transición ocurre ENTRE dos pasos; en el centro de cada paso (donde se acomoda el scroll) la imagen queda quieta y completa. */
       var abre=ease(cl(t/.3)), sube=ease(cl((t-.08)/.34));
       var sVia=cl((t-.6)/.5), sBg=cl((t-.85)/.5), sAuto=cl((t-1.6)/.6), sDias=cl((t-2.6)/.8), sMeta=cl((t-4.6)/.6), sFin=cl((t-5.6)/.7), baja=cl((t-2.6)/.6)*(1-sFin);
@@ -1399,27 +1401,28 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       for(var k in v) box.style.setProperty(k,v[k].toFixed(3));
       if(via.getPointAtLength){parts.forEach(function(c,i){var f=((sVia*1.6+i*.2)%1); var pt=via.getPointAtLength(len*f); c.setAttribute('cx',pt.x); c.setAttribute('cy',pt.y); c.style.opacity=(sVia>0&&sVia<1?Math.sin(f*Math.PI):0).toFixed(2);});}
       if(num) num.textContent=Math.round(66*sDias);
-      var act=Math.min(n-1,Math.floor(t));
-      ts.forEach(function(el,i){var c=i+.5, d=Math.abs(t-c); var o=cl(1-(d-.3)/.2); if(i===0&&t<.5)o=1; if(i===n-1&&t>n-.5)o=1; el.style.opacity=o.toFixed(3); el.style.setProperty('--ty',((t<c?1:-1)*(1-o)*14).toFixed(1)+'px'); el.setAttribute('aria-hidden',i===act?'false':'true');});
+      var act=Math.min(n-1,Math.floor(tt));
+      ts.forEach(function(el,i){var c=i+.5, d=Math.abs(tt-c); var o=cl(1-(d-.3)/.2); if(i===0&&tt<.5)o=1; if(i===n-1&&tt>n-.5)o=1; el.style.opacity=o.toFixed(3); el.style.setProperty('--ty',((tt<c?1:-1)*(1-o)*14).toFixed(1)+'px'); el.setAttribute('aria-hidden',i===act?'false':'true');});
       dots.forEach(function(el,i){el.classList.toggle('on',i===act);});
     }
     function pedir(){if(!raf) raf=requestAnimationFrame(pintar);}
     /* Pasos: botones 1..n, anterior/siguiente, deslizar a los lados y flechas. Cada cambio reproduce su animación completa. */
-    var T=0, anim=0, act=-1, DUR=1100, nums=[].slice.call(box.querySelectorAll('.ecc-ap-num')), prev=box.querySelector('.ecc-ap-prev'), next=box.querySelector('.ecc-ap-next');
+    var T=0, anim=0, act=-1, DUR=1100, nums=[].slice.call(box.querySelectorAll('.ecc-ap-num')), prev=box.querySelector('.ecc-ap-prev'), next=box.querySelector('.ecc-ap-next'), lIzq=box.querySelector('.ecc-ap-lado-izq'), lDer=box.querySelector('.ecc-ap-lado-der');
     function suave(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
     function irA(i,rapido){i=Math.max(0,Math.min(n-1,i)); if(i===act&&!rapido) return; act=i;
       var a0=T, a1=i+.5, t0=performance.now(), dur=rapido?0:Math.min(2600,DUR*Math.max(.6,Math.abs(a1-a0)));
-      nums.forEach(function(b,k){b.classList.toggle('on',k===i);b.setAttribute('aria-current',k===i?'step':'false');});
-      prev.disabled=i===0; next.disabled=i===n-1; next.querySelector('span').textContent=i===n-1?'Listo':'Siguiente';
+      nums.forEach(function(b,k){b.classList.toggle('on',k===i-1);b.setAttribute('aria-current',k===i-1?'step':'false');});
+      prev.disabled=i===0; next.disabled=i===n-1; next.querySelector('span').textContent=i===0?'Empezar':i===n-1?'Listo':'Siguiente';
+      lIzq.disabled=i===0; lDer.disabled=i===n-1; box.classList.toggle('ecc-ap-en-portada',i===0);
       cancelAnimationFrame(anim);
       (function cuadro(now){var k=dur?Math.min(1,(now-t0)/dur):1;T=a0+(a1-a0)*suave(k);pintar();if(k<1)anim=requestAnimationFrame(cuadro);})(t0);}
-    nums.forEach(function(b,k){b.addEventListener('click',function(){irA(k)});});
+    nums.forEach(function(b,k){b.addEventListener('click',function(){irA(k+1)});});
     prev.addEventListener('click',function(){irA(act-1)}); next.addEventListener('click',function(){irA(act+1)});
+    lIzq.addEventListener('click',function(){irA(act-1)}); lDer.addEventListener('click',function(){irA(act+1)});
     var x0=null,y0=null; st.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
     st.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)irA(act+(dx<0?1:-1));},{passive:true});
     st.setAttribute('tabindex','0'); st.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();irA(act+1)}if(e.key==='ArrowLeft'){e.preventDefault();irA(act-1)}});
-    /* La cabeza se abre sola la primera vez que el escenario aparece en pantalla. */
-    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting&&act<0){irA(0);io.disconnect();}})},{threshold:.45});io.observe(st);} else irA(0,true);
+    irA(0,true);   /* arranca en la portada, con la cabeza cerrada */
     addEventListener('scroll',pedir,{passive:true}); addEventListener('resize',function(){medir();pedir()}); addEventListener('load',function(){medir();pedir()}); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){medir();pedir()}); medir(); pintar();
   }
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
