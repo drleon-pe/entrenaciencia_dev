@@ -1407,31 +1407,59 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
   new MutationObserver(function(){init()}).observe(document.documentElement,{childList:true,subtree:true});
 })();
-/* Escenario del cerebro paso a paso: al soltar el scroll dentro del escenario, la página se acomoda en el paso siguiente (o anterior), como pasar de una lámina a otra. */
+/* Escenario del cerebro paso a paso: dentro del escenario cada gesto (rueda, deslizar o flechas) avanza un solo paso,
+   la imagen se queda quieta ~1 s y recién ahí acepta el siguiente. En el primer y último paso el scroll vuelve a ser libre. */
 (function(){
   function init(){
     var box=document.querySelector('.ecc-ap'); if(!box||box.dataset.snap) return; box.dataset.snap='1';
     var st=box.querySelector('.ecc-ap-stage'), n=box.querySelectorAll('.ecc-ap-t').length;
-    var ultimo=null, auto=false, tm=0, reposoY=scrollY;
-    function geo(){var top=box.getBoundingClientRect().top+scrollY, rango=Math.max(1,box.offsetHeight-st.offsetHeight);return {top:top,rango:rango};}
-    function yDe(i,g){return Math.round(g.top+((i+.5)/n)*g.rango);}
-    function pasoDe(y,g){return (y-g.top)/g.rango*n-.5;}
-    function acomodar(){
-      if(auto){auto=false;reposoY=scrollY;return;}
-      var g=geo(), y=scrollY, p=pasoDe(y,g);
-      if(p<-.45||p>n-.55){ultimo=null;reposoY=y;return;}          /* fuera del escenario: scroll libre */
-      var desde=ultimo==null?Math.round(p):ultimo, dir=Math.sign(y-reposoY), dest;
-      if(Math.abs(p-desde)<.08) dest=desde;
-      else if(dir>0) dest=Math.min(n-1,Math.max(desde+1,Math.round(p-.25)));
-      else if(dir<0) dest=Math.max(0,Math.min(desde-1,Math.round(p+.25)));
-      else dest=Math.round(p);
-      dest=Math.max(0,Math.min(n-1,dest)); ultimo=dest;
-      var ty=yDe(dest,g); reposoY=ty; if(Math.abs(ty-y)>2){auto=true;window.scrollTo({top:ty,behavior:'smooth'});}
+    var paso=null, bloqueo=0, PAUSA=1000, tY=null, acum=0, tm=0, prog=false;
+    function geo(){return {top:box.getBoundingClientRect().top+scrollY, rango:Math.max(1,box.offsetHeight-st.offsetHeight)};}
+    function yDe(i){var g=geo();return Math.round(g.top+((i+.5)/n)*g.rango);}
+    function pAct(){var g=geo();return (scrollY-g.top)/g.rango*n-.5;}
+    function dentro(){var p=pAct();return p>-.5&&p<n-.5;}
+    function ir(i){i=Math.max(0,Math.min(n-1,i));paso=i;bloqueo=Date.now()+PAUSA;prog=true;window.scrollTo({top:yDe(i),behavior:'smooth'});setTimeout(function(){prog=false},PAUSA);}
+    /* decide qué hacer con un gesto: true = lo consumimos (no se mueve la página por su cuenta) */
+    function gesto(dir){
+      if(!dentro()) return false;
+      var cur=paso==null?Math.round(Math.max(0,Math.min(n-1,pAct()))):paso;
+      if((dir>0&&cur>=n-1&&Date.now()>bloqueo)||(dir<0&&cur<=0&&Date.now()>bloqueo)){paso=null;return false;}   /* salir libre */
+      if(Date.now()<bloqueo) return true;          /* en pausa: ignorar */
+      if(paso==null){ir(Math.round(pAct()));return true;}   /* al entrar: primer paso visible */
+      ir(cur+dir); return true;
     }
+    addEventListener('wheel',function(e){
+      if(!dentro()){acum=0;return;}
+      var d=e.deltaY; if(Math.abs(d)<1) return;
+      var cur=paso==null?Math.round(pAct()):paso;
+      if(Date.now()>bloqueo&&((d>0&&cur>=n-1)||(d<0&&cur<=0))){paso=null;return;}
+      e.preventDefault(); acum+=d;
+      if(Math.abs(acum)>=30){var dir=acum>0?1:-1;acum=0;gesto(dir);}
+    },{passive:false});
+    var tomado=false, libre=false;
+    addEventListener('touchstart',function(e){tY=e.touches[0].clientY;tomado=false;libre=false;},{passive:true});
+    addEventListener('touchmove',function(e){
+      if(libre||tY==null) return;
+      if(!tomado&&!dentro()) return;
+      var dy=tY-e.touches[0].clientY, cur=paso==null?Math.round(pAct()):paso;
+      if(!tomado&&Date.now()>bloqueo&&((dy>0&&cur>=n-1)||(dy<0&&cur<=0))){libre=true;return;}
+      e.preventDefault();                       /* todo el gesto queda bajo control: la página no se mueve sola */
+      if(!tomado&&Math.abs(dy)>28){tomado=true;gesto(dy>0?1:-1);}
+    },{passive:false});
+    addEventListener('touchend',function(){tY=null;tomado=false;},{passive:true});
+    addEventListener('keydown',function(e){
+      var k=e.key, dir=(k==='ArrowDown'||k==='PageDown'||k===' ')?1:(k==='ArrowUp'||k==='PageUp')?-1:0;
+      if(dir&&gesto(dir)) e.preventDefault();
+    });
+    /* si se entra al escenario con inercia (o arrastrando la barra), se acomoda en el primer/último paso o en el más cercano */
     addEventListener('scroll',function(){
-      clearTimeout(tm); tm=setTimeout(acomodar,140);
+      if(prog) return; clearTimeout(tm);
+      tm=setTimeout(function(){ if(prog||!dentro()){ if(!dentro()) paso=null; return;}
+        var p=pAct(), i=Math.round(p); if(paso==null){ i=Math.max(0,Math.min(n-1,i)); }
+        else if(Math.abs(p-paso)<.05) return; else i=Math.max(0,Math.min(n-1,i));
+        ir(i);
+      },120);
     },{passive:true});
-    if('onscrollend' in window) addEventListener('scrollend',function(){clearTimeout(tm);acomodar();});
   }
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
