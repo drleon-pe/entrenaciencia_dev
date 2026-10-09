@@ -1404,3 +1404,10 @@ html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema b{f
 .ecc-ap-cred a{color:inherit;text-decoration:underline}
 @media (max-width:767px){.ecc-hd{max-height:300px}.ecc-hd-call text{font-size:30px}.ecc-ap-cred{font-size:9.5px!important}}
 @media (prefers-reduced-motion:reduce){.ecc-hd-ondas circle{animation:none}}
+
+.ecc-hd-cara path,.ecc-hd-cara circle{fill:none;stroke:#0A2540;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ecc-hd-oreja{fill:#F1F6F9!important}
+.ecc-hd-ojo{fill:#FFFFFF!important}
+.ecc-hd-iris{fill:#0A2540!important;stroke:none!important}
+.ecc-hd-ceja{stroke-width:4!important}
+.ecc-hd-mandibula{stroke:#9DB4C3!important;stroke-width:1.6!important}
