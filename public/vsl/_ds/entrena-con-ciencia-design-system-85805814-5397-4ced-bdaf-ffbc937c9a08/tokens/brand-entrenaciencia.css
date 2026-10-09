@@ -1429,3 +1429,12 @@ html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema b{f
   html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema{font-size:min(7vw,3.6svh)!important}
   html:root body section[data-screen-label^="01"] .ecc-split > div{gap:clamp(6px,1.3svh,14px)!important}
 }
+/* Puntos de progreso y "Sigue bajando" más grandes y más arriba (lejos de la barra de oferta) */
+html:root body .ecc-ap-stage{padding-bottom:140px!important}
+html:root body .ecc-ap-pie{gap:14px;margin-top:6px}
+html:root body .ecc-ap-prog{gap:9px}
+html:root body .ecc-ap-prog i{width:10px;height:10px;border-radius:5px}
+html:root body .ecc-ap-prog i.on{width:32px}
+html:root body .ecc-ap-hint{font-size:13.5px;gap:8px;color:#0A2540}
+html:root body .ecc-ap-hint svg{width:20px;height:20px}
+@media (max-width:767px){html:root body .ecc-ap-stage{padding-bottom:128px!important}html:root body .ecc-ap-pie{gap:10px}html:root body .ecc-ap-hint{font-size:12.5px}}

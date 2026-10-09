@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=115">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=116">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -75,7 +75,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=115">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=116">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -1381,8 +1381,9 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       raf=0;
       var r=box.getBoundingClientRect(), rango=Math.max(1,box.offsetHeight-st.offsetHeight);
       var t=cl(-r.top/rango)*n;
-      var abre=ease(cl(t/.85)), sube=ease(cl((t-.25)/.75));
-      var sVia=cl((t-1.2)/.8), sBg=cl((t-1.55)/.8), sAuto=cl((t-2.25)/.5), sDias=cl((t-3.1)/.8), sMeta=cl((t-5.1)/.5), sFin=cl((t-6.05)/.6), baja=cl((t-2.95)*2)*(1-sFin);
+      /* Cada transición ocurre ENTRE dos pasos; en el centro de cada paso (donde se acomoda el scroll) la imagen queda quieta y completa. */
+      var abre=ease(cl(t/.3)), sube=ease(cl((t-.08)/.34));
+      var sVia=cl((t-.6)/.5), sBg=cl((t-.85)/.5), sAuto=cl((t-1.6)/.6), sDias=cl((t-2.6)/.8), sMeta=cl((t-4.6)/.6), sFin=cl((t-5.6)/.7), baja=cl((t-2.6)/.6)*(1-sFin);
       /* tapa: gira hacia atrás desde la nuca y se va */
       tapa.setAttribute('transform','translate('+(abre*50)+' '+(-abre*170)+') rotate('+(-abre*30)+' 787 168)');
       tapa.style.opacity=(1-cl((abre-.35)/.3)).toFixed(3);
@@ -1391,8 +1392,8 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       var s=lerp(.27,.4,sube)*(1-baja*.14), x=lerp(326,500-1629*s/2,sube), y=lerp(8,40,sube)-baja*60;
       cer.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') scale('+s.toFixed(4)+')');
       callout(cp,230,450,-1,x,y,s); callout(cb,712,600,1,x,y,s);
-      var v={'--abierto':sube,'--pfc':cl((t-.75)/.3)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.7)*4)*(1-sVia),'--auto':sAuto*(1-cl((t-3)/.4)),
-             '--dias':cl((t-2.9)*3)*(1-sFin),'--meta':sMeta,'--fin':sFin,'--prog':sDias,'--hint':1-cl((t-n+1.3)/.4),'--etq':cl((t-.8)/.3)*(1-sFin)};
+      var v={'--abierto':sube,'--pfc':cl((t-.2)/.25)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.2)/.25)*(1-sVia),'--auto':sAuto*(1-cl((t-2.6)/.4)),
+             '--dias':cl((t-2.6)/.4)*(1-sFin),'--meta':sMeta,'--fin':sFin,'--prog':sDias,'--hint':1-cl((t-n+1.4)/.4),'--etq':cl((t-.2)/.25)*(1-sFin)};
       for(var k in v) box.style.setProperty(k,v[k].toFixed(3));
       if(via.getPointAtLength){parts.forEach(function(c,i){var f=((sVia*1.6+i*.2)%1); var pt=via.getPointAtLength(len*f); c.setAttribute('cx',pt.x); c.setAttribute('cy',pt.y); c.style.opacity=(sVia>0&&sVia<1?Math.sin(f*Math.PI):0).toFixed(2);});}
       if(num) num.textContent=Math.round(66*sDias);
