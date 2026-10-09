@@ -1360,3 +1360,11 @@ html:root body section[data-screen-label] p.ecc-hero-lema{font-weight:500!import
 section[data-screen-label^="04 "] .ecc-historia{margin:0 auto var(--space-4)}
 .m-cta-barra-precio .m-cta-barra-off{white-space:nowrap}
 @media (max-width:360px){.m-cta-barra-precio{gap:6px}.m-cta-barra-precio b{font-size:18px}.m-cta-barra-precio s{display:none}.m-cta-barra-precio .m-cta-barra-off{font-size:10px;padding:3px 7px}}
+/* "Deja de volver a empezar." en negrita */
+html:root body section[data-screen-label] p.ecc-hero-lema{font-weight:700!important}
+/* Botón de compra en una sola línea en celulares angostos */
+@media (max-width:380px){html:root body .ecc-cta > span:first-child{font-size:12px!important;letter-spacing:.03em!important}html:root body .ecc-cta{padding-left:12px!important;padding-right:12px!important}}
+/* Pie: sin espacio vacío extra al final (la barra de oferta ya se esconde ahí) */
+html:root body footer[data-screen-label="Footer"]{padding-bottom:calc(var(--space-8) + env(safe-area-inset-bottom,0px))!important}
+html:root body div:has(> footer[data-screen-label="Footer"]){padding-bottom:0!important}
+html,body{overscroll-behavior-y:none}
