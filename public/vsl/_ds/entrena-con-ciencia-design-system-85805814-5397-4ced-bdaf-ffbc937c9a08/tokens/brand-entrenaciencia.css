@@ -1218,3 +1218,97 @@ html:root body .ecc-hl .ecc-hl-w{
 .d-cta-barra .m-cta-barra-btn i{color:#010D15!important}
 .d-cta-barra .m-cta-barra-btn:hover{filter:brightness(1.05)}
 html:has(.d-cta-barra) footer[data-screen-label="Footer"]{padding-bottom:calc(var(--space-10) + 90px)!important}
+
+/* ===== Móvil: lema del hero con el mismo estilo que "Que este sea tu último Día 1" ===== */
+.ecc-hero-lema{align-self:center;text-align:center;font-family:var(--font-display);font-size:clamp(28px,7.4vw,42px);font-weight:700;letter-spacing:var(--tracking-tight);line-height:1.15;color:var(--text-strong,#0B1F2C);margin:4px 0 -4px}
+
+/* ===== Scroll ilustrado: corteza prefrontal → ganglios basales ===== */
+.ecc-scrolly{position:relative;width:100%;max-width:1040px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:var(--space-12);align-items:start;
+  --pfc:1;--bgl:0;--via:0;--burb:1;--auto:0;--dias:0}
+.ecc-scrolly-graf{position:sticky;top:max(14vh,96px);order:2;z-index:1}
+.ecc-scrolly-pasos{order:1;padding:14vh 0 22vh;display:flex;flex-direction:column}
+.ecc-scrolly-paso{min-height:72vh;display:flex;align-items:center}
+.ecc-scrolly-paso:first-child{min-height:56vh}
+.ecc-scrolly-paso p{margin:0;background:#fff;border:1px solid var(--ec-line);border-radius:16px;padding:22px 24px;
+  box-shadow:0 1px 2px rgba(10,37,64,.05),0 16px 36px -20px rgba(10,37,64,.3);font-size:17px;line-height:1.7;color:var(--text-body);
+  opacity:.38;transition:opacity .45s ease,transform .45s ease;transform:translateY(8px)}
+.ecc-scrolly-paso.activo p{opacity:1;transform:none}
+.ecc-scrolly-card{background:#fff;border:1px solid var(--ec-line);border-radius:20px;padding:18px 18px 16px;
+  box-shadow:0 1px 2px rgba(10,37,64,.06),0 24px 48px -26px rgba(10,37,64,.35)}
+.ecc-cer{display:block;width:100%;height:auto;overflow:visible;font-family:var(--font-body)}
+.ecc-cer-silueta{fill:#F2F8FB;stroke:#0A2540;stroke-width:2}
+.ecc-cer-surcos path,.ecc-cer-cerebelo,.ecc-cer-tronco{fill:none;stroke:#8FB3C6;stroke-width:1.6;stroke-linecap:round}
+.ecc-cer-cerebelo{fill:#E8F1F6;stroke:#0A2540;stroke-width:1.6}
+.ecc-cer-tronco{stroke:#0A2540;stroke-width:1.6}
+.ecc-cer-pfc{opacity:var(--pfc);transition:opacity .25s linear}
+.ecc-cer-bgglow{opacity:var(--bgl);transition:opacity .25s linear}
+.ecc-cer-bg{fill:rgba(255,195,0,calc(.15 + var(--bgl) * .55));stroke:#0A2540;stroke-width:2;stroke-linecap:round}
+path.ecc-cer-bg{fill:none;stroke:color-mix(in srgb,#B88600 calc(var(--bgl) * 100%),#0A2540);stroke-width:4}
+.ecc-cer-via{fill:none;stroke:#BFD6E2;stroke-width:2;stroke-dasharray:4 6}
+.ecc-cer-via-on{fill:none;stroke:#017FA7;stroke-width:3;stroke-linecap:round;stroke-dasharray:var(--len,200);stroke-dashoffset:calc(var(--len,200) * (1 - var(--via)))}
+.ecc-cer-pulso{fill:#23D3FF;stroke:#fff;stroke-width:2;opacity:calc(var(--via) * 4 * (1 - var(--auto)));filter:drop-shadow(0 0 6px rgba(35,211,255,.8))}
+.ecc-cer-burbujas rect{fill:#fff;stroke:#017FA7;stroke-width:1.4}
+.ecc-cer-burbujas text{font-size:15px;font-weight:600;fill:#0A2540;text-anchor:middle}
+.ecc-cer-burbujas{opacity:var(--burb);transition:opacity .3s}
+.ecc-cer-b2{transform:translateY(calc((1 - var(--burb)) * 10px))}
+.ecc-cer-rot path{stroke:#0A2540;stroke-width:1.2;fill:none}
+.ecc-cer-rot circle{fill:#0A2540}
+.ecc-cer-rot text{font-size:15px;font-weight:600;fill:#0A2540}
+.ecc-cer-rot-pfc{opacity:calc(.45 + var(--pfc) * .55)}
+.ecc-cer-rot-bg{opacity:calc(.45 + var(--bgl) * .55)}
+.ecc-cer-auto{opacity:var(--auto);transform:translateY(calc((1 - var(--auto)) * 8px));transition:opacity .3s}
+.ecc-cer-auto rect{fill:#FFC300}
+.ecc-cer-auto text{font-size:14px;font-weight:700;fill:#010D15;text-anchor:middle}
+.ecc-cer-dias{margin-top:10px;padding-top:12px;border-top:1px solid var(--ec-line);opacity:calc(.35 + var(--dias-on,0) * .65);transition:opacity .3s}
+.ecc-cer-dias-n{font-size:14px;color:var(--text-body);margin-bottom:8px}
+.ecc-cer-dias-n b{font-size:22px;color:#0A2540;font-variant-numeric:tabular-nums}
+.ecc-cer-dias-n span{color:var(--text-muted)}
+.ecc-cer-puntos{display:grid;grid-template-columns:repeat(22,1fr);gap:4px}
+.ecc-cer-puntos i{aspect-ratio:1;border-radius:50%;background:#DCE8EF;transition:background-color .2s}
+.ecc-cer-puntos i.on{background:#017FA7}
+@media (max-width:767px){
+  .ecc-scrolly{display:block}
+  .ecc-scrolly-graf{top:80px}
+  .ecc-scrolly-card{padding:8px 10px 10px;border-radius:16px}
+  .ecc-cer{max-height:28vh;width:auto;margin:0 auto}
+  .ecc-cer-dias{margin-top:6px;padding-top:8px}
+  .ecc-cer-dias-n{font-size:12px;margin-bottom:6px}.ecc-cer-dias-n b{font-size:18px}
+  .ecc-cer-puntos{gap:3px;grid-template-columns:repeat(33,1fr)}
+  .ecc-scrolly-pasos{position:relative;z-index:2;padding:6vh 0 8vh}
+  .ecc-scrolly-paso,.ecc-scrolly-paso:first-child{min-height:0;padding-bottom:42vh}
+  .ecc-scrolly-paso:last-child{padding-bottom:12vh}
+  .ecc-scrolly-paso p{font-size:16px;padding:18px 18px;opacity:1;transform:none}
+}
+
+/* ===== Mi historia: foto + línea de tiempo corta ===== */
+.ecc-historia{width:100%;max-width:980px;display:flex;flex-direction:column;align-items:center;gap:var(--space-5)}
+.ecc-historia-grid{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--space-10);align-items:center;
+  background:#fff;border:1px solid var(--ec-line);border-radius:20px;padding:var(--space-8);box-shadow:0 1px 2px rgba(10,37,64,.05),0 20px 44px -26px rgba(10,37,64,.32)}
+.ecc-historia-grid .ecc-antesdespues{margin:0}
+.ecc-historia-txt h3{font-size:24px;font-weight:700!important;color:#0A2540;margin:0 0 var(--space-5)}
+.ecc-hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-4);position:relative}
+.ecc-hist::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:linear-gradient(#017FA7,#23D3FF)}
+.ecc-hist li{position:relative;padding-left:30px}
+.ecc-hist li::before{content:"";position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #017FA7}
+.ecc-hist li:last-child::before{background:#FFC300;border-color:#FFC300}
+.ecc-hist-cuando{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#015F7E;margin-bottom:2px}
+.ecc-hist p{margin:0;font-size:17px;line-height:1.6;color:var(--text-body)}
+.ecc-hist-cita{margin:var(--space-5) 0 0;padding:14px 16px;border-radius:12px;background:#EEF6FA;font-size:16px;line-height:1.6;color:var(--text-body)}
+@media (max-width:767px){
+  .ecc-historia-grid{grid-template-columns:minmax(0,1fr);gap:var(--space-6);padding:var(--space-5)}
+  .ecc-historia-txt h3{font-size:21px;text-align:center}
+  .ecc-hist p{font-size:16px}
+}
+
+/* ===== Portadas de "Qué incluye" como miniatura de video ===== */
+.ecc-thumb-play{position:absolute;left:50%;top:50%;z-index:3;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;
+  display:grid;place-items:center;pointer-events:none;background:rgba(255,255,255,.92);color:#0A2540;font-size:26px;
+  box-shadow:0 10px 30px -8px rgba(1,13,21,.55),0 0 0 8px rgba(255,255,255,.18);transition:transform .25s ease}
+.ecc-thumb-play i{margin-left:4px}
+.ecc-bezel-core:hover > .ecc-thumb-play{transform:scale(1.07)}
+@media (max-width:767px){.ecc-thumb-play{width:58px;height:58px;margin:-29px 0 0 -29px;font-size:22px}}
+
+/* ===== Cinta de revistas: la mueve el script (funciona igual en todos los navegadores) ===== */
+.ecc-marquee-track.ecc-js{animation:none!important;will-change:transform}
+html:root body section[data-screen-label] p.ecc-hero-lema{text-align:center!important;text-align-last:center!important;hyphens:none!important;color:#0A2540!important;
+  font-family:var(--font-display)!important;font-size:clamp(19px,6.1vw,30px)!important;font-weight:700!important;line-height:1.15!important;letter-spacing:-.02em!important;white-space:nowrap!important;max-width:none!important;align-self:center}
