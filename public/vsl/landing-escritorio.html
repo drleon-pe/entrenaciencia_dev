@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Escritorio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=117">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=119">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -73,7 +73,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=117">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=119">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -351,7 +351,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
         <div class="ecc-ap-stage">
           <div class="ecc-ap-vis">
           <div class="ecc-ap-dudas" aria-hidden="true"><span>¿entreno hoy?</span><span>¿me como esto?</span></div>
-          <svg class="ecc-hd" viewBox="0 -40 1000 840" aria-hidden="true">
+          <svg class="ecc-hd" viewBox="-90 -40 1180 840" aria-hidden="true">
             <defs>
               <linearGradient id="hdPiel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E2EDF3"/></linearGradient>
               <radialGradient id="hdPfc"><stop offset="0" stop-color="#23D3FF" stop-opacity=".8"/><stop offset=".55" stop-color="#23D3FF" stop-opacity=".22"/><stop offset="1" stop-color="#23D3FF" stop-opacity="0"/></radialGradient>
@@ -1313,7 +1313,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function revisar(){
     raf=0; var barra=document.querySelector('.d-cta-barra'); if(!barra) return;
     var h=innerHeight, cta=false, testi=false;
-    document.querySelectorAll('.ecc-cta, #empezar').forEach(function(el){
+    document.querySelectorAll('.ecc-cta, #empezar, .ecc-ap-stage').forEach(function(el){
       if(barra.contains(el)) return; var r=el.getBoundingClientRect();
       if(r.height>0 && r.bottom>0 && r.top<h) cta=true;
     });
