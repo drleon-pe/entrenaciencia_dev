@@ -1222,64 +1222,6 @@ html:has(.d-cta-barra) footer[data-screen-label="Footer"]{padding-bottom:calc(va
 /* ===== Móvil: lema del hero con el mismo estilo que "Que este sea tu último Día 1" ===== */
 .ecc-hero-lema{align-self:center;text-align:center;font-family:var(--font-display);font-size:clamp(28px,7.4vw,42px);font-weight:700;letter-spacing:var(--tracking-tight);line-height:1.15;color:var(--text-strong,#0B1F2C);margin:4px 0 -4px}
 
-/* ===== Scroll ilustrado: corteza prefrontal → ganglios basales ===== */
-.ecc-scrolly{position:relative;width:100%;max-width:1040px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:var(--space-12);align-items:start;
-  --pfc:1;--bgl:0;--via:0;--burb:1;--auto:0;--dias:0}
-.ecc-scrolly-graf{position:sticky;top:max(14vh,96px);order:2;z-index:1}
-.ecc-scrolly-pasos{order:1;padding:14vh 0 22vh;display:flex;flex-direction:column}
-.ecc-scrolly-paso{min-height:72vh;display:flex;align-items:center}
-.ecc-scrolly-paso:first-child{min-height:56vh}
-.ecc-scrolly-paso p{margin:0;background:#fff;border:1px solid var(--ec-line);border-radius:16px;padding:22px 24px;
-  box-shadow:0 1px 2px rgba(10,37,64,.05),0 16px 36px -20px rgba(10,37,64,.3);font-size:17px;line-height:1.7;color:var(--text-body);
-  opacity:.38;transition:opacity .45s ease,transform .45s ease;transform:translateY(8px)}
-.ecc-scrolly-paso.activo p{opacity:1;transform:none}
-.ecc-scrolly-card{background:#fff;border:1px solid var(--ec-line);border-radius:20px;padding:18px 18px 16px;
-  box-shadow:0 1px 2px rgba(10,37,64,.06),0 24px 48px -26px rgba(10,37,64,.35)}
-.ecc-cer{display:block;width:100%;height:auto;overflow:visible;font-family:var(--font-body)}
-.ecc-cer-silueta{fill:#F2F8FB;stroke:#0A2540;stroke-width:2}
-.ecc-cer-surcos path,.ecc-cer-cerebelo,.ecc-cer-tronco{fill:none;stroke:#8FB3C6;stroke-width:1.6;stroke-linecap:round}
-.ecc-cer-cerebelo{fill:#E8F1F6;stroke:#0A2540;stroke-width:1.6}
-.ecc-cer-tronco{stroke:#0A2540;stroke-width:1.6}
-.ecc-cer-pfc{opacity:var(--pfc);transition:opacity .25s linear}
-.ecc-cer-bgglow{opacity:var(--bgl);transition:opacity .25s linear}
-.ecc-cer-bg{fill:rgba(255,195,0,calc(.15 + var(--bgl) * .55));stroke:#0A2540;stroke-width:2;stroke-linecap:round}
-path.ecc-cer-bg{fill:none;stroke:color-mix(in srgb,#B88600 calc(var(--bgl) * 100%),#0A2540);stroke-width:4}
-.ecc-cer-via{fill:none;stroke:#BFD6E2;stroke-width:2;stroke-dasharray:4 6}
-.ecc-cer-via-on{fill:none;stroke:#017FA7;stroke-width:3;stroke-linecap:round;stroke-dasharray:var(--len,200);stroke-dashoffset:calc(var(--len,200) * (1 - var(--via)))}
-.ecc-cer-pulso{fill:#23D3FF;stroke:#fff;stroke-width:2;opacity:calc(var(--via) * 4 * (1 - var(--auto)));filter:drop-shadow(0 0 6px rgba(35,211,255,.8))}
-.ecc-cer-burbujas rect{fill:#fff;stroke:#017FA7;stroke-width:1.4}
-.ecc-cer-burbujas text{font-size:15px;font-weight:600;fill:#0A2540;text-anchor:middle}
-.ecc-cer-burbujas{opacity:var(--burb);transition:opacity .3s}
-.ecc-cer-b2{transform:translateY(calc((1 - var(--burb)) * 10px))}
-.ecc-cer-rot path{stroke:#0A2540;stroke-width:1.2;fill:none}
-.ecc-cer-rot circle{fill:#0A2540}
-.ecc-cer-rot text{font-size:15px;font-weight:600;fill:#0A2540}
-.ecc-cer-rot-pfc{opacity:calc(.45 + var(--pfc) * .55)}
-.ecc-cer-rot-bg{opacity:calc(.45 + var(--bgl) * .55)}
-.ecc-cer-auto{opacity:var(--auto);transform:translateY(calc((1 - var(--auto)) * 8px));transition:opacity .3s}
-.ecc-cer-auto rect{fill:#FFC300}
-.ecc-cer-auto text{font-size:14px;font-weight:700;fill:#010D15;text-anchor:middle}
-.ecc-cer-dias{margin-top:10px;padding-top:12px;border-top:1px solid var(--ec-line);opacity:calc(.35 + var(--dias-on,0) * .65);transition:opacity .3s}
-.ecc-cer-dias-n{font-size:14px;color:var(--text-body);margin-bottom:8px}
-.ecc-cer-dias-n b{font-size:22px;color:#0A2540;font-variant-numeric:tabular-nums}
-.ecc-cer-dias-n span{color:var(--text-muted)}
-.ecc-cer-puntos{display:grid;grid-template-columns:repeat(22,1fr);gap:4px}
-.ecc-cer-puntos i{aspect-ratio:1;border-radius:50%;background:#DCE8EF;transition:background-color .2s}
-.ecc-cer-puntos i.on{background:#017FA7}
-@media (max-width:767px){
-  .ecc-scrolly{display:block}
-  .ecc-scrolly-graf{top:80px}
-  .ecc-scrolly-card{padding:8px 10px 10px;border-radius:16px}
-  .ecc-cer{max-height:28vh;width:auto;margin:0 auto}
-  .ecc-cer-dias{margin-top:6px;padding-top:8px}
-  .ecc-cer-dias-n{font-size:12px;margin-bottom:6px}.ecc-cer-dias-n b{font-size:18px}
-  .ecc-cer-puntos{gap:3px;grid-template-columns:repeat(33,1fr)}
-  .ecc-scrolly-pasos{position:relative;z-index:2;padding:6vh 0 8vh}
-  .ecc-scrolly-paso,.ecc-scrolly-paso:first-child{min-height:0;padding-bottom:42vh}
-  .ecc-scrolly-paso:last-child{padding-bottom:12vh}
-  .ecc-scrolly-paso p{font-size:16px;padding:18px 18px;opacity:1;transform:none}
-}
-
 /* ===== Mi historia: foto + línea de tiempo corta ===== */
 .ecc-historia{width:100%;max-width:980px;display:flex;flex-direction:column;align-items:center;gap:var(--space-5)}
 .ecc-historia-grid{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--space-10);align-items:center;
@@ -1312,3 +1254,72 @@ path.ecc-cer-bg{fill:none;stroke:color-mix(in srgb,#B88600 calc(var(--bgl) * 100
 .ecc-marquee-track.ecc-js{animation:none!important;will-change:transform}
 html:root body section[data-screen-label] p.ecc-hero-lema{text-align:center!important;text-align-last:center!important;hyphens:none!important;color:#0A2540!important;
   font-family:var(--font-display)!important;font-size:clamp(19px,6.1vw,30px)!important;font-weight:700!important;line-height:1.15!important;letter-spacing:-.02em!important;white-space:nowrap!important;max-width:none!important;align-self:center}
+
+/* ===== Escenario fijo estilo Apple: corteza prefrontal → ganglios basales → 66 días → método ECC ===== */
+.ecc-ap{position:relative;width:100%;height:calc(var(--n) * 72vh + 100vh);--pfc:1;--bgl:0;--via:0;--dudas:1;--auto:0;--dias:0;--sube:0;--fin:0;--meta:0}
+.ecc-ap-stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:112px 20px 104px;box-sizing:border-box;gap:18px}
+.ecc-ap-vis{position:relative;flex:1 1 auto;min-height:0;width:100%;max-width:760px;display:flex;align-items:center;justify-content:center}
+.ecc-ap-cer{display:block;height:100%;max-height:440px;width:auto;max-width:100%;overflow:visible;font-family:var(--font-body);
+  transform:translateY(calc(var(--sube) * -12%)) scale(calc(1 - var(--sube) * .18 - var(--fin) * .12));transform-origin:50% 45%;transition:transform .2s linear}
+.ecc-ap-cuerpo{opacity:calc(1 - var(--fin) * .82)}
+.ecc-ap-borde{fill:none;stroke:#0A2540;stroke-width:1.5;stroke-linejoin:round}
+.ecc-ap-cerebelo{fill:#EDF4F8}
+.ecc-ap-tronco{fill:none;stroke:#0A2540;stroke-width:1.3;stroke-linecap:round}
+.ecc-ap-surcos path{fill:none;stroke:#AFC7D3;stroke-width:1.1;stroke-linecap:round}
+.ecc-ap-pfc{opacity:var(--pfc)}
+.ecc-ap-bgg{opacity:var(--bgl)}
+.ecc-ap-ondas{opacity:calc(var(--pfc) - var(--via) * .9)}
+.ecc-ap-ondas circle{fill:none;stroke:#017FA7;stroke-width:1.2;transform-box:fill-box;transform-origin:center;animation:ecc-onda 2.6s cubic-bezier(.2,.7,.3,1) infinite}
+.ecc-ap-ondas circle:nth-child(2){animation-delay:.87s}.ecc-ap-ondas circle:nth-child(3){animation-delay:1.74s}
+@keyframes ecc-onda{from{transform:scale(.4);opacity:.75}to{transform:scale(3.2);opacity:0}}
+.ecc-ap-nodo{fill:#017FA7;opacity:var(--pfc)}
+.ecc-ap-bgn{fill:none;stroke:rgba(184,134,0,calc(.3 + var(--bgl) * .7));stroke-width:3;stroke-linecap:round}
+.ecc-ap-bgn2{fill:rgba(255,195,0,calc(.15 + var(--bgl) * .75));stroke:#0A2540;stroke-width:1.2}
+.ecc-ap-loop{fill:none;stroke:#B88600;stroke-width:1.4;stroke-linecap:round;stroke-dasharray:var(--loop,176);stroke-dashoffset:calc(var(--loop,176) * (1 - var(--auto)))}
+.ecc-ap-via{fill:none;stroke:#C5D8E2;stroke-width:1.2;stroke-dasharray:3 5}
+.ecc-ap-via-on{fill:none;stroke:#017FA7;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:var(--len,200);stroke-dashoffset:calc(var(--len,200) * (1 - var(--via)))}
+.ecc-ap-part circle{fill:#23D3FF;filter:drop-shadow(0 0 3px rgba(35,211,255,.9))}
+.ecc-ap-call path{fill:none;stroke:#0A2540;stroke-width:.8}
+.ecc-ap-call text{font-size:10.5px;font-weight:600;letter-spacing:.14em;fill:#0A2540}
+.ecc-ap-call-pfc{opacity:calc(.35 + var(--pfc) * .65)}
+.ecc-ap-call-bg{opacity:calc(.35 + var(--bgl) * .65)}
+.ecc-ap-dudas{position:absolute;left:4%;top:4%;display:flex;flex-direction:column;align-items:flex-start;gap:8px;opacity:var(--dudas);pointer-events:none}
+.ecc-ap-dudas span{background:#fff;border:1px solid #CFE2EB;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;color:#0A2540;box-shadow:0 8px 20px -12px rgba(10,37,64,.35)}
+.ecc-ap-dudas span:nth-child(2){margin-left:28px}
+.ecc-ap-auto{position:absolute;right:0;top:46%;background:#FFC300;color:#010D15;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:7px 14px;
+  opacity:var(--auto);transform:translateY(calc((1 - var(--auto)) * 10px));pointer-events:none}
+.ecc-ap-dias{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(340px,80%);text-align:center;opacity:var(--dias);pointer-events:none}
+.ecc-ap-dias-n{display:flex;align-items:baseline;justify-content:center;gap:8px;color:#0A2540}
+.ecc-ap-dias-n b{font-size:56px;font-weight:300;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.ecc-ap-dias-n span{font-size:16px;font-weight:500;color:#4F6573}
+.ecc-ap-barra{position:relative;height:4px;border-radius:2px;background:#D6E5ED;margin-top:12px}
+.ecc-ap-barra i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;background:linear-gradient(90deg,#017FA7,#23D3FF);width:calc((var(--sube) - var(--meta) * .0909) * 100%)}
+.ecc-ap-barra em{position:absolute;top:10px;transform:translateX(-50%);font-style:normal;font-size:12px;font-weight:700;color:#0A2540;opacity:var(--meta)}
+.ecc-ap-barra em::before{content:"";position:absolute;left:50%;top:-12px;width:2px;height:10px;background:#FFC300;transform:translateX(-50%)}
+.ecc-ap-logo{position:absolute;left:50%;top:45%;width:min(30%,180px);transform:translate(-50%,-50%) scale(calc(.85 + var(--fin) * .15));opacity:var(--fin);pointer-events:none}
+.ecc-ap-txts{position:relative;width:100%;max-width:760px;height:150px;flex:none}
+.ecc-ap-t{position:absolute;left:0;right:0;top:50%;transform:translateY(calc(-50% + var(--ty,0px)));margin:0 auto!important;display:block;text-align:center!important;text-align-last:center!important;hyphens:none!important;max-width:40ch;
+  font-size:clamp(17px,1.7vw,22px)!important;line-height:1.5!important;font-weight:500;color:#566B78!important;opacity:0;will-change:opacity,transform}
+.ecc-ap-t strong,.ecc-ap-t .ecc-hl{color:#0A2540!important}
+.ecc-ap-t em{color:#017FA7}
+.ecc-ap-t:first-child{opacity:1}
+.ecc-ap-prog{display:flex;gap:6px;flex:none}
+.ecc-ap-prog i{width:6px;height:6px;border-radius:3px;background:#C5D8E2;transition:width .3s,background-color .3s}
+.ecc-ap-prog i.on{width:22px;background:#0A2540}
+@media (max-width:767px){
+  .ecc-ap{height:calc(var(--n) * 80vh + 100vh)}
+  .ecc-ap-stage{padding:84px 16px 100px;gap:10px}
+  .ecc-ap-cer{max-height:280px}
+  .ecc-ap-dudas{left:50%;top:-4px;transform:translateX(-50%);flex-direction:row;gap:6px;white-space:nowrap}.ecc-ap-dudas span{font-size:12px;padding:5px 11px}.ecc-ap-dudas span:nth-child(2){margin-left:0}
+  .ecc-ap-vis{padding-top:34px}
+  .ecc-ap-auto{right:0;top:0;font-size:11px;padding:5px 11px}
+  .ecc-ap-dias-n b{font-size:44px}
+  .ecc-ap-txts{height:230px}
+  .ecc-ap-t{font-size:16.5px!important;line-height:1.55!important;max-width:34ch}
+  .ecc-ap-call text{font-size:13px}
+}
+/* Kilos sobre las fotos del Dr. León (encima, fuera de la foto para no tapar la cara) */
+.ecc-ad-kgs{display:grid;grid-template-columns:1fr 1fr;column-gap:8px;margin-bottom:10px;text-align:center}
+.ecc-ad-kgs b{justify-self:center;background:#0A2540;color:#fff;font-size:16px;font-weight:700;letter-spacing:.02em;padding:5px 14px;border-radius:999px;white-space:nowrap}
+.ecc-ad-kgs b.ecc-ad-kg-fin{background:#FFC300;color:#010D15}
