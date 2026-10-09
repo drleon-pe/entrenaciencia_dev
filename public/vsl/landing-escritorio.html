@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Escritorio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=98">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=100">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -73,7 +73,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=98">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=100">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -284,9 +284,56 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
   </section>
 
   <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
-  
+  <section class="ecc-atmos" data-screen-label="03 Qué incluye" style="padding:var(--gap-section) 0">
+    <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-12)">
+      <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
+        <h2 style="color:var(--text-on-dark);max-width:22ch">Qué Incluye Nuestro Programa</h2>
+      </div>
+      <div class="ecc-inc-grid">
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">EL NÚCLEO</span>
+          <h3 style="color:var(--text-on-dark)">Curso de Neurociencia del Cambio de Hábitos</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-nucleo" src="assets/portadas/neurociencia-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Lo más importante de nuestro programa.</strong> Te explicamos el proceso por el que se crean nuevos hábitos y <em>por qué la mayoría de las personas falla</em>. La verdad es que crear un nuevo hábito <span class="ecc-hl">no depende de tu fuerza de voluntad, sino de entender cómo funciona tu cuerpo</span>.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
+          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Entrenamiento</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-fundamentos" src="assets/portadas/entrenamiento-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">El <strong>Dr. Gonzalo León</strong> te explica la última ciencia del deporte para que entiendas cuál es <span class="ecc-hl">el mejor camino para ponerte en forma</span> basado en ciencia. Deja de estar confundido con las <em>recomendaciones que se contradicen en redes sociales</em>.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
+          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Nutrición</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-fundamentos-nutricion" src="assets/portadas/nutricion-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">La <strong>Lic. Rafaela Silva</strong> te explica la última ciencia de la <em>nutrición funcional</em>. Hemos desarrollado un programa que te ayuda a entender los mecanismos por los que tu cuerpo pierde peso y cómo aplicarlos en tu día a día, <span class="ecc-hl">sin que tengas que hacer dietas muy restrictivas</span>.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">App con IA</span>
+          <h3 style="color:var(--text-on-dark)">Aplicación con Rutinas y Plan de Nutrición</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-app-seguimiento" src="assets/portadas/app-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Te damos <strong>acceso por un mes</strong> a nuestra aplicación, que se apoya en <em>inteligencia artificial</em> para <span class="ecc-hl">ayudarte a planificar tu entrenamiento, nutrición y recuperación</span>.</p><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Incluye nuestras últimas <strong>rutinas basadas en evidencia</strong>, con videos por cada ejercicio a realizar y múltiples planes de entrenamiento en casa y en el gimnasio. Además, te ayuda con tu <strong>plan de nutrición</strong>: la IA te ayuda a <em>registrar tus calorías</em> y te brinda recetas hechas por nuestro equipo.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">Qué hacer cuando hay imprevistos</span>
+          <h3 style="color:var(--text-on-dark)">Protocolos para Días Difíciles</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-protocolos" src="assets/portadas/protocolos-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Todas las personas tienen <span class="ecc-hl">imprevistos y días difíciles</span>. Hemos creado una <strong>biblioteca de protocolos</strong> que atacan problemas comunes que impiden una transformación. Por ejemplo: <em>¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?</em>, y muchas otras situaciones comunes.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">Soporte y Información</span>
+          <h3 style="color:var(--text-on-dark)">Comunidad Privada</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-comunidad" src="assets/portadas/comunidad-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Accede a nuestra <strong>comunidad privada</strong>, donde tendrás a otras personas <em>igual de motivadas</em> para <span class="ecc-hl">transformar tu cuerpo</span>.</p></div>
+        </article>
+      </div>
 
-<!-- NUEVO (marco de landing): estructura agregada; el texto entre [corchetes] lo llena el equipo; el resto del copy nuevo está por aprobar -->
+      <div style="display:flex;justify-content:center"><a href="#empezar" class="ecc-cta ecc-reveal"><span>RESERVA TU LUGAR POR US$5</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a></div>
+
+    </div>
+  </section>
+
+  <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
   <section data-screen-label="02 Por qué funciona" style="padding:var(--gap-section) 0">
     <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:var(--space-10)">
       <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
@@ -367,21 +414,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
         </div>
       </div>
 
-      <div class="ecc-historia ecc-reveal">
-        <span class="ecc-eyebrow">Mi historia</span>
-        <div class="ecc-historia-grid">
-          <figure class="ecc-antesdespues"><div class="ecc-ad-kgs"><b>120 kg</b><b class="ecc-ad-kg-fin">85 kg</b></div><div class="ecc-ad-par"><div class="ecc-ad-foto"><img src="assets/leon-antes.jpg" alt="Dr. Gonzalo León antes de su cambio"><span>Antes</span></div><div class="ecc-ad-foto"><img src="assets/leon-despues.jpg" alt="Dr. Gonzalo León después de su recomposición corporal"><span>Después</span></div></div><figcaption>Dr. Gonzalo León, antes y después de su propia recomposición corporal.</figcaption></figure>
-          <div class="ecc-historia-txt">
-            <h3>Soy el Dr. Gonzalo León</h3>
-            <ol class="ecc-hist">
-              <li><span class="ecc-hist-cuando">Hace 7 años</span><p>Empecé medicina y <strong>llegué a pesar 120 kilos</strong>.</p></li>
-              <li><span class="ecc-hist-cuando">Después de 12 meses</span><p>Con poca energía y vergüenza cada vez que me veía al espejo, <strong>decidí cambiar mi vida por completo</strong>.</p></li>
-              <li><span class="ecc-hist-cuando">Hoy</span><p>Con un equipo de nutricionistas, especialistas en ciencia del deporte y neurociencia, <span class="ecc-hl">ayudo a personas como tú a cambiar su vida</span>.</p></li>
-            </ol>
-            <p class="ecc-hist-cita"><em>Un equipo médico no te promete kilos en un plazo:</em> <strong>te explica cómo hacer un cambio real en tus hábitos y en tu vida.</strong></p>
-          </div>
-        </div>
-      </div>
+      
 
       <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-5)">
         <p style="max-width:52ch;font-size:17px;line-height:1.7">Llevas años creyendo que el problema eras tú. El problema era el método que estabas siguiendo.</p>
@@ -389,115 +422,8 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
         <p style="font-family:var(--font-display);font-variation-settings:var(--vf-display);font-size:clamp(28px,5.2vw,42px);font-weight:var(--weight-bold);letter-spacing:var(--tracking-tight);line-height:1.15;white-space:nowrap;color:var(--text-strong)">Que este sea tu último Día 1.</p>
       </div>
     </div>
-  </section><div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
-  <section class="ecc-atmos" data-screen-label="03 Qué incluye" style="padding:var(--gap-section) 0">
-    <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-12)">
-      <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
-        <h2 style="color:var(--text-on-dark);max-width:22ch">Qué Incluye Nuestro Programa</h2>
-      </div>
-      <div class="ecc-inc-grid">
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">EL NÚCLEO</span>
-          <h3 style="color:var(--text-on-dark)">Curso de Neurociencia del Cambio de Hábitos</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-nucleo" src="assets/portadas/neurociencia-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Lo más importante de nuestro programa.</strong> Te explicamos el proceso por el que se crean nuevos hábitos y <em>por qué la mayoría de las personas falla</em>. La verdad es que crear un nuevo hábito <span class="ecc-hl">no depende de tu fuerza de voluntad, sino de entender cómo funciona tu cuerpo</span>.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
-          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Entrenamiento</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-fundamentos" src="assets/portadas/entrenamiento-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">El <strong>Dr. Gonzalo León</strong> te explica la última ciencia del deporte para que entiendas cuál es <span class="ecc-hl">el mejor camino para ponerte en forma</span> basado en ciencia. Deja de estar confundido con las <em>recomendaciones que se contradicen en redes sociales</em>.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
-          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Nutrición</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-fundamentos-nutricion" src="assets/portadas/nutricion-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">La <strong>Lic. Rafaela Silva</strong> te explica la última ciencia de la <em>nutrición funcional</em>. Hemos desarrollado un programa que te ayuda a entender los mecanismos por los que tu cuerpo pierde peso y cómo aplicarlos en tu día a día, <span class="ecc-hl">sin que tengas que hacer dietas muy restrictivas</span>.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">App con IA</span>
-          <h3 style="color:var(--text-on-dark)">Aplicación con Rutinas y Plan de Nutrición</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-app-seguimiento" src="assets/portadas/app-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Te damos <strong>acceso por un mes</strong> a nuestra aplicación, que se apoya en <em>inteligencia artificial</em> para <span class="ecc-hl">ayudarte a planificar tu entrenamiento, nutrición y recuperación</span>.</p><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Incluye nuestras últimas <strong>rutinas basadas en evidencia</strong>, con videos por cada ejercicio a realizar y múltiples planes de entrenamiento en casa y en el gimnasio. Además, te ayuda con tu <strong>plan de nutrición</strong>: la IA te ayuda a <em>registrar tus calorías</em> y te brinda recetas hechas por nuestro equipo.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">Qué hacer cuando hay imprevistos</span>
-          <h3 style="color:var(--text-on-dark)">Protocolos para Días Difíciles</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-protocolos" src="assets/portadas/protocolos-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Todas las personas tienen <span class="ecc-hl">imprevistos y días difíciles</span>. Hemos creado una <strong>biblioteca de protocolos</strong> que atacan problemas comunes que impiden una transformación. Por ejemplo: <em>¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?</em>, y muchas otras situaciones comunes.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">Soporte y Información</span>
-          <h3 style="color:var(--text-on-dark)">Comunidad Privada</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="mod-comunidad" src="assets/portadas/comunidad-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Accede a nuestra <strong>comunidad privada</strong>, donde tendrás a otras personas <em>igual de motivadas</em> para <span class="ecc-hl">transformar tu cuerpo</span>.</p></div>
-        </article>
-      </div>
-
-      <div style="display:flex;justify-content:center"><a href="#empezar" class="ecc-cta ecc-reveal"><span>RESERVA TU LUGAR POR US$5</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a></div>
-
-    </div>
   </section>
 
-  <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
-  <section class="ecc-atmos" data-screen-label="04 Quién está detrás" style="padding:var(--gap-section) 0">
-    <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-12)">
-      <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
-        <h2 style="color:var(--text-on-dark);max-width:28ch">Nuestro Equipo Médico</h2>
-      </div>
-
-      <div class="ecc-split ecc-reveal" style="grid-template-columns:1fr 1fr;align-items:stretch">
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;min-height:0">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="overflow:hidden;position:relative;min-height:380px;height:100%">
-            <img src="assets/dr-gonzalo-leon-equipo.jpg" alt="Dr. Gonzalo León, director médico de Entrena con Ciencia" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%">
-          </div>
-        </div>
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;gap:var(--space-4)">
-            <span class="ecc-label" style="color:var(--cyan-300)">Especialista en Ciencia del Deporte</span>
-            <h3 style="color:var(--text-on-dark)">Dr. Gonzalo León</h3>
-            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Médico cirujano</strong>, enfocado en entrenamiento basado en evidencia. Hoy cursa la <strong>Maestría en Longevidad y Antienvejecimiento</strong> en el IL3 de la Universidad de Barcelona.</p>
-            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Durante la carrera de medicina llegó a pesar 120 kilos. El cambio llegó cuando entendió la <em>fisiología del cuerpo humano</em> y cómo se cruza con el <em>balance energético</em>: así logró su propia <strong>recomposición corporal</strong>.</p>
-            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Desde entonces ha atendido a decenas de pacientes con su método y los ha ayudado a conseguir resultados: perder peso <span class="ecc-hl">con la mayor flexibilidad posible</span>. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="ecc-split ecc-reveal" style="grid-template-columns:1fr 1fr;align-items:stretch">
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;gap:var(--space-4)">
-            <span class="ecc-label" style="color:var(--cyan-300)">Nutricionista Clínica</span>
-            <h3 style="color:var(--text-on-dark)">Lic. Rafaela Silva</h3>
-            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Licenciada en Nutrición y Dietética</strong> (UPC), con <strong>más de 5 años de experiencia</strong>. Cursos de especialización en <em>microbiota y nutrición</em> (Universidad Peruana Cayetano Heredia), <em>nutrición hormonal</em> (Nutrition Society) y <em>nutrición renal</em> (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p>
-            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición basado en evidencia, pero también práctico y aplicable a la vida real, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p>
-          </div>
-        </div>
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;min-height:0">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="overflow:hidden;position:relative;min-height:380px;height:100%">
-            <img src="assets/rafaela-silva-equipo.jpg" alt="Lic. Rafaela Silva, nutricionista clínica de Entrena con Ciencia" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%">
-          </div>
-        </div>
-      </div>
-
-      <div class="ecc-split ecc-reveal" style="grid-template-columns:1fr 1fr;align-items:stretch">
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;min-height:0">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="overflow:hidden;position:relative;min-height:380px;height:100%">
-            <img src="assets/ana-paula-ceballos-equipo.jpg" alt="Ps. Ana Paula Ceballos, psicóloga clínica de Entrena con Ciencia" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%">
-          </div>
-        </div>
-        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;gap:var(--space-4)">
-            <span class="ecc-label" style="color:var(--cyan-300)">Psicóloga clínica · TCA y obesidad</span>
-            <h3 style="color:var(--text-on-dark)">Ps. Ana Paula Ceballos</h3>
-            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Psicóloga clínica</strong> especialista en <span class="ecc-hl">trastornos de la conducta alimentaria (TCA) y obesidad</span>, con formación en <em>terapia cognitivo-conductual</em>. <strong>Máster en Trastornos Alimenticios y Obesidad</strong> (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Se formó en las <em>Unidades de TCA</em> del Hospital Universitario Santa Cristina y del Hospital Infantil Universitario Niño Jesús, en Madrid, y hoy atiende en la <strong>Clínica San Felipe</strong>, en Lima. Certificada en <em>ansiedad y trastornos relacionados</em> (American Psychological Association) y en <em>fundamentos de TCC</em> (Beck Institute).</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-<!-- NUEVO (marco de landing): estructura agregada; el texto entre [corchetes] lo llena el equipo; el resto del copy nuevo está por aprobar -->
   <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
   <section id="testimonios" data-screen-label="04b Más prueba social" style="padding:var(--gap-section) 0">
     <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-10)">
@@ -629,60 +555,77 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
     </div>
   </section>
 
-<!-- NUEVO (marco de landing): estructura agregada; el texto entre [corchetes] lo llena el equipo; el resto del copy nuevo está por aprobar -->
   <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
-  <section data-screen-label="05 Preguntas y objeciones" style="padding:var(--gap-section) 0">
-    <div class="ecc-pad" style="max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-10)">
+  <section class="ecc-atmos" data-screen-label="04 Quién está detrás" style="padding:var(--gap-section) 0">
+    <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-12)">
+      <div class="ecc-historia ecc-reveal" style="align-self:center">
+        <span class="ecc-eyebrow">Mi historia</span>
+        <div class="ecc-historia-grid">
+          <figure class="ecc-antesdespues"><div class="ecc-ad-kgs"><b>120 kg</b><b class="ecc-ad-kg-fin">85 kg</b></div><div class="ecc-ad-par"><div class="ecc-ad-foto"><img src="assets/leon-antes.jpg" alt="Dr. Gonzalo León antes de su cambio"><span>Antes</span></div><div class="ecc-ad-foto"><img src="assets/leon-despues.jpg" alt="Dr. Gonzalo León después de su recomposición corporal"><span>Después</span></div></div><figcaption>Dr. Gonzalo León, antes y después de su propia recomposición corporal.</figcaption></figure>
+          <div class="ecc-historia-txt">
+            <h3>Soy el Dr. Gonzalo León</h3>
+            <ol class="ecc-hist">
+              <li><span class="ecc-hist-cuando">Hace 7 años</span><p>Empecé medicina y <strong>llegué a pesar 120 kilos</strong>.</p></li>
+              <li><span class="ecc-hist-cuando">Después de 12 meses</span><p>Con poca energía y vergüenza cada vez que me veía al espejo, <strong>decidí cambiar mi vida por completo</strong>.</p></li>
+              <li><span class="ecc-hist-cuando">Hoy</span><p>Con un equipo de nutricionistas, especialistas en ciencia del deporte y neurociencia, <span class="ecc-hl">ayudo a personas como tú a cambiar su vida</span>.</p></li>
+            </ol>
+            <p class="ecc-hist-cita"><em>Un equipo médico no te promete kilos en un plazo:</em> <strong>te explica cómo hacer un cambio real en tus hábitos y en tu vida.</strong></p>
+          </div>
+        </div>
+      </div>
+
       <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
-        <h2 style="max-width:24ch">Preguntas Frecuentes</h2>
+        <h2 style="color:var(--text-on-dark);max-width:28ch">Nuestro Equipo Médico</h2>
       </div>
-      <div class="ecc-reveal ecc-reveal-2" style="width:100%;display:flex;flex-direction:column;border-bottom:1px solid var(--border-subtle)">
-        <div style="border-top:1px solid var(--border-subtle)">
-          <div onClick="{{ toggle0 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
-            <span>He tratado de transformar mi cuerpo antes. ¿Por qué esta vez sería distinto?</span>
-            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot0 }}"></i>
+
+      <div class="ecc-split ecc-reveal" style="grid-template-columns:1fr 1fr;align-items:stretch">
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;min-height:0">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="overflow:hidden;position:relative;min-height:380px;height:100%">
+            <img src="assets/dr-gonzalo-leon-equipo.jpg" alt="Dr. Gonzalo León, director médico de Entrena con Ciencia" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%">
           </div>
-          <sc-if value="{{ open0 }}" hint-placeholder-val="{{ false }}">
-            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">Nuestro programa empieza por enseñarte neurociencia del cambio en vez de simplemente darte un plan de acción para el entrenamiento y tu nutrición; te ayudamos a diseñar un sistema que funcione con tu estilo de vida. Nadie te dice que será fácil, pero desarrollar la habilidad de ser constante es lo más importante para ver resultados.</p>
-          </sc-if>
         </div>
-        <div style="border-top:1px solid var(--border-subtle)">
-          <div onClick="{{ toggle1 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
-            <span>Quiero empezar con el programa, pero me preocupa no tener tiempo.</span>
-            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot1 }}"></i>
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;gap:var(--space-4)">
+            <span class="ecc-label" style="color:var(--cyan-300)">Especialista en Ciencia del Deporte</span>
+            <h3 style="color:var(--text-on-dark)">Dr. Gonzalo León</h3>
+            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Médico cirujano</strong>, enfocado en entrenamiento basado en evidencia. Hoy cursa la <strong>Maestría en Longevidad y Antienvejecimiento</strong> en el IL3 de la Universidad de Barcelona.</p>
+            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Durante la carrera de medicina llegó a pesar 120 kilos. El cambio llegó cuando entendió la <em>fisiología del cuerpo humano</em> y cómo se cruza con el <em>balance energético</em>: así logró su propia <strong>recomposición corporal</strong>.</p>
+            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Desde entonces ha atendido a decenas de pacientes con su método y los ha ayudado a conseguir resultados: perder peso <span class="ecc-hl">con la mayor flexibilidad posible</span>. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p>
           </div>
-          <sc-if value="{{ open1 }}" hint-placeholder-val="{{ false }}">
-            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que entrenar incluso solo 2 veces a la semana es suficiente para ver cambios. Adicionalmente, proveemos rutinas de entrenamiento en casa y en el gimnasio para adecuarse a lo que te funciona mejor.</p>
-          </sc-if>
-        </div>
-        <div style="border-top:1px solid var(--border-subtle)">
-          <div onClick="{{ toggle2 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
-            <span>Soy principiante y no sé nada. ¿Voy a poder entender el material?</span>
-            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot2 }}"></i>
-          </div>
-          <sc-if value="{{ open2 }}" hint-placeholder-val="{{ false }}">
-            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">El programa está diseñado con principiantes en mente. Hemos creado los módulos de fundamentos de entrenamiento y nutrición para explicarte qué tienes que hacer al detalle. La idea es llevar tus conocimientos de principiante a intermedio con el curso para que tengas los fundamentos correctos para progresar por tu cuenta.</p>
-          </sc-if>
-        </div>
-        <div style="border-top:1px solid var(--border-subtle)">
-          <div onClick="{{ toggle3 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
-            <span>¿Tengo que dejar de comer lo que me gusta?</span>
-            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot3 }}"></i>
-          </div>
-          <sc-if value="{{ open3 }}" hint-placeholder-val="{{ false }}">
-            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">No. Un plan que te saca de la comida familiar del domingo es un plan que vas a abandonar, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p>
-          </sc-if>
-        </div>
-        <div style="border-top:1px solid var(--border-subtle)">
-          <div onClick="{{ toggle6 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
-            <span>¿Cuánto voy a bajar y en cuánto tiempo?</span>
-            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot6 }}"></i>
-          </div>
-          <sc-if value="{{ open6 }}" hint-placeholder-val="{{ false }}">
-            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">Es difícil prometerte un número exacto, ya que varía entre persona y persona. Pero perder entre 1 y 2% de tu peso corporal al mes es un objetivo realizable.</p>
-          </sc-if>
         </div>
       </div>
+
+      <div class="ecc-split ecc-reveal" style="grid-template-columns:1fr 1fr;align-items:stretch">
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;gap:var(--space-4)">
+            <span class="ecc-label" style="color:var(--cyan-300)">Nutricionista Clínica</span>
+            <h3 style="color:var(--text-on-dark)">Lic. Rafaela Silva</h3>
+            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Licenciada en Nutrición y Dietética</strong> (UPC), con <strong>más de 5 años de experiencia</strong>. Cursos de especialización en <em>microbiota y nutrición</em> (Universidad Peruana Cayetano Heredia), <em>nutrición hormonal</em> (Nutrition Society) y <em>nutrición renal</em> (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p>
+            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición basado en evidencia, pero también práctico y aplicable a la vida real, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p>
+          </div>
+        </div>
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;min-height:0">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="overflow:hidden;position:relative;min-height:380px;height:100%">
+            <img src="assets/rafaela-silva-equipo.jpg" alt="Lic. Rafaela Silva, nutricionista clínica de Entrena con Ciencia" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%">
+          </div>
+        </div>
+      </div>
+
+      <div class="ecc-split ecc-reveal" style="grid-template-columns:1fr 1fr;align-items:stretch">
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0;min-height:0">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="overflow:hidden;position:relative;min-height:380px;height:100%">
+            <img src="assets/ana-paula-ceballos-equipo.jpg" alt="Ps. Ana Paula Ceballos, psicóloga clínica de Entrena con Ciencia" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%">
+          </div>
+        </div>
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);height:100%;display:flex;flex-direction:column;gap:var(--space-4)">
+            <span class="ecc-label" style="color:var(--cyan-300)">Psicóloga clínica · TCA y obesidad</span>
+            <h3 style="color:var(--text-on-dark)">Ps. Ana Paula Ceballos</h3>
+            <p style="font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Psicóloga clínica</strong> especialista en <span class="ecc-hl">trastornos de la conducta alimentaria (TCA) y obesidad</span>, con formación en <em>terapia cognitivo-conductual</em>. <strong>Máster en Trastornos Alimenticios y Obesidad</strong> (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Se formó en las <em>Unidades de TCA</em> del Hospital Universitario Santa Cristina y del Hospital Infantil Universitario Niño Jesús, en Madrid, y hoy atiende en la <strong>Clínica San Felipe</strong>, en Lima. Certificada en <em>ansiedad y trastornos relacionados</em> (American Psychological Association) y en <em>fundamentos de TCC</em> (Beck Institute).</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -765,6 +708,70 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       </div>
 
       <p class="ecc-reveal" style="max-width:46ch;text-align:center;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-size:clamp(18px,3.2vw,23px);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-tight);line-height:1.35;color:var(--text-on-dark)"><span class="ecc-cierre-l1">Deja de <strong>empezar de nuevo</strong>.</span><br>Haz un <span class="ecc-hl">cambio real</span> <strong>una vez por todas</strong>.</p>
+    </div>
+  </section>
+
+  <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
+  <section data-screen-label="05 Preguntas y objeciones" style="padding:var(--gap-section) 0">
+    <div class="ecc-pad" style="max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-10)">
+      <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
+        <h2 style="max-width:24ch">Preguntas Frecuentes</h2>
+      </div>
+      <div class="ecc-reveal ecc-reveal-2" style="width:100%;display:flex;flex-direction:column;border-bottom:1px solid var(--border-subtle)">
+        <div style="border-top:1px solid var(--border-subtle)">
+          <div onClick="{{ toggle0 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
+            <span>He tratado de transformar mi cuerpo antes. ¿Por qué esta vez sería distinto?</span>
+            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot0 }}"></i>
+          </div>
+          <sc-if value="{{ open0 }}" hint-placeholder-val="{{ false }}">
+            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">Nuestro programa empieza por enseñarte neurociencia del cambio en vez de simplemente darte un plan de acción para el entrenamiento y tu nutrición; te ayudamos a diseñar un sistema que funcione con tu estilo de vida. Nadie te dice que será fácil, pero desarrollar la habilidad de ser constante es lo más importante para ver resultados.</p>
+          </sc-if>
+        </div>
+        <div style="border-top:1px solid var(--border-subtle)">
+          <div onClick="{{ toggle1 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
+            <span>Quiero empezar con el programa, pero me preocupa no tener tiempo.</span>
+            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot1 }}"></i>
+          </div>
+          <sc-if value="{{ open1 }}" hint-placeholder-val="{{ false }}">
+            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que entrenar incluso solo 2 veces a la semana es suficiente para ver cambios. Adicionalmente, proveemos rutinas de entrenamiento en casa y en el gimnasio para adecuarse a lo que te funciona mejor.</p>
+          </sc-if>
+        </div>
+        <div style="border-top:1px solid var(--border-subtle)">
+          <div onClick="{{ toggle2 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
+            <span>Soy principiante y no sé nada. ¿Voy a poder entender el material?</span>
+            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot2 }}"></i>
+          </div>
+          <sc-if value="{{ open2 }}" hint-placeholder-val="{{ false }}">
+            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">El programa está diseñado con principiantes en mente. Hemos creado los módulos de fundamentos de entrenamiento y nutrición para explicarte qué tienes que hacer al detalle. La idea es llevar tus conocimientos de principiante a intermedio con el curso para que tengas los fundamentos correctos para progresar por tu cuenta.</p>
+          </sc-if>
+        </div>
+        <div style="border-top:1px solid var(--border-subtle)">
+          <div onClick="{{ toggle3 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
+            <span>¿Tengo que dejar de comer lo que me gusta?</span>
+            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot3 }}"></i>
+          </div>
+          <sc-if value="{{ open3 }}" hint-placeholder-val="{{ false }}">
+            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">No. Un plan que te saca de la comida familiar del domingo es un plan que vas a abandonar, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p>
+          </sc-if>
+        </div>
+        <div style="border-top:1px solid var(--border-subtle)">
+          <div onClick="{{ toggle6 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-1);cursor:pointer;font-family:var(--font-heading);font-variation-settings:var(--vf-heading);font-weight:var(--weight-semibold);font-size:clamp(17px,3.4vw,21px);letter-spacing:var(--tracking-tight);color:var(--text-strong)">
+            <span>¿Cuánto voy a bajar y en cuánto tiempo?</span>
+            <i class="ph-light ph-caret-down" style="flex:none;font-size:18px;color:var(--text-muted);margin-top:4px;transition:transform var(--dur-base) var(--ease-fluid);transform:{{ rot6 }}"></i>
+          </div>
+          <sc-if value="{{ open6 }}" hint-placeholder-val="{{ false }}">
+            <p style="padding:0 var(--space-1) var(--space-6);max-width:64ch;font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-muted)">Es difícil prometerte un número exacto, ya que varía entre persona y persona. Pero perder entre 1 y 2% de tu peso corporal al mes es un objetivo realizable.</p>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
+  <section data-screen-label="07 Último llamado" style="padding:var(--space-16) 0 var(--gap-section)">
+    <div class="ecc-pad ecc-reveal" style="max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center">
+      <a href="https://pay.hotmart.com/L107930624T?checkoutMode=10" data-ecc-checkout="reserva" class="ecc-cta"><span>RESERVA TU LUGAR POR US$5</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a>
+      <ul class="ecc-reserva-nota"><li>Reservas hoy con US$5 y el 7 de diciembre pagas US$35.</li><li>Después del lanzamiento: US$67.</li></ul>
     </div>
   </section>
 
@@ -1317,7 +1324,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 </script>
 <script src="assets/ecc-analitica.js?v=7" defer></script>
 <div class="d-cta-barra m-cta-oculta"><div class="d-cta-barra-in">
-  <div class="m-cta-barra-txt"><span class="m-cta-barra-rotulo">Oferta de lanzamiento</span><span class="m-cta-barra-off">40% OFF</span></div>
+  <div class="m-cta-barra-txt"><span class="m-cta-barra-rotulo">Oferta de lanzamiento</span><span class="m-cta-barra-precio"><b>$40</b><s>$67</s><span class="m-cta-barra-off">40% OFF</span></span></div>
   <a href="#empezar" class="m-cta-barra-btn">Ver la oferta<i class="ph-light ph-arrow-down" style="font-size:18px"></i></a>
 </div></div>
 <script>

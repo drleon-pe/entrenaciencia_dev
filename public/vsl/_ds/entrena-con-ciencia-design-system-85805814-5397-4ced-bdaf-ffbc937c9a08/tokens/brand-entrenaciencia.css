@@ -1256,7 +1256,7 @@ html:root body section[data-screen-label] p.ecc-hero-lema{text-align:center!impo
   font-family:var(--font-display)!important;font-size:clamp(19px,6.1vw,30px)!important;font-weight:700!important;line-height:1.15!important;letter-spacing:-.02em!important;white-space:nowrap!important;max-width:none!important;align-self:center}
 
 /* ===== Escenario fijo estilo Apple: corteza prefrontal → ganglios basales → 66 días → método ECC ===== */
-.ecc-ap{position:relative;width:100%;height:calc(var(--n) * 62vh + 100vh);--pfc:1;--bgl:0;--via:0;--dudas:1;--auto:0;--dias:0;--sube:0;--fin:0;--meta:0;--hint:1;--prog:0}
+.ecc-ap{position:relative;width:100%;height:calc(var(--n) * 34vh + 100vh);--pfc:1;--bgl:0;--via:0;--dudas:1;--auto:0;--dias:0;--sube:0;--fin:0;--meta:0;--hint:1;--prog:0}
 .ecc-ap-stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:108px 20px 100px;box-sizing:border-box;gap:14px}
 .ecc-ap-vis{position:relative;flex:1 1 auto;min-height:0;width:100%;max-width:820px;display:flex;align-items:center;justify-content:center}
 .ecc-ap-cer{display:block;height:100%;max-height:400px;width:auto;max-width:100%;overflow:visible;font-family:var(--font-body);
@@ -1313,7 +1313,7 @@ html:root body section[data-screen-label] p.ecc-hero-lema{text-align:center!impo
 @keyframes ecc-baja{0%,100%{transform:translateY(-2px);opacity:.6}50%{transform:translateY(3px);opacity:1}}
 @media (prefers-reduced-motion:reduce){.ecc-ap-hint svg,.ecc-ap-ondas circle{animation:none}}
 @media (max-width:767px){
-  .ecc-ap{height:calc(var(--n) * 66vh + 100vh)}
+  .ecc-ap{height:calc(var(--n) * 36vh + 100vh)}
   .ecc-ap-stage{padding:84px 16px 96px;gap:8px}
   .ecc-ap-vis{padding-top:34px}
   .ecc-ap-cer{max-height:270px}
@@ -1349,3 +1349,16 @@ html:root body .ecc-inc-media:hover .ecc-thumb-play{transform:translate(-50%,-50
 html:root body section[data-screen-label^="01"] h1{font-weight:300!important;letter-spacing:-.035em!important;line-height:1.04!important}
 html:root body section[data-screen-label^="01"] h1 :is(.ecc-h1-acento,.ecc-h1-acento2,.ecc-h1-acento3){font-weight:600!important}
 html:root body section[data-screen-label] p.ecc-hero-lema{font-weight:500!important;font-size:clamp(17px,5.3vw,26px)!important;letter-spacing:-.015em!important}
+
+/* Precio en la barra de oferta */
+.m-cta-barra-precio{display:inline-flex;align-items:center;gap:8px}
+.m-cta-barra-precio b{font-size:20px;font-weight:700;color:#FFFFFF;letter-spacing:-.01em;line-height:1}
+.m-cta-barra-precio s{font-size:13px;color:#9FB4C6}
+.d-cta-barra .m-cta-barra-precio b{font-size:24px}
+.d-cta-barra .m-cta-barra-precio s{font-size:15px}
+/* El resumen de "Qué incluye" del hero ya no hace falta: la sección completa va justo después */
+html:root body section[data-screen-label^="01"] div:has(> #ecc-carrusel){display:none!important}
+/* Mi historia dentro de "Quién está detrás" */
+section[data-screen-label^="04 "] .ecc-historia{margin:0 auto var(--space-4)}
+.m-cta-barra-precio .m-cta-barra-off{white-space:nowrap}
+@media (max-width:360px){.m-cta-barra-precio{gap:6px}.m-cta-barra-precio b{font-size:18px}.m-cta-barra-precio s{display:none}.m-cta-barra-precio .m-cta-barra-off{font-size:10px;padding:3px 7px}}
