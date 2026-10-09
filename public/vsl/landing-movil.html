@@ -225,7 +225,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
 
       <div class="ecc-reveal ecc-reveal-2" style="min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-5)">
 <!-- QUITADO: calificación "4.67 · 383 reseñas" (no era real). Volver a poner solo con reseñas verificables y su fuente. -->
-        <h1 style="color:var(--text-on-dark);font-size:clamp(36px,5.6vw,62px);max-width:16ch"><span class="ecc-h1-acento2">Transforma</span><br> tu Cuerpo en<br> <span class="ecc-h1-acento3">8 Semanas</span><br> con <span class="ecc-h1-acento">Neurociencia</span></h1>
+        <h1 style="color:var(--text-on-dark);font-size:clamp(36px,5.6vw,62px);max-width:16ch;align-self:center;text-align:center"><span class="ecc-h1-acento2">Transforma</span><br> tu Cuerpo en<br> <span class="ecc-h1-acento3">8 Semanas</span><br> con <span class="ecc-h1-acento">Neurociencia</span></h1>
         <div class="ecc-hero-lema-box"><span class="ecc-hero-lema-rot">Esta vez es distinto</span><p class="ecc-hero-lema">Deja de <b>volver a empezar.</b></p><span class="ecc-hero-lema-linea" aria-hidden="true"></span></div>
         <p style="max-width:46ch;font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark)">Nuestro <strong><em>equipo médico</em></strong> ha desarrollado un programa <strong>basado en neurociencia</strong> para que puedas crear <strong>nuevos hábitos de entrenamiento y nutrición que perduren en el tiempo</strong> y te permitan cambiar tu cuerpo <strong>una vez por todas</strong>.</p>
 
@@ -1413,12 +1413,19 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function init(){
     var box=document.querySelector('.ecc-ap'); if(!box||box.dataset.snap) return; box.dataset.snap='1';
     var st=box.querySelector('.ecc-ap-stage'), n=box.querySelectorAll('.ecc-ap-t').length;
-    var paso=null, bloqueo=0, PAUSA=1000, tY=null, acum=0, tm=0, prog=false;
+    var paso=null, bloqueo=0, tY=null, acum=0, tm=0, prog=false;
     function geo(){return {top:box.getBoundingClientRect().top+scrollY, rango:Math.max(1,box.offsetHeight-st.offsetHeight)};}
     function yDe(i){var g=geo();return Math.round(g.top+((i+.5)/n)*g.rango);}
     function pAct(){var g=geo();return (scrollY-g.top)/g.rango*n-.5;}
     function dentro(){var p=pAct();return p>-.5&&p<n-.5;}
-    function ir(i){i=Math.max(0,Math.min(n-1,i));paso=i;bloqueo=Date.now()+PAUSA;prog=true;window.scrollTo({top:yDe(i),behavior:'smooth'});setTimeout(function(){prog=false},PAUSA);}
+    /* La transición entre pasos se reproduce completa, a ritmo pausado (como scrollear despacio), y recién al terminar acepta el siguiente gesto. */
+    var DUR=1300, QUIETO=250, anim=0;
+    function suave(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+    function ir(i){i=Math.max(0,Math.min(n-1,i));paso=i;var y0=scrollY,y1=yDe(i),t0=performance.now(),dur=Math.abs(y1-y0)<4?0:DUR;
+      prog=true;bloqueo=Date.now()+dur+QUIETO;cancelAnimationFrame(anim);
+      if(!dur){window.scrollTo(0,y1);setTimeout(function(){prog=false},QUIETO);return;}
+      (function cuadro(ahora){var k=Math.min(1,(ahora-t0)/dur);window.scrollTo(0,Math.round(y0+(y1-y0)*suave(k)));
+        if(k<1) anim=requestAnimationFrame(cuadro); else setTimeout(function(){prog=false},QUIETO);})(t0);}
     /* decide qué hacer con un gesto: true = lo consumimos (no se mueve la página por su cuenta) */
     function gesto(dir){
       if(!dentro()) return false;
