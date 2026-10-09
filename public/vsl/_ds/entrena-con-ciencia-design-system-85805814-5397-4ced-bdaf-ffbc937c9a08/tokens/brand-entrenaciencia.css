@@ -1368,3 +1368,11 @@ html:root body section[data-screen-label] p.ecc-hero-lema{font-weight:700!import
 html:root body footer[data-screen-label="Footer"]{padding-bottom:calc(var(--space-8) + env(safe-area-inset-bottom,0px))!important}
 html:root body div:has(> footer[data-screen-label="Footer"]){padding-bottom:0!important}
 html,body{overscroll-behavior-y:none}
+/* "Deja de volver a empezar." con rótulo y línea amarilla */
+.ecc-hero-lema-box{align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;margin:2px 0 0}
+.ecc-hero-lema-rot{font:600 11px/1 var(--font-body);letter-spacing:.24em;text-transform:uppercase;color:#017FA7}
+.ecc-hero-lema-linea{width:48px;height:3px;border-radius:2px;background:#FFC300}
+html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema{margin:0!important;color:#0A2540!important}
+html:root body section[data-screen-label^="01"] .ecc-split > div > .ecc-hero-lema-box{order:2}
+html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema{font-weight:300!important;font-size:clamp(21px,6.4vw,31px)!important;letter-spacing:-.03em!important}
+html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema b{font-weight:700;color:#017FA7}
