@@ -1406,6 +1406,36 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
   new MutationObserver(function(){init()}).observe(document.documentElement,{childList:true,subtree:true});
 })();
+/* Escenario del cerebro paso a paso: al soltar el scroll dentro del escenario, la página se acomoda en el paso siguiente (o anterior), como pasar de una lámina a otra. */
+(function(){
+  function init(){
+    var box=document.querySelector('.ecc-ap'); if(!box||box.dataset.snap) return; box.dataset.snap='1';
+    var st=box.querySelector('.ecc-ap-stage'), n=box.querySelectorAll('.ecc-ap-t').length;
+    var ultimo=null, auto=false, tm=0, reposoY=scrollY;
+    function geo(){var top=box.getBoundingClientRect().top+scrollY, rango=Math.max(1,box.offsetHeight-st.offsetHeight);return {top:top,rango:rango};}
+    function yDe(i,g){return Math.round(g.top+((i+.5)/n)*g.rango);}
+    function pasoDe(y,g){return (y-g.top)/g.rango*n-.5;}
+    function acomodar(){
+      if(auto){auto=false;reposoY=scrollY;return;}
+      var g=geo(), y=scrollY, p=pasoDe(y,g);
+      if(p<-.45||p>n-.55){ultimo=null;reposoY=y;return;}          /* fuera del escenario: scroll libre */
+      var desde=ultimo==null?Math.round(p):ultimo, dir=Math.sign(y-reposoY), dest;
+      if(Math.abs(p-desde)<.08) dest=desde;
+      else if(dir>0) dest=Math.min(n-1,Math.max(desde+1,Math.round(p-.25)));
+      else if(dir<0) dest=Math.max(0,Math.min(desde-1,Math.round(p+.25)));
+      else dest=Math.round(p);
+      dest=Math.max(0,Math.min(n-1,dest)); ultimo=dest;
+      var ty=yDe(dest,g); reposoY=ty; if(Math.abs(ty-y)>2){auto=true;window.scrollTo({top:ty,behavior:'smooth'});}
+    }
+    addEventListener('scroll',function(){
+      clearTimeout(tm); tm=setTimeout(acomodar,140);
+    },{passive:true});
+    if('onscrollend' in window) addEventListener('scrollend',function(){clearTimeout(tm);acomodar();});
+  }
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
+  new MutationObserver(function(){init()}).observe(document.documentElement,{childList:true,subtree:true});
+})();
 /* Cinta de revistas: se mueve con requestAnimationFrame en vez de animación CSS, así corre igual en Chrome, Safari y Android. */
 (function(){
   function init(){
