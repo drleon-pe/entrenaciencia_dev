@@ -19,12 +19,12 @@
   .logo img{width:36px;height:36px}
   .logo span span{color:#23D3FF}
   header a.volver{color:#C9D8E4;font-size:13px}
-  nav.indice{position:sticky;top:env(safe-area-inset-top,0px);z-index:3;background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 12px}
+  nav.indice{position:sticky;top:env(safe-area-inset-top,0px);z-index:3;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px}
   nav.indice .wrap{display:flex;gap:8px;flex-wrap:nowrap;justify-content:center}
-  nav.indice a{flex:none;white-space:nowrap;font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);transition:background-color .2s,color .2s,border-color .2s}
+  nav.indice a{flex:none;white-space:nowrap;font-size:12px;font-weight:600;color:var(--navy);text-decoration:none;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);transition:background-color .2s,color .2s,border-color .2s}
   nav.indice a.activo{background:var(--navy);border-color:var(--navy);color:#fff}
-  @media (max-width:420px){nav.indice{padding:10px 8px}nav.indice .wrap{gap:5px}nav.indice a{font-size:11.5px;padding:6px 9px}}
-  @media (max-width:360px){nav.indice .wrap{gap:4px}nav.indice a{font-size:10.5px;padding:6px 7px;letter-spacing:-.01em}}
+  @media (max-width:420px){nav.indice{padding:10px 8px}nav.indice .wrap{gap:6px}nav.indice a{font-size:11px;padding:6px 12px}}
+  @media (max-width:360px){nav.indice a{font-size:10.5px;padding:6px 10px}}
   main{padding:28px 16px 64px}
   h1{color:var(--navy);font-size:clamp(24px,5vw,32px);line-height:1.2;margin:0 0 6px}
   .actualizado{color:var(--muted);font-size:13px;margin:0 0 28px}
@@ -51,7 +51,7 @@
   <div class="wrap">
     <a href="#terminos">Términos</a>
     <a href="#privacidad">Privacidad</a>
-    <a href="#cancelacion">Cancelación y reembolsos</a>
+    <a href="#cancelacion">Cancelación</a>
   </div>
 </nav>
 <main>
