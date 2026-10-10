@@ -1534,3 +1534,38 @@ html:root body .ecc-ap-num.on{width:28px!important;background:#0A2540}
 .ecc-ap-flechas{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
 .ecc-ap-flechas > path{fill:none;stroke:#017FA7;stroke-width:2;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;opacity:0}
 .ecc-ap-equipo{z-index:2}
+/* ===== Bucles lentos en cada paso del mecanismo ===== */
+@keyframes ecc-flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes ecc-flota2{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@keyframes ecc-late{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@keyframes ecc-brillo{0%,100%{box-shadow:0 0 0 0 rgba(255,195,0,.0)}50%{box-shadow:0 0 18px 2px rgba(255,195,0,.55)}}
+@keyframes ecc-barrido{from{background-position:-200% 0}to{background-position:200% 0}}
+/* todo el dibujo respira muy suave */
+.ecc-hd{animation:ecc-flota 6s ease-in-out infinite}
+/* paso 1: las preguntas flotan */
+.ecc-ap-dudas span:nth-child(1){animation:ecc-flota 3.6s ease-in-out infinite}
+.ecc-ap-dudas span:nth-child(2){animation:ecc-flota2 4.2s ease-in-out infinite}
+/* paso 3: "En automático" late */
+.ecc-ap-auto{animation:ecc-late 2.6s ease-in-out infinite}
+/* paso 4: la barra de días tiene un brillo que la recorre */
+.ecc-ap-barra i{background:linear-gradient(90deg,#017FA7 0%,#23D3FF 40%,#9AF1FE 50%,#23D3FF 60%,#017FA7 100%);background-size:200% 100%;animation:ecc-barrido 3.5s linear infinite}
+/* paso 5: los descartes flotan */
+.ecc-ap-tachar span:nth-child(1){animation:ecc-flota 4s ease-in-out infinite}
+.ecc-ap-tachar span:nth-child(2){animation:ecc-flota2 4.6s ease-in-out infinite}
+/* paso 6: el tramo de 60 días brilla */
+.ecc-ap-barra u{animation:ecc-brillo 2.4s ease-in-out infinite}
+/* pasos 7 y 8: el logo late y las fotos flotan */
+.ecc-hd-logo{animation:ecc-late 3.2s ease-in-out infinite}
+.ecc-ap-equipo figure:nth-child(1){animation:ecc-flota 4.2s ease-in-out infinite}
+.ecc-ap-equipo figure:nth-child(2){animation:ecc-flota 4.2s ease-in-out -1.4s infinite}
+.ecc-ap-equipo figure:nth-child(3){animation:ecc-flota 4.2s ease-in-out -2.8s infinite}
+@media (prefers-reduced-motion:reduce){.ecc-hd,.ecc-ap-dudas span,.ecc-ap-auto,.ecc-ap-barra i,.ecc-ap-tachar span,.ecc-ap-barra u,.ecc-hd-logo,.ecc-ap-equipo figure{animation:none!important}}
+@keyframes ecc-logo-vivo{0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 0 rgba(35,211,255,0))}50%{transform:scale(1.08) rotate(-4deg);filter:drop-shadow(0 0 14px rgba(35,211,255,.55))}}
+html:root body .ecc-hd-logo{animation:ecc-logo-vivo 3s ease-in-out infinite}
+html:root body .ecc-hd-lazo{stroke-width:18}
+@media (prefers-reduced-motion:reduce){html:root body .ecc-hd-logo{animation:none}}
+/* paso 7: ondas que salen del logo */
+.ecc-hd-halo{opacity:calc(var(--fin) * (1 - var(--equipo)))}
+.ecc-hd-halo circle{fill:none;stroke:#23D3FF;stroke-width:3;transform-box:fill-box;transform-origin:center;animation:ecc-onda 3s cubic-bezier(.2,.7,.3,1) infinite}
+.ecc-hd-halo circle:nth-child(2){animation-delay:1.5s}
+@media (prefers-reduced-motion:reduce){.ecc-hd-halo circle{animation:none}}

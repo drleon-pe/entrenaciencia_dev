@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=126">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=129">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -75,7 +75,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=126">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=129">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -403,6 +403,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
             <g class="ecc-hd-tapa"><g clip-path="url(#hdArriba)"><image href="assets/cabeza-perfil.png" x="-23" y="-170" width="1050" height="1050"/></g></g>
             <g class="ecc-hd-call ecc-hd-call-pfc"><path d=""/><circle r="4"/><text text-anchor="end"><tspan>CORTEZA</tspan><tspan dy="1.25em">PREFRONTAL</tspan></text></g>
             <g class="ecc-hd-call ecc-hd-call-bg"><path d=""/><circle r="4"/><text><tspan>GANGLIOS</tspan><tspan dy="1.25em">BASALES</tspan></text></g>
+            <g class="ecc-hd-halo"><circle cx="500" cy="320" r="100"/><circle cx="500" cy="320" r="100"/></g>
             <image class="ecc-hd-logo" href="assets/isotipo-teal.png" x="410" y="230" width="180" height="180"/>
           </svg>
           <div class="ecc-ap-auto" aria-hidden="true">En automático</div>
@@ -1401,14 +1402,17 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       var v={'--tachar':cl((t-3.55)/.4)*(1-cl((t-4.6)/.35)),'--raya':cl((t-3.95)/.45),'--lazo':cl((t-1.65)/.7)*(1-cl((t-2.6)/.4)),'--equipo':cl((t-6.85)/.45),'--abierto':sube,'--pfc':cl((t-.2)/.25)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.2)/.25)*(1-sVia),'--auto':sAuto*(1-cl((t-2.6)/.4)),
              '--dias':cl((t-2.6)/.4)*(1-sFin),'--meta':sMeta,'--fin':sFin,'--prog':sDias,'--hint':1-cl((t-n+1.4)/.4),'--etq':cl((t-.2)/.25)*(1-sFin)};
       for(var k in v) box.style.setProperty(k,v[k].toFixed(3));
-      if(via.getPointAtLength){parts.forEach(function(c,i){var f=((sVia*1.6+i*.2)%1); var pt=via.getPointAtLength(len*f); c.setAttribute('cx',pt.x); c.setAttribute('cy',pt.y); c.style.opacity=(sVia>0&&sVia<1?Math.sin(f*Math.PI):0).toFixed(2);});}
+      var vivo=performance.now()/1000, enBucle=sVia>=1&&sFin<1;
+      if(via.getPointAtLength){parts.forEach(function(c,i){var f=enBucle?((vivo*.32+i*.2)%1):((sVia*1.6+i*.2)%1); var pt=via.getPointAtLength(len*f); c.setAttribute('cx',pt.x); c.setAttribute('cy',pt.y); c.style.opacity=((sVia>0&&sVia<1)||enBucle?Math.sin(f*Math.PI)*(1-sFin):0).toFixed(2);});}
+      /* paso 3: el lazo gira solo, como un circuito en automático */
+      var lz=box.querySelector('.ecc-hd-lazo'); if(lz){var lv=cl((t-1.65)/.7)*(1-cl((t-2.6)/.4)); if(lv>=1){lz.style.strokeDasharray='72 28';lz.style.strokeDashoffset=(-(vivo*34)%100).toFixed(1);}else{lz.style.strokeDasharray='';lz.style.strokeDashoffset='';}}
       if(num) num.textContent=Math.round(66*sDias);
       /* último paso: tres flechas salen del logo hacia cada profesional */
       var fl=box.querySelector('.ecc-ap-flechas'), lg=box.querySelector('.ecc-hd-logo'), fotos=box.querySelectorAll('.ecc-ap-equipo img'), vb=box.querySelector('.ecc-ap-vis').getBoundingClientRect();
       if(fl&&lg&&fotos.length){var L=lg.getBoundingClientRect(), ox=L.left+L.width/2-vb.left, oy=L.bottom-vb.top+6, pr=cl((t-6.55)/.45);
         [].forEach.call(fl.querySelectorAll('path:not(marker path)'),function(p,i){var F=fotos[i].getBoundingClientRect(), fx=F.left+F.width/2-vb.left, fy=F.top-vb.top-8, my=(oy+fy)/2;
           p.setAttribute('d','M'+ox.toFixed(1)+' '+oy.toFixed(1)+' C'+ox.toFixed(1)+' '+my.toFixed(1)+' '+fx.toFixed(1)+' '+my.toFixed(1)+' '+fx.toFixed(1)+' '+fy.toFixed(1));
-          var k=cl((pr-i*.12)/.76); p.style.strokeDashoffset=(100-100*k).toFixed(1); p.style.opacity=k>0?1:0; p.setAttribute('marker-end',k>.96?'url(#apPunta)':'');});}
+          var k=cl((pr-i*.12)/.76); if(k>=1){p.style.strokeDasharray='5 4';p.style.strokeDashoffset=(-(vivo*9)%9).toFixed(2);}else{p.style.strokeDasharray='';p.style.strokeDashoffset=(100-100*k).toFixed(1);} p.style.opacity=k>0?1:0; p.setAttribute('marker-end',k>.96?'url(#apPunta)':'');});}
       var act=Math.min(n-1,Math.floor(tt));
       ts.forEach(function(el,i){var c=i+.5, d=Math.abs(tt-c); var o=cl(1-(d-.3)/.2); if(i===0&&tt<.5)o=1; if(i===n-1&&tt>n-.5)o=1; el.style.opacity=o.toFixed(3); el.style.setProperty('--ty',((tt<c?1:-1)*(1-o)*14).toFixed(1)+'px'); el.setAttribute('aria-hidden',i===act?'false':'true');});
       dots.forEach(function(el,i){el.classList.toggle('on',i===act);});
@@ -1431,6 +1435,9 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     st.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)irA(act+(dx<0?1:-1));},{passive:true});
     st.setAttribute('tabindex','0'); st.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();irA(act+1)}if(e.key==='ArrowLeft'){e.preventDefault();irA(act-1)}});
     irA(0,true);   /* arranca en la portada, con la cabeza cerrada */
+    /* Movimiento continuo: mientras el escenario está a la vista, el dibujo se repinta en cada cuadro para que cada paso tenga su bucle. */
+    var visible=false, lazo=0; function vivir(){if(!visible) return; pintar(); lazo=requestAnimationFrame(vivir);}
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(en){visible=en.isIntersecting; cancelAnimationFrame(lazo); if(visible) vivir();});},{threshold:.05}).observe(st);}
     addEventListener('scroll',pedir,{passive:true}); addEventListener('resize',function(){medir();pedir()}); addEventListener('load',function(){medir();pedir()}); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){medir();pedir()}); medir(); pintar();
   }
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
