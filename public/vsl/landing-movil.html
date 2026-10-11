@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=134">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=135">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -75,7 +75,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=134">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=135">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -1496,6 +1496,24 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
   new MutationObserver(function(){if(document.querySelector('.ecc-marquee-track:not(.ecc-js)')) init()}).observe(document.documentElement,{childList:true,subtree:true});
 })();
+</script>
+<script>
+/* "Ver la oferta" y demás enlaces a #empezar: la oferta queda completa a la vista, bajo la cabecera fija (centrada si cabe en la pantalla). */
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href="#empezar"]'); if(!a) return;
+  var s=document.getElementById('empezar'); if(!s) return; e.preventDefault(); e.stopImmediatePropagation();
+  var hd=document.querySelector('header'), top=hd?hd.getBoundingClientRect().bottom:0;
+  /* posiciones finales: se descuenta el desplazamiento de la animación de entrada (.ecc-reveal) que aún no terminó */
+  function abs(el){var y=el.getBoundingClientRect().top+scrollY, r=el.closest('.ecc-reveal'); if(r){var m=getComputedStyle(r).transform; if(m&&m!=='none'){var p=m.match(/matrix\(([^)]+)\)/); if(p){y-=parseFloat(p[1].split(',')[5])||0;}}} return y;}
+  [].forEach.call(s.querySelectorAll('.ecc-reveal'),function(r){r.classList.add('is-visible','is-in','ecc-in');});
+  var h2=s.querySelector('h2')||s, ini=abs(h2);
+  var fin=0; [].forEach.call(s.querySelectorAll('.ecc-cta,.ecc-reserva-nota'),function(el){fin=Math.max(fin,abs(el)+el.offsetHeight)});
+  if(!fin) fin=s.getBoundingClientRect().bottom+scrollY;
+  var barra=document.querySelector('.m-cta-barra,.d-cta-barra'), abajo=innerHeight, libre=abajo-top-24, alto=fin-ini;
+  var y = alto<=libre ? ini-top-12-(libre-alto)/2 : ini-top-20;
+  window.scrollTo({top:Math.max(0,Math.round(y)),behavior:'smooth'});
+  if(history.replaceState) history.replaceState(null,'','#empezar');
+},true);
 </script>
 <script>
 /* Resaltado por palabra: cada palabra de .ecc-hl va en su propio span, así los espacios quedan sin pintar. */

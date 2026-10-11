@@ -1595,3 +1595,4 @@ html:root body .ecc-ap-flechas > path{stroke-width:2.4}
 /* rendimiento: las barras fijas ya son casi opacas; el desenfoque de fondo se recalculaba en cada cuadro */
 html:root body header,html:root body .m-cta-fixed,html:root body .d-cta-barra,html:root body .ecc-island{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 html:root body .m-cta-fixed.m-cta-barra{background:rgba(10,37,64,.985)!important}
+#empezar{scroll-margin-top:96px}
