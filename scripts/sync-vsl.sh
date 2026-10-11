@@ -21,7 +21,7 @@ rm -rf "$DESTINO"
 mkdir -p "$DESTINO"
 
 # Solo lo que la landing necesita para funcionar (sin listicles, docs ni configuración).
-for item in index.html legal.html landing-escritorio.html landing-movil.html support.js image-slot.js _ds assets vendor; do
+for item in index.html legal.html landing-escritorio.html landing-movil.html pago.html pago-escritorio.html pago-movil.html support.js image-slot.js _ds assets vendor; do
   cp -R "$ORIGEN/$item" "$DESTINO/"
 done
 
@@ -29,6 +29,10 @@ done
 # Servido en /vsl (sin barra final) esa ruta apuntaría a la raíz del sitio, así que se fija a /vsl/.
 sed -i.bak "s|location.replace((m?'landing-movil.html':'landing-escritorio.html')|location.replace((m?'/vsl/landing-movil.html':'/vsl/landing-escritorio.html')|; s|href=\"landing-escritorio.html\"|href=\"/vsl/landing-escritorio.html\"|" "$DESTINO/index.html"
 rm -f "$DESTINO/index.html.bak"
+# La versión pagada guardada (pago.html) usa la misma corrección de rutas.
+if [ -f "$DESTINO/pago.html" ]; then
+  sed -i.bak "s|location.replace((m?'pago-movil.html':'pago-escritorio.html')|location.replace((m?'/vsl/pago-movil.html':'/vsl/pago-escritorio.html')|; s|href=\"pago-escritorio.html\"|href=\"/vsl/pago-escritorio.html\"|" "$DESTINO/pago.html"; rm -f "$DESTINO/pago.html.bak"
+fi
 grep -q "/vsl/landing-movil.html" "$DESTINO/index.html" || { echo "No pude ajustar la redirección de index.html." >&2; exit 1; }
 
 echo "Landing copiada a $DESTINO desde $ORIGEN"
