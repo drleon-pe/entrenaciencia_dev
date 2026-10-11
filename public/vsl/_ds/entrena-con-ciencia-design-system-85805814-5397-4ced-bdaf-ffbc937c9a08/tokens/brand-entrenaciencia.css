@@ -1588,3 +1588,5 @@ html:root body .ecc-hd-lazo{stroke-width:18}
   html:root body .ecc-ap-en-portada .ecc-ap-lado-der{animation-duration:1.8s!important}
   html:root body .ecc-ap-num{transition-duration:.3s!important}
 }
+html:root body .ecc-ap-flechas > path{stroke-width:2.4}
+.ecc-ap-flechas circle{fill:#23D3FF;opacity:0;filter:drop-shadow(0 0 4px rgba(35,211,255,.9))}

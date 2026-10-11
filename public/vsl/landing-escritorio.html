@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Escritorio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=131">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=132">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -73,7 +73,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=131">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=132">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -385,7 +385,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
           </svg>
           <div class="ecc-ap-auto" aria-hidden="true">En automático</div>
           <div class="ecc-ap-tachar" aria-hidden="true"><span>Otra dieta</span><span>Otro plan de ejercicios</span></div>
-          <svg class="ecc-ap-flechas" aria-hidden="true"><defs><marker id="apPunta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#017FA7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><path pathLength="100"/><path pathLength="100"/><path pathLength="100"/></svg>
+          <svg class="ecc-ap-flechas" aria-hidden="true"><defs><marker id="apPunta" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M0 0 L10 5 L0 10 Z" fill="#017FA7"/></marker></defs><path pathLength="100"/><path pathLength="100"/><path pathLength="100"/><circle r="4"/><circle r="4"/><circle r="4"/></svg>
           <div class="ecc-ap-equipo" aria-hidden="true"><figure><img src="assets/dr-gonzalo-leon-equipo.jpg" alt=""><figcaption>Ciencia del<br>deporte</figcaption></figure><figure><img src="assets/rafaela-silva-equipo.jpg" alt=""><figcaption>Nutrición</figcaption></figure><figure><img src="assets/ana-paula-ceballos-equipo.jpg" alt=""><figcaption>Neurociencia</figcaption></figure></div>
           <div class="ecc-ap-dias" aria-hidden="true"><div class="ecc-ap-dias-n"><b>0</b><span>días</span></div><div class="ecc-ap-barra"><i></i><u></u><em style="left:calc(60/66*100%)">60</em></div></div>
           </div>
@@ -1358,14 +1358,15 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       raf=0;
       var tt=T, t=T-1;   /* tt: índice de texto (0 = portada); t: línea de tiempo del dibujo */
       /* Cada transición ocurre ENTRE dos pasos; en el centro de cada paso (donde se acomoda el scroll) la imagen queda quieta y completa. */
-      var abre=ease(cl(t/.3)), sube=ease(cl((t-.08)/.34));
+      /* 1) se levanta la tapa  2) el cerebro sale por arriba de la cabeza  3) la cabeza se desvanece y el cerebro va al centro */
+      var abre=ease(cl((t+.48)/.3)), salida=ease(cl((t+.25)/.38)), sube=ease(cl((t-.22)/.28));
       var sVia=cl((t-.6)/.5), sBg=cl((t-.85)/.5), sAuto=cl((t-1.6)/.6), sDias=cl((t-2.6)/.8), sMeta=cl((t-4.6)/.6), sFin=cl((t-5.6)/.7), baja=cl((t-2.6)/.6)*(1-sFin);
       /* tapa: gira hacia atrás desde la nuca y se va */
       tapa.setAttribute('transform','translate('+(abre*50)+' '+(-abre*170)+') rotate('+(-abre*30)+' 787 168)');
       tapa.style.opacity=(1-cl((abre-.35)/.3)).toFixed(3);
-      cab.style.opacity=(1-cl((sube-.15)/.35)).toFixed(3);
+      cab.style.opacity=(1-cl((t-.08)/.16)).toFixed(3);
       /* cerebro: de dentro de la cabeza al centro, y se achica un poco cuando aparece el contador */
-      var s=lerp(.27,.4,sube)*(1-baja*.14), x=lerp(326,500-1629*s/2,sube), y=lerp(8,40,sube)-baja*60;
+      var s=lerp(.27,.4,sube)*(1-baja*.14), x=lerp(326,500-1629*s/2,sube), y=lerp(lerp(8,-70,salida),40,sube)-baja*60;
       cer.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') scale('+s.toFixed(4)+')');
       callout(cp,230,450,-1,x,y,s); callout(cb,712,600,1,x,y,s);
       var v={'--tachar':cl((t-3.55)/.4)*(1-cl((t-4.6)/.35)),'--raya':cl((t-3.95)/.45),'--lazo':cl((t-1.65)/.7)*(1-cl((t-2.6)/.4)),'--equipo':cl((t-6.85)/.45),'--abierto':sube,'--pfc':cl((t-.2)/.25)*(1-.72*sVia)*(1-sFin),'--bgl':sBg*(1-sFin),'--via':sVia,'--dudas':cl((t-.2)/.25)*(1-sVia),'--auto':sAuto*(1-cl((t-2.6)/.4)),
@@ -1393,9 +1394,10 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       /* último paso: tres flechas salen del logo hacia cada profesional */
       var fl=box.querySelector('.ecc-ap-flechas'), lg=box.querySelector('.ecc-hd-logo'), fotos=box.querySelectorAll('.ecc-ap-equipo img'), vb=box.querySelector('.ecc-ap-vis').getBoundingClientRect();
       if(fl&&lg&&fotos.length){var L=lg.getBoundingClientRect(), ox=L.left+L.width/2-vb.left, oy=L.bottom-vb.top+6, pr=cl((t-6.55)/.45);
-        [].forEach.call(fl.querySelectorAll('path:not(marker path)'),function(p,i){var F=fotos[i].getBoundingClientRect(), fx=F.left+F.width/2-vb.left, fy=F.top-vb.top-8, my=(oy+fy)/2;
+        [].forEach.call(fl.querySelectorAll('path:not(marker path)'),function(p,i){var F=fotos[i].getBoundingClientRect(), fx=F.left+F.width/2-vb.left, fy=F.top-vb.top-12, my=(oy+fy)/2;
           p.setAttribute('d','M'+ox.toFixed(1)+' '+oy.toFixed(1)+' C'+ox.toFixed(1)+' '+my.toFixed(1)+' '+fx.toFixed(1)+' '+my.toFixed(1)+' '+fx.toFixed(1)+' '+fy.toFixed(1));
-          var k=cl((pr-i*.12)/.76); if(k>=1){p.style.strokeDasharray='5 4';p.style.strokeDashoffset=(-(vivo*9)%9).toFixed(2);}else{p.style.strokeDasharray='';p.style.strokeDashoffset=(100-100*k).toFixed(1);} p.style.opacity=k>0?1:0; p.setAttribute('marker-end',k>.96?'url(#apPunta)':'');});}
+          var k=cl((pr-i*.12)/.76); p.style.strokeDasharray='';p.style.strokeDashoffset=(100-100*k).toFixed(1); p.style.opacity=k>0?1:0; p.setAttribute('marker-end',k>.96?'url(#apPunta)':'');
+          var dot=fl.querySelectorAll('circle')[i]; if(dot&&p.getTotalLength){if(k>=1){var Ln=p.getTotalLength(), ff=(vivo*.45+i*.33)%1, pt=p.getPointAtLength(Ln*ff*.9); dot.setAttribute('cx',pt.x.toFixed(1)); dot.setAttribute('cy',pt.y.toFixed(1)); dot.style.opacity=Math.sin(ff*Math.PI).toFixed(2);} else dot.style.opacity=0;}});}
       var act=Math.min(n-1,Math.floor(tt));
       ts.forEach(function(el,i){var c=i+.5, d=Math.abs(tt-c); var o=cl(1-(d-.3)/.2); if(i===0&&tt<.5)o=1; if(i===n-1&&tt>n-.5)o=1; el.style.opacity=o.toFixed(3); el.style.setProperty('--ty',((tt<c?1:-1)*(1-o)*14).toFixed(1)+'px'); el.setAttribute('aria-hidden',i===act?'false':'true');});
       dots.forEach(function(el,i){el.classList.toggle('on',i===act);});
@@ -1406,6 +1408,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     function suave(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
     function irA(i,rapido){i=Math.max(0,Math.min(n-1,i)); if(i===act&&!rapido) return; act=i;
       var a0=T, a1=i+.5, t0=performance.now(), dur=rapido?0:Math.min(2600,DUR*Math.max(.6,Math.abs(a1-a0)));
+      if(!rapido&&a0<1&&a1>=1.5&&a1-a0<=1.05) dur=2300;   /* abrir la cabeza y sacar el cerebro va más lento */
       nums.forEach(function(b,k){b.classList.toggle('on',k===i-1);b.setAttribute('aria-current',k===i-1?'step':'false');});
       prev.disabled=i===0; next.disabled=i===n-1; next.querySelector('span').textContent=i===0?'Empezar':i===n-1?'Listo':'Siguiente';
       lIzq.disabled=i===0; lDer.disabled=i===n-1; box.classList.toggle('ecc-ap-en-portada',i===0);
@@ -1418,6 +1421,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     st.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)irA(act+(dx<0?1:-1));},{passive:true});
     st.setAttribute('tabindex','0'); st.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();irA(act+1)}if(e.key==='ArrowLeft'){e.preventDefault();irA(act-1)}});
     irA(0,true);   /* arranca en la portada, con la cabeza cerrada */
+    box.__T=function(v){cancelAnimationFrame(anim);T=v;pintar();};
     /* Movimiento continuo: mientras el escenario está a la vista, el dibujo se repinta en cada cuadro para que cada paso tenga su bucle. */
     var visible=false, lazo=0, corriendo=false;
     function enVista(){var r=st.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;}
