@@ -1596,3 +1596,7 @@ html:root body .ecc-ap-flechas > path{stroke-width:2.4}
 html:root body header,html:root body .m-cta-fixed,html:root body .d-cta-barra,html:root body .ecc-island{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 html:root body .m-cta-fixed.m-cta-barra{background:rgba(10,37,64,.985)!important}
 #empezar{scroll-margin-top:96px}
+/* preguntas del paso 1: dentro del área visible aunque floten */
+html:root body .ecc-ap-vis{contain:none!important}
+html:root body .ecc-ap-dudas{top:14px!important;padding:8px 6px;z-index:3}
+@media (max-width:767px){html:root body .ecc-ap-dudas{top:10px!important}}
