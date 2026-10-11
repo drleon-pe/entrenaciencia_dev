@@ -92,7 +92,7 @@
     }, atribucion()), {}));
     if (LOCAL) return;
     /* a Vercel solo los eventos que mueven el negocio (el plan incluye eventos con 2 propiedades) */
-    if (/^(checkout_click|cta_click|video_play|scroll_75)$/.test(tipo) && window.va) {
+    if (/^(checkout_click|cta_click|video_play|scroll_75|lista_espera)$/.test(tipo) && window.va) {
       try { window.va('event', { name: tipo, data: { detalle: (extra || '').slice(0, 100), fuente: (atribucion().utm_source || 'directo') } }); } catch (e) {}
     }
     try {
@@ -122,7 +122,7 @@
   var vioVideo = false;
   document.addEventListener('click', function (e) {
     var t = e.target; if (!t || !t.closest) return;
-    var cta = t.closest('a.ecc-cta, .m-cta-barra-btn, a[href="#empezar"], [data-ecc-checkout]');
+    var cta = t.closest('a.ecc-cta, .m-cta-barra-btn, a[href="#empezar"], [data-ecc-checkout], [data-ecc-lista]');
     if (cta) {
       var texto = (cta.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60);
       var seccion = (cta.closest('section[data-screen-label]') || {}).dataset;
