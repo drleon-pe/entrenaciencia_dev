@@ -1590,3 +1590,8 @@ html:root body .ecc-hd-lazo{stroke-width:18}
 }
 html:root body .ecc-ap-flechas > path{stroke-width:2.4}
 .ecc-ap-flechas circle{fill:#23D3FF;opacity:0;filter:drop-shadow(0 0 4px rgba(35,211,255,.9))}
+/* rendimiento: sombra del cerebro como CSS barato en vez de filtro SVG */
+.ecc-ap-vis{contain:layout paint}
+/* rendimiento: las barras fijas ya son casi opacas; el desenfoque de fondo se recalculaba en cada cuadro */
+html:root body header,html:root body .m-cta-fixed,html:root body .d-cta-barra,html:root body .ecc-island{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html:root body .m-cta-fixed.m-cta-barra{background:rgba(10,37,64,.985)!important}
