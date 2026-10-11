@@ -1311,7 +1311,7 @@ html:root body section[data-screen-label] p.ecc-hero-lema{text-align:center!impo
 .ecc-ap-hint{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#4F6573;opacity:var(--hint)}
 .ecc-ap-hint svg{animation:ecc-baja 1.6s ease-in-out infinite}
 @keyframes ecc-baja{0%,100%{transform:translateY(-2px);opacity:.6}50%{transform:translateY(3px);opacity:1}}
-@media (prefers-reduced-motion:reduce){.ecc-ap-hint svg,.ecc-ap-ondas circle{animation:none}}
+
 @media (max-width:767px){
   .ecc-ap{height:calc(var(--n) * 36vh + 100vh)}
   .ecc-ap-stage{padding:84px 16px 96px;gap:8px}
@@ -1403,7 +1403,7 @@ html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema b{f
 .ecc-ap-cred{margin:0!important;font-size:10.5px!important;line-height:1.3!important;color:#6B7F8C!important;text-align:center!important;opacity:var(--abierto)}
 .ecc-ap-cred a{color:inherit;text-decoration:underline}
 @media (max-width:767px){.ecc-hd{max-height:300px}.ecc-hd-call text{font-size:27px}.ecc-ap-cred{font-size:9.5px!important}}
-@media (prefers-reduced-motion:reduce){.ecc-hd-ondas circle{animation:none}}
+
 
 .ecc-hd-cara path,.ecc-hd-cara circle{fill:none;stroke:#0A2540;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .ecc-hd-oreja{fill:#F1F6F9!important}
@@ -1496,7 +1496,7 @@ html:root body .ecc-ap-t.ecc-ap-intro{display:flex!important;flex-direction:colu
 .ecc-ap-en-portada .ecc-ap-lado-der{background:#0A2540;border-color:#0A2540;color:#fff;animation:ecc-llama 1.8s ease-in-out infinite}
 @keyframes ecc-llama{0%,100%{box-shadow:0 0 0 0 rgba(1,127,167,.45),0 10px 26px -12px rgba(10,37,64,.45)}50%{box-shadow:0 0 0 14px rgba(1,127,167,0),0 10px 26px -12px rgba(10,37,64,.45)}}
 @media (max-width:767px){.ecc-ap-lado{width:44px;height:44px;margin-top:-22px}.ecc-ap-lado-izq{left:-4px}.ecc-ap-lado-der{right:-4px}.ecc-ap-intro-t{font-size:clamp(21px,6vw,26px)}}
-@media (prefers-reduced-motion:reduce){.ecc-ap-intro-s::after,.ecc-ap-en-portada .ecc-ap-lado-der{animation:none}}
+
 @media (max-width:767px){
   .ecc-ap-lado{top:auto;bottom:6%;margin-top:0}
   .ecc-ap-intro-s{font-size:10.5px;letter-spacing:.12em;white-space:nowrap}
@@ -1512,7 +1512,7 @@ html:root body .ecc-ap-auto{right:auto!important;left:62%!important;top:70%!impo
 /* la flecha "siguiente" siempre invita a avanzar */
 .ecc-ap-lado-der:not(:disabled) svg{animation:ecc-empuja 1.4s ease-in-out infinite}
 .ecc-ap-next:not(:disabled) svg{animation:ecc-empuja 1.4s ease-in-out infinite}
-@media (prefers-reduced-motion:reduce){.ecc-ap-lado-der svg,.ecc-ap-next svg{animation:none!important}}
+
 /* ===== Navegación: solo flechas a los costados del dibujo + indicador de progreso ===== */
 html:root body .ecc-ap-prev,html:root body .ecc-ap-next{display:none!important}
 html:root body .ecc-ap-pie{margin-top:6px}
@@ -1559,13 +1559,32 @@ html:root body .ecc-ap-num.on{width:28px!important;background:#0A2540}
 .ecc-ap-equipo figure:nth-child(1){animation:ecc-flota 4.2s ease-in-out infinite}
 .ecc-ap-equipo figure:nth-child(2){animation:ecc-flota 4.2s ease-in-out -1.4s infinite}
 .ecc-ap-equipo figure:nth-child(3){animation:ecc-flota 4.2s ease-in-out -2.8s infinite}
-@media (prefers-reduced-motion:reduce){.ecc-hd,.ecc-ap-dudas span,.ecc-ap-auto,.ecc-ap-barra i,.ecc-ap-tachar span,.ecc-ap-barra u,.ecc-hd-logo,.ecc-ap-equipo figure{animation:none!important}}
+
 @keyframes ecc-logo-vivo{0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 0 rgba(35,211,255,0))}50%{transform:scale(1.08) rotate(-4deg);filter:drop-shadow(0 0 14px rgba(35,211,255,.55))}}
 html:root body .ecc-hd-logo{animation:ecc-logo-vivo 3s ease-in-out infinite}
 html:root body .ecc-hd-lazo{stroke-width:18}
-@media (prefers-reduced-motion:reduce){html:root body .ecc-hd-logo{animation:none}}
+
 /* paso 7: ondas que salen del logo */
 .ecc-hd-halo{opacity:calc(var(--fin) * (1 - var(--equipo)))}
 .ecc-hd-halo circle{fill:none;stroke:#23D3FF;stroke-width:3;transform-box:fill-box;transform-origin:center;animation:ecc-onda 3s cubic-bezier(.2,.7,.3,1) infinite}
 .ecc-hd-halo circle:nth-child(2){animation-delay:1.5s}
-@media (prefers-reduced-motion:reduce){.ecc-hd-halo circle{animation:none}}
+
+
+/* El mecanismo se mueve siempre (también con 'reducir movimiento' del teléfono): son movimientos suaves que explican el contenido. */
+@media (prefers-reduced-motion:reduce){
+  html:root body .ecc-hd{animation-duration:6s!important}
+  html:root body .ecc-hd-ondas circle{animation-duration:2.8s!important}
+  html:root body .ecc-hd-halo circle{animation-duration:3s!important}
+  html:root body .ecc-hd-logo{animation-duration:3s!important}
+  html:root body .ecc-ap-dudas span:nth-child(1){animation-duration:3.6s!important}
+  html:root body .ecc-ap-dudas span:nth-child(2){animation-duration:4.2s!important}
+  html:root body .ecc-ap-auto{animation-duration:2.6s!important}
+  html:root body .ecc-ap-barra i{animation-duration:3.5s!important}
+  html:root body .ecc-ap-tachar span:nth-child(1){animation-duration:4s!important}
+  html:root body .ecc-ap-tachar span:nth-child(2){animation-duration:4.6s!important}
+  html:root body .ecc-ap-barra u{animation-duration:2.4s!important}
+  html:root body .ecc-ap-equipo figure{animation-duration:4.2s!important}
+  html:root body .ecc-ap-intro-s::after,html:root body .ecc-ap-lado-der:not(:disabled) svg{animation-duration:1.4s!important}
+  html:root body .ecc-ap-en-portada .ecc-ap-lado-der{animation-duration:1.8s!important}
+  html:root body .ecc-ap-num{transition-duration:.3s!important}
+}
