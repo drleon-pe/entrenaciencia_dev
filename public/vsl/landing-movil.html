@@ -392,7 +392,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
                 <ellipse class="ecc-hd-bgglow" cx="760" cy="560" rx="420" ry="300" fill="url(#hdBg)"/>
                 <path class="ecc-hd-caudado" d="M560 560 C548 430 690 360 830 366 C980 372 1100 436 1112 548 C1122 640 1060 704 950 732"/>
                 <ellipse class="ecc-hd-putamen" cx="712" cy="600" rx="150" ry="98"/>
-                <path class="ecc-hd-lazo" d="M712 400 a240 200 0 1 1 -0.1 0" pathLength="100"/><path class="ecc-hd-lazo-punta" d="M700 386 L728 400 L700 414"/>
+                <path class="ecc-hd-lazo" d="M712 400 a240 200 0 1 1 -0.1 0" pathLength="100"/><path class="ecc-hd-lazo-punta" d="M-14 -15 L14 0 L-14 15"/>
               </g>
               <path class="ecc-hd-via" d="M236 448 C330 330 540 380 660 570"/>
               <path class="ecc-hd-via-on" d="M236 448 C330 330 540 380 660 570"/>
@@ -1390,6 +1390,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     var E={hd:box.querySelector('.ecc-hd'),dudas:Q('.ecc-ap-dudas span'),tachar:Q('.ecc-ap-tachar span'),equipo:Q('.ecc-ap-equipo figure'),auto:box.querySelector('.ecc-ap-auto'),
       barI:box.querySelector('.ecc-ap-barra i'),barU:box.querySelector('.ecc-ap-barra u'),ondas:Q('.ecc-hd-ondas circle'),halo:Q('.ecc-hd-halo circle'),logo:box.querySelector('.ecc-hd-logo'),
       flechaDer:Q('.ecc-ap-lado-der svg'),lazo:box.querySelector('.ecc-hd-lazo'),fl:box.querySelector('.ecc-ap-flechas'),fotos:Q('.ecc-ap-equipo img'),vis:box.querySelector('.ecc-ap-vis')};
+    E.punta=box.querySelector('.ecc-hd-lazo-punta'); E.lazoLen=E.lazo&&E.lazo.getTotalLength?E.lazo.getTotalLength():0;
     E.flPaths=E.fl?[].slice.call(E.fl.children).filter(function(c){return c.tagName.toLowerCase()==='path'}):[]; E.flDots=E.fl?[].slice.call(E.fl.querySelectorAll('circle')):[];
     [E.hd,E.auto,E.barI,E.barU,E.logo].concat(E.dudas,E.tachar,E.equipo,E.ondas,E.halo,E.flechaDer).forEach(function(el){if(el){el.style.animation='none';}});
     E.ondas.concat(E.halo,[E.logo]).forEach(function(c){if(c){c.style.transformBox='fill-box';c.style.transformOrigin='center';}});
@@ -1441,7 +1442,12 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       E.flechaDer.forEach(function(el){el.style.transform='translate3d('+(Math.max(0,S(vivo*P2/1.4))*6).toFixed(2)+'px,0,0)';});
       if(sVia>0&&sFin<1&&via.getPointAtLength){parts.forEach(function(c,i){var f=enBucle?((vivo*.32+i*.2)%1):((sVia*1.6+i*.2)%1); var pt=via.getPointAtLength(len*f); c.setAttribute('cx',pt.x.toFixed(1)); c.setAttribute('cy',pt.y.toFixed(1)); c.style.opacity=Math.sin(f*Math.PI).toFixed(2);});}
       else parts.forEach(function(c){c.style.opacity=0});
-      if(E.lazo){var lv=+V['--lazo']; if(lv>=1){E.lazo.style.strokeDasharray='72 28';E.lazo.style.strokeDashoffset=(-(vivo*34)%100).toFixed(1);}else if(E.lazo.style.strokeDasharray){E.lazo.style.strokeDasharray='';E.lazo.style.strokeDashoffset='';}}
+      if(E.lazo){var lv=+V['--lazo'], tip;
+        if(lv>=1){var s0=(vivo*34)%100;E.lazo.style.strokeDasharray='72 28';E.lazo.style.strokeDashoffset=(-s0).toFixed(1);tip=(s0+72)%100;}
+        else{if(E.lazo.style.strokeDasharray){E.lazo.style.strokeDasharray='';E.lazo.style.strokeDashoffset='';}tip=lv*100;}
+        /* la punta de la flecha va siempre en el extremo de la línea negra, orientada según su recorrido */
+        if(E.punta&&E.lazoLen&&lv>0){var dd=E.lazoLen*tip/100, a1=E.lazo.getPointAtLength(Math.max(0,dd-2)), a2=E.lazo.getPointAtLength(Math.min(E.lazoLen,dd+.01)), p=E.lazo.getPointAtLength(dd), ang=Math.atan2(a2.y-a1.y,a2.x-a1.x)*180/Math.PI;
+          E.punta.setAttribute('transform','translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+') rotate('+ang.toFixed(1)+')');}}
       if(pr>=1&&geo){E.flDots.forEach(function(dot,i){var p=E.flPaths[i]; if(!p||!flLen[i])return; var kk=cl((pr-i*.12)/.76); if(kk<1){dot.style.opacity=0;return;} var ff=(vivo*.45+i*.33)%1, pt=p.getPointAtLength(flLen[i]*ff*.9); dot.setAttribute('cx',pt.x.toFixed(1)); dot.setAttribute('cy',pt.y.toFixed(1)); dot.style.opacity=Math.sin(ff*Math.PI).toFixed(2);});}
       else E.flDots.forEach(function(d){d.style.opacity=0});
     }
