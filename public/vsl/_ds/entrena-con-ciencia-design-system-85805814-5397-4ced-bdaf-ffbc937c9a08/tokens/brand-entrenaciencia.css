@@ -1655,3 +1655,8 @@ html:root body .ecc-lista-nota i{flex:none}
 .ecc-cel select{text-overflow:clip;white-space:nowrap}
 html:root body section[data-screen-label] .ecc-lista-card p.ecc-lista-tit{font:700 clamp(22px,2.2vw,28px)/1.2 var(--font-display)!important;color:#0A2540!important}
 html:root body section[data-screen-label] .ecc-lista-card p.ecc-lista-sub{font-size:16px!important;color:#3E5260!important;text-align:center!important}
+/* barra de días en escala de 12 semanas (84 días): 66 días = mediana; el tramo amarillo completa las 12 semanas */
+html:root body .ecc-ap-barra i{width:calc(var(--prog) * 66 / 84 * 100%)}
+html:root body .ecc-ap-barra u{width:calc(100% * var(--meta))}
+html:root body .ecc-ap-barra em{transform:translateX(-100%);white-space:nowrap}
+html:root body .ecc-ap-barra em::before{left:calc(100% - 1px)}
