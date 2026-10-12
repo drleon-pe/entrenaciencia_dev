@@ -1250,3 +1250,4 @@ footer p {
 .panel-ecc h1, .panel-ecc h2 { letter-spacing: normal; text-transform: none; line-height: 1.3; margin: 0; }
 .panel-ecc h1 { font-size: 1.5rem; font-weight: 500; }
 .panel-ecc h2 { font-size: 1rem; font-weight: 500; }
+.panel-ecc h1.panel-titulo { font-size: 1.125rem; }
