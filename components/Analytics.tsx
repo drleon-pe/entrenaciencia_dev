@@ -9,6 +9,9 @@ export default function Analytics() {
   const pathname = usePathname();
 
   useEffect(() => {
+    // The private dashboard is not part of the site's traffic
+    if (pathname.startsWith('/data')) return;
+
     // Capture URL UTMs first (handles direct landings AND mid-session relandings)
     captureUtm();
 

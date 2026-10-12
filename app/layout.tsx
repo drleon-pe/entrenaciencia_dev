@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
 import Analytics from "@/components/Analytics";
-import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import VercelAnalytics from "@/components/VercelAnalytics";
 import "./globals.css";
 
 const poppins = Poppins({
