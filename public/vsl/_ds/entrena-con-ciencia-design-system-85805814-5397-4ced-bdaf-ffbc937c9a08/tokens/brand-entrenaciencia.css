@@ -1671,3 +1671,5 @@ html:root body section[data-screen-label] .ecc-lista-items li,html:root body sec
 html:root body section[data-screen-label] .ecc-lista-items strong{font-weight:700!important;color:#0A2540!important}
 /* botón de la cabecera: mismo estilo que los botones de la página (esquinas de 8px, mayúsculas) */
 html:root body .ecc-hd-lista{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+/* barra superior: "Entrena con Ciencia" todo en blanco */
+html:root body header :is(span,div,b,strong){color:#FFFFFF!important}
