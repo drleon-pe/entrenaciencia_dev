@@ -1618,7 +1618,7 @@ html:root body .ecc-ap-dudas{top:14px!important;padding:8px 6px;z-index:3}
 .ecc-hero-baja.fuera{opacity:0;pointer-events:none}
 html:root body section[data-screen-label^="01"] .ecc-split > div > .ecc-hero-baja{order:2}
 /* popup */
-html.ecc-lista-abierta,html.ecc-lista-abierta body{overflow:hidden}
+
 .ecc-lista-modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
 .ecc-lista-modal[hidden]{display:none!important}
 .ecc-lista-fondo{position:absolute;inset:0;background:rgba(1,13,21,.62);opacity:0;transition:opacity .22s ease}
