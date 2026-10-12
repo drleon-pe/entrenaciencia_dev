@@ -1687,3 +1687,8 @@ html:root body .ecc-hero-baja{transition:opacity .3s ease!important}
   html:root body section[data-screen-label^="01"] > .ecc-split > div:has(.ecc-lista-card){height:100%}
   html:root body section[data-screen-label^="01"] .ecc-lista-card{margin-top:auto!important}
 }
+/* escritorio: los íconos de confianza quedan centrados entre el texto del hero y la tarjeta */
+@media (min-width:768px){
+  html:root body section[data-screen-label^="01"] > .ecc-split > div:has(.ecc-lista-card) > .ecc-trust{margin-top:auto!important;margin-bottom:auto!important}
+  html:root body section[data-screen-label^="01"] .ecc-lista-card{margin-top:0!important}
+}
