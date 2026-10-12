@@ -1673,3 +1673,5 @@ html:root body section[data-screen-label] .ecc-lista-items strong{font-weight:70
 html:root body .ecc-hd-lista{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
 /* barra superior: "Entrena con Ciencia" todo en blanco */
 html:root body header :is(span,div,b,strong){color:#FFFFFF!important}
+html:root body .ecc-hero-baja svg{animation:none!important}
+html:root body .ecc-hero-baja{transition:opacity .3s ease!important}

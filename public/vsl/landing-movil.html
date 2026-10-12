@@ -23,7 +23,7 @@
 <link rel="icon" href="https://www.entrenaciencia.com/vsl/assets/isotipo-ecc.png">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=145">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=146">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -94,7 +94,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=145">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=146">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -1604,9 +1604,14 @@ document.addEventListener('click',function(e){
   });
   [form.nombre,form.correo,form.whatsapp,form.consentimiento].forEach(function(el){el.addEventListener('input',function(){marca(el,false)});el.addEventListener('change',function(){marca(el,false)});});
 })();
-/* Indicador de scroll del hero móvil */
-(function(){var b=document.querySelector('.ecc-hero-baja'); if(!b) return; b.addEventListener('click',function(e){e.preventDefault(); var t=document.getElementById('ecc-tras-hero'), hd=document.querySelector('header'); var y=t.getBoundingClientRect().top+scrollY-(hd?hd.offsetHeight:0); scrollTo({top:y,behavior:'smooth'});});
-  addEventListener('scroll',function(){b.classList.toggle('fuera',scrollY>80)},{passive:true});})();
+/* Indicador de scroll del hero móvil (el hero lo vuelve a pintar support.js, así que se busca el elemento en cada cuadro) */
+(function(){
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ecc-hero-baja'); if(!b) return; e.preventDefault(); var t=document.getElementById('ecc-tras-hero'), hd=document.querySelector('header'); if(!t) return; var y=t.getBoundingClientRect().top+scrollY-(hd?hd.offsetHeight:0); scrollTo({top:y,behavior:'smooth'});});
+  (function mover(t){ var b=document.querySelector('.ecc-hero-baja');
+    if(b){ b.classList.toggle('fuera',scrollY>80); var sv=b.querySelector('svg');
+      if(sv&&scrollY<400){ var k=(Math.sin(t/1000*Math.PI*2/1.6)+1)/2; sv.style.animation='none'; sv.style.transform='translate3d(0,'+(k*5-2).toFixed(2)+'px,0)'; sv.style.opacity=(.6+.4*k).toFixed(2);} }
+    requestAnimationFrame(mover); })(performance.now());
+})();
 </script>
 </body>
 </html>
