@@ -1681,3 +1681,9 @@ html:root body .ecc-hero-baja{transition:opacity .3s ease!important}
   html:root body header img[alt="Entrena con Ciencia"]{width:34px!important;height:34px!important}
   html:root body header span[aria-hidden="true"]{font-size:15px!important;gap:4px!important}
 }
+/* escritorio: la tarjeta de la lista de espera baja hasta alinearse con el final de "Qué incluye" */
+@media (min-width:768px){
+  html:root body section[data-screen-label^="01"] > .ecc-split{align-items:stretch!important}
+  html:root body section[data-screen-label^="01"] > .ecc-split > div:has(.ecc-lista-card){height:100%}
+  html:root body section[data-screen-label^="01"] .ecc-lista-card{margin-top:auto!important}
+}
