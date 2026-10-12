@@ -1675,3 +1675,9 @@ html:root body .ecc-hd-lista{border-radius:8px!important;text-transform:uppercas
 html:root body header :is(span,div,b,strong){color:#FFFFFF!important}
 html:root body .ecc-hero-baja svg{animation:none!important}
 html:root body .ecc-hero-baja{transition:opacity .3s ease!important}
+/* barra superior móvil más alta */
+@media (max-width:767px){
+  html:root body .m-shell > header,html:root body header[style*="position:sticky"]{padding-top:16px!important;padding-bottom:16px!important;min-height:64px}
+  html:root body header img[alt="Entrena con Ciencia"]{width:34px!important;height:34px!important}
+  html:root body header span[aria-hidden="true"]{font-size:15px!important;gap:4px!important}
+}
