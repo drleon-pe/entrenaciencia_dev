@@ -208,8 +208,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
       {error && <p className="text-sm text-[#b42318]">No se pudieron cargar los datos: {error}</p>}
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        <Tarjeta titulo="Visitantes" valor={k ? String(k.visitantes) : '–'} nota="navegadores únicos" />
-        <Tarjeta titulo="Visitas" valor={k ? String(k.visitas) : '–'} />
+        <Tarjeta titulo="Personas" valor={k ? String(k.visitantes) : '–'} nota="distintas (por dispositivo)" />
+        <Tarjeta titulo="Visitas" valor={k ? String(k.visitas) : '–'} nota={k ? `${k.personasRecurrentes} personas volvieron` : undefined} />
         <Tarjeta titulo="Sesiones" valor={k ? String(k.sesiones) : '–'} />
         <Tarjeta titulo="Inscritos" valor={k ? String(k.inscritos) : '–'} nota="lista de espera" />
         <Tarjeta titulo="Tasa de inscripción" valor={k ? `${k.tasaInscripcion}%` : '–'} nota="inscritos / visitantes" />
@@ -271,9 +271,55 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         </div>
       </div>
 
+      <Seccion titulo="Canales de tráfico">
+        <div className="overflow-x-auto -mx-1">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-[#5b6b76] text-[13px]">
+                <th className="font-medium px-1 py-2">Canal</th>
+                <th className="font-medium px-1 py-2 text-right">Personas</th>
+                <th className="font-medium px-1 py-2 text-right">% del total</th>
+                <th className="font-medium px-1 py-2 text-right">Visitas</th>
+                <th className="font-medium px-1 py-2 text-right">Leyeron todo</th>
+                <th className="font-medium px-1 py-2 text-right">Inscritos</th>
+                <th className="font-medium px-1 py-2 text-right">Tasa</th>
+              </tr>
+            </thead>
+            <tbody>
+              {datos?.canales.map((c) => (
+                <tr key={c.nombre} className="border-t border-[#eef3f6]">
+                  <td className="px-1 py-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{c.nombre}</span>
+                    </div>
+                    <div className="h-1.5 rounded bg-[#eef3f6] mt-1 max-w-48">
+                      <div className="h-1.5 rounded bg-[#017FA7]" style={{ width: `${totalVisitantes ? (c.personas / totalVisitantes) * 100 : 0}%` }} />
+                    </div>
+                  </td>
+                  <td className="px-1 py-2 text-right tabular-nums font-medium">{c.personas}</td>
+                  <td className="px-1 py-2 text-right tabular-nums text-[#5b6b76]">
+                    {totalVisitantes ? Math.round((c.personas / totalVisitantes) * 100) : 0}%
+                  </td>
+                  <td className="px-1 py-2 text-right tabular-nums">{c.visitas}</td>
+                  <td className="px-1 py-2 text-right tabular-nums">{c.final}</td>
+                  <td className={`px-1 py-2 text-right tabular-nums ${c.inscritos ? 'text-[#0f9d58] font-medium' : ''}`}>{c.inscritos}</td>
+                  <td className="px-1 py-2 text-right tabular-nums">{c.tasa}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {datos && !datos.canales.length && <p className="text-sm text-[#7a8a95] px-1 py-3">Sin visitas en este periodo.</p>}
+        </div>
+        <p className="text-xs text-[#7a8a95] mt-3">
+          Cada persona se cuenta una vez, en el canal por el que llegó la primera vez. &quot;Link directo&quot;: escribieron o pegaron el link, o
+          vino de una app que no avisa su origen (p. ej. WhatsApp). Persona = un dispositivo/navegador: la misma persona en el celular y en la
+          computadora cuenta dos veces.
+        </p>
+      </Seccion>
+
       <Seccion titulo="De dónde vienen">
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          <Lista titulo="Fuente" filas={datos?.desglose.fuente ?? []} total={totalVisitantes} />
+          <Lista titulo="Etiqueta UTM" filas={datos?.desglose.utm ?? []} total={totalVisitantes} />
           <Lista titulo="Campaña" filas={datos?.desglose.campana ?? []} total={totalVisitantes} />
           <Lista titulo="País" filas={datos?.desglose.pais ?? []} total={totalVisitantes} />
           <Lista titulo="Dispositivo" filas={datos?.desglose.dispositivo ?? []} total={totalVisitantes} />
@@ -293,7 +339,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                     <th className="font-medium px-1 py-2">Correo</th>
                     <th className="font-medium px-1 py-2">WhatsApp</th>
                     <th className="font-medium px-1 py-2">País</th>
-                    <th className="font-medium px-1 py-2">Origen</th>
+                    <th className="font-medium px-1 py-2">Canal</th>
                     <th className="px-1 py-2" />
                   </tr>
                 </thead>

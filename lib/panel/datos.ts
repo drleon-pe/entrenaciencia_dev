@@ -65,6 +65,34 @@ function app(ua: string): string {
   return 'Navegador';
 }
 
+/**
+ * Canal de llegada de una visita. Prioridad: etiqueta UTM del link → app desde la que se abrió
+ * (navegador interno de Instagram/TikTok/Facebook) → sitio de procedencia → link directo.
+ */
+export function canal(v: Record<string, unknown>): string {
+  const t = (x: unknown) => (typeof x === 'string' ? x.toLowerCase() : '');
+  const utm = t(v.utm_source) || t(v.first_touch_utm_source);
+  const ua = t(v.user_agent);
+  let host = '';
+  try {
+    host = new URL(String(v.referrer ?? '')).hostname.replace(/^www\./, '').toLowerCase();
+  } catch {}
+  const es = (utms: string[], hosts: RegExp, uas?: RegExp) =>
+    utms.some((u) => utm === u || utm.startsWith(u)) || hosts.test(host) || (uas ? uas.test(ua) : false);
+  if (es(['ig', 'instagram'], /(^|\.)instagram\.com$/, /instagram/)) return 'Instagram';
+  if (es(['tiktok', 'tt'], /(^|\.)tiktok\.com$/, /tiktok|musical_ly|bytedance/)) return 'TikTok';
+  if (es(['fb', 'facebook', 'meta'], /(^|\.)(facebook\.com|fb\.com|fb\.me)$/, /fban|fbav/)) return 'Facebook';
+  if (es(['wa', 'whatsapp'], /(^|\.)(whatsapp\.com|wa\.me)$/, /whatsapp/)) return 'WhatsApp';
+  if (es(['yt', 'youtube'], /(^|\.)(youtube\.com|youtu\.be)$/)) return 'YouTube';
+  if (es(['google'], /(^|\.)google\./)) return 'Google';
+  if (es(['email', 'correo', 'newsletter'], /mail\./)) return 'Correo';
+  if (utm) return `Otro (${utm})`;
+  if (host === 'entrenaciencia.com') return 'Web entrenaciencia.com';
+  if (host.endsWith('vercel.app')) return 'Link de demo';
+  if (host) return `Otro sitio (${host})`;
+  return 'Link directo';
+}
+
 function ocultarCorreo(c: string): string {
   const [u, d] = c.split('@');
   if (!d) return '***';
@@ -98,7 +126,7 @@ export async function leerPanel({ desde, hasta, incluirEquipo }: Filtros) {
   const rango = (q: any) => q.gte('created_at', desde).lt('created_at', hasta); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   const [visitas, eventos, inscritos] = await Promise.all([
-    todas('page_views', 'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_campaign', (q) =>
+    todas('page_views', 'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_campaign, first_touch_utm_source', (q) =>
       rango(q.like('path', '/vsl%')),
     ),
     todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind', (q) =>
@@ -140,15 +168,9 @@ export function calcularPanel({
   const primera = new Map<string, Fila>();
   for (const v of V) if (!primera.has(s(v.anonymous_id))) primera.set(s(v.anonymous_id), v);
   const visitantes = [...primera.keys()];
-  const fuente = (v: Fila) => {
-    if (s(v.utm_source)) return s(v.utm_source);
-    try {
-      const host = new URL(s(v.referrer)).hostname.replace(/^www\./, '');
-      return host === 'entrenaciencia.com' ? 'Web (inicio)' : host;
-    } catch {
-      return 'Directo';
-    }
-  };
+  // Canal de cada persona = el de su primera visita
+  const canalDe = new Map<string, string>();
+  for (const [id, v] of primera) canalDe.set(id, canal(v));
 
   // Embudo por visitante
   const porVisitante = (pred: (e: Fila) => boolean) => new Set(E.filter(pred).map((e) => s(e.anonymous_id)));
@@ -185,12 +207,27 @@ export function calcularPanel({
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([fecha, d]) => ({ fecha, visitantes: d.visitantes.size, inscritos: d.inscritos }));
 
+  // Personas, visitas, lectura completa e inscritos por canal
+  const finales = scroll(100);
+  const porCanal = new Map<string, { personas: number; visitas: number; final: number; inscritos: number }>();
+  const fila = (c: string) => porCanal.get(c) ?? porCanal.set(c, { personas: 0, visitas: 0, final: 0, inscritos: 0 }).get(c)!;
+  for (const [id, c] of canalDe) {
+    const f = fila(c);
+    f.personas++;
+    if (finales.has(id)) f.final++;
+    if (inscritosIds.has(id)) f.inscritos++;
+  }
+  for (const v of V) fila(canalDe.get(s(v.anonymous_id)) ?? canal(v)).visitas++;
+  const canales = [...porCanal.entries()]
+    .map(([nombre, f]) => ({ nombre, ...f, tasa: f.personas ? Math.round((f.inscritos / f.personas) * 1000) / 10 : 0 }))
+    .sort((a, b) => b.personas - a.personas);
+
   const prim = [...primera.values()];
   const desglose = {
     pais: contar(prim.map((v) => s(v.country) || '?')),
     dispositivo: contar(prim.map((v) => dispositivo(s(v.user_agent), s(v.path)))),
     app: contar(prim.map((v) => app(s(v.user_agent)))),
-    fuente: contar(prim.map(fuente)),
+    utm: contar(prim.map((v) => s(v.utm_source) || s(v.first_touch_utm_source) || '(sin etiqueta)')),
     campana: contar(prim.map((v) => s(v.utm_campaign) || '(sin campaña)')),
   };
 
@@ -203,7 +240,7 @@ export function calcularPanel({
       correo: ocultarCorreo(s(l.email)),
       whatsapp: s(l.whatsapp) ? `${s(l.whatsapp_country_code)} ${ocultarTelefono(s(l.whatsapp))}`.trim() : '',
       pais: s(survey.pais),
-      fuente: s(l.utm_source) || s(l.first_touch_utm_source) || 'Directo',
+      fuente: canalDe.get(s(l.anonymous_id)) ?? canal(l),
       campana: s(l.utm_campaign),
       equipo: internos.has(s(l.anonymous_id)),
     };
@@ -216,7 +253,7 @@ export function calcularPanel({
     lista_espera: 'Se inscribió', salida: 'Salió',
   };
   const actividad = [
-    ...V.slice(-40).map((v) => ({ t: s(v.created_at), quien: s(v.anonymous_id).slice(0, 6), que: 'Entró a la página', detalle: `${s(v.country)} · ${dispositivo(s(v.user_agent), s(v.path))} · ${fuente(v)}` })),
+    ...V.slice(-40).map((v) => ({ t: s(v.created_at), quien: s(v.anonymous_id).slice(0, 6), que: 'Entró a la página', detalle: `${s(v.country)} · ${dispositivo(s(v.user_agent), s(v.path))} · ${canal(v)}` })),
     ...E.slice(-60).map((e) => ({ t: s(e.created_at), quien: s(e.anonymous_id).slice(0, 6), que: NOMBRES[s(e.event_type)] ?? s(e.event_type), detalle: s(e.resource_kind) })),
   ]
     .sort((a, b) => b.t.localeCompare(a.t))
@@ -226,6 +263,7 @@ export function calcularPanel({
     generado: new Date().toISOString(),
     kpis: {
       visitantes: n,
+      personasRecurrentes: [...contar(V.map((v) => s(v.anonymous_id)))].filter((x) => x.n > 1).length,
       visitas: V.length,
       sesiones: new Set(V.map((v) => s(v.session_id))).size,
       inscritos: L.length,
@@ -235,6 +273,7 @@ export function calcularPanel({
     },
     embudo,
     porDia,
+    canales,
     desglose,
     inscritos: listaInscritos,
     actividad,
