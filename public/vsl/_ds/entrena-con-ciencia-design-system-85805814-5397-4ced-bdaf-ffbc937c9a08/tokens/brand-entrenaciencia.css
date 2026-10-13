@@ -1692,3 +1692,28 @@ html:root body .ecc-hero-baja{transition:opacity .3s ease!important}
   html:root body section[data-screen-label^="01"] > .ecc-split > div:has(.ecc-lista-card) > .ecc-trust{margin-top:auto!important;margin-bottom:auto!important}
   html:root body section[data-screen-label^="01"] .ecc-lista-card{margin-top:0!important}
 }
+/* hero móvil: del título a la flecha "Desliza" en la primera pantalla de cualquier celular */
+@media (max-width:767px){
+  html:root body section[data-screen-label^="01"] > .ecc-split{padding-top:clamp(6px,1.4svh,22px)!important}
+  html:root body section[data-screen-label^="01"] .ecc-split > div{gap:clamp(6px,1.4svh,18px)!important}
+  html:root body section[data-screen-label^="01"] h1{font-size:min(10.4vw,4.9svh,46px)!important}
+  html:root body section[data-screen-label^="01"] .ecc-bezel-core:has(> .ecc-vsl-play){height:min(calc((100vw - 32px) * .75),28svh)!important}
+  html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema{font-size:min(7.4vw,3.5svh,31px)!important}
+  html:root body section[data-screen-label^="01"] .ecc-hero-lema-box{gap:min(8px,.9svh)!important}
+  html:root body .ecc-hero-baja{margin-top:0!important;gap:0!important}
+}
+@media (max-width:767px) and (max-height:600px){
+  html:root body section[data-screen-label^="01"] h1{font-size:min(10vw,4.6svh)!important}
+  html:root body section[data-screen-label^="01"] .ecc-bezel-core:has(> .ecc-vsl-play){height:min(calc((100vw - 32px) * .75),24svh)!important}
+  html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema{font-size:min(7vw,3.3svh)!important}
+  html:root body section[data-screen-label^="01"] .ecc-split > div{gap:clamp(4px,1svh,12px)!important}
+  html:root body .ecc-hero-lema-rot{font-size:10px!important}
+}
+@media (max-width:767px) and (max-height:500px){
+  html:root body header[style*="position:sticky"]{padding-top:10px!important;padding-bottom:10px!important;min-height:52px!important}
+  html:root body section[data-screen-label^="01"] h1{font-size:4.3svh!important;line-height:1.02!important}
+  html:root body section[data-screen-label^="01"] .ecc-bezel-core:has(> .ecc-vsl-play){height:21svh!important}
+  html:root body section[data-screen-label] .ecc-hero-lema-box p.ecc-hero-lema{font-size:3.1svh!important}
+  html:root body .ecc-hero-lema-rot,html:root body .ecc-hero-lema-linea{display:none!important}
+}
+@media (max-width:767px){html:root body section[data-screen-label^="01"] .ecc-bezel:has(.ecc-vsl-play){width:100%!important;align-self:stretch!important}html:root body section[data-screen-label^="01"] .ecc-bezel-core:has(> .ecc-vsl-play){width:100%!important}}
