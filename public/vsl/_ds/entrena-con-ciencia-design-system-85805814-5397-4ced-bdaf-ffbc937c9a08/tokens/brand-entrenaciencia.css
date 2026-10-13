@@ -1716,3 +1716,17 @@ html:root body .ecc-hero-baja{transition:opacity .3s ease!important}
 }
 @media (max-width:767px){html:root body section[data-screen-label^="01"] .ecc-bezel:has(.ecc-vsl-play){width:100%!important;align-self:stretch!important}html:root body section[data-screen-label^="01"] .ecc-bezel-core:has(> .ecc-vsl-play){width:100%!important}}
 html:root body section[data-screen-label] .ecc-lista-card p.ecc-lista-sub strong{color:#0A2540!important;font-weight:700}
+.ecc-lista-badges{display:inline-flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px}
+.ecc-lista-badges-izq{justify-content:flex-start}
+.ecc-lista-off{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:#FFC300;color:#010D15;font:800 12px/1 var(--font-body);letter-spacing:.08em}
+.m-cta-barra .m-cta-barra-precio .m-cta-barra-sub{margin-right:2px}
+.ecc-lista-caja .ecc-lista-badges-izq{padding-right:44px}
+.m-cta-barra .m-cta-barra-sub{white-space:nowrap}
+@media (max-width:380px){
+  html:root body .m-cta-barra .m-cta-barra-rotulo{white-space:nowrap;font-size:10.5px!important;letter-spacing:.06em}
+  html:root body .m-cta-barra .m-cta-barra-sub{font-size:11px}
+  html:root body .m-cta-barra .m-cta-barra-precio{gap:6px}
+  html:root body .m-cta-barra .m-cta-barra-off{font-size:10px;padding:3px 7px}
+  html:root body .m-cta-barra .m-cta-barra-btn{padding:0 14px;font-size:13px}
+}
+@media (max-width:360px){html:root body .m-cta-barra .m-cta-barra-sub{display:none}}
