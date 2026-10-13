@@ -1715,3 +1715,4 @@ html:root body .ecc-hero-baja{transition:opacity .3s ease!important}
   html:root body .ecc-hero-lema-rot,html:root body .ecc-hero-lema-linea{display:none!important}
 }
 @media (max-width:767px){html:root body section[data-screen-label^="01"] .ecc-bezel:has(.ecc-vsl-play){width:100%!important;align-self:stretch!important}html:root body section[data-screen-label^="01"] .ecc-bezel-core:has(> .ecc-vsl-play){width:100%!important}}
+html:root body section[data-screen-label] .ecc-lista-card p.ecc-lista-sub strong{color:#0A2540!important;font-weight:700}
