@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
+<script>
+/* La página siempre abre arriba (Safari restauraba la posición de la visita anterior y el hero quedaba cortado). */
+(function(){try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
+  function arriba(){ if(!location.hash||location.hash==='#'||location.hash==='#empezar') window.scrollTo(0,0); }
+  arriba(); addEventListener('DOMContentLoaded',arriba); addEventListener('load',function(){arriba();setTimeout(arriba,60);});
+  addEventListener('pageshow',function(e){ if(e.persisted) arriba(); });})();
+</script>
+
 <meta name="description" content="Programa de 12 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Únete a la lista de espera.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Entrena con Ciencia">
