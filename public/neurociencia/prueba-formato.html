@@ -141,6 +141,12 @@ p{margin:0}
 .marquesina img{height:26px;width:auto;margin:0 26px;filter:brightness(0);opacity:.62}
 @keyframes correr{to{transform:translateX(-50%)}}
 
+/* separador entre secciones: línea que se desvanece con el isotipo al centro */
+.separador{position:relative;max-width:560px;height:44px;margin:18px auto 0;padding:0 16px}
+.separador::before{content:"";position:absolute;left:16px;right:16px;top:50%;height:1px;background:linear-gradient(90deg,rgba(1,127,167,0),rgba(1,127,167,.45) 30%,rgba(1,127,167,.45) 70%,rgba(1,127,167,0))}
+.separador span{position:relative;display:grid;place-items:center;width:44px;height:44px;margin:0 auto;border-radius:50%;background:#fff;border:1px solid var(--borde);box-shadow:0 8px 20px -10px rgba(1,127,167,.5)}
+.separador img{width:24px;height:24px}
+
 /* ---------- por qué funciona ---------- */
 .texto-largo{display:grid;gap:16px;margin-top:22px;font-size:16.5px;line-height:1.65;color:var(--suave)}
 .texto-largo b{color:var(--navy)}
@@ -489,6 +495,8 @@ p{margin:0}
     <p class="aviso">Los resultados varían entre personas.</p>
   </div>
 </section>
+
+<div class="separador" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
 
 <!-- ============ POR QUÉ FUNCIONA ============ -->
 <section class="sec" style="padding-top:36px" data-screen-label="02 Por qué funciona">
