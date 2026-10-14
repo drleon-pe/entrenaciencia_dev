@@ -219,7 +219,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-2">
           <div className="mr-auto">
             <p className="text-[11px] uppercase tracking-wider text-[#017FA7] font-medium">Entrena con Ciencia</p>
-            <h1 className="panel-titulo">Panel de la landing /vsl</h1>
+            <h1 className="panel-titulo">Panel de la landing /neurociencia</h1>
           </div>
           <select value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
             {opciones.map((p) => (
@@ -433,7 +433,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         </Bloque>
 
         <div className={`text-xs ${C.tenue} border-t border-[#e1e8ec] pt-4 pb-8 flex flex-wrap gap-x-4 gap-y-1`}>
-          <span>Datos de Supabase: visitas, eventos y lista de espera de entrenaciencia.com/vsl.</span>
+          <span>Datos de Supabase: visitas, eventos y lista de espera de entrenaciencia.com/neurociencia.</span>
           <span>Persona = un dispositivo o navegador.</span>
           <a href="https://vercel.com/dashboard" target="_blank" rel="noreferrer" className="text-[#017FA7] hover:underline">
             Abrir Vercel Analytics ↗

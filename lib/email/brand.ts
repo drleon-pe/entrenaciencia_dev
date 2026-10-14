@@ -33,7 +33,7 @@ export const FONT_STACK = 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.entrenaciencia.com';
 
 // Course CTA target — the course sales landing, same place every "Nuestro curso" / "Inscribirme" button goes.
-export const COURSE_CTA_URL = `${SITE_URL}/vsl`;
+export const COURSE_CTA_URL = `${SITE_URL}/neurociencia`;
 
 // Hex clipPath used across the site for icon badges.
 export const HEX_CLIP_PATH = 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)';

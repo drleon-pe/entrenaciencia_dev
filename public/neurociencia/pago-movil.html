@@ -3,35 +3,27 @@
 <head>
 <meta charset="utf-8">
 <title>Entrena con Ciencia — Móvil</title>
-<script>
-/* La página siempre abre arriba (Safari restauraba la posición de la visita anterior y el hero quedaba cortado). */
-(function(){try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(e){}
-  function arriba(){ if(!location.hash||location.hash==='#'||location.hash==='#empezar') window.scrollTo(0,0); }
-  arriba(); addEventListener('DOMContentLoaded',arriba); addEventListener('load',function(){arriba();setTimeout(arriba,60);});
-  addEventListener('pageshow',function(e){ if(e.persisted) arriba(); });})();
-</script>
-
-<meta name="description" content="Programa de 12 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Únete a la lista de espera.">
+<meta name="description" content="Programa de 8 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Reserva tu lugar por US$5.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Entrena con Ciencia">
-<meta property="og:title" content="Transforma tu Cuerpo en 12 Semanas con Neurociencia | Entrena con Ciencia">
-<meta property="og:description" content="Programa de 12 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Únete a la lista de espera.">
-<meta property="og:url" content="https://www.entrenaciencia.com/vsl">
-<meta property="og:image" content="https://www.entrenaciencia.com/vsl/assets/og-banner.jpg?v=2">
-<meta property="og:image:secure_url" content="https://www.entrenaciencia.com/vsl/assets/og-banner.jpg?v=2">
+<meta property="og:title" content="Transforma tu Cuerpo en 8 Semanas con Neurociencia | Entrena con Ciencia">
+<meta property="og:description" content="Programa de 8 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Reserva tu lugar por US$5.">
+<meta property="og:url" content="https://www.entrenaciencia.com/neurociencia">
+<meta property="og:image" content="https://www.entrenaciencia.com/neurociencia/assets/og-banner-pago.jpg?v=1">
+<meta property="og:image:secure_url" content="https://www.entrenaciencia.com/neurociencia/assets/og-banner-pago.jpg?v=1">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Entrena con Ciencia: Transforma tu Cuerpo en 12 Semanas con Neurociencia, con el Dr. Gonzalo León">
+<meta property="og:image:alt" content="Entrena con Ciencia: Transforma tu Cuerpo en 8 Semanas con Neurociencia, con el Dr. Gonzalo León">
 <meta property="og:locale" content="es_LA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Transforma tu Cuerpo en 12 Semanas con Neurociencia | Entrena con Ciencia">
-<meta name="twitter:description" content="Programa de 12 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Únete a la lista de espera.">
-<meta name="twitter:image" content="https://www.entrenaciencia.com/vsl/assets/og-banner.jpg?v=2">
-<link rel="icon" href="https://www.entrenaciencia.com/vsl/assets/isotipo-ecc.png">
+<meta name="twitter:title" content="Transforma tu Cuerpo en 8 Semanas con Neurociencia | Entrena con Ciencia">
+<meta name="twitter:description" content="Programa de 8 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Reserva tu lugar por US$5.">
+<meta name="twitter:image" content="https://www.entrenaciencia.com/neurociencia/assets/og-banner-pago.jpg?v=1">
+<link rel="icon" href="https://www.entrenaciencia.com/neurociencia/assets/isotipo-ecc.png">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=158">
+<link rel="preload" as="style" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=136">
 <style>/* Carga limpia: la página no se muestra hasta que su diseño final está listo (evita ver un estilo provisorio). */
 html{background:#F5FAFC}html,body{overscroll-behavior-y:none}html:not(.ecc-listo) body{opacity:0}html.ecc-listo body{opacity:1;transition:opacity .25s ease}</style>
 <script>(function(){var h=document.documentElement,t0=Date.now();
@@ -102,7 +94,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       .ecc-stats{grid-template-columns:1fr}
     }
   </style>
-  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=158">
+  <link rel="stylesheet" href="_ds/entrena-con-ciencia-design-system-85805814-5397-4ced-bdaf-ffbc937c9a08/tokens/brand-entrenaciencia.css?v=136">
   <style>
     /* v13 · Separadores: el hexágono va como elemento propio entre secciones (div.ecc-separador); se apaga el de CSS para no duplicarlo. */
     html body section[data-screen-label]:not(#g1):not(#g2):not(#g3):not(#g4):not(#g5):not(#g6):not(#g7):not(#g8):not(#g9):not(#g10):not(#g11):not(#g12):not(#g13):not(#g14):not(#g15):not(#g16)::after{display:none!important}
@@ -143,7 +135,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
 
 <div style="background:var(--surface-page);color:var(--text-body);overflow-x:clip;padding-bottom:96px">
 
-  <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);padding:16px var(--space-4);min-height:68px;box-sizing:border-box;background:rgba(9,18,36,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.13)">
+  <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);padding:10px var(--space-4);background:rgba(9,18,36,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.13)">
     <span style="flex:none;display:inline-flex;align-items:center;gap:7px">
       <img src="assets/isotipo-ecc.png" alt="Entrena con Ciencia" width="28" height="28" style="display:block;width:28px;height:28px">
       <span aria-hidden="true" style="display:flex;flex-direction:column;gap:3px;font-family:var(--font-display);font-size:13px;font-weight:800;line-height:1;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap">
@@ -151,7 +143,11 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
         <span style="color:#23D3FF">con Ciencia</span>
       </span>
     </span>
-    
+    <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:4px">
+      <span style="font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:.12em;line-height:1;text-transform:uppercase;text-align:center;color:var(--gold-400);white-space:nowrap">Oferta termina en</span>
+      <span role="timer" aria-label="Tiempo restante de la oferta" style="display:flex;align-items:flex-start;gap:3px"><span style="display:flex;flex-direction:column;align-items:center;gap:2px"><span class="ecc-num" style="min-width:30px;height:28px;padding:0 4px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:15px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timerHrs }}</span><span style="font-family:var(--font-body);font-size:8px;font-weight:600;letter-spacing:.12em;line-height:1;text-transform:uppercase;color:#C9D8E4">{{ lbl1 }}</span></span><span aria-hidden="true" style="font-family:var(--font-display);font-size:14px;font-weight:700;line-height:28px;color:#C9D8E4">:</span><span style="display:flex;flex-direction:column;align-items:center;gap:2px"><span class="ecc-num" style="min-width:30px;height:28px;padding:0 4px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:15px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timerMin }}</span><span style="font-family:var(--font-body);font-size:8px;font-weight:600;letter-spacing:.12em;line-height:1;text-transform:uppercase;color:#C9D8E4">{{ lbl2 }}</span></span><span aria-hidden="true" style="font-family:var(--font-display);font-size:14px;font-weight:700;line-height:28px;color:#C9D8E4">:</span><span style="display:flex;flex-direction:column;align-items:center;gap:2px"><span class="ecc-num" style="min-width:30px;height:28px;padding:0 4px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:15px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timerSeg }}</span><span style="font-family:var(--font-body);font-size:8px;font-weight:600;letter-spacing:.12em;line-height:1;text-transform:uppercase;color:#C9D8E4">{{ lbl3 }}</span></span><span aria-hidden="true" style="display:{{ t4disp }};font-family:var(--font-display);font-size:14px;font-weight:700;line-height:28px;color:#C9D8E4">:</span><span style="display:{{ t4disp }};flex-direction:column;align-items:center;gap:2px"><span class="ecc-num" style="min-width:30px;height:28px;padding:0 4px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:15px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timer4 }}</span><span style="font-family:var(--font-body);font-size:8px;font-weight:600;letter-spacing:.12em;line-height:1;text-transform:uppercase;color:#C9D8E4">{{ lbl4 }}</span></span></span>
+    </div>
+    <span class="ecc-num" style="flex:none;display:inline-flex;align-items:center;height:30px;padding:0 9px;border-radius:6px;background:var(--gold-400);font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--navy-900);white-space:nowrap">40% OFF</span>
   </header>
   <section class="ecc-atmos" data-screen-label="01 Arriba del pliegue" style="padding-bottom:var(--gap-section)">
 
@@ -177,14 +173,79 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
             </div>
           </div>
         </div>
-        
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)">
+            <span class="ecc-label" style="color:var(--cyan-300)">Qué incluye el programa</span>
+          </div>
+          <div id="ecc-carrusel" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--space-3);align-items:stretch">
+            <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+              <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="height:100%;display:flex;flex-direction:column">
+                <div data-no-video="" style="padding:var(--space-4) var(--space-4) 0">
+                  <div style="display:flex;color:var(--cyan-300)"><i class="ph-light ph-brain" style="font-size:30px"></i></div>
+                </div>
+                <div style="padding:var(--space-3) var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)"><h4 style="color:var(--text-on-dark);font-size:var(--text-body-sm)">Curso de Neurociencia del Cambio</h4></div>
+                </div>
+              </div>
+            </div>
+            <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+              <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="height:100%;display:flex;flex-direction:column">
+                <div data-no-video="" style="padding:var(--space-4) var(--space-4) 0">
+                  <div style="display:flex;color:var(--cyan-300)"><i class="ph-light ph-barbell" style="font-size:30px"></i></div>
+                </div>
+                <div style="padding:var(--space-3) var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)"><h4 style="color:var(--text-on-dark);font-size:var(--text-body-sm)">Curso de Fundamentos de Entrenamiento</h4></div>
+                </div>
+              </div>
+            </div>
+            <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+              <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="height:100%;display:flex;flex-direction:column">
+                <div data-no-video="" style="padding:var(--space-4) var(--space-4) 0">
+                  <div style="display:flex;color:var(--cyan-300)"><i class="ph-light ph-bowl-food" style="font-size:30px"></i></div>
+                </div>
+                <div style="padding:var(--space-3) var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)"><h4 style="color:var(--text-on-dark);font-size:var(--text-body-sm)">Curso de Fundamentos de Nutrición</h4></div>
+                </div>
+              </div>
+            </div>
+            <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+              <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="height:100%;display:flex;flex-direction:column">
+                <div data-no-video="" style="padding:var(--space-4) var(--space-4) 0">
+                  <div style="display:flex;color:var(--cyan-300)"><i class="ph-light ph-device-mobile" style="font-size:30px"></i></div>
+                </div>
+                <div style="padding:var(--space-3) var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)"><h4 style="color:var(--text-on-dark);font-size:var(--text-body-sm)">App con Rutinas y Plan de Nutrición</h4></div>
+                </div>
+              </div>
+            </div>
+            <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+              <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="height:100%;display:flex;flex-direction:column">
+                <div data-no-video="" style="padding:var(--space-4) var(--space-4) 0">
+                  <div style="display:flex;color:var(--cyan-300)"><i class="ph-light ph-list-checks" style="font-size:30px"></i></div>
+                </div>
+                <div style="padding:var(--space-3) var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)"><h4 style="color:var(--text-on-dark);font-size:var(--text-body-sm)">Protocolos para Días Difíciles</h4></div>
+                </div>
+              </div>
+            </div>
+            <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+              <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="height:100%;display:flex;flex-direction:column">
+                <div data-no-video="" style="padding:var(--space-4) var(--space-4) 0">
+                  <div style="display:flex;color:var(--cyan-300)"><i class="ph-light ph-users-three" style="font-size:30px"></i></div>
+                </div>
+                <div style="padding:var(--space-3) var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)"><h4 style="color:var(--text-on-dark);font-size:var(--text-body-sm)">Comunidad Privada</h4></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="ecc-reveal ecc-reveal-2" style="min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-5)">
 <!-- QUITADO: calificación "4.67 · 383 reseñas" (no era real). Volver a poner solo con reseñas verificables y su fuente. -->
-        <h1 style="color:var(--text-on-dark);font-size:clamp(36px,5.6vw,62px);max-width:16ch;align-self:center;text-align:center"><span class="ecc-h1-acento2">Transforma</span><br> tu Cuerpo en<br> <span class="ecc-h1-acento3">12 Semanas</span><br> con <span class="ecc-h1-acento">Neurociencia</span></h1>
+        <h1 style="color:var(--text-on-dark);font-size:clamp(36px,5.6vw,62px);max-width:16ch;align-self:center;text-align:center"><span class="ecc-h1-acento2">Transforma</span><br> tu Cuerpo en<br> <span class="ecc-h1-acento3">8 Semanas</span><br> con <span class="ecc-h1-acento">Neurociencia</span></h1>
         <div class="ecc-hero-lema-box"><span class="ecc-hero-lema-rot">Esta vez es distinto</span><p class="ecc-hero-lema">Deja de <b>volver a empezar.</b></p><span class="ecc-hero-lema-linea" aria-hidden="true"></span></div>
-        <a href="#ecc-tras-hero" class="ecc-hero-baja" aria-label="Seguir bajando"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <p style="max-width:46ch;font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark)">Nuestro <strong><em>equipo médico</em></strong> ha desarrollado un programa <strong>basado en neurociencia</strong> para que puedas crear <strong>nuevos hábitos de entrenamiento y nutrición que perduren en el tiempo</strong> y te permitan cambiar tu cuerpo <strong>una vez por todas</strong>.</p>
 
         <div class="ecc-trust" style="border-top:1px solid var(--border-on-dark);border-bottom:1px solid var(--border-on-dark);padding:var(--space-4) 0;width:100%">
@@ -193,18 +254,34 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
           <span style="display:flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:var(--text-caption);letter-spacing:var(--tracking-mono);text-transform:uppercase;color:var(--text-on-dark)"><i class="ph-light ph-brain" style="flex:none;font-size:17px;color:var(--cyan-300)"></i><span>Basado en la última neurociencia y ciencia del deporte</span></span>
         </div>
 
-        <div class="ecc-bezel ecc-bezel-on-dark ecc-lista-card" style="width:100%">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center">
-            <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera gratuita</span><span class="ecc-lista-off">40% OFF</span></span>
-            <p class="ecc-lista-tit">Regístrate y accede a nuestra oferta de lanzamiento</p>
-            <p class="ecc-lista-sub">Cuando lancemos, te enviamos un <strong>descuento exclusivo</strong>.</p>
-            <ul class="ecc-lista-items">
-              <li><i class="ph-fill ph-check-circle"></i><span><strong>40% OFF</strong> de lanzamiento: te llega por correo cuando abran las inscripciones.</span></li>
-              <li><i class="ph-fill ph-check-circle"></i><span><strong>Registro 100% gratuito</strong>: sin pago y sin tarjeta.</span></li>
-              
-            </ul>
-            <a href="#lista" data-ecc-lista class="ecc-cta"><span>REGÍSTRATE EN LA LISTA DE ESPERA</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a>
-            <p class="ecc-lista-nota"><i class="ph-light ph-lock-simple"></i>Tus datos se usan solo para avisarte.</p>
+        <div class="ecc-bezel ecc-bezel-on-dark" style="width:100%">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+                <div style="display:flex;align-items:center;gap:var(--space-3)">
+                  <span class="ecc-num" style="font-family:var(--font-mono);font-size:20px;font-weight:500;letter-spacing:.02em;text-decoration:line-through;color:var(--text-on-dark-muted)">$67</span>
+                  <span class="ecc-num" style="display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;border:1px solid var(--border-on-dark);font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-on-dark-muted);white-space:nowrap">40% OFF</span>
+                </div>
+                <p class="ecc-num" style="display:flex;justify-content:center;align-items:flex-start;text-align:center;font-family:var(--font-display);font-variation-settings:var(--vf-display);font-size:clamp(44px,7vw,68px);font-weight:var(--weight-bold);line-height:1;letter-spacing:var(--tracking-tight);color:var(--gold-400)"><span style="display:flex;align-items:flex-start;gap:2px">$40</span></p>
+              </div>
+              <p style="font-size:var(--text-body-md);line-height:var(--leading-body);text-align:center;color:var(--text-on-dark)">Menos que una consulta con un nutricionista</p>
+              <p style="font-size:var(--text-body-md);line-height:var(--leading-body);text-align:center;color:var(--text-on-dark)">Menos que una membresía mensual en el gimnasio</p>
+            </div>
+            <a href="https://pay.hotmart.com/L107930624T?checkoutMode=10" data-ecc-checkout="reserva" class="ecc-cta"><span>RESERVA TU LUGAR POR US$5</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a>
+            <ul class="ecc-reserva-nota"><li>Reservas hoy con US$5 y el 7 de diciembre pagas US$35.</li><li>Después del lanzamiento: US$67.</li></ul>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);padding-top:var(--space-4);border-top:1px solid var(--border-on-dark)">
+              <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px">
+                <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 15px 8px 11px;border-radius:999px;border:1px solid rgba(109,205,242,.55);background:#0A2540;box-shadow:0 6px 18px rgba(10,37,64,.22)">
+                  <i class="ph-fill ph-shield-check" style="flex:none;font-size:18px;color:#6DCDF2"></i>
+                  <span style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.01em;line-height:1.2;color:#FFFFFF;white-space:nowrap">Reembolso cuando quieras</span>
+                </span>
+                <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 15px 8px 11px;border-radius:999px;border:1px solid rgba(109,205,242,.55);background:#0A2540;box-shadow:0 6px 18px rgba(10,37,64,.22)">
+                  <i class="ph-fill ph-calendar-check" style="flex:none;font-size:18px;color:#6DCDF2"></i>
+                  <span style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.01em;line-height:1.2;color:#FFFFFF;white-space:nowrap">Acceso el 7 de diciembre</span>
+                </span>
+              </div>
+              <div class="ecc-pago"><span class="ecc-pago-candado"><i class="ph-fill ph-lock-simple"></i></span><span class="ecc-pago-txt"><strong>Pago 100% seguro</strong><span>procesado por</span></span><img class="ecc-pago-logo ecc-pago-logo--hotmart" src="assets/hotmart.svg" alt="Hotmart"></div>
+            </div>
           </div>
         </div>
 
@@ -246,7 +323,57 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       </div>
       </div>
     </div></div></div>
-  </section><span id="ecc-tras-hero"></span>
+  </section>
+
+  <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
+  <section class="ecc-atmos" data-screen-label="03 Qué incluye" style="padding:var(--gap-section) 0">
+    <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-12)">
+      <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
+        <h2 style="color:var(--text-on-dark);max-width:22ch">Qué Incluye Nuestro Programa</h2>
+      </div>
+      <div class="ecc-inc-grid">
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">EL NÚCLEO</span>
+          <h3 style="color:var(--text-on-dark)">Curso de Neurociencia del Cambio de Hábitos</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-nucleo" src="assets/portadas/neurociencia-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Lo más importante de nuestro programa.</strong> Te explicamos el proceso por el que se crean nuevos hábitos y <em>por qué la mayoría de las personas falla</em>. La verdad es que crear un nuevo hábito <span class="ecc-hl">no depende de tu fuerza de voluntad, sino de entender cómo funciona tu cuerpo</span>.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
+          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Entrenamiento</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-fundamentos" src="assets/portadas/entrenamiento-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">El <strong>Dr. Gonzalo León</strong> te explica la última ciencia del deporte para que entiendas cuál es <span class="ecc-hl">el mejor camino para ponerte en forma</span> basado en ciencia. Deja de estar confundido con las <em>recomendaciones que se contradicen en redes sociales</em>.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
+          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Nutrición</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-fundamentos-nutricion" src="assets/portadas/nutricion-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">La <strong>Lic. Rafaela Silva</strong> te explica la última ciencia de la <em>nutrición funcional</em>. Hemos desarrollado un programa que te ayuda a entender los mecanismos por los que tu cuerpo pierde peso y cómo aplicarlos en tu día a día, <span class="ecc-hl">sin que tengas que hacer dietas muy restrictivas</span>.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">App con IA</span>
+          <h3 style="color:var(--text-on-dark)">Aplicación con Rutinas y Plan de Nutrición</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-app-seguimiento" src="assets/portadas/app-card.jpg?v=2" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Te damos <strong>acceso por un mes</strong> a nuestra aplicación, que se apoya en <em>inteligencia artificial</em> para <span class="ecc-hl">ayudarte a planificar tu entrenamiento, nutrición y recuperación</span>.</p><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Incluye nuestras últimas <strong>rutinas basadas en evidencia</strong>, con videos por cada ejercicio a realizar y múltiples planes de entrenamiento en casa y en el gimnasio. Además, te ayuda con tu <strong>plan de nutrición</strong>: la IA te ayuda a <em>registrar tus calorías</em> y te brinda recetas hechas por nuestro equipo.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">Qué hacer cuando hay imprevistos</span>
+          <h3 style="color:var(--text-on-dark)">Protocolos para Días Difíciles</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-protocolos" src="assets/portadas/protocolos-card.jpg?v=2" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Todas las personas tienen <span class="ecc-hl">imprevistos y días difíciles</span>. Hemos creado una <strong>biblioteca de protocolos</strong> que atacan problemas comunes que impiden una transformación. Por ejemplo: <em>¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?</em>, y muchas otras situaciones comunes.</p></div>
+        </article>
+        <article class="ecc-inc-card ecc-reveal">
+          <span class="ecc-label" style="color:var(--cyan-300)">Soporte y Información</span>
+          <h3 style="color:var(--text-on-dark)">Comunidad Privada</h3>
+          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-comunidad" src="assets/portadas/comunidad-card.jpg?v=2" shape="rect" placeholder="Video del curso"></image-slot><span class="ecc-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span></div>
+          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Accede a nuestra <strong>comunidad privada</strong>, donde tendrás a otras personas <em>igual de motivadas</em> para <span class="ecc-hl">transformar tu cuerpo</span>.</p></div>
+        </article>
+      </div>
+
+      <div style="display:flex;justify-content:center"><a href="#empezar" class="ecc-cta ecc-reveal"><span>RESERVA TU LUGAR POR US$5</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a></div>
+
+    </div>
+  </section>
 
   <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
   <section data-screen-label="02 Por qué funciona" style="padding:var(--gap-section) 0">
@@ -302,16 +429,16 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
           <div class="ecc-ap-tachar" aria-hidden="true"><span>Otra dieta</span><span>Otro plan de ejercicios</span></div>
           <svg class="ecc-ap-flechas" aria-hidden="true"><defs><marker id="apPunta" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M0 0 L10 5 L0 10 Z" fill="#017FA7"/></marker></defs><path pathLength="100"/><path pathLength="100"/><path pathLength="100"/><circle r="4"/><circle r="4"/><circle r="4"/></svg>
           <div class="ecc-ap-equipo" aria-hidden="true"><figure><img src="assets/dr-gonzalo-leon-equipo.jpg" alt=""><figcaption>Ciencia del<br>deporte</figcaption></figure><figure><img src="assets/rafaela-silva-equipo.jpg" alt=""><figcaption>Nutrición</figcaption></figure><figure><img src="assets/ana-paula-ceballos-equipo.jpg" alt=""><figcaption>Neurociencia</figcaption></figure></div>
-          <div class="ecc-ap-dias" aria-hidden="true"><div class="ecc-ap-dias-n"><b>0</b><span>días</span></div><div class="ecc-ap-barra"><i></i><u></u><em style="left:100%">12 semanas</em></div></div>
+          <div class="ecc-ap-dias" aria-hidden="true"><div class="ecc-ap-dias-n"><b>0</b><span>días</span></div><div class="ecc-ap-barra"><i></i><u></u><em style="left:calc(60/66*100%)">60</em></div></div>
           </div>
           <div class="ecc-ap-txts">
             <p class="ecc-ap-t ecc-ap-intro"><span class="ecc-ap-intro-t">Conoce el mecanismo por el cual se crean los hábitos</span><span class="ecc-ap-intro-s">Toca la flecha o desliza para empezar</span></p>
             <p class="ecc-ap-t" data-i="0">Cuando empiezas algo nuevo, cada decisión pasa por algo que se conoce como la <strong>corteza prefrontal</strong>: <em>¿entreno hoy?, ¿me como esto?</em> Funciona, pero te obliga a decidir una y otra vez.</p>
             <p class="ecc-ap-t" data-i="1">Cuando repites una conducta a lo largo del tiempo, poco a poco esta decisión pasa de la corteza prefrontal a los <strong>ganglios basales</strong>, que responden en automático.</p>
             <p class="ecc-ap-t" data-i="2">Eso significa que <span class="ecc-hl">construiste un hábito</span>. Nunca más tienes que pensar en ello y deja de fatigarte tomar tantas decisiones.</p>
-            <p class="ecc-ap-t" data-i="3">El problema es que hacer que estos cambios en tu vida pasen a los ganglios basales no es tan simple. En un estudio del <em>European Journal of Social Psychology</em>, volver automática una conducta tomó <strong class="ecc-dato">una mediana de 66 días</strong>.</p>
+            <p class="ecc-ap-t" data-i="3">El problema es que hacer que estos cambios en tu vida pasen a los ganglios basales no es tan simple. En un estudio del <em>European Journal of Social Psychology</em>, volver automática una conducta tomó <strong class="ecc-dato">una media de 66 días</strong>.</p>
             <p class="ecc-ap-t" data-i="4">Por eso es que no necesitas otra dieta u otro plan de ejercicios.</p>
-            <p class="ecc-ap-t" data-i="5">Necesitas <span class="ecc-hl">un método probado que te ayude a llegar a las primeras 8 semanas</span> y que aumente la probabilidad de que muevas todas estas conductas que son buenas para ti de la corteza prefrontal a los ganglios basales.</p>
+            <p class="ecc-ap-t" data-i="5">Necesitas <span class="ecc-hl">un método probado que te ayude a llegar a los primeros 60 días</span> y que aumente la probabilidad de que muevas todas estas conductas que son buenas para ti de la corteza prefrontal a los ganglios basales.</p>
             <p class="ecc-ap-t" data-i="6"><strong>Justamente ese es el método que hemos desarrollado en Entrena con Ciencia.</strong></p>
             <p class="ecc-ap-t" data-i="7">Nuestro grupo de profesionales en ciencia del deporte, nutrición y neurociencia ha construido un plan basado en la última neurociencia para ayudarte a hacer esto.</p>
           </div>
@@ -326,56 +453,6 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
         <span style="width:56px;height:3px;border-radius:2px;background:var(--gold-400)"></span>
         <p style="font-family:var(--font-display);font-variation-settings:var(--vf-display);font-size:clamp(28px,5.2vw,42px);font-weight:var(--weight-bold);letter-spacing:var(--tracking-tight);line-height:1.15;white-space:nowrap;color:var(--text-strong)">Que este sea<br>tu <span class="ecc-hl" style="--ecc-hl-color:rgba(255,195,0,.7);--ecc-hl-desde:45%;--ecc-hl-hasta:68%">último</span> <span style="color:#017FA7">Día 1</span>.</p>
       </div>
-    </div>
-  </section>
-
-  <div class="ecc-separador" aria-hidden="true" style="position:relative;z-index:3;height:0;display:flex;justify-content:center;align-items:center"><span style="position:absolute;left:50%;top:0;width:min(980px,86%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,rgba(1,127,167,0) 0%,rgba(1,127,167,.45) 35%,rgba(1,127,167,.45) 65%,rgba(1,127,167,0) 100%)"></span><svg width="26" height="26" viewBox="0 0 24 24" style="position:relative;display:block;flex:none;filter:drop-shadow(0 0 8px rgba(35,211,255,.55))"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#FFFFFF" stroke="#017FA7" stroke-width="1.4"></polygon><circle cx="12" cy="12" r="2.6" fill="#23D3FF"></circle></svg></div>
-  <section class="ecc-atmos" data-screen-label="03 Qué incluye" style="padding:var(--gap-section) 0">
-    <div class="ecc-pad" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-12)">
-      <div class="ecc-reveal" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-5);text-align:center">
-        <h2 style="color:var(--text-on-dark);max-width:22ch">Qué Incluye Nuestro Programa</h2>
-      </div>
-      <div class="ecc-inc-grid">
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">EL NÚCLEO</span>
-          <h3 style="color:var(--text-on-dark)">Curso de Neurociencia del Cambio de Hábitos</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-nucleo" src="assets/portadas/neurociencia-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)"><strong>Lo más importante de nuestro programa.</strong> Te explicamos el proceso por el que se crean nuevos hábitos y <em>por qué la mayoría de las personas falla</em>. La verdad es que crear un nuevo hábito <span class="ecc-hl">no depende de tu fuerza de voluntad, sino de entender cómo funciona tu cuerpo</span>.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
-          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Entrenamiento</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-fundamentos" src="assets/portadas/entrenamiento-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">El <strong>Dr. Gonzalo León</strong> te explica la última ciencia del deporte para que entiendas cuál es <span class="ecc-hl">el mejor camino para ponerte en forma</span> basado en ciencia. Deja de estar confundido con las <em>recomendaciones que se contradicen en redes sociales</em>.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">LA BASE CIENTÍFICA</span>
-          <h3 style="color:var(--text-on-dark)">Curso de Fundamentos de Nutrición</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-fundamentos-nutricion" src="assets/portadas/nutricion-card.jpg?v=1" shape="rect" placeholder="Video del curso"></image-slot></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">La <strong>Lic. Rafaela Silva</strong> te explica la última ciencia de la <em>nutrición funcional</em>. Hemos desarrollado un programa que te ayuda a entender los mecanismos por los que tu cuerpo pierde peso y cómo aplicarlos en tu día a día, <span class="ecc-hl">sin que tengas que hacer dietas muy restrictivas</span>.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">App con IA</span>
-          <h3 style="color:var(--text-on-dark)">Aplicación con Rutinas y Plan de Nutrición</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-app-seguimiento" src="assets/portadas/app-card.jpg?v=2" shape="rect" placeholder="Video del curso"></image-slot></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Te damos <strong>acceso por un mes</strong> a nuestra aplicación, que se apoya en <em>inteligencia artificial</em> para <span class="ecc-hl">ayudarte a planificar tu entrenamiento, nutrición y recuperación</span>.</p><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Incluye nuestras últimas <strong>rutinas basadas en evidencia</strong>, con videos por cada ejercicio a realizar y múltiples planes de entrenamiento en casa y en el gimnasio. Además, te ayuda con tu <strong>plan de nutrición</strong>: la IA te ayuda a <em>registrar tus calorías</em> y te brinda recetas hechas por nuestro equipo.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">Qué hacer cuando hay imprevistos</span>
-          <h3 style="color:var(--text-on-dark)">Protocolos para Días Difíciles</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-protocolos" src="assets/portadas/protocolos-card.jpg?v=2" shape="rect" placeholder="Video del curso"></image-slot></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Todas las personas tienen <span class="ecc-hl">imprevistos y días difíciles</span>. Hemos creado una <strong>biblioteca de protocolos</strong> que atacan problemas comunes que impiden una transformación. Por ejemplo: <em>¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?</em>, y muchas otras situaciones comunes.</p></div>
-        </article>
-        <article class="ecc-inc-card ecc-reveal">
-          <span class="ecc-label" style="color:var(--cyan-300)">Soporte y Información</span>
-          <h3 style="color:var(--text-on-dark)">Comunidad Privada</h3>
-          <div class="ecc-inc-media" data-no-video=""><image-slot id="m-mod-comunidad" src="assets/portadas/comunidad-card.jpg?v=2" shape="rect" placeholder="Video del curso"></image-slot></div>
-          <div class="ecc-inc-txt"><p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Accede a nuestra <strong>comunidad privada</strong>, donde tendrás a otras personas <em>igual de motivadas</em> para <span class="ecc-hl">transformar tu cuerpo</span>.</p></div>
-        </article>
-      </div>
-
-      <div style="display:flex;justify-content:center"><a href="#lista" data-ecc-lista class="ecc-cta ecc-reveal"><span>REGÍSTRATE EN LA LISTA DE ESPERA</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a></div>
-
     </div>
   </section>
 
@@ -655,7 +732,7 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
         <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
           <div class="ecc-bezel-core ecc-bezel-core-on-dark" data-no-video="" style="padding:var(--space-8) var(--space-6);height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-5)">
 <!-- QUITADO: calificación "4.67 · 383 reseñas" (no era real). Volver a poner solo con reseñas verificables y su fuente. -->
-            <span class="ecc-label" style="font-size:14px;letter-spacing:.14em;color:var(--cyan-300)">QUÉ INCLUYE EL CURSO</span>
+            <span class="ecc-label" style="font-size:14px;letter-spacing:.14em;color:var(--cyan-300)">LO QUE RECIBES HOY</span>
             <div style="display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:var(--space-3)">
               <div style="display:flex;align-items:center;justify-content:flex-start;gap:var(--space-3)">
                 <i class="ph-light ph-brain" style="flex:none;font-size:19px;color:var(--cyan-300)"></i>
@@ -682,22 +759,41 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
                 <p style="font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark);font-weight:700">Comunidad Privada</p>
               </div>
             </div>
-            
+            <div style="margin-top:auto;width:100%;padding-top:var(--space-5);border-top:1px solid var(--border-on-dark);display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+              <div style="align-self:stretch;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 16px;border-radius:14px;background:#0A2540;box-shadow:0 10px 30px -14px rgba(10,37,64,.5)"><span style="font-family:var(--font-body);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#FFC300;white-space:nowrap">Oferta de lanzamiento</span><span style="display:flex;align-items:flex-start;gap:10px"><span role="timer" aria-label="Tiempo restante de la oferta" style="display:flex;align-items:flex-start;gap:6px"><span style="display:flex;flex-direction:column;align-items:center;gap:3px"><span class="ecc-num" style="min-width:52px;height:44px;padding:0 8px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:26px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timerHrs }}</span><span style="font-family:var(--font-body);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9D8E4">{{ lbl1 }}</span></span><span aria-hidden="true" style="font-family:var(--font-display);font-size:22px;font-weight:700;line-height:44px;color:#C9D8E4">:</span><span style="display:flex;flex-direction:column;align-items:center;gap:3px"><span class="ecc-num" style="min-width:52px;height:44px;padding:0 8px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:26px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timerMin }}</span><span style="font-family:var(--font-body);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9D8E4">{{ lbl2 }}</span></span><span aria-hidden="true" style="font-family:var(--font-display);font-size:22px;font-weight:700;line-height:44px;color:#C9D8E4">:</span><span style="display:flex;flex-direction:column;align-items:center;gap:3px"><span class="ecc-num" style="min-width:52px;height:44px;padding:0 8px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:26px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timerSeg }}</span><span style="font-family:var(--font-body);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9D8E4">{{ lbl3 }}</span></span><span aria-hidden="true" style="display:{{ t4disp }};font-family:var(--font-display);font-size:22px;font-weight:700;line-height:44px;color:#C9D8E4">:</span><span style="display:{{ t4disp }};flex-direction:column;align-items:center;gap:3px"><span class="ecc-num" style="min-width:52px;height:44px;padding:0 8px;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);font-family:var(--font-display);font-size:26px;font-weight:700;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;white-space:nowrap">{{ timer4 }}</span><span style="font-family:var(--font-body);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#C9D8E4">{{ lbl4 }}</span></span></span></span></div>
+            </div>
           </div>
         </div>
 
-        <div class="ecc-bezel ecc-bezel-on-dark ecc-lista-card" style="width:100%">
-          <div class="ecc-bezel-core ecc-bezel-core-on-dark" style="padding:var(--space-6);display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center">
-            <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera gratuita</span><span class="ecc-lista-off">40% OFF</span></span>
-            <p class="ecc-lista-tit">Regístrate y accede a nuestra oferta de lanzamiento</p>
-            <p class="ecc-lista-sub">Cuando lancemos, te enviamos un <strong>descuento exclusivo</strong>.</p>
-            <ul class="ecc-lista-items">
-              <li><i class="ph-fill ph-check-circle"></i><span><strong>40% OFF</strong> de lanzamiento: te llega por correo cuando abran las inscripciones.</span></li>
-              <li><i class="ph-fill ph-check-circle"></i><span><strong>Registro 100% gratuito</strong>: sin pago y sin tarjeta.</span></li>
-              
-            </ul>
-            <a href="#lista" data-ecc-lista class="ecc-cta"><span>REGÍSTRATE EN LA LISTA DE ESPERA</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a>
-            <p class="ecc-lista-nota"><i class="ph-light ph-lock-simple"></i>Tus datos se usan solo para avisarte.</p>
+        <div class="ecc-bezel ecc-bezel-on-dark" style="min-width:0">
+          <div class="ecc-bezel-core ecc-bezel-core-on-dark" data-no-video="" style="padding:var(--space-8) var(--space-6);height:100%;display:flex;flex-direction:column;justify-content:center;gap:var(--space-5)">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+                <div style="display:flex;align-items:center;gap:var(--space-3)">
+                  <span class="ecc-num" style="font-family:var(--font-mono);font-size:20px;font-weight:500;letter-spacing:.02em;text-decoration:line-through;color:var(--text-on-dark-muted)">$67</span>
+                  <span class="ecc-num" style="display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;border:1px solid var(--border-on-dark);font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-on-dark-muted);white-space:nowrap">40% OFF</span>
+                </div>
+                <p class="ecc-num" style="display:flex;justify-content:center;align-items:flex-start;text-align:center;font-family:var(--font-display);font-variation-settings:var(--vf-display);font-size:clamp(44px,7vw,68px);font-weight:var(--weight-bold);line-height:1;letter-spacing:var(--tracking-tight);color:var(--gold-400)"><span style="display:flex;align-items:flex-start;gap:2px">$40</span></p>
+              </div>
+              <p style="font-size:var(--text-body-md);line-height:var(--leading-body);text-align:center;color:var(--text-on-dark)">Menos que una consulta con un nutricionista</p>
+              <p style="font-size:var(--text-body-md);line-height:var(--leading-body);text-align:center;color:var(--text-on-dark)">Menos que una membresía mensual en el gimnasio</p>
+            </div>
+            <a href="https://pay.hotmart.com/L107930624T?checkoutMode=10" data-ecc-checkout="reserva" class="ecc-cta"><span>RESERVA TU LUGAR POR US$5</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></a>
+            <ul class="ecc-reserva-nota"><li>Reservas hoy con US$5 y el 7 de diciembre pagas US$35.</li><li>Después del lanzamiento: US$67.</li></ul>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);padding-top:var(--space-4);border-top:1px solid var(--border-on-dark)">
+              <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px">
+                <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 15px 8px 11px;border-radius:999px;border:1px solid rgba(109,205,242,.55);background:#0A2540;box-shadow:0 6px 18px rgba(10,37,64,.22)">
+                  <i class="ph-fill ph-shield-check" style="flex:none;font-size:18px;color:#6DCDF2"></i>
+                  <span style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.01em;line-height:1.2;color:#FFFFFF;white-space:nowrap">Reembolso cuando quieras</span>
+                </span>
+                <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 15px 8px 11px;border-radius:999px;border:1px solid rgba(109,205,242,.55);background:#0A2540;box-shadow:0 6px 18px rgba(10,37,64,.22)">
+                  <i class="ph-fill ph-calendar-check" style="flex:none;font-size:18px;color:#6DCDF2"></i>
+                  <span style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.01em;line-height:1.2;color:#FFFFFF;white-space:nowrap">Acceso el 7 de diciembre</span>
+                </span>
+              </div>
+              <p style="font-size:12px;line-height:1.5;text-align:center;color:var(--text-on-dark)">*Después del primer mes, la aplicación continúa por $20 al mes.</p>
+              <div class="ecc-pago"><span class="ecc-pago-candado"><i class="ph-fill ph-lock-simple"></i></span><span class="ecc-pago-txt"><strong>Pago 100% seguro</strong><span>procesado por</span></span><img class="ecc-pago-logo ecc-pago-logo--hotmart" src="assets/hotmart.svg" alt="Hotmart"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -719,14 +815,14 @@ setTimeout(revisar,0);addEventListener('load',function(){setTimeout(revisar,0)})
       <p style="max-width:70ch;font-size:var(--text-caption);line-height:var(--leading-body);color:var(--text-on-dark)">Este contenido es informativo y educativo y no reemplaza la consulta con tu médico. Los resultados varían entre personas. Si tienes una condición de salud o tomas medicación, consulta a tu especialista antes de cambiar tu alimentación o entrenamiento.</p>
       <div style="border-top:1px solid var(--border-on-dark);padding-top:var(--space-5);display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-4);font-family:var(--font-mono);font-size:var(--text-caption);color:var(--text-on-dark)">
         <span>© 2026 Entrena con Ciencia</span>
-        <span class="ecc-legal-links"><a href="legal.html?v=3#terminos">Términos</a> · <a href="legal.html?v=3#privacidad">Privacidad</a></span>
+        <span class="ecc-legal-links"><a href="legal-pago.html?v=1#terminos">Términos</a> · <a href="legal-pago.html?v=1#privacidad">Privacidad</a> · <a href="legal-pago.html?v=1#cancelacion">Cancelación</a></span>
       </div>
     <p class="ecc-pie-cred">Ilustración del cerebro: <a href="https://smart.servier.com/" target="_blank" rel="noopener">Servier Medical Art</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (modificada).</p></div>
   </footer>
 
   <div class="m-cta-fixed m-cta-barra">
-    <div class="m-cta-barra-txt"><span class="m-cta-barra-rotulo">Lista de espera abierta</span><span class="m-cta-barra-precio"><span class="m-cta-barra-off">40% OFF</span></span></div>
-    <a href="#lista" data-ecc-lista class="m-cta-barra-btn">Regístrate<i class="ph-light ph-arrow-right" style="font-size:16px"></i></a>
+    <div class="m-cta-barra-txt"><span class="m-cta-barra-rotulo">Oferta de lanzamiento</span><span class="m-cta-barra-precio"><b>$40</b><s>$67</s><span class="m-cta-barra-off">40% OFF</span></span></div>
+    <a href="#empezar" class="m-cta-barra-btn">Ver la oferta<i class="ph-light ph-arrow-down" style="font-size:16px"></i></a>
   </div>
 
 </div>
@@ -1286,7 +1382,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   if(window.eccTestiIr)window.eccTestiIr(k);
   var hd=document.querySelector('header');var off=Math.max(hd?hd.getBoundingClientRect().bottom:0,[].reduce.call(document.querySelectorAll('body *'),function(m,el){var cs=getComputedStyle(el);if((cs.position==='fixed'||cs.position==='sticky')&&el.getBoundingClientRect().top<=1&&el.offsetHeight<200)return Math.max(m,el.getBoundingClientRect().bottom);return m},0))+12;var top=0,el=c;while(el){top+=el.offsetTop;el=el.offsetParent}var y=top-(c.offsetHeight+off<innerHeight?(innerHeight-c.offsetHeight+off)/2:off);scrollTo({top:Math.max(0,y),behavior:'smooth'});});
 </script>
-<script src="assets/ecc-analitica.js?v=8" defer></script>
+<script src="assets/ecc-analitica.js?v=7" defer></script>
 <script>
 /* Escenario fijo: la cabeza se abre, sale el cerebro (Servier Medical Art, CC BY 4.0) y el scroll explica el cambio de hábito. */
 (function(){
@@ -1468,91 +1564,6 @@ document.addEventListener('click',function(e){
   if(document.readyState!=='loading')pedir();else document.addEventListener('DOMContentLoaded',pedir);
   addEventListener('load',pedir);
   new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var a=ms[i].addedNodes;for(var j=0;j<a.length;j++){var x=a[j];if(x.nodeType===1&&(x.matches('.ecc-hl')||x.querySelector('.ecc-hl:not(.ecc-hl-split)'))){pedir();return;}}}}).observe(document.documentElement,{childList:true,subtree:true});
-})();
-</script>
-<div class="ecc-lista-modal" id="lista" role="dialog" aria-modal="true" aria-labelledby="ecc-lista-titulo" hidden>
-  <div class="ecc-lista-fondo" data-cerrar></div>
-  <div class="ecc-lista-caja" role="document">
-    <button type="button" class="ecc-lista-x" data-cerrar aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-    <form class="ecc-lista-form" novalidate>
-      <span class="ecc-lista-badges ecc-lista-badges-izq"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera · Gratis</span><span class="ecc-lista-off">40% OFF</span></span>
-      <h2 id="ecc-lista-titulo">Regístrate y accede a nuestra oferta de lanzamiento</h2>
-      <p class="ecc-lista-intro">El registro es <strong>100% gratuito</strong>. Cuando lancemos el programa, te enviamos por correo un <strong>descuento exclusivo del 40%</strong> para inscribirte.</p>
-      <label class="ecc-campo"><span>Nombre</span><input id="ecc-l-nombre" name="nombre" type="text" autocomplete="given-name" required maxlength="80" placeholder="Tu nombre"></label>
-      <label class="ecc-campo"><span>Correo</span><input id="ecc-l-correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="120" placeholder="tu@correo.com"></label>
-      <div class="ecc-campo"><label for="ecc-l-cel">WhatsApp <em>(opcional)</em></label>
-        <div class="ecc-cel"><select id="ecc-l-pais" name="pais" aria-label="País"></select><input id="ecc-l-cel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="20" placeholder="Número"></div>
-      </div>
-      <label class="ecc-check"><input id="ecc-l-ok" name="consentimiento" type="checkbox" required><span>Acepto recibir información sobre el lanzamiento y la <a href="legal.html?v=3#privacidad" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
-      <p class="ecc-lista-error" role="alert" hidden></p>
-      <button type="submit" class="ecc-cta ecc-lista-enviar"><span>Unirme gratis a la lista de espera</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></button>
-      <p class="ecc-lista-nota"><i class="ph-light ph-lock-simple"></i>Tus datos están protegidos. Puedes darte de baja cuando quieras.</p>
-    </form>
-    <div class="ecc-lista-ok" hidden>
-      <span class="ecc-lista-ok-ico"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <h2>¡Ya estás en la lista!</h2>
-      <p>Te escribiremos a <strong class="ecc-lista-ok-correo"></strong> con tu 40% de descuento en cuanto abran las inscripciones.</p>
-      <button type="button" class="ecc-cta" data-cerrar><span>Seguir viendo el programa</span></button>
-    </div>
-  </div>
-</div>
-<script>
-/* Lista de espera: popup con nombre, correo, WhatsApp opcional y consentimiento. Se guarda en Supabase (tabla leads) por /api/subscribe. */
-(function(){
-  var M=document.getElementById('lista'); if(!M) return;
-  var form=M.querySelector('form'), ok=M.querySelector('.ecc-lista-ok'), err=M.querySelector('.ecc-lista-error'), btn=M.querySelector('.ecc-lista-enviar');
-  var P=[['PE','Perú','+51'],['MX','México','+52'],['CO','Colombia','+57'],['AR','Argentina','+54'],['CL','Chile','+56'],['EC','Ecuador','+593'],['BO','Bolivia','+591'],['UY','Uruguay','+598'],['PY','Paraguay','+595'],['VE','Venezuela','+58'],['US','Estados Unidos','+1'],['ES','España','+34'],['CR','Costa Rica','+506'],['PA','Panamá','+507'],['GT','Guatemala','+502'],['DO','Rep. Dominicana','+1'],['SV','El Salvador','+503'],['HN','Honduras','+504'],['NI','Nicaragua','+505'],['PR','Puerto Rico','+1'],['CA','Canadá','+1'],['XX','Otro país','+']];
-  var flag=function(c){return c==='XX'?'🌎':String.fromCodePoint.apply(null,c.split('').map(function(ch){return 127397+ch.charCodeAt(0)}))};
-  var sel=M.querySelector('#ecc-l-pais'); sel.innerHTML=P.map(function(p){return '<option value="'+p[0]+'">'+flag(p[0])+' '+p[2]+'\u2003\u2003'+p[1]+'</option>'}).join('');
-  /* país por zona horaria o idioma del navegador */
-  var TZ={'America/Lima':'PE','America/Mexico_City':'MX','America/Monterrey':'MX','America/Tijuana':'MX','America/Cancun':'MX','America/Bogota':'CO','America/Argentina/Buenos_Aires':'AR','America/Buenos_Aires':'AR','America/Santiago':'CL','America/Guayaquil':'EC','America/La_Paz':'BO','America/Montevideo':'UY','America/Asuncion':'PY','America/Caracas':'VE','Europe/Madrid':'ES','America/Costa_Rica':'CR','America/Panama':'PA','America/Guatemala':'GT','America/Santo_Domingo':'DO','America/El_Salvador':'SV','America/Tegucigalpa':'HN','America/Managua':'NI','America/Puerto_Rico':'PR'};
-  var pais='PE'; try{var tz=Intl.DateTimeFormat().resolvedOptions().timeZone; if(TZ[tz]) pais=TZ[tz]; else if(/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Detroit|Anchorage)/.test(tz)) pais='US'; else {var r=(navigator.language||'').split('-')[1]; if(r&&P.some(function(p){return p[0]===r.toUpperCase()})) pais=r.toUpperCase();}}catch(e){}
-  sel.value=pais;
-  var ultimo=null, guardadoY=0, bloqueado=false;
-  /* congela la página donde está (sin saltar al inicio) mientras el popup está abierto */
-  function bloquear(){ if(bloqueado) return; bloqueado=true; guardadoY=window.scrollY; var b=document.body.style; b.position='fixed'; b.top=(-guardadoY)+'px'; b.left='0'; b.right='0'; b.width='100%'; }
-  function liberar(){ if(!bloqueado) return; bloqueado=false; var b=document.body.style; b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; var de=document.documentElement, sb=de.style.scrollBehavior; de.style.scrollBehavior='auto'; window.scrollTo(0,guardadoY); de.style.scrollBehavior=sb; }
-  function abrir(e){ if(e) e.preventDefault(); ultimo=document.activeElement; M.hidden=false; bloquear(); requestAnimationFrame(function(){M.classList.add('on')});
-    var n=M.querySelector('#ecc-l-nombre'); setTimeout(function(){ (form.hidden?ok.querySelector('button'):n).focus({preventScroll:true}); },60);
-    if(window.eccEvento) try{window.eccEvento('lista_abrir',(e&&e.currentTarget&&e.currentTarget.textContent||'').trim().slice(0,60),'!AbrirListaEspera','lista_abrir',null)}catch(x){} }
-  function cerrar(){ M.classList.remove('on'); setTimeout(liberar,200); setTimeout(function(){M.hidden=true},220); if(ultimo&&ultimo.focus) ultimo.focus({preventScroll:true}); }
-  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-ecc-lista],a[href="#lista"]'); if(a){abrir(e);}},true);
-  [].forEach.call(M.querySelectorAll('[data-cerrar]'),function(b){b.addEventListener('click',cerrar)});
-  document.addEventListener('keydown',function(e){ if(M.hidden) return; if(e.key==='Escape') cerrar();
-    if(e.key==='Tab'){var f=[].filter.call(M.querySelectorAll('button,input,select,a[href]'),function(x){return x.offsetParent!==null}); if(!f.length) return; var a=f[0],z=f[f.length-1]; if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()} else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
-  if(location.hash==='#lista') abrir();
-  function marca(el,mal){var c=el.closest('.ecc-campo,.ecc-check'); if(c) c.classList.toggle('mal',mal); el.setAttribute('aria-invalid',mal?'true':'false');}
-  function leer(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return {}}}
-  form.addEventListener('submit',function(e){
-    e.preventDefault(); err.hidden=true;
-    var nombre=form.nombre.value.trim(), correo=form.correo.value.trim().toLowerCase(), cel=form.whatsapp.value.replace(/[^\d]/g,''), p=P.filter(function(x){return x[0]===sel.value})[0]||P[0], okc=form.consentimiento.checked;
-    var mal=[]; marca(form.nombre,!nombre); if(!nombre) mal.push('tu nombre');
-    var correoOk=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo); marca(form.correo,!correoOk); if(!correoOk) mal.push('un correo válido');
-    var celOk=!cel||(cel.length>=6&&cel.length<=15); marca(form.whatsapp,!celOk); if(!celOk) mal.push('un WhatsApp válido (o déjalo vacío)');
-    marca(form.consentimiento,!okc); if(!okc) mal.push('tu aceptación de la política de privacidad');
-    if(mal.length){err.textContent='Falta '+mal.join(', ')+'.'; err.hidden=false; var pri=form.querySelector('[aria-invalid="true"]'); if(pri) pri.focus(); return;}
-    btn.disabled=true; btn.classList.add('cargando'); btn.querySelector('span').textContent='Enviando…';
-    var u=leer('_utm'), f=leer('_utm_first'), K=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-    var datos={name:nombre,email:correo,whatsapp:cel?(p[2]+' '+cel):null,source:'Lista de espera ECC',survey:{pais:p[1],pais_codigo:p[0],consentimiento:true,pagina:location.pathname,fecha:new Date().toISOString()},anonymous_id:localStorage.getItem('_aid')||null,session_id:sessionStorage.getItem('_sid')||null};
-    K.forEach(function(k){datos[k]=u[k]||null;datos['first_touch_'+k]=f[k]||null;});
-    var local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-    (local?Promise.resolve({ok:true}):fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)})).then(function(r){
-      if(!r.ok) throw new Error('http');
-      try{localStorage.setItem('ecc_lista',correo)}catch(x){}
-      if(window.eccEvento) try{window.eccEvento('lista_espera',p[1],'Lead','generate_lead','SubmitForm')}catch(x){}
-      M.querySelector('.ecc-lista-ok-correo').textContent=correo; form.hidden=true; ok.hidden=false; ok.querySelector('button').focus({preventScroll:true});
-    }).catch(function(){ err.textContent='No pudimos registrarte. Revisa tu conexión e inténtalo otra vez.'; err.hidden=false; })
-    .then(function(){ btn.disabled=false; btn.classList.remove('cargando'); btn.querySelector('span').textContent='Unirme gratis a la lista de espera'; });
-  });
-  [form.nombre,form.correo,form.whatsapp,form.consentimiento].forEach(function(el){el.addEventListener('input',function(){marca(el,false)});el.addEventListener('change',function(){marca(el,false)});});
-})();
-/* Indicador de scroll del hero móvil (el hero lo vuelve a pintar support.js, así que se busca el elemento en cada cuadro) */
-(function(){
-  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ecc-hero-baja'); if(!b) return; e.preventDefault(); var t=document.getElementById('ecc-tras-hero'), hd=document.querySelector('header'); if(!t) return; var y=t.getBoundingClientRect().top+scrollY-(hd?hd.offsetHeight:0); scrollTo({top:y,behavior:'smooth'});});
-  (function mover(t){ var b=document.querySelector('.ecc-hero-baja');
-    if(b){ b.classList.toggle('fuera',scrollY>80); var sv=b.querySelector('svg');
-      if(sv&&scrollY<400){ var k=(Math.sin(t/1000*Math.PI*2/1.6)+1)/2; sv.style.animation='none'; sv.style.transform='translate3d(0,'+(k*5-2).toFixed(2)+'px,0)'; sv.style.opacity=(.6+.4*k).toFixed(2);} }
-    requestAnimationFrame(mover); })(performance.now());
 })();
 </script>
 </body>

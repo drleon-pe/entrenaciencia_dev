@@ -25,7 +25,7 @@ export default function Hero() {
 
         <div className="hero-ctas">
           <a href="#recursos" className="btn btn-primary">Recursos gratis</a>
-          <a href="/vsl" className="btn btn-yellow">Nuestro curso</a>
+          <a href="/neurociencia" className="btn btn-yellow">Nuestro curso</a>
         </div>
       </div>
 

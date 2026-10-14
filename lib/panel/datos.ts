@@ -127,7 +127,7 @@ export async function leerPanel({ desde, hasta, incluirEquipo }: Filtros) {
 
   const [visitas, eventos, inscritos] = await Promise.all([
     todas('page_views', 'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_campaign, first_touch_utm_source', (q) =>
-      rango(q.like('path', '/vsl%')),
+      rango(q.or('path.like./vsl%,path.like./neurociencia%')),
     ),
     todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind', (q) =>
       rango(q.eq('resource_title', RECURSO_LANDING)),

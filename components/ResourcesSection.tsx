@@ -46,7 +46,7 @@ const resources: Resource[] = [
     description: 'Transforma tu cuerpo en 8 semanas con neurociencia: aprende a crear hábitos que duran, con rutinas, plan de nutrición y app de seguimiento diseñados por nuestro equipo médico.',
     actionLabel: 'Inscribirme',
     kind: 'course',
-    href: '/vsl',
+    href: '/neurociencia',
     coming: true,
   },
 ];

@@ -362,7 +362,7 @@ export function buildReportHtml({ name, inputs, result }: ReportProps): string {
   <!-- Clickable overlay covering the yellow button. data-cta is read at PDF
        render time so we can re-create a real link annotation in pdf-lib after
        rasterization (the <a> itself doesn't survive the screenshot step). -->
-  <a href="https://www.entrenaciencia.com/vsl" data-cta="curso"
+  <a href="https://www.entrenaciencia.com/neurociencia" data-cta="curso"
      style="position:absolute;left:465.96px;top:740.41px;width:182.98px;height:62px;display:block;z-index:10;"></a>
 
   <!-- Legal note -->
