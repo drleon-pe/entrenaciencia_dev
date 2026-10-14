@@ -54,9 +54,10 @@ p{margin:0}
 .cabecera .envase{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none;font:800 16px/1 "Poppins";letter-spacing:.06em}
 .logo img{width:28px;height:28px}
-.logo span{color:#fff} .logo span+span{color:var(--cyan);margin-left:-3px}
-.cabecera .logo{font-size:13.5px;white-space:nowrap;gap:7px}
-.cabecera .logo img{width:24px;height:24px}
+.logo-txt{display:flex;flex-direction:column;line-height:1.02;text-transform:uppercase}
+.logo span{color:#fff} .logo span+span{color:var(--cyan)}
+.cabecera .logo{font-size:14px;white-space:nowrap;gap:8px}
+.cabecera .logo img{width:30px;height:30px}
 @media (max-width:359px){.cabecera .logo{font-size:12px}.cabecera .btn-mini{padding:10px 12px;font-size:11.5px}}
 .cabecera .btn-mini{display:inline-flex;align-items:center;gap:7px;flex:none;padding:11px 16px;border-radius:999px;background:var(--teal);color:#fff;font:700 12.5px/1 "Poppins";letter-spacing:.05em;text-transform:uppercase;text-decoration:none}
 .cabecera .btn-mini i{font-size:15px}
@@ -288,6 +289,7 @@ p{margin:0}
 .pie{background:var(--navy-2);color:#9FB6C6;font-size:12.5px;line-height:1.6;padding:28px 0 120px;text-align:center}
 .pie .logo{justify-content:center;margin-bottom:14px}
 .pie .logo span{color:#fff} .pie .logo span+span{color:var(--cyan)}
+.pie .logo-txt{text-align:left}
 .pie p+p{margin-top:8px}
 
 /* ---------- barra fija inferior ---------- */
@@ -342,7 +344,7 @@ p{margin:0}
   .anuncio span{margin-left:10px}
   .cabecera .envase{height:72px}
   .cabecera .logo{font-size:16px;gap:9px}
-  .cabecera .logo img{width:28px;height:28px}
+  .cabecera .logo img{width:34px;height:34px}
   .cabecera .btn-mini{padding:13px 22px;font-size:13.5px}
   /* el hero entra completo en la pantalla: los tamaños dependen también del alto de la ventana */
   .anuncio{padding:6px 16px 7px}
@@ -417,7 +419,7 @@ p{margin:0}
 
 <header class="cabecera">
   <div class="envase">
-    <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.png" alt=""><span>ENTRENA</span><span>CON CIENCIA</span></a>
+    <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></a>
     <a class="btn-mini" href="#lista" data-ecc-lista>Regístrate <i class="ph-light ph-arrow-right"></i></a>
   </div>
 </header>
@@ -712,7 +714,7 @@ p{margin:0}
 
 <footer class="pie">
   <div class="envase">
-    <div class="logo"><img src="assets/isotipo-ecc.png" alt=""><span>ENTRENA</span><span>CON CIENCIA</span></div>
+    <div class="logo"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></div>
     <p>Este contenido es informativo y educativo y no reemplaza la consulta con tu médico. Los resultados varían entre personas. Si tienes una condición de salud o tomas medicación, consulta a tu especialista antes de cambiar tu alimentación o entrenamiento.</p>
     <p>Ilustración del cerebro: <a href="https://smart.servier.com/" target="_blank" rel="noopener">Servier Medical Art</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p>
     <p>© 2026 Entrena con Ciencia · <a href="legal.html?v=3">Términos</a> · <a href="legal.html?v=3#privacidad">Privacidad</a></p>
