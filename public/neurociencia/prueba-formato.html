@@ -197,26 +197,31 @@ p{margin:0}
 .cifras span{display:block;margin-top:6px;font-size:12.5px;line-height:1.3;font-weight:500}
 
 /* mapa del cerebro (como el producto al centro con beneficios alrededor) */
-.mapa{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"a b" "cer cer" "c d";gap:14px;padding:22px 16px 8px}
+.mapa{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"a a" "cer cer" "c d";gap:14px 34px;padding:22px 16px 8px}
 .mapa-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
 .mapa-cerebro{grid-area:cer;position:relative;width:min(78%,330px);margin:18px auto;aspect-ratio:900/918}
-.mapa-cerebro img{width:100%;height:100%;filter:drop-shadow(0 18px 24px rgba(10,37,64,.22))}
-.foco{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--teal);border:3px solid #fff;box-shadow:0 0 0 0 rgba(1,127,167,.5);animation:latido 2.2s ease-out infinite;z-index:2}
-.foco[data-foco="gb"]{background:#E0A800}
+.mapa-cerebro img{width:100%;height:100%;transform:scaleX(-1);filter:drop-shadow(0 18px 24px rgba(10,37,64,.22))}
+.foco{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--teal);border:3px solid #fff;color:#fff;font:700 12px/20px "Poppins";font-style:normal;text-align:center;box-shadow:0 0 0 0 rgba(1,127,167,.5);animation:latido 2.2s ease-out infinite;z-index:2}
+.foco[data-foco="gb"]{background:var(--navy)}
 @keyframes latido{0%{box-shadow:0 0 0 0 rgba(1,127,167,.45)}70%{box-shadow:0 0 0 14px rgba(1,127,167,0)}100%{box-shadow:0 0 0 0 rgba(1,127,167,0)}}
 .caja-m{position:relative;z-index:2;background:#fff;border:1px solid var(--borde);border-radius:16px;padding:14px 14px 15px;box-shadow:0 14px 30px -20px rgba(10,37,64,.45);display:flex;flex-direction:column;gap:6px}
-.caja-m[data-area="a"]{grid-area:a}.caja-m[data-area="b"]{grid-area:b}.caja-m[data-area="c"]{grid-area:c}.caja-m[data-area="d"]{grid-area:d}
-.caja-ico{width:38px;height:38px;border-radius:12px;background:var(--celeste);color:var(--teal);display:grid;place-items:center;font-size:22px}
+.caja-m[data-area="a"]{grid-area:a}.caja-m[data-area="c"]{grid-area:c}.caja-m[data-area="d"]{grid-area:d}
+.paso-tag{display:inline-flex;align-items:center;gap:7px;font:600 10.5px/1 "Poppins";letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.paso-tag i{flex:none;width:24px;height:24px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font:700 12px/1 "Poppins";font-style:normal;letter-spacing:0}
+.caja-m[data-area="c"] .paso-tag i{background:var(--navy)}
+.caja-m[data-area="c"] .paso-tag{color:var(--navy)}
+.caja-m.ok{background:#EAF7EF;border-color:#BFE3CC}
+.caja-m.ok .paso-tag{color:#1E7A45}.caja-m.ok .paso-tag i{background:#1E7A45}
 .caja-m.am{background:var(--crema);border-color:#F3E2A6}
-.caja-m.am .caja-ico{background:#FFE9A3;color:#8A6400}
+.caja-m.am .paso-tag{color:#8A6400}.caja-m.am .paso-tag i{background:#E0A800;color:var(--navy-2);font-family:"Phosphor-Fill"!important;font-size:14px}
 .caja-m b{font-size:14.5px;line-height:1.2}
 .caja-m p{font-size:13px;line-height:1.45;color:var(--suave)}
 .caja-m p em{color:var(--navy);font-weight:600}
 .mapa-svg path.halo{fill:none;stroke:rgba(255,255,255,.85);stroke-width:6;stroke-linecap:round}
 .mapa-svg path.linea-m{fill:none;stroke:#017FA7;stroke-width:2.2;stroke-dasharray:5 5;animation:fluye 1.2s linear infinite}
-.mapa-svg path.via{fill:none;stroke:#E0A800;stroke-width:3;stroke-linecap:round;stroke-dasharray:2 7;animation:fluye 1s linear infinite}
+.mapa-svg path.via{fill:none;stroke:#E0A800;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:7 6;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff);animation:fluye 1s linear infinite}
 @keyframes fluye{to{stroke-dashoffset:-20}}
-.via-txt{font:600 11px "Poppins";letter-spacing:.08em;fill:#8A6400}
+.num-via text{font:700 11px "Poppins";fill:#010D15}
 
 /* ---------- programa ---------- */
 .modulos{display:grid;gap:18px;margin-top:30px}
@@ -375,7 +380,7 @@ p{margin:0}
   .mec-izq{padding:16px 10px 16px 20px}
   .mec-pie{max-width:780px;margin:0 auto}
   .numerazo{border-left:1px solid #EAF1F6;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
-  .mapa{grid-template-columns:1fr 1.5fr 1fr;grid-template-areas:"a cer b" "c cer d";gap:22px 40px;padding:30px 36px 10px;align-items:center}
+  .mapa{grid-template-columns:1fr 1.5fr 1fr;grid-template-areas:"a cer c" "a cer d";gap:22px 40px;padding:30px 36px 10px;align-items:center}
   .mapa-cerebro{width:100%;max-width:400px;margin:0 auto}
   .caja-m{padding:18px}
   .caja-m b{font-size:16px}.caja-m p{font-size:14px}
@@ -550,16 +555,15 @@ p{margin:0}
     <div class="tarjeta">
       <div class="mec-cab"><span class="eyebrow">12 semanas</span><h2 class="titulo-sm" style="margin-top:10px">Conoce el mecanismo por el cual <span class="teal">se crean los hábitos</span></h2></div>
       <div class="mapa" id="mapa">
-        <svg class="mapa-svg" aria-hidden="true"><defs><marker id="punta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker><marker id="punta-am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E0A800"/></marker></defs></svg>
+        <svg class="mapa-svg" aria-hidden="true"><defs><marker id="punta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker><marker id="punta-ok" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1E7A45"/></marker><marker id="punta-am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E0A800"/></marker></defs></svg>
         <div class="mapa-cerebro" id="cerebro">
           <img src="assets/servier/cerebro-lateral-900.png" alt="Ilustración del cerebro" loading="lazy">
-          <i class="foco" data-foco="pf" style="left:84%;top:38%"></i>
-          <i class="foco" data-foco="gb" style="left:50%;top:46%"></i>
+          <i class="foco" data-foco="pf" style="left:15%;top:33%">1</i>
+          <i class="foco" data-foco="gb" style="left:50%;top:46%">2</i>
         </div>
-        <div class="caja-m" data-area="a" data-desde="gb"><span class="caja-ico"><i class="ph-light ph-gear-six"></i></span><b>Ganglios basales</b><p>Responden en automático.</p></div>
-        <div class="caja-m" data-area="b" data-desde="pf"><span class="caja-ico"><i class="ph-light ph-question"></i></span><b>Corteza prefrontal</b><p><em>¿entreno hoy?</em> <em>¿me como esto?</em> Te obliga a decidir una y otra vez.</p></div>
-        <div class="caja-m" data-area="c" data-desde="gb"><span class="caja-ico"><i class="ph-light ph-check-circle"></i></span><b>En automático</b><p>Construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
-        <div class="caja-m am" data-area="d" data-desde="via"><span class="caja-ico"><i class="ph-light ph-calendar-check"></i></span><b>66 días</b><p>Mediana para volver automática una conducta.</p></div>
+        <div class="caja-m" data-area="a"><span class="paso-tag"><i>1</i>Al empezar</span><b>Corteza prefrontal</b><p>Cada decisión pasa por aquí: <em>¿entreno hoy?</em> <em>¿me como esto?</em> Te obliga a decidir una y otra vez.</p></div>
+        <div class="caja-m" data-area="c"><span class="paso-tag"><i>2</i>Al repetir</span><b>Ganglios basales</b><p>Poco a poco la decisión pasa aquí, y responden en automático.</p></div>
+        <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
       </div>
       <div class="mec">
         <div class="mec-izq">
@@ -796,18 +800,21 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     var dx=de.x-x,dy=de.y-y,d=Math.hypot(dx,dy)||1;return {x:x+dx/d*6,y:y+dy/d*6}}
   function curva(a,b,k){var mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dx=b.x-a.x,dy=b.y-a.y;return 'M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' Q'+(mx-dy*k).toFixed(1)+' '+(my+dx*k).toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1)}
   function dibujar(){
-    [].slice.call(svg.querySelectorAll('path,text')).forEach(function(n){n.remove()});
+    [].slice.call(svg.querySelectorAll('path,text,g.num-via')).forEach(function(n){n.remove()});
     var pf=pt(M.querySelector('[data-foco="pf"]')), gb=pt(M.querySelector('[data-foco="gb"]'));
-    var g2={x:gb.x+12,y:gb.y-4}, k=-.35, cx=(pf.x+g2.x)/2-(g2.y-pf.y)*k, cy=(pf.y+g2.y)/2+(g2.x-pf.x)*k;
+    var g2={x:gb.x-16,y:gb.y-4}, k=-.55, cx=(pf.x+g2.x)/2-(g2.y-pf.y)*k, cy=(pf.y+g2.y)/2+(g2.x-pf.x)*k;
     var via=document.createElementNS(NS,'path'); via.setAttribute('class','via'); via.setAttribute('d',curva(pf,g2,k)); via.setAttribute('marker-end','url(#punta-am)'); svg.appendChild(via);
-    var mid={x:.25*pf.x+.5*cx+.25*g2.x,y:.25*pf.y+.5*cy+.25*g2.y};
-    [].forEach.call(M.querySelectorAll('.caja-m'),function(c){
-      var de=c.dataset.desde==='pf'?pf:c.dataset.desde==='gb'?gb:mid, a=de, b=borde(c,de);
-      var p=document.createElementNS(NS,'path'); p.setAttribute('class','linea-m'); p.setAttribute('d',curva(a,b,(b.x<a.x?1:-1)*.12)); p.setAttribute('marker-end','url('+(c.classList.contains('am')?'#punta-am':'#punta')+')');
-      if(c.classList.contains('am')) p.style.stroke='#E0A800';
-      var h=p.cloneNode(); h.setAttribute('class','halo'); h.removeAttribute('marker-end'); h.style.stroke=''; svg.appendChild(h);
-      svg.appendChild(p);
-    });
+    var mid={x:.25*pf.x+.5*cx+.25*g2.x,y:.25*pf.y+.5*cy+.25*g2.y-16};
+    var n2=document.createElementNS(NS,'g'); n2.setAttribute('class','num-via'); n2.innerHTML='<rect x="-30" y="-12" width="60" height="24" rx="12" fill="#E0A800" stroke="#fff" stroke-width="3"/><text text-anchor="middle" dy="4.5">66 días</text>'; n2.setAttribute('transform','translate('+mid.x.toFixed(1)+' '+mid.y.toFixed(1)+')');
+    /* recorrido en orden: caja 1 → punto 1 → (66 días) → punto 2 → caja 2 → caja 3 */
+    function flecha(de,a,color,k){var h=document.createElementNS(NS,'path');h.setAttribute('class','halo');h.setAttribute('d',curva(de,a,k));svg.appendChild(h);
+      var l=document.createElementNS(NS,'path');l.setAttribute('class','linea-m');l.setAttribute('d',curva(de,a,k));l.style.stroke=color;l.setAttribute('marker-end','url(#'+(color==='#1E7A45'?'punta-ok':'punta')+')');svg.appendChild(l)}
+    var c1=M.querySelector('[data-area="a"]'),c2=M.querySelector('[data-area="c"]'),c3=M.querySelector('[data-area="d"]');
+    function cerca(c,hacia,r){var dx=hacia.x-c.x,dy=hacia.y-c.y,d=Math.hypot(dx,dy)||1;return {x:c.x+dx/d*r,y:c.y+dy/d*r}}
+    var p1=borde(c1,pf); flecha(p1,cerca(pf,p1,18),'#017FA7',.12);
+    var p2=borde(c2,gb); flecha(cerca(gb,p2,16),p2,'#017FA7',.18);
+    var a3=borde(c3,pt(c2)),d3=borde(c2,pt(c3)); flecha(d3,a3,'#1E7A45',0);
+    svg.appendChild(n2);
   }
   var t; function pedir(){cancelAnimationFrame(t);t=requestAnimationFrame(dibujar)}
   addEventListener('resize',pedir); addEventListener('load',pedir); var im=M.querySelector('img'); if(im) im.addEventListener('load',pedir); pedir();
