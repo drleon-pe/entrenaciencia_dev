@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entrena con Ciencia — Prueba de formato</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Programa de 12 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Únete a la lista de espera.">
+<link rel="icon" href="https://www.entrenaciencia.com/neurociencia/assets/isotipo-ecc.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap">
+<link rel="stylesheet" href="vendor/phosphor/fill/style.css">
+<link rel="stylesheet" href="vendor/phosphor/light/style.css">
+<!-- Prueba: la landing de lista de espera con el formato de página de oferta (barra de anuncio, hero con prueba
+     y CTA con sello, carrusel, franja de revistas, números grandes, caja de oferta y barra fija abajo).
+     Mismo copy que landing-movil.html; si no gusta, se borra este archivo y listo. -->
+<style>
+@font-face{font-family:"Phosphor-Fill";src:url("vendor/phosphor/fill/Phosphor-Fill.woff2") format("woff2");font-display:block}
+@font-face{font-family:"Phosphor-Light";src:url("vendor/phosphor/light/Phosphor-Light.woff2") format("woff2");font-display:block}
+:root{
+  --navy:#0A2540; --navy-2:#010D15; --teal:#017FA7; --cyan:#23D3FF; --amarillo:#FFC300;
+  --texto:#0A2540; --suave:#3E5260; --borde:#D3E0EA; --celeste:#E2F2FB; --celeste-2:#F2F8FC; --crema:#FFF6D9;
+  --sombra:0 18px 40px -22px rgba(10,37,64,.45);
+  --duro:4px 5px 0 var(--navy);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--texto);font:400 16px/1.55 "Poppins",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.025em;line-height:1.12}
+p{margin:0}
+.envase{width:100%;max-width:1160px;margin:0 auto;padding:0 16px}
+.angosto{max-width:760px}
+.sec{padding:64px 0}
+.centro{text-align:center}
+.titulo{font-size:clamp(30px,6.4vw,46px)}
+.titulo-sm{font-size:clamp(26px,5.2vw,38px)}
+.teal{color:var(--teal)}
+.bajada{margin-top:14px;font-size:17px;color:var(--suave)}
+.eyebrow{display:inline-block;font:700 12px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+/* resaltado: subrayado grueso amarillo sobre la mitad inferior de las letras */
+.hl{font-weight:600;text-decoration-line:underline;text-decoration-color:rgba(255,195,0,.55);text-decoration-thickness:.4em;text-underline-offset:-.62em;text-decoration-skip-ink:none;-webkit-text-decoration-skip:none}
+
+/* ---------- barra de anuncio + header ---------- */
+.anuncio{background:var(--navy);color:#fff;text-align:center;padding:9px 16px 10px}
+.anuncio b{display:block;font:700 13px/1.2 "Poppins";letter-spacing:.08em;text-transform:uppercase}
+.anuncio b i{color:var(--amarillo)}
+.anuncio span{display:block;margin-top:2px;font-size:12px;color:#CFE3F0}
+.cabecera{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid #EAF1F6}
+.cabecera .envase{height:60px;display:flex;align-items:center;justify-content:center}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font:800 16px/1 "Poppins";letter-spacing:.06em}
+.logo img{width:28px;height:28px}
+.logo span{color:var(--navy)} .logo span+span{color:var(--teal);margin-left:-3px}
+.cabecera .btn-mini{display:none}
+
+/* ---------- botones ---------- */
+.cta-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;width:100%;max-width:440px;padding-top:12px}
+.sello{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;white-space:nowrap;background:var(--amarillo);color:var(--navy-2);font:800 11.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:16px 18px 14px;border:0;border-radius:999px;background:var(--teal);color:#fff;font:700 clamp(13.5px,4vw,15px)/1.2 "Poppins";letter-spacing:.01em;text-wrap:balance;text-align:center;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:var(--duro);transition:transform .12s ease,box-shadow .12s ease}
+.cta:hover{transform:translate(1px,1px);box-shadow:3px 4px 0 var(--navy)}
+.cta:active{transform:translate(4px,5px);box-shadow:0 0 0 var(--navy)}
+.cta i{font-size:18px;flex:none}
+@media (max-width:359px){.cta{font-size:13.5px;padding-left:12px;padding-right:12px}}
+.micro{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:14px;color:var(--suave)}
+.micro i{color:var(--teal);font-size:18px}
+
+/* ---------- hero ---------- */
+.hero{padding:18px 0 40px}
+.hero-grid{display:grid;gap:22px}
+.hero-foto{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/11;background:var(--celeste)}
+.hero-foto img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.calco{position:absolute;right:14px;top:14px;width:96px;height:96px;border-radius:50%;background:var(--amarillo);color:var(--navy-2);display:grid;place-content:center;text-align:center;transform:rotate(-10deg);box-shadow:0 8px 20px -8px rgba(1,13,21,.5)}
+.calco b{display:block;font:800 28px/1 "Poppins";letter-spacing:-.03em}
+.calco small{display:block;margin-top:3px;font:700 9.5px/1.15 "Poppins";letter-spacing:.06em;text-transform:uppercase}
+.firma{position:absolute;left:12px;bottom:12px;background:rgba(10,37,64,.82);color:#fff;border-radius:10px;padding:7px 11px;font-size:12.5px;line-height:1.3;backdrop-filter:blur(6px)}
+.firma b{display:block;font-size:13.5px}
+.confianza{display:flex;align-items:center;gap:12px}
+.caras{display:flex}
+.caras img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:2px solid #fff;box-shadow:0 2px 6px rgba(10,37,64,.2)}
+.caras img+img{margin-left:-12px}
+.confianza p{font-size:13.5px;line-height:1.35;color:var(--suave)}
+.confianza p b{color:var(--navy);font-weight:700}
+.hero h1{font-size:clamp(38px,9.6vw,60px);line-height:1.04;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font-size:15.5px;line-height:1.4;font-weight:500}
+.checks li i{font-size:22px;color:var(--teal);margin-top:-1px}
+.remate{font-weight:700;font-size:17px}
+.remate small{display:block;font:700 11.5px/1 "Poppins";letter-spacing:.16em;color:var(--teal);margin-bottom:6px}
+.hero-desc{font-size:15px;color:var(--suave)}
+
+/* ---------- caja "qué incluye" (estilo regalos) ---------- */
+.regalos{margin-top:28px;border-radius:16px;overflow:hidden;background:var(--celeste-2);border:1px solid var(--borde);box-shadow:var(--sombra)}
+.regalos-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;background:var(--navy);color:#fff}
+.regalos-top b{font-size:15px;font-weight:700}
+.tag-off{background:var(--amarillo);color:var(--navy-2);font:800 12px/1 "Poppins";letter-spacing:.06em;padding:6px 10px;border-radius:6px}
+.regalos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
+.regalo{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.regalo img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;border:2px solid var(--navy);background:#fff}
+.regalo span{font-size:11.5px;line-height:1.25;font-weight:600}
+
+/* ---------- carrusel de testimonios ---------- */
+.carrusel{position:relative;margin-top:30px}
+.pista{display:flex;align-items:flex-start;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 16px 14px;margin:0 -16px;scroll-padding:0 16px}
+.pista::-webkit-scrollbar{display:none}
+.testi{flex:0 0 calc(100% - 8px);scroll-snap-align:start;background:#fff;border:2px solid var(--navy);border-radius:18px;box-shadow:var(--duro);overflow:hidden;display:flex;flex-direction:column}
+.testi-fotos{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--navy)}
+.testi-fotos figure{position:relative;margin:0;aspect-ratio:4/5;overflow:hidden;background:var(--celeste)}
+.testi-fotos img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.testi-fotos figcaption{position:absolute;left:8px;top:8px;background:rgba(10,37,64,.85);color:#fff;font:700 10px/1 "Poppins";letter-spacing:.12em;padding:5px 8px;border-radius:5px}
+.testi-fotos figure+figure figcaption{background:var(--amarillo);color:var(--navy-2)}
+.testi-plazo{position:absolute;right:8px;bottom:8px;background:#fff;color:var(--navy);font:800 10.5px/1 "Poppins";letter-spacing:.08em;padding:5px 8px;border-radius:5px}
+.testi-txt{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.testi-txt h3{font-size:19px;color:var(--teal);letter-spacing:-.02em}
+.testi-txt p{font-size:15px;line-height:1.55}
+.testi-quien{margin-top:auto;padding-top:6px;display:flex;flex-direction:column;gap:3px}
+.testi-quien b{font-size:14.5px}
+.testi-quien small{font:700 10.5px/1 "Poppins";letter-spacing:.14em;color:var(--teal)}
+.nav-car{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:10px}
+.nav-car button{width:42px;height:42px;border-radius:50%;border:2px solid var(--navy);background:#fff;color:var(--navy);display:grid;place-items:center;cursor:pointer;font-size:18px}
+.nav-car button:disabled{opacity:.35;cursor:default}
+.puntos{display:flex;gap:7px}
+.puntos i{width:8px;height:8px;border-radius:50%;background:#BFD3E0;transition:background .2s,width .2s}
+.puntos i.on{background:var(--navy);width:20px;border-radius:5px}
+.aviso{margin-top:14px;font-size:12.5px;color:var(--suave);text-align:center}
+
+/* ---------- franja de revistas ---------- */
+.revistas{background:var(--navy);color:#fff;padding:22px 0 24px;overflow:hidden}
+.revistas p{text-align:center;font:700 11.5px/1.3 "Poppins";letter-spacing:.16em;color:#CFE3F0;padding:0 16px}
+.marquesina{margin-top:16px;display:flex;width:max-content;animation:correr 34s linear infinite}
+.marquesina img{height:34px;width:auto;margin:0 28px;opacity:.92}
+@keyframes correr{to{transform:translateX(-50%)}}
+
+/* ---------- por qué funciona ---------- */
+.texto-largo{display:grid;gap:16px;margin-top:22px;font-size:16.5px;line-height:1.65;color:var(--suave)}
+.texto-largo b{color:var(--navy)}
+.cita-bloque{margin-top:6px;padding:18px 20px;border-left:4px solid var(--amarillo);background:var(--crema);border-radius:0 12px 12px 0;color:var(--navy);font-weight:600;font-size:17px;line-height:1.5}
+.pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
+.pilar{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.pilar span{width:58px;height:58px;border-radius:16px;background:var(--celeste);display:grid;place-items:center;color:var(--teal);font-size:30px}
+.pilar b{font:700 12.5px/1.25 "Poppins";letter-spacing:.06em;text-transform:uppercase}
+.tachado{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+.tachado span{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;background:#F3F5F7;color:#5B6B77;font-size:14px;font-weight:500;text-decoration:line-through;text-decoration-color:#C9402B}
+.tachado span i{color:#C9402B;font-size:16px;text-decoration:none}
+
+/* ---------- mecanismo con números grandes ---------- */
+.fondo-celeste{background:var(--celeste-2)}
+.tarjeta{background:#fff;border-radius:22px;box-shadow:var(--sombra);overflow:hidden}
+.mec-cab{padding:28px 20px 6px;text-align:center}
+.pasos{list-style:none;margin:0;padding:18px 20px 6px;display:grid;gap:14px;counter-reset:p}
+.paso{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.paso-n{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:800 17px/1 "Poppins"}
+.paso-zona{display:inline-block;margin-bottom:5px;font:700 11px/1 "Poppins";letter-spacing:.14em;color:var(--teal);text-transform:uppercase}
+.paso p{font-size:15.5px;line-height:1.55;color:var(--suave)}
+.paso p em{font-style:italic;color:var(--navy)}
+.numerazo{padding:26px 20px 30px;text-align:center}
+.numerazo .grande{display:block;font:800 clamp(78px,22vw,120px)/.95 "Poppins";letter-spacing:-.05em;color:var(--teal)}
+.numerazo .grande small{font-size:.36em;letter-spacing:-.02em;margin-left:4px}
+.numerazo p b{color:var(--navy)}
+.numerazo p{max-width:30ch;margin:10px auto 0;font-size:16px;line-height:1.5}
+.numerazo cite{display:block;margin-top:8px;font-size:12.5px;font-style:normal;color:var(--suave)}
+.mec-pie{padding:0 16px 30px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;text-align:center;font-size:16px;line-height:1.6;color:var(--suave)}
+.mec-pie b{color:var(--navy)}
+.mec-pie .cta-wrap{margin:8px auto 0}
+.crema{margin-top:26px;background:var(--crema);border-radius:22px;padding:30px 20px;text-align:center}
+.crema h3{font-size:clamp(26px,5.6vw,34px);color:var(--navy)}
+.crema h3 span{display:block}
+.cifras{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:22px}
+.cifras b{display:block;font:800 clamp(34px,9vw,54px)/1 "Poppins";letter-spacing:-.04em;color:var(--teal)}
+.cifras span{display:block;margin-top:6px;font-size:12.5px;line-height:1.3;font-weight:500}
+
+/* ---------- programa ---------- */
+.modulos{display:grid;gap:18px;margin-top:30px}
+.modulo{display:grid;background:#fff;border:1px solid var(--borde);border-radius:20px;overflow:hidden;box-shadow:var(--sombra)}
+.modulo img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.modulo-txt{padding:20px 20px 22px;display:flex;flex-direction:column;gap:9px}
+.modulo-txt h3{font-size:21px}
+.modulo-txt p{font-size:15px;line-height:1.6;color:var(--suave)}
+.modulo:nth-child(1){border:2px solid var(--navy);box-shadow:var(--duro)}
+
+/* ---------- equipo ---------- */
+.equipo{display:grid;gap:18px;margin-top:30px}
+.persona{background:#fff;border:1px solid var(--borde);border-radius:20px;overflow:hidden;box-shadow:var(--sombra)}
+.persona-cab{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;padding:18px 18px 0}
+.persona-cab img{width:96px;height:96px;border-radius:16px;object-fit:cover;object-position:50% 20%}
+.persona-cab h3{font-size:20px;margin-top:6px}
+.persona-txt{padding:14px 18px 20px;display:grid;gap:10px;font-size:14.5px;line-height:1.6;color:var(--suave)}
+.historia{margin-top:26px;background:var(--navy);color:#fff;border-radius:22px;overflow:hidden}
+.historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.historia-fotos figure{position:relative;margin:0;aspect-ratio:3/4;overflow:hidden}
+.historia-fotos img{width:100%;height:100%;object-fit:cover}
+.historia-fotos figcaption{position:absolute;left:10px;bottom:10px;display:flex;flex-direction:column;gap:4px}
+.historia-fotos figcaption b{font:800 24px/1 "Poppins";letter-spacing:-.03em;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+.historia-fotos figcaption small{align-self:flex-start;background:#fff;color:var(--navy);font:700 10px/1 "Poppins";letter-spacing:.12em;padding:5px 8px;border-radius:5px}
+.historia-fotos figure+figure figcaption small{background:var(--amarillo);color:var(--navy-2)}
+.historia-txt{padding:22px 20px 26px;display:grid;gap:16px}
+.historia-txt .leyenda{font-size:12.5px;color:#BFD6E6}
+.historia-txt h3{font-size:26px}
+.linea{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.linea li{position:relative;padding-left:22px;font-size:15px;line-height:1.55;color:#E3EEF5}
+.linea li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--cyan)}
+.linea li small{display:block;font:700 11px/1 "Poppins";letter-spacing:.14em;color:var(--cyan);margin-bottom:5px}
+.historia-txt .remate-blanco{font-weight:600;color:#fff;border-top:1px solid rgba(255,255,255,.16);padding-top:16px}
+
+/* ---------- caja de oferta ---------- */
+.oferta{border:2px solid var(--navy);border-radius:22px;background:#fff;box-shadow:var(--duro);overflow:hidden;max-width:560px;margin:30px auto 0}
+.oferta-cinta{background:var(--navy);color:#fff;text-align:center;padding:10px 14px;font:700 13px/1.2 "Poppins";letter-spacing:.08em;text-transform:uppercase}
+.oferta-cinta i{color:var(--amarillo)}
+.oferta-cuerpo{padding:22px 20px 24px;display:flex;flex-direction:column;gap:16px}
+.oferta-cuerpo h3{font-size:25px}
+.oferta-cuerpo .bajada{margin:0;font-size:15.5px}
+.oferta-cuerpo .badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font:700 11.5px/1 "Poppins";letter-spacing:.1em;text-transform:uppercase;background:var(--celeste);color:var(--teal)}
+.badge.am{background:var(--amarillo);color:var(--navy-2)}
+.incluye{border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde);padding:16px}
+.incluye > b{display:block;font:700 12px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:12px}
+.incluye ul,.beneficios{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.incluye li,.beneficios li{display:grid;grid-template-columns:22px 1fr;gap:9px;font-size:14.5px;line-height:1.4;font-weight:500}
+.incluye li i,.beneficios li i{font-size:20px;color:var(--teal)}
+.beneficios li{font-size:15px}
+.nota-candado{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:#566C7A}
+.sellos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;padding-top:16px;border-top:1px solid #EAF1F6}
+.sellos div{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;font-size:11.5px;line-height:1.3;font-weight:600}
+.sellos i{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--teal);display:grid;place-items:center;color:var(--teal);font-size:22px}
+
+/* ---------- preguntas ---------- */
+.faq{margin-top:28px;border-top:1px solid var(--borde)}
+.faq details{border-bottom:1px solid var(--borde)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:20px 4px;cursor:pointer;font-weight:600;font-size:17px;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--celeste);color:var(--teal);display:grid;place-items:center;font-size:16px;transition:transform .2s ease}
+.faq details[open] summary i{transform:rotate(45deg)}
+.faq details p{padding:0 4px 20px;color:var(--suave);font-size:15.5px;line-height:1.65}
+
+/* ---------- cierre ---------- */
+.cierre{background:var(--navy);color:#fff;text-align:center;padding:56px 0 60px}
+.cierre h2{font-size:clamp(30px,7vw,46px)}
+.cierre h2 span{display:block;color:var(--cyan)}
+.cierre p{margin:14px auto 0;max-width:34ch;color:#CFE3F0;font-size:16.5px}
+.cierre .cta-wrap{margin-top:28px}
+.cierre .cta{background:var(--amarillo);color:var(--navy-2);box-shadow:4px 5px 0 #000}
+.cierre .sello{background:#fff;color:var(--navy)}
+.pie{background:var(--navy-2);color:#9FB6C6;font-size:12.5px;line-height:1.6;padding:28px 0 120px;text-align:center}
+.pie .logo{justify-content:center;margin-bottom:14px}
+.pie .logo span{color:#fff} .pie .logo span+span{color:var(--cyan)}
+.pie p+p{margin-top:8px}
+
+/* ---------- barra fija inferior ---------- */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--navy);padding:16px 16px calc(10px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 30px -12px rgba(1,13,21,.5)}
+.barra.on{transform:none}
+.barra .cta-wrap{max-width:440px;display:flex;margin:0 auto}
+.barra .cta{min-height:54px;background:var(--amarillo);color:var(--navy-2);box-shadow:none}
+.barra .sello{background:#fff;color:var(--navy)}
+.barra p{margin-top:8px;text-align:center;font-size:12.5px;color:#CFE3F0;font-weight:500}
+.barra p i{color:var(--cyan)}
+
+/* ---------- popup lista de espera ---------- */
+.ecc-lista-modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.ecc-lista-modal[hidden]{display:none!important}
+.ecc-lista-fondo{position:absolute;inset:0;background:rgba(1,13,21,.62);opacity:0;transition:opacity .22s ease}
+.ecc-lista-caja{position:relative;width:100%;max-width:440px;max-height:calc(100svh - 32px);overflow:auto;background:#fff;border-radius:20px;padding:28px 24px 22px;box-shadow:0 30px 80px -20px rgba(1,13,21,.6);transform:translateY(16px) scale(.98);opacity:0;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .22s ease}
+.ecc-lista-modal.on .ecc-lista-fondo{opacity:1}
+.ecc-lista-modal.on .ecc-lista-caja{transform:none;opacity:1}
+.ecc-lista-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:#EEF4F8;color:#0A2540;display:grid;place-items:center;cursor:pointer}
+.ecc-lista-form{display:flex;flex-direction:column;gap:14px}
+.ecc-lista-badges{display:inline-flex;align-items:center;flex-wrap:wrap;gap:10px;padding-right:44px}
+.ecc-lista-eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 11px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:#017FA7}
+.ecc-lista-eyebrow i{font-size:16px;color:#FFC300}
+.ecc-lista-off{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:#FFC300;color:#010D15;font:800 12px/1 "Poppins";letter-spacing:.08em}
+.ecc-lista-caja h2{margin:2px 0 0;font:700 24px/1.2 "Poppins";letter-spacing:-.02em;color:#0A2540}
+.ecc-lista-intro{margin:-6px 0 4px;font-size:15px;line-height:1.5;color:#3E5260}
+.ecc-campo{display:flex;flex-direction:column;gap:6px}
+.ecc-campo > span,.ecc-campo > label{font:600 13px "Poppins";color:#0A2540}
+.ecc-campo em{font-style:normal;font-weight:500;color:#6B7F8C}
+.ecc-campo input,.ecc-cel select{height:48px;border:1px solid #C9DCE7;border-radius:12px;padding:0 14px;font:500 16px "Poppins";color:#0B1F2C;background:#fff;outline:none;width:100%;-webkit-appearance:none;appearance:none}
+.ecc-campo input:focus,.ecc-cel select:focus{border-color:#017FA7;box-shadow:0 0 0 3px rgba(1,127,167,.18)}
+.ecc-cel{display:grid;grid-template-columns:104px minmax(0,1fr);gap:8px}
+.ecc-cel select{padding:0 28px 0 10px;font-size:15px;text-overflow:clip;white-space:nowrap;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6' fill='none' stroke='%230A2540' stroke-width='2'/></svg>");background-repeat:no-repeat;background-position:right 8px center;background-size:16px}
+.ecc-campo.mal input,.ecc-campo.mal select{border-color:#C9402B;box-shadow:0 0 0 3px rgba(201,64,43,.12)}
+.ecc-check{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;font-size:13.5px;line-height:1.45;color:#3E5260;cursor:pointer}
+.ecc-check input{width:20px;height:20px;margin:1px 0 0;accent-color:#017FA7}
+.ecc-check a{color:#017FA7}
+.ecc-check.mal span{color:#C9402B}
+.ecc-lista-error{margin:0;font-size:13.5px;color:#C9402B;font-weight:500}
+.ecc-lista-caja .cta{box-shadow:none;min-height:56px;font-size:15px;text-transform:none;white-space:normal}
+.ecc-lista-nota{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:12.5px;line-height:1.4;color:#566C7A}
+.ecc-lista-ok{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:10px 0 4px}
+.ecc-lista-ok p{font-size:15px;line-height:1.55;color:#3E5260}
+.ecc-lista-ok-ico{width:64px;height:64px;border-radius:50%;background:#FFC300;color:#010D15;display:grid;place-items:center}
+.ecc-lista-form[hidden],.ecc-lista-ok[hidden],.ecc-lista-error[hidden]{display:none!important}
+
+/* ---------- escritorio ---------- */
+@media (min-width:860px){
+  .envase{padding:0 32px}
+  .sec{padding:96px 0}
+  .anuncio b,.anuncio span{display:inline}
+  .anuncio span{margin-left:10px}
+  .cabecera .envase{justify-content:space-between;height:68px}
+  .cabecera .btn-mini{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;background:var(--teal);color:#fff;font:700 13.5px/1 "Poppins";letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+  .hero{padding:40px 0 64px}
+  .hero-grid{grid-template-columns:1.02fr 1fr;gap:56px;align-items:center}
+  .hero-foto{order:2;aspect-ratio:4/4.4}
+  .hero-col{order:1}
+  .calco{width:120px;height:120px;right:20px;top:20px} .calco b{font-size:34px}
+  .cta-wrap{align-items:flex-start}
+  .hero .micro{justify-content:flex-start}
+  .regalos-grid{grid-template-columns:repeat(6,1fr)}
+  .testi{flex-basis:calc((100% - 32px)/3)}
+  .pista{padding-left:0;padding-right:0;margin:0}
+  .pilares{max-width:640px;margin-left:auto;margin-right:auto}
+  .mec{display:grid;grid-template-columns:1.15fr .85fr;align-items:center}
+  .mec-izq{padding:16px 10px 16px 20px}
+  .mec-pie{max-width:780px;margin:0 auto}
+  .numerazo{border-left:1px solid #EAF1F6;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+  .modulos{grid-template-columns:1fr 1fr}
+  .modulo:nth-child(1){grid-column:1/-1;grid-template-columns:1.1fr 1fr;align-items:center}
+  .modulo:nth-child(1) img{height:100%;aspect-ratio:auto}
+  .modulo:nth-child(1) .modulo-txt{padding:32px}
+  .modulo:nth-child(1) h3{font-size:28px}
+  .equipo{grid-template-columns:repeat(3,1fr)}
+  .historia{display:grid;grid-template-columns:1fr 1fr}
+  .historia-txt{padding:40px;align-content:center}
+  .historia-fotos figure{aspect-ratio:auto;min-height:100%}
+  .oferta-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .oferta-wrap .oferta{margin:0}
+  .oferta-wrap .izq{text-align:left}
+  .barra{padding-top:12px}
+  .barra .envase{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .barra .cta-wrap{margin:0;max-width:380px}
+  .barra p{margin:0;font-size:14px;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){.marquesina{animation-duration:80s}}
+</style>
+</head>
+<body>
+
+<div class="anuncio">
+  <b><i class="ph-fill ph-sparkle"></i> Lista de espera abierta <i class="ph-fill ph-sparkle"></i></b>
+  <span>40% OFF de lanzamiento: te llega por correo cuando abran las inscripciones.</span>
+</div>
+
+<header class="cabecera">
+  <div class="envase">
+    <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.png" alt=""><span>ENTRENA</span><span>CON CIENCIA</span></a>
+    <a class="btn-mini" href="#lista" data-ecc-lista>Regístrate <i class="ph-light ph-arrow-right"></i></a>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="01 Arriba del pliegue">
+  <div class="envase hero-grid">
+    <div class="hero-foto">
+      <img src="assets/vsl-portada.jpg" alt="Dr. Gonzalo León" fetchpriority="high">
+      <div class="calco"><b>40%</b><small>OFF de<br>lanzamiento</small></div>
+      <div class="firma"><b>Dr. Gonzalo León</b>Especialista en ciencia del deporte</div>
+    </div>
+    <div class="hero-col" style="display:flex;flex-direction:column;gap:18px">
+      <div class="confianza">
+        <div class="caras">
+          <img src="assets/profesionales/dr-gonzalo-leon.jpg" alt="">
+          <img src="assets/profesionales/lic-rafaela-silva.jpg" alt="">
+          <img src="assets/profesionales/ps-ana-paula-ceballos.jpg" alt="">
+        </div>
+        <p><b>Desarrollado por médicos</b><br>Más de 500 estudios revisados</p>
+      </div>
+      <h1>Transforma tu Cuerpo en <em>12 Semanas</em> con <em>Neurociencia</em></h1>
+      <ul class="checks">
+        <li><i class="ph-fill ph-check-circle"></i>Desarrollado por médicos</li>
+        <li><i class="ph-fill ph-check-circle"></i>Más de 500 estudios revisados</li>
+        <li><i class="ph-fill ph-check-circle"></i>Basado en la última neurociencia y ciencia del deporte</li>
+      </ul>
+      <p class="remate"><small>ESTA VEZ ES DISTINTO</small>Deja de <span class="hl">volver a empezar.</span></p>
+      <p class="hero-desc">Nuestro equipo médico ha desarrollado un programa basado en neurociencia para que puedas crear nuevos hábitos de entrenamiento y nutrición que perduren en el tiempo y te permitan cambiar tu cuerpo una vez por todas.</p>
+      <div>
+        <div class="cta-wrap">
+          <span class="sello">Lista de espera gratuita</span>
+          <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
+        </div>
+        <p class="micro"><i class="ph-fill ph-check-circle"></i>Registro 100% gratuito: sin pago y sin tarjeta.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="envase">
+    <div class="regalos">
+      <div class="regalos-top"><b>Qué incluye el curso</b><span class="tag-off">40% OFF</span></div>
+      <div class="regalos-grid">
+        <div class="regalo"><img src="assets/portadas/neurociencia-movil.jpg" alt="" loading="lazy"><span>Curso de Neurociencia del Cambio de Hábitos</span></div>
+        <div class="regalo"><img src="assets/portadas/entrenamiento-movil.jpg" alt="" loading="lazy"><span>Curso de Fundamentos de Entrenamiento</span></div>
+        <div class="regalo"><img src="assets/portadas/nutricion-movil.jpg" alt="" loading="lazy"><span>Curso de Fundamentos de Nutrición</span></div>
+        <div class="regalo"><img src="assets/portadas/app-movil.jpg" alt="" loading="lazy"><span>Aplicación con Rutinas y Plan de Nutrición</span></div>
+        <div class="regalo"><img src="assets/portadas/protocolos-movil.jpg" alt="" loading="lazy"><span>Protocolos para Días Difíciles</span></div>
+        <div class="regalo"><img src="assets/portadas/comunidad-movil.jpg" alt="" loading="lazy"><span>Comunidad Privada</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS (carrusel) ============ -->
+<section class="sec" style="padding-top:24px" data-screen-label="04b Más prueba social">
+  <div class="envase">
+    <h2 class="titulo centro">Personas como tú, que <span class="teal">dejaron de volver a empezar</span></h2>
+    <div class="carrusel">
+      <div class="pista" id="pista">
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-1-antes.jpg" alt="Héctor V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-1-despues.jpg" alt="Héctor V, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«Me dijeron que era mi genética.»</h3><p>Me decían que por mi genética no iba a ganar músculo. En el programa aprendí a entrenar con base científica y a comer con un plan nutricional flexible, y <b>gané en menos de un año todo lo que no había ganado en 5.</b></p><div class="testi-quien"><b>Héctor V, 27 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-2-antes.jpg" alt="Luis F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-2-despues.jpg" alt="Luis F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«Por fin pude ganar músculo.»</h3><p>Probé dietas, suplementos y rutinas, sin constancia. Con un entrenamiento basado en la última ciencia y entendiendo la psicología del cambio de hábitos, entrenar se volvió parte de mi vida: <b>en menos de 8 meses gané músculo como nunca antes.</b></p><div class="testi-quien"><b>Luis F, 31 · Nueva York, USA</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-6-antes.jpg" alt="Juan Manuel M, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-6-despues.jpg" alt="Juan Manuel M, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«Bajé de peso sin pasar hambre.»</h3><p>Llevaba años subiendo y bajando de peso con dietas que no me duraban dos semanas. Entendí el balance energético y armé un plan que sostengo incluso comiendo fuera. Bajé sin pasar hambre y, <b>por primera vez, no lo he vuelto a recuperar.</b></p><div class="testi-quien"><b>Juan Manuel M, 35 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-7-antes.jpg" alt="Gerardo G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-7-despues.jpg" alt="Gerardo G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
+          <div class="testi-txt"><h3>«Dejé de entrenar a ciegas.»</h3><p>Iba al gym, copiaba rutinas de TikTok y cada semana cambiaba de plan. Me cansaba y no veía avance. En el programa entendí por fin cómo progresar con sobrecarga progresiva y a comer lo suficiente sin pasarme. Neta, <b>en 8 semanas gané músculo como no lo había logrado en años</b>, y ahora sé exactamente qué hacer cada día.</p><div class="testi-quien"><b>Gerardo G, 35 · Ciudad de México, México</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-3-antes.jpg" alt="Rodolfo V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-3-despues.jpg" alt="Rodolfo V, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
+          <div class="testi-txt"><h3>«Estoy más fit que nunca.»</h3><p>Entrené pesas harto tiempo y solo ganaba fuerza: nunca lograba bajar mi porcentaje de grasa. Ordené mi entrenamiento y mi nutrición, y <b>en 8 semanas logré resultados sorprendentes</b> que mantengo hasta hoy. Lo mejor: ahora soy autónomo, ¿cachai?</p><div class="testi-quien"><b>Rodolfo V, 31 · Santiago, Chile</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-8-antes.jpg" alt="Gabriel G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-8-despues.jpg" alt="Gabriel G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
+          <div class="testi-txt"><h3>«Bajé 5% de grasa en 8 semanas.»</h3><p>Entrenaba bien, pero me quedaba esa capa de grasa que no se iba con nada, aunque comiera "limpio". En el programa entendí que no era cuestión de comer menos todo el tiempo, sino de ordenar las calorías y la proteína. Y, <b>en 8 semanas bajé 5% de grasa corporal</b> sin dejar de salir con mis amigos, y por fin se me marca el abdomen.</p><div class="testi-quien"><b>Gabriel G, 25 · Montevideo, Uruguay</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-4-antes.jpg" alt="Diego L, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-4-despues.jpg" alt="Diego L, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">4 MESES</span></figure></div>
+          <div class="testi-txt"><h3>«Dejé las dietas extremas y gané músculo.»</h3><p>Antes de cada viaje dejaba de comer; volvía, engordaba y otra vez a cortar. Nadie me explicó que sin músculo no te ves definido. Entrenando 3 veces por semana <b>gané 5 kilos de músculo en 4 meses</b>, y con una nutrición flexible como y salgo sin culpa. Posta.</p><div class="testi-quien"><b>Diego L, 34 · Buenos Aires, Argentina</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-5-antes.jpg" alt="Alejandro F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-5-despues.jpg" alt="Alejandro F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«El problema no era yo, era el plan.»</h3><p>Siempre empezaba el lunes con todo y para el miércoles ya estaba full cansado. Pensaba que me faltaba disciplina. Con un plan y una estrategia claros, ahora entreno 3 veces por semana, como lo que me gusta y <b>en poco tiempo ya veía resultados.</b></p><div class="testi-quien"><b>Alejandro F, 29 · Lima, Perú</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
+      </div>
+      <div class="nav-car">
+        <button type="button" id="car-izq" aria-label="Anterior"><i class="ph-light ph-arrow-left"></i></button>
+        <div class="puntos" id="puntos"></div>
+        <button type="button" id="car-der" aria-label="Siguiente"><i class="ph-light ph-arrow-right"></i></button>
+      </div>
+    </div>
+    <p class="aviso">Los resultados varían entre personas.</p>
+  </div>
+</section>
+
+<!-- ============ REVISTAS ============ -->
+<div class="revistas" aria-label="Revistas científicas">
+  <p>BASADO EN LOS ÚLTIMOS ESTUDIOS PUBLICADOS EN</p>
+  <div class="marquesina">
+    <img src="assets/journals/bjsm-white.png" alt="British Journal of Sports Medicine"><img src="assets/journals/acsm-white.png" alt="ACSM"><img src="assets/journals/ajcn-white.png" alt="American Journal of Clinical Nutrition"><img src="assets/journals/ajsm-white.png" alt="American Journal of Sports Medicine"><img src="assets/journals/apnm-white.png" alt="Applied Physiology, Nutrition, and Metabolism"><img src="assets/journals/nsca-white.png" alt="NSCA">
+    <img src="assets/journals/bjsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/acsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajcn-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/apnm-white.png" alt="" aria-hidden="true"><img src="assets/journals/nsca-white.png" alt="" aria-hidden="true">
+  </div>
+</div>
+
+<!-- ============ POR QUÉ FUNCIONA ============ -->
+<section class="sec" data-screen-label="02 Por qué funciona">
+  <div class="envase angosto">
+    <div class="centro"><span class="eyebrow">¿Por qué funciona este método?</span>
+      <h2 class="titulo" style="margin-top:12px">El problema nunca fue tu <span class="teal">plan de entrenamiento o nutrición</span></h2></div>
+    <div class="texto-largo">
+      <p>¿Cuántas veces has dicho «hoy empiezo a cambiar mi cuerpo»? Empiezas con ganas, los primeros días salen bien y luego aparece algún imprevisto: una salida, un antojo en la noche, una semana pesada en el trabajo. Y así dejas de comer bien y de ir al gimnasio, y empieza el ciclo de nuevo. Lo único que piensas es: <b>«me falta fuerza de voluntad»</b>.</p>
+      <p><b>No te pasa solo a ti. Es un problema muy común.</b></p>
+      <p class="cita-bloque">Lo que nadie te explicó es que tu cerebro no está hecho para cambiar radicalmente tus hábitos solo a fuerza de voluntad.</p>
+    </div>
+    <div class="pilares">
+      <div class="pilar"><span><i class="ph-light ph-barbell"></i></span><b>Ciencia del deporte</b></div>
+      <div class="pilar"><span><i class="ph-light ph-bowl-food"></i></span><b>Nutrición</b></div>
+      <div class="pilar"><span><i class="ph-light ph-brain"></i></span><b>Neurociencia</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MECANISMO + NÚMEROS GRANDES ============ -->
+<section class="sec fondo-celeste" style="padding-top:56px">
+  <div class="envase">
+    <div class="tarjeta">
+      <div class="mec-cab"><span class="eyebrow">12 semanas</span><h2 class="titulo-sm" style="margin-top:10px">Conoce el mecanismo por el cual <span class="teal">se crean los hábitos</span></h2></div>
+      <div class="mec">
+        <div class="mec-izq">
+          <ol class="pasos">
+            <li class="paso"><span class="paso-n">1</span><div><span class="paso-zona">Corteza prefrontal</span><p>Cuando empiezas algo nuevo, cada decisión pasa por algo que se conoce como la corteza prefrontal: <em>¿entreno hoy?</em>, <em>¿me como esto?</em> Funciona, pero te obliga a decidir una y otra vez.</p></div></li>
+            <li class="paso"><span class="paso-n">2</span><div><span class="paso-zona">Ganglios basales</span><p>Cuando repites una conducta a lo largo del tiempo, poco a poco esta decisión pasa de la corteza prefrontal a los ganglios basales, que responden en automático.</p></div></li>
+            <li class="paso"><span class="paso-n">3</span><div><span class="paso-zona">En automático</span><p>Eso significa que construiste un hábito. <b>Nunca más tienes que pensar en ello</b> y deja de fatigarte tomar tantas decisiones.</p></div></li>
+          </ol>
+        </div>
+        <div class="numerazo">
+          <b class="grande">66<small>días</small></b>
+          <p>El problema es que hacer que estos cambios en tu vida pasen a los ganglios basales no es tan simple. En un estudio del European Journal of Social Psychology, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
+        </div>
+      </div>
+      <div class="mec-pie">
+        <div class="tachado"><span><i class="ph-light ph-x"></i>Otra dieta</span><span><i class="ph-light ph-x"></i>Otro plan de ejercicios</span></div>
+        <p>Por eso es que <b>no necesitas otra dieta u otro plan de ejercicios.</b></p>
+        <p>Necesitas un <span class="hl">método probado</span> que te ayude a llegar a las primeras 8 semanas y que aumente la probabilidad de que muevas todas estas conductas que son buenas para ti de la corteza prefrontal a los ganglios basales.</p>
+        <p><b>Justamente ese es el método que hemos desarrollado en Entrena con Ciencia.</b></p>
+        <p>Nuestro grupo de profesionales en ciencia del deporte, nutrición y neurociencia ha construido un plan basado en la última neurociencia para ayudarte a hacer esto.</p>
+        <div class="cta-wrap"><span class="sello">40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
+      </div>
+    </div>
+
+    <div class="crema">
+      <h3><span>Llevas años creyendo que el problema eras tú.</span><span class="teal">El problema era el método que estabas siguiendo.</span></h3>
+      <div class="cifras">
+        <div><b>500+</b><span>estudios revisados</span></div>
+        <div><b>12</b><span>semanas</span></div>
+        <div><b>66</b><span>días: mediana para volver automática una conducta</span></div>
+      </div>
+      <p style="margin-top:24px;font-weight:700;font-size:20px">Que este sea tu <span class="hl">último Día 1.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMA ============ -->
+<section class="sec" data-screen-label="03 Qué incluye">
+  <div class="envase">
+    <h2 class="titulo centro">Qué Incluye <span class="teal">Nuestro Programa</span></h2>
+    <div class="modulos">
+      <article class="modulo"><img src="assets/portadas/neurociencia-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">El núcleo</span><h3>Curso de Neurociencia del Cambio de Hábitos</h3><p>Lo más importante de nuestro programa. Te explicamos el proceso por el que se crean nuevos hábitos y por qué la mayoría de las personas falla. La verdad es que crear un nuevo hábito <b>no depende de tu fuerza de voluntad</b>, sino de entender cómo funciona tu cuerpo.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/entrenamiento-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Entrenamiento</h3><p>El Dr. Gonzalo León te explica la última ciencia del deporte para que entiendas cuál es el mejor camino para ponerte en forma basado en ciencia. Deja de estar confundido con las recomendaciones que se contradicen en redes sociales.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/nutricion-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Nutrición</h3><p>La Lic. Rafaela Silva te explica la última ciencia de la nutrición funcional. Hemos desarrollado un programa que te ayuda a entender los mecanismos por los que tu cuerpo pierde peso y cómo aplicarlos en tu día a día, <b>sin que tengas que hacer dietas muy restrictivas.</b></p></div></article>
+      <article class="modulo"><img src="assets/portadas/app-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">App con IA</span><h3>Aplicación con Rutinas y Plan de Nutrición</h3><p>Te damos acceso por un mes a nuestra aplicación, que se apoya en inteligencia artificial para ayudarte a planificar tu entrenamiento, nutrición y recuperación.</p><p>Incluye nuestras últimas rutinas basadas en evidencia, con videos por cada ejercicio a realizar y múltiples planes de entrenamiento en casa y en el gimnasio. Además, te ayuda con tu plan de nutrición: la IA te ayuda a registrar tus calorías y te brinda recetas hechas por nuestro equipo.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/protocolos-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado una biblioteca de protocolos que atacan problemas comunes que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/comunidad-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><p>Accede a nuestra comunidad privada, donde tendrás a otras personas igual de motivadas para transformar tu cuerpo.</p></div></article>
+    </div>
+    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Lista de espera gratuita</span><a class="cta" href="#lista" data-ecc-lista>Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div></div>
+  </div>
+</section>
+
+<!-- ============ EQUIPO ============ -->
+<section class="sec fondo-celeste" data-screen-label="04 Quién está detrás">
+  <div class="envase">
+    <h2 class="titulo centro">Nuestro <span class="teal">Equipo Médico</span></h2>
+    <div class="equipo">
+      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/dr-gonzalo-leon.jpg" alt="Dr. Gonzalo León" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Especialista en ciencia del deporte</span><h3>Dr. Gonzalo León</h3></div></div>
+        <div class="persona-txt"><p>Médico cirujano, enfocado en entrenamiento basado en evidencia. Hoy cursa la Maestría en Longevidad y Antienvejecimiento en el IL3 de la Universidad de Barcelona.</p><p>Durante la carrera de medicina llegó a pesar 120 kilos. El cambio llegó cuando entendió la fisiología del cuerpo humano y cómo se cruza con el balance energético: así logró su propia recomposición corporal.</p><p>Desde entonces ha atendido a decenas de pacientes con su método y los ha ayudado a conseguir resultados: perder peso con la mayor flexibilidad posible. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p></div></article>
+      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/lic-rafaela-silva.jpg" alt="Lic. Rafaela Silva" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Nutricionista clínica</span><h3>Lic. Rafaela Silva</h3></div></div>
+        <div class="persona-txt"><p>Licenciada en Nutrición y Dietética (UPC), con más de 5 años de experiencia. Cursos de especialización en microbiota y nutrición (Universidad Peruana Cayetano Heredia), nutrición hormonal (Nutrition Society) y nutrición renal (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p><p>Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición basado en evidencia, pero también práctico y aplicable a la vida real, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p></div></article>
+      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/ps-ana-paula-ceballos.jpg" alt="Ps. Ana Paula Ceballos" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Psicóloga clínica · TCA y obesidad</span><h3>Ps. Ana Paula Ceballos</h3></div></div>
+        <div class="persona-txt"><p>Psicóloga clínica especialista en trastornos de la conducta alimentaria (TCA) y obesidad, con formación en terapia cognitivo-conductual. Máster en Trastornos Alimenticios y Obesidad (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Hoy atiende en la Clínica San Felipe, en Lima.</p><p>En Entrena con Ciencia diseñó el módulo de cambio de hábitos, con la Teoría de la Autodeterminación como marco: por qué la motivación no es suficiente y cómo desarrollar autonomía, competencia y relación para que un hábito se sostenga en el tiempo.</p></div></article>
+    </div>
+
+    <div class="historia">
+      <div class="historia-fotos">
+        <figure><img src="assets/leon-antes.jpg" alt="Dr. Gonzalo León, antes" loading="lazy"><figcaption><b>120 kg</b><small>ANTES</small></figcaption></figure>
+        <figure><img src="assets/leon-despues.jpg" alt="Dr. Gonzalo León, después" loading="lazy"><figcaption><b>85 kg</b><small>DESPUÉS</small></figcaption></figure>
+      </div>
+      <div class="historia-txt">
+        <span class="eyebrow" style="color:var(--cyan)">Mi historia</span>
+        <h3>Soy el Dr. Gonzalo León</h3>
+        <ul class="linea">
+          <li><small>HACE 9 AÑOS</small>Empecé medicina y llegué a pesar 120 kilos.</li>
+          <li><small>DESPUÉS DE 12 MESES</small>Con poca energía y vergüenza cada vez que me veía al espejo, decidí cambiar mi vida por completo.</li>
+          <li><small>HOY</small>Con un equipo de nutricionistas, especialistas en ciencia del deporte y neurociencia, ayudo a personas como tú a cambiar su vida.</li>
+        </ul>
+        <p class="remate-blanco">Un equipo médico no te promete kilos en un plazo: te explica cómo hacer un cambio real en tus hábitos y en tu vida.</p>
+        <p class="leyenda">Dr. Gonzalo León, antes y después de su propia recomposición corporal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFERTA ============ -->
+<section class="sec" id="oferta" data-screen-label="06 Cierre">
+  <div class="envase oferta-wrap">
+    <div class="izq centro">
+      <h2 class="titulo">Transforma <span class="teal">tu Cuerpo</span></h2>
+      <p class="bajada">No te falta un plan nuevo de entrenamiento. Te falta <b style="color:var(--navy)">entender la ciencia para crear nuevos hábitos.</b></p>
+    </div>
+    <div class="oferta">
+      <div class="oferta-cinta"><i class="ph-fill ph-bell-ringing"></i> Lista de espera gratuita · 40% OFF</div>
+      <div class="oferta-cuerpo">
+        <div class="badges"><span class="badge">Lista de espera gratuita</span><span class="badge am">40% OFF</span></div>
+        <h3>Regístrate y accede a nuestra oferta de lanzamiento</h3>
+        <p class="bajada">Cuando lancemos, te enviamos un descuento exclusivo.</p>
+        <div class="incluye"><b>QUÉ INCLUYE EL CURSO</b>
+          <ul>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Neurociencia del Cambio de Hábitos</li>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Entrenamiento</li>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Nutrición</li>
+            <li><i class="ph-fill ph-check-circle"></i>Aplicación con Rutinas y Plan de Nutrición</li>
+            <li><i class="ph-fill ph-check-circle"></i>Protocolos para Días Difíciles</li>
+            <li><i class="ph-fill ph-check-circle"></i>Comunidad Privada</li>
+          </ul>
+        </div>
+        <ul class="beneficios">
+          <li><i class="ph-fill ph-tag"></i><span><b>40% OFF de lanzamiento:</b> te llega por correo cuando abran las inscripciones.</span></li>
+          <li><i class="ph-fill ph-gift"></i><span><b>Registro 100% gratuito:</b> sin pago y sin tarjeta.</span></li>
+        </ul>
+        <a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
+        <p class="nota-candado"><i class="ph-light ph-lock-simple"></i>Tus datos se usan solo para avisarte.</p>
+        <div class="sellos">
+          <div><i class="ph-light ph-stethoscope"></i>Desarrollado por médicos</div>
+          <div><i class="ph-light ph-books"></i>Más de 500 estudios revisados</div>
+          <div><i class="ph-light ph-brain"></i>Basado en la última neurociencia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREGUNTAS ============ -->
+<section class="sec fondo-celeste" data-screen-label="05 Preguntas y objeciones">
+  <div class="envase angosto">
+    <h2 class="titulo centro">Preguntas <span class="teal">Frecuentes</span></h2>
+    <div class="faq">
+      <details><summary>He tratado de transformar mi cuerpo antes. ¿Por qué esta vez sería distinto?<i class="ph-light ph-plus"></i></summary><p>Nuestro programa empieza por enseñarte neurociencia del cambio en vez de simplemente darte un plan de acción para el entrenamiento y tu nutrición; te ayudamos a diseñar un sistema que funcione con tu estilo de vida. Nadie te dice que será fácil, pero desarrollar la habilidad de ser constante es lo más importante para ver resultados.</p></details>
+      <details><summary>Quiero empezar con el programa, pero me preocupa no tener tiempo.<i class="ph-light ph-plus"></i></summary><p>No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que entrenar incluso solo 2 veces a la semana es suficiente para ver cambios. Adicionalmente, proveemos rutinas de entrenamiento en casa y en el gimnasio para adecuarse a lo que te funciona mejor.</p></details>
+      <details><summary>Soy principiante y no sé nada. ¿Voy a poder entender el material?<i class="ph-light ph-plus"></i></summary><p>El programa está diseñado con principiantes en mente. Hemos creado los módulos de fundamentos de entrenamiento y nutrición para explicarte qué tienes que hacer al detalle. La idea es llevar tus conocimientos de principiante a intermedio con el curso para que tengas los fundamentos correctos para progresar por tu cuenta.</p></details>
+      <details><summary>¿Tengo que dejar de comer lo que me gusta?<i class="ph-light ph-plus"></i></summary><p>No. Un plan que te saca de la comida familiar del domingo es un plan que vas a abandonar, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p></details>
+      <details><summary>¿Cuánto voy a bajar y en cuánto tiempo?<i class="ph-light ph-plus"></i></summary><p>Es difícil prometerte un número exacto, ya que varía entre persona y persona. Pero perder entre 1 y 2% de tu peso corporal al mes es un objetivo realizable.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="cierre">
+  <div class="envase">
+    <h2>Deja de empezar de nuevo.<span>Haz un cambio real una vez por todas.</span></h2>
+    <div class="cta-wrap"><span class="sello">40% OFF</span><a class="cta" href="#lista" data-ecc-lista id="cta-cierre">Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
+    <p>Registro 100% gratuito: sin pago y sin tarjeta.</p>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="envase">
+    <div class="logo"><img src="assets/isotipo-ecc.png" alt=""><span>ENTRENA</span><span>CON CIENCIA</span></div>
+    <p>Este contenido es informativo y educativo y no reemplaza la consulta con tu médico. Los resultados varían entre personas. Si tienes una condición de salud o tomas medicación, consulta a tu especialista antes de cambiar tu alimentación o entrenamiento.</p>
+    <p>© 2026 Entrena con Ciencia · <a href="legal.html?v=3">Términos</a> · <a href="legal.html?v=3#privacidad">Privacidad</a></p>
+  </div>
+</footer>
+
+<div class="barra" id="barra" aria-hidden="true">
+  <div class="envase">
+    <p><i class="ph-fill ph-bell-ringing"></i> Lista de espera abierta · Registro 100% gratuito</p>
+    <div class="cta-wrap"><span class="sello">40% OFF</span><a class="cta" href="#lista" data-ecc-lista tabindex="-1">Regístrate en la lista de espera</a></div>
+  </div>
+</div>
+
+<div class="ecc-lista-modal" id="lista" role="dialog" aria-modal="true" aria-labelledby="ecc-lista-titulo" hidden>
+  <div class="ecc-lista-fondo" data-cerrar></div>
+  <div class="ecc-lista-caja" role="document">
+    <button type="button" class="ecc-lista-x" data-cerrar aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <form class="ecc-lista-form" novalidate>
+      <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera · Gratis</span><span class="ecc-lista-off">40% OFF</span></span>
+      <h2 id="ecc-lista-titulo">Regístrate y accede a nuestra oferta de lanzamiento</h2>
+      <p class="ecc-lista-intro">El registro es <strong>100% gratuito</strong>. Cuando lancemos el programa, te enviamos por correo un <strong>descuento exclusivo del 40%</strong> para inscribirte.</p>
+      <label class="ecc-campo"><span>Nombre</span><input id="ecc-l-nombre" name="nombre" type="text" autocomplete="given-name" required maxlength="80" placeholder="Tu nombre"></label>
+      <label class="ecc-campo"><span>Correo</span><input id="ecc-l-correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="120" placeholder="tu@correo.com"></label>
+      <div class="ecc-campo"><label for="ecc-l-cel">WhatsApp <em>(opcional)</em></label>
+        <div class="ecc-cel"><select id="ecc-l-pais" name="pais" aria-label="País"></select><input id="ecc-l-cel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="20" placeholder="Número"></div>
+      </div>
+      <label class="ecc-check"><input id="ecc-l-ok" name="consentimiento" type="checkbox" required><span>Acepto recibir información sobre el lanzamiento y la <a href="legal.html?v=3#privacidad" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
+      <p class="ecc-lista-error" role="alert" hidden></p>
+      <button type="submit" class="cta ecc-lista-enviar"><span>Unirme gratis a la lista de espera</span><i class="ph-light ph-arrow-right"></i></button>
+      <p class="ecc-lista-nota"><i class="ph-light ph-lock-simple"></i>Tus datos están protegidos. Puedes darte de baja cuando quieras.</p>
+    </form>
+    <div class="ecc-lista-ok" hidden>
+      <span class="ecc-lista-ok-ico"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2>¡Ya estás en la lista!</h2>
+      <p>Te escribiremos a <strong class="ecc-lista-ok-correo"></strong> con tu 40% de descuento en cuanto abran las inscripciones.</p>
+      <button type="button" class="cta" data-cerrar><span>Seguir viendo el programa</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/ecc-analitica.js?v=8" defer></script>
+<script>
+/* La página siempre abre arriba (Safari restauraba la posición) */
+try{history.scrollRestoration='manual'}catch(e){}
+addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
+
+/* Carrusel de testimonios: flechas + puntos sobre un contenedor con scroll-snap */
+(function(){
+  var p=document.getElementById('pista'), iz=document.getElementById('car-izq'), de=document.getElementById('car-der'), pts=document.getElementById('puntos');
+  var cards=[].slice.call(p.children);
+  function porVista(){return Math.max(1,Math.round(p.clientWidth/(cards[0].offsetWidth+16)))}
+  function paginas(){return Math.max(1,cards.length-porVista()+1)}
+  function pintarPuntos(){var n=paginas();pts.innerHTML=new Array(n+1).join('<i></i>');marcar()}
+  function actual(){var x=p.scrollLeft,best=0,d=1e9;cards.forEach(function(c,i){var dd=Math.abs(c.offsetLeft-cards[0].offsetLeft-x);if(dd<d){d=dd;best=i}});if(x+p.clientWidth>=p.scrollWidth-4)best=paginas()-1;return Math.min(best,paginas()-1)}
+  function marcar(){var k=actual();[].forEach.call(pts.children,function(el,i){el.classList.toggle('on',i===k)});iz.disabled=k<=0;de.disabled=k>=paginas()-1}
+  function ir(k){k=Math.max(0,Math.min(paginas()-1,k));p.scrollTo({left:cards[k].offsetLeft-cards[0].offsetLeft,behavior:'smooth'})}
+  iz.addEventListener('click',function(){ir(actual()-1)}); de.addEventListener('click',function(){ir(actual()+1)});
+  var t;p.addEventListener('scroll',function(){cancelAnimationFrame(t);t=requestAnimationFrame(marcar)},{passive:true});
+  addEventListener('resize',pintarPuntos); pintarPuntos();
+})();
+
+/* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando la caja de oferta o el cierre están en pantalla */
+(function(){
+  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('cta-oferta'),document.getElementById('cta-cierre')];
+  function ver(){var pasoHero=hero.getBoundingClientRect().bottom<0;var tapa=tapan.some(function(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var on=pasoHero&&!tapa;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');b.querySelector('a').tabIndex=on?0:-1}
+  addEventListener('scroll',ver,{passive:true}); addEventListener('resize',ver); ver();
+})();
+
+/* Lista de espera: popup con nombre, correo, WhatsApp opcional y consentimiento. Se guarda en Supabase (tabla leads) por /api/subscribe. (igual que landing-movil.html) */
+(function(){
+  var M=document.getElementById('lista'); if(!M) return;
+  var form=M.querySelector('form'), ok=M.querySelector('.ecc-lista-ok'), err=M.querySelector('.ecc-lista-error'), btn=M.querySelector('.ecc-lista-enviar');
+  var P=[['PE','Perú','+51'],['MX','México','+52'],['CO','Colombia','+57'],['AR','Argentina','+54'],['CL','Chile','+56'],['EC','Ecuador','+593'],['BO','Bolivia','+591'],['UY','Uruguay','+598'],['PY','Paraguay','+595'],['VE','Venezuela','+58'],['US','Estados Unidos','+1'],['ES','España','+34'],['CR','Costa Rica','+506'],['PA','Panamá','+507'],['GT','Guatemala','+502'],['DO','Rep. Dominicana','+1'],['SV','El Salvador','+503'],['HN','Honduras','+504'],['NI','Nicaragua','+505'],['PR','Puerto Rico','+1'],['CA','Canadá','+1'],['XX','Otro país','+']];
+  var flag=function(c){return c==='XX'?'🌎':String.fromCodePoint.apply(null,c.split('').map(function(ch){return 127397+ch.charCodeAt(0)}))};
+  var sel=M.querySelector('#ecc-l-pais'); sel.innerHTML=P.map(function(p){return '<option value="'+p[0]+'">'+flag(p[0])+' '+p[2]+'  '+p[1]+'</option>'}).join('');
+  var TZ={'America/Lima':'PE','America/Mexico_City':'MX','America/Monterrey':'MX','America/Tijuana':'MX','America/Cancun':'MX','America/Bogota':'CO','America/Argentina/Buenos_Aires':'AR','America/Buenos_Aires':'AR','America/Santiago':'CL','America/Guayaquil':'EC','America/La_Paz':'BO','America/Montevideo':'UY','America/Asuncion':'PY','America/Caracas':'VE','Europe/Madrid':'ES','America/Costa_Rica':'CR','America/Panama':'PA','America/Guatemala':'GT','America/Santo_Domingo':'DO','America/El_Salvador':'SV','America/Tegucigalpa':'HN','America/Managua':'NI','America/Puerto_Rico':'PR'};
+  var pais='PE'; try{var tz=Intl.DateTimeFormat().resolvedOptions().timeZone; if(TZ[tz]) pais=TZ[tz]; else if(/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Detroit|Anchorage)/.test(tz)) pais='US'; else {var r=(navigator.language||'').split('-')[1]; if(r&&P.some(function(p){return p[0]===r.toUpperCase()})) pais=r.toUpperCase();}}catch(e){}
+  sel.value=pais;
+  var ultimo=null, guardadoY=0, bloqueado=false;
+  function bloquear(){ if(bloqueado) return; bloqueado=true; guardadoY=window.scrollY; var b=document.body.style; b.position='fixed'; b.top=(-guardadoY)+'px'; b.left='0'; b.right='0'; b.width='100%'; }
+  function liberar(){ if(!bloqueado) return; bloqueado=false; var b=document.body.style; b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; var de=document.documentElement, sb=de.style.scrollBehavior; de.style.scrollBehavior='auto'; window.scrollTo(0,guardadoY); de.style.scrollBehavior=sb; }
+  function abrir(e){ if(e) e.preventDefault(); ultimo=document.activeElement; M.hidden=false; bloquear(); requestAnimationFrame(function(){M.classList.add('on')});
+    var n=M.querySelector('#ecc-l-nombre'); setTimeout(function(){ (form.hidden?ok.querySelector('button'):n).focus({preventScroll:true}); },60);
+    if(window.eccEvento) try{window.eccEvento('lista_abrir',(e&&e.currentTarget&&e.currentTarget.textContent||'').trim().slice(0,60),'!AbrirListaEspera','lista_abrir',null)}catch(x){} }
+  function cerrar(){ M.classList.remove('on'); setTimeout(liberar,200); setTimeout(function(){M.hidden=true},220); if(ultimo&&ultimo.focus) ultimo.focus({preventScroll:true}); }
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-ecc-lista],a[href="#lista"]'); if(a){abrir(e);}},true);
+  [].forEach.call(M.querySelectorAll('[data-cerrar]'),function(b){b.addEventListener('click',cerrar)});
+  document.addEventListener('keydown',function(e){ if(M.hidden) return; if(e.key==='Escape') cerrar();
+    if(e.key==='Tab'){var f=[].filter.call(M.querySelectorAll('button,input,select,a[href]'),function(x){return x.offsetParent!==null}); if(!f.length) return; var a=f[0],z=f[f.length-1]; if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()} else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+  if(location.hash==='#lista') abrir();
+  function marca(el,mal){var c=el.closest('.ecc-campo,.ecc-check'); if(c) c.classList.toggle('mal',mal); el.setAttribute('aria-invalid',mal?'true':'false');}
+  function leer(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return {}}}
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); err.hidden=true;
+    var nombre=form.nombre.value.trim(), correo=form.correo.value.trim().toLowerCase(), cel=form.whatsapp.value.replace(/[^\d]/g,''), p=P.filter(function(x){return x[0]===sel.value})[0]||P[0], okc=form.consentimiento.checked;
+    var mal=[]; marca(form.nombre,!nombre); if(!nombre) mal.push('tu nombre');
+    var correoOk=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo); marca(form.correo,!correoOk); if(!correoOk) mal.push('un correo válido');
+    var celOk=!cel||(cel.length>=6&&cel.length<=15); marca(form.whatsapp,!celOk); if(!celOk) mal.push('un WhatsApp válido (o déjalo vacío)');
+    marca(form.consentimiento,!okc); if(!okc) mal.push('tu aceptación de la política de privacidad');
+    if(mal.length){err.textContent='Falta '+mal.join(', ')+'.'; err.hidden=false; var pri=form.querySelector('[aria-invalid="true"]'); if(pri) pri.focus(); return;}
+    btn.disabled=true; btn.querySelector('span').textContent='Enviando…';
+    var u=leer('_utm'), f=leer('_utm_first'), K=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    var datos={name:nombre,email:correo,whatsapp:cel?(p[2]+' '+cel):null,source:'Lista de espera ECC',survey:{pais:p[1],pais_codigo:p[0],consentimiento:true,pagina:location.pathname,fecha:new Date().toISOString()},anonymous_id:localStorage.getItem('_aid')||null,session_id:sessionStorage.getItem('_sid')||null};
+    K.forEach(function(k){datos[k]=u[k]||null;datos['first_touch_'+k]=f[k]||null;});
+    var local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    (local?Promise.resolve({ok:true}):fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)})).then(function(r){
+      if(!r.ok) throw new Error('http');
+      try{localStorage.setItem('ecc_lista',correo)}catch(x){}
+      if(window.eccEvento) try{window.eccEvento('lista_espera',p[1],'Lead','generate_lead','SubmitForm')}catch(x){}
+      M.querySelector('.ecc-lista-ok-correo').textContent=correo; form.hidden=true; ok.hidden=false; ok.querySelector('button').focus({preventScroll:true});
+    }).catch(function(){ err.textContent='No pudimos registrarte. Revisa tu conexión e inténtalo otra vez.'; err.hidden=false; })
+    .then(function(){ btn.disabled=false; btn.querySelector('span').textContent='Unirme gratis a la lista de espera'; });
+  });
+  [form.nombre,form.correo,form.whatsapp,form.consentimiento].forEach(function(el){el.addEventListener('input',function(){marca(el,false)});el.addEventListener('change',function(){marca(el,false)});});
+})();
+</script>
+</body>
+</html>
