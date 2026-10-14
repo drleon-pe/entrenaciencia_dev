@@ -357,11 +357,15 @@ p{margin:0}
   .caja-m b{font-size:16px}.caja-m p{font-size:14px}
   .revistas-ventana{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
   .marquesina img{height:34px;margin:0 44px}
-  .modulos{grid-template-columns:1fr 1fr}
-  .modulo:nth-child(1){grid-column:1/-1;grid-template-columns:1.1fr 1fr;align-items:center}
-  .modulo:nth-child(1) img{height:100%;aspect-ratio:auto}
-  .modulo:nth-child(1) .modulo-txt{padding:32px}
-  .modulo:nth-child(1) h3{font-size:28px}
+  /* 3 columnas; con subgrid la etiqueta, el título y el texto de cada fila de tarjetas quedan a la misma altura */
+  .modulos{grid-template-columns:repeat(3,1fr);gap:22px}
+  .modulo{grid-row:span 5;grid-template-rows:subgrid;row-gap:0;align-content:start}
+  .modulo-txt{display:contents}
+  .modulo-txt > *{padding:0 22px}
+  .modulo-txt .eyebrow{padding-top:20px;padding-bottom:8px}
+  .modulo-txt h3{padding-bottom:10px;align-self:start}
+  .modulo-txt p{padding-bottom:10px}
+  .modulo-txt p:last-child{padding-bottom:22px}
   .equipo{grid-template-columns:repeat(3,1fr)}
   .historia{display:grid;grid-template-columns:1fr 1fr}
   .historia-txt{padding:40px;align-content:center}
