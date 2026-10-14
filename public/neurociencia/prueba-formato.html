@@ -128,12 +128,14 @@ p{margin:0}
 .testi-quien{margin-top:auto;padding-top:6px;display:flex;flex-direction:column;gap:3px}
 .testi-quien b{font-size:14.5px}
 .testi-quien small{font:600 10.5px/1 "Poppins";letter-spacing:.14em;color:var(--teal)}
-.nav-car{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:10px}
-.nav-car button{width:42px;height:42px;border-radius:50%;border:1px solid var(--borde);box-shadow:0 4px 12px -6px rgba(10,37,64,.4);background:#fff;color:var(--navy);display:grid;place-items:center;cursor:pointer;font-size:18px}
-.nav-car button:disabled{opacity:.35;cursor:default}
-.puntos{display:flex;gap:7px}
-.puntos i{width:8px;height:8px;border-radius:50%;background:#BFD3E0;transition:background .2s,width .2s}
-.puntos i.on{background:var(--navy);width:20px;border-radius:5px}
+/* flechas a los costados del carrusel, a media altura de las tarjetas */
+.lado{position:absolute;top:50%;z-index:5;width:46px;height:46px;margin-top:-23px;border-radius:50%;border:0;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:22px;cursor:pointer;box-shadow:0 12px 26px -10px rgba(1,127,167,.75);transition:opacity .2s,transform .2s}
+.lado.izq{left:-6px}.lado.der{right:-6px}
+.lado:hover{transform:scale(1.07)}
+.lado[disabled]{opacity:0;pointer-events:none}
+.pista{cursor:grab}
+.pista.arrastrando{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.pista img{-webkit-user-drag:none;user-select:none}
 .aviso{margin-top:14px;font-size:12.5px;color:var(--suave);text-align:center}
 
 /* ---------- revistas (debajo del CTA del hero) ---------- */
@@ -511,11 +513,8 @@ p{margin:0}
         <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-5-antes.jpg" alt="Alejandro F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-5-despues.jpg" alt="Alejandro F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
           <div class="testi-txt"><h3>«El problema no era yo, era el plan.»</h3><p>Siempre empezaba el lunes con todo y para el miércoles ya estaba full cansado. Pensaba que me faltaba disciplina. Con un plan y una estrategia claros, ahora entreno 3 veces por semana, como lo que me gusta y <b>en poco tiempo ya veía resultados.</b></p><div class="testi-quien"><b>Alejandro F, 29 · Lima, Perú</b><small>ALUMNO DEL PROGRAMA</small></div></div></article>
       </div>
-      <div class="nav-car">
-        <button type="button" id="car-izq" aria-label="Anterior"><i class="ph-light ph-arrow-left"></i></button>
-        <div class="puntos" id="puntos"></div>
-        <button type="button" id="car-der" aria-label="Siguiente"><i class="ph-light ph-arrow-right"></i></button>
-      </div>
+      <button type="button" class="lado izq" id="car-izq" aria-label="Testimonio anterior"><i class="ph-light ph-caret-left"></i></button>
+      <button type="button" class="lado der" id="car-der" aria-label="Siguiente testimonio"><i class="ph-light ph-caret-right"></i></button>
     </div>
     <p class="aviso">Los resultados varían entre personas.</p>
   </div>
@@ -762,19 +761,29 @@ p{margin:0}
 try{history.scrollRestoration='manual'}catch(e){}
 addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 
-/* Carrusel de testimonios: flechas + puntos sobre un contenedor con scroll-snap */
+/* Carrusel de testimonios: flechas a los costados, arrastre con el mouse y scroll-snap */
 (function(){
-  var p=document.getElementById('pista'), iz=document.getElementById('car-izq'), de=document.getElementById('car-der'), pts=document.getElementById('puntos');
+  var p=document.getElementById('pista'), iz=document.getElementById('car-izq'), de=document.getElementById('car-der');
   var cards=[].slice.call(p.children);
-  function porVista(){return Math.max(1,Math.round(p.clientWidth/(cards[0].offsetWidth+16)))}
-  function paginas(){return Math.max(1,cards.length-porVista()+1)}
-  function pintarPuntos(){var n=paginas();pts.innerHTML=new Array(n+1).join('<i></i>');marcar()}
-  function actual(){var x=p.scrollLeft,best=0,d=1e9;cards.forEach(function(c,i){var dd=Math.abs(c.offsetLeft-cards[0].offsetLeft-x);if(dd<d){d=dd;best=i}});if(x+p.clientWidth>=p.scrollWidth-4)best=paginas()-1;return Math.min(best,paginas()-1)}
-  function marcar(){var k=actual();[].forEach.call(pts.children,function(el,i){el.classList.toggle('on',i===k)});iz.disabled=k<=0;de.disabled=k>=paginas()-1}
-  function ir(k){k=Math.max(0,Math.min(paginas()-1,k));p.scrollTo({left:cards[k].offsetLeft-cards[0].offsetLeft,behavior:'smooth'})}
-  iz.addEventListener('click',function(){ir(actual()-1)}); de.addEventListener('click',function(){ir(actual()+1)});
-  var t;p.addEventListener('scroll',function(){cancelAnimationFrame(t);t=requestAnimationFrame(marcar)},{passive:true});
-  addEventListener('resize',pintarPuntos); pintarPuntos();
+  /* posición de scroll en que queda cada tarjeta (respeta el scroll-padding del snap) */
+  function pos(){var pad=parseFloat(getComputedStyle(p).scrollPaddingLeft)||0,max=p.scrollWidth-p.clientWidth;return cards.map(function(c){return Math.max(0,Math.min(max,c.offsetLeft-p.offsetLeft-pad))})}
+  function idx(x){var P=pos(),b=0;P.forEach(function(v,i){if(Math.abs(v-x)<Math.abs(P[b]-x))b=i});return b}
+  function a(k){var P=pos(),max=p.scrollWidth-p.clientWidth;k=Math.max(0,Math.min(P.length-1,k));while(k>0&&P[k]===P[k-1])k--;p.scrollTo({left:P[k],behavior:'smooth'});iz.disabled=P[k]<=4;de.disabled=P[k]>=max-4}
+  function marcar(){iz.disabled=p.scrollLeft<=4; de.disabled=p.scrollLeft+p.clientWidth>=p.scrollWidth-4}
+  /* las flechas van a media altura de las fotos, para no tapar el texto */
+  function ubicar(){var f=cards[0].querySelector('.testi-fotos');if(!f)return;var y=f.getBoundingClientRect().top-p.getBoundingClientRect().top+f.offsetHeight/2;iz.style.top=de.style.top=y+'px'}
+  addEventListener('resize',ubicar); addEventListener('load',ubicar); ubicar();
+  function ir(dir){var P=pos(),k=idx(p.scrollLeft)+dir;while(k>0&&k<P.length&&P[k]===P[idx(p.scrollLeft)])k+=dir;a(k)}
+  iz.addEventListener('click',function(){ir(-1)}); de.addEventListener('click',function(){ir(1)});
+  p.addEventListener('scroll',marcar,{passive:true});
+  addEventListener('resize',marcar); marcar();
+  /* arrastrar con el mouse (en touch ya desliza solo) */
+  var x0=0,s0=0,activo=false,movio=false;
+  p.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;activo=true;movio=false;x0=e.clientX;s0=p.scrollLeft;p.setPointerCapture(e.pointerId)});
+  p.addEventListener('pointermove',function(e){if(!activo)return;var dx=e.clientX-x0;if(Math.abs(dx)>4){movio=true;p.classList.add('arrastrando')}if(movio)p.scrollLeft=s0-dx});
+  function soltar(e){if(!activo)return;activo=false;if(!movio)return;var dx=e.clientX-x0;p.classList.remove('arrastrando');var k=idx(p.scrollLeft);if(Math.abs(dx)>40){var k0=idx(s0);k=dx<0?Math.max(k,k0+1):Math.min(k,k0-1)}a(k)}
+  p.addEventListener('pointerup',soltar); p.addEventListener('pointercancel',soltar);
+  p.addEventListener('click',function(e){if(movio){e.preventDefault();e.stopPropagation();movio=false}},true);
 })();
 
 /* Mapa: flechas desde los puntos del cerebro hasta cada caja (se recalculan al cambiar el tamaño) */
