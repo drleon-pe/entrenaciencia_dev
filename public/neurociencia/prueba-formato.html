@@ -94,8 +94,8 @@ p{margin:0}
 .hero-grid > *{min-width:0}
 .hero-foto{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:var(--navy)}
 .hero-foto img,.hero-foto video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
-.vsl-play{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:0;background:linear-gradient(180deg,rgba(1,13,21,0) 40%,rgba(1,13,21,.18));cursor:pointer;padding:0}
-.vsl-play-ico{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.96);color:var(--teal);display:grid;place-items:center;box-shadow:0 0 0 8px rgba(255,255,255,.22),0 16px 36px -10px rgba(1,13,21,.7);transition:transform .2s ease}
+.vsl-play{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding-top:11%!important;border:0;background:linear-gradient(180deg,rgba(1,13,21,0) 40%,rgba(1,13,21,.18));cursor:pointer;padding:0}
+.vsl-play-ico{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.94);color:var(--teal);display:grid;place-items:center;box-shadow:0 0 0 5px rgba(255,255,255,.22),0 10px 24px -8px rgba(1,13,21,.7);transition:transform .2s ease}
 .vsl-play:hover .vsl-play-ico{transform:scale(1.06)}
 .vsl-play-txt{background:rgba(10,37,64,.9);color:#fff;font:600 13px/1 "Poppins";padding:8px 13px;border-radius:999px;white-space:nowrap}
 .vsl-play-txt[hidden]{display:none}
@@ -570,7 +570,7 @@ p{margin:0}
     <div class="hero-foto" id="vsl">
       <!-- VSL horizontal (16:9) a todo el ancho. Mientras no haya video se ve la portada. -->
       <img class="vsl-poster" src="assets/vsl-portada.jpg" alt="Dr. Gonzalo León" fetchpriority="high">
-      <button type="button" class="vsl-play" aria-label="Reproducir video"><span class="vsl-play-ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8.6 5.8v12.4L19 12z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></span><span class="vsl-play-txt" hidden>Toca para activar el sonido</span></button>
+      <button type="button" class="vsl-play" aria-label="Reproducir video"><span class="vsl-play-ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M8.6 5.8v12.4L19 12z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></span><span class="vsl-play-txt" hidden>Toca para activar el sonido</span></button>
       <div class="firma"><b>Dr. Gonzalo León</b><span>Especialista en Ciencia del Deporte</span></div>
       
     </div>
@@ -927,8 +927,6 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   var iv=setInterval(pinta,1000); pinta();
 })();
 
-/* Indicador "Desliza" del hero móvil: se va al empezar a bajar */
-(function(){var d=document.querySelector('.desliza');if(!d)return;function v(){d.classList.toggle('fuera',scrollY>60)}addEventListener('scroll',v,{passive:true});v();})();
 
 /* Carrusel de testimonios: flechas a los costados, arrastre con el mouse y scroll-snap */
 (function(){
