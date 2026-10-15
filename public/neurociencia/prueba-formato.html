@@ -62,6 +62,15 @@ p{margin:0}
 @media (max-width:359px){.cabecera .logo{font-size:12px}.cabecera .btn-mini{padding:10px 12px;font-size:11.5px}}
 .cabecera .btn-mini{display:inline-flex;align-items:center;gap:7px;flex:none;padding:11px 16px;border-radius:999px;background:var(--teal);color:#fff;font:600 12.5px/1 "Poppins";letter-spacing:.05em;text-transform:uppercase;text-decoration:none}
 .cabecera .btn-mini i{font-size:15px}
+/* contador al lanzamiento (fecha fija, igual para todos) */
+.timer{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.timer-tit{font:600 9.5px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.timer-num{display:flex;align-items:flex-start;gap:3px}
+.timer-num > span{display:flex;flex-direction:column;align-items:center;min-width:34px;padding:5px 4px 4px;border-radius:7px;background:#fff}
+.timer-num b{font:700 16px/1 "Poppins";color:var(--navy);font-variant-numeric:tabular-nums}
+.timer-num small{margin-top:2px;font:600 7.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;color:var(--suave)}
+.timer-num i{font:700 15px/26px "Poppins";font-style:normal;color:#fff}
+@media (max-width:359px){.timer-num > span{min-width:29px}.timer-num b{font-size:14px}}
 
 /* ---------- botones ---------- */
 .cta-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;width:100%;max-width:440px;padding-top:12px}
@@ -375,6 +384,12 @@ p{margin:0}
   .cabecera .logo{font-size:16px;gap:9px}
   .cabecera .logo img{width:34px;height:34px}
   .cabecera .btn-mini{padding:13px 22px;font-size:13.5px}
+  .timer{flex-direction:row;align-items:center;gap:12px}
+  .timer-tit{font-size:11px}
+  .timer-num > span{min-width:46px;padding:6px 6px 5px}
+  .timer-num b{font-size:20px}
+  .timer-num small{font-size:8.5px}
+  .timer-num i{line-height:32px}
   /* el hero entra completo en la pantalla: los tamaños dependen también del alto de la ventana */
   .anuncio{padding:6px 16px 7px}
   .hero{padding:clamp(14px,3vh,36px) 0 clamp(18px,3.5vh,44px)}
@@ -465,7 +480,10 @@ p{margin:0}
 <header class="cabecera">
   <div class="envase">
     <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></a>
-    <a class="btn-mini" href="#lista" data-ecc-lista>Regístrate <i class="ph-light ph-arrow-right"></i></a>
+    <div class="timer" id="timer" aria-label="Tiempo para el lanzamiento">
+      <span class="timer-tit">Lanzamiento en</span>
+      <span class="timer-num"><span><b data-t="d">--</b><small>días</small></span><i>:</i><span><b data-t="h">--</b><small>hrs</small></span><i>:</i><span><b data-t="m">--</b><small>min</small></span><i>:</i><span><b data-t="s">--</b><small>seg</small></span></span>
+    </div>
   </div>
 </header>
 
@@ -798,6 +816,18 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     v.muted=false; v.loop=false; v.currentTime=0; v.controls=true; v.play(); box.classList.add('sonando');
     if(window.eccEvento) try{window.eccEvento('vsl_sonido','','!VSLSonido','vsl_sonido',null)}catch(x){}
   });
+})();
+
+/* Contador hasta el lanzamiento: fecha fija igual para todos (no se reinicia). Misma FIN_OFERTA que las landings. */
+(function(){
+  var FIN_OFERTA='2026-12-07T00:00:00-05:00'; /* lanzamiento: lunes 7 de diciembre (hora de Lima) */
+  var fin=Date.parse(FIN_OFERTA), T=document.getElementById('timer'); if(!T) return;
+  var el={}; ['d','h','m','s'].forEach(function(k){el[k]=T.querySelector('[data-t="'+k+'"]')});
+  function dos(n){return (n<10?'0':'')+n}
+  function pinta(){var r=Math.max(0,fin-Date.now()),t=Math.floor(r/1000);
+    el.d.textContent=dos(Math.floor(t/86400)); el.h.textContent=dos(Math.floor(t%86400/3600)); el.m.textContent=dos(Math.floor(t%3600/60)); el.s.textContent=dos(t%60);
+    if(r<=0){T.querySelector('.timer-tit').textContent='Ya lanzamos'; clearInterval(iv)}}
+  var iv=setInterval(pinta,1000); pinta();
 })();
 
 /* Indicador "Desliza" del hero móvil: se va al empezar a bajar */
