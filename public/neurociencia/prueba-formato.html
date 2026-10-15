@@ -210,6 +210,13 @@ p{margin:0}
 .marquesina img{width:152px;height:44px;object-fit:contain;margin:0 10px;filter:brightness(0);opacity:.45}
 @keyframes correr{to{transform:translateX(-50%)}}
 
+/* flecha que une "Lo que nadie te explicó…" con el mecanismo */
+.fondo-celeste{position:relative}
+.conector{display:flex;flex-direction:column;align-items:center;height:92px;margin:0 auto;color:var(--teal)}
+.conector-linea{flex:1;width:2px;background:linear-gradient(180deg,rgba(1,127,167,0),var(--teal) 30%);border-radius:2px}
+.conector svg{margin-top:-6px;animation:baja 1.6s ease-in-out infinite}
+section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180deg,#fff 70%,var(--celeste-2))}
+
 /* separador entre secciones: línea que se desvanece con el isotipo al centro */
 .separador{position:relative;max-width:560px;height:44px;margin:18px auto 0;padding:0 16px}
 .separador::before{content:"";position:absolute;left:16px;right:16px;top:50%;height:1px;background:linear-gradient(90deg,rgba(1,127,167,0),rgba(1,127,167,.45) 30%,rgba(1,127,167,.45) 70%,rgba(1,127,167,0))}
@@ -674,7 +681,7 @@ p{margin:0}
 <div class="separador" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
 
 <!-- ============ POR QUÉ FUNCIONA ============ -->
-<section class="sec" style="padding-top:36px" data-screen-label="02 Por qué funciona">
+<section class="sec" style="padding-top:36px;padding-bottom:0" data-screen-label="02 Por qué funciona">
   <div class="envase angosto">
     <div class="centro"><span class="eyebrow">¿Por qué funciona este método?</span>
       <h2 class="titulo" style="margin-top:12px">El problema nunca fue tu <span class="teal">plan de entrenamiento o nutrición</span></h2></div>
@@ -690,10 +697,11 @@ p{margin:0}
 </section>
 
 <!-- ============ MECANISMO + NÚMEROS GRANDES ============ -->
-<section class="sec fondo-celeste" style="padding-top:56px">
+<section class="sec fondo-celeste" style="padding-top:0">
   <div class="envase">
+    <div class="conector" aria-hidden="true"><span class="conector-linea"></span><svg viewBox="0 0 24 24" width="26" height="26"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <div class="tarjeta">
-      <div class="mec-cab"><span class="eyebrow">12 semanas</span><h2 class="titulo-sm" style="margin-top:10px">Conoce el mecanismo por el cual <span class="teal">se crean los hábitos</span></h2></div>
+      <div class="mec-cab"><h2 class="titulo-sm">Conoce el mecanismo por el cual <span class="teal">se crean los hábitos</span></h2></div>
       <div class="mapa" id="mapa">
         <svg class="mapa-svg" aria-hidden="true"><defs><marker id="punta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker><marker id="punta-ok" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1E7A45"/></marker><marker id="punta-am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E0A800"/></marker></defs></svg>
         <div class="mapa-cerebro" id="cerebro">
