@@ -726,7 +726,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
       </div>
       <div class="mec-dato">
-        <p>El problema es que hacer que nuevas conductas de entrenamiento y nutrición pasen a los ganglios basales <b>no es tan simple</b>. En un estudio del European Journal of Social Psychology, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
+        <p>El problema es que hacer que <b>nuevas conductas de entrenamiento y nutrición</b> pasen a los ganglios basales <span class="hl">no es tan simple</span>. En un estudio del <b><i>European Journal of Social Psychology</i></b>, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
       </div>
       <div class="mec-pie">
         <p>Por eso es que <b>no necesitas otra dieta</b> u <b>otro plan de ejercicios.</b></p>
@@ -1000,7 +1000,11 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     var c1=M.querySelector('[data-area="a"]'),c2=M.querySelector('[data-area="c"]'),c3=M.querySelector('[data-area="d"]');
     function cerca(c,hacia,r){var dx=hacia.x-c.x,dy=hacia.y-c.y,d=Math.hypot(dx,dy)||1;return {x:c.x+dx/d*r,y:c.y+dy/d*r}}
     var p1=borde(c1,pf); flecha(p1,cerca(pf,p1,18),'#017FA7',.12);
-    var p2=borde(c2,gb); flecha(cerca(gb,p2,16),p2,'#017FA7',.18);
+    /* destino de la flecha 2: centro del borde de la caja 2 que mira al cerebro */
+    var r2=c2.getBoundingClientRect(), mr=M.getBoundingClientRect(), p2;
+    if(r2.top-mr.top>gb.y) p2={x:r2.left-mr.left+r2.width/2,y:r2.top-mr.top-6};
+    else p2={x:(r2.left-mr.left>gb.x?r2.left-mr.left-6:r2.right-mr.left+6),y:r2.top-mr.top+r2.height/2};
+    flecha(cerca(gb,p2,16),p2,'#017FA7',.18);
     var a3=borde(c3,pt(c2)),d3=borde(c2,pt(c3)); flecha(d3,a3,'#1E7A45',0);
     svg.appendChild(n2);
   }
