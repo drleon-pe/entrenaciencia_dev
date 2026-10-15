@@ -723,7 +723,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         </div>
         <div class="caja-m" data-area="a"><span class="paso-tag"><i>1</i>Al empezar</span><b>Corteza prefrontal</b><p>Cada decisión que tomas pasa por aquí: <em>¿entreno hoy?</em>, <em>¿me como esto?</em>, <em>¿pido postre?</em> Te obliga a decidir qué hacer una y otra vez.</p></div>
         <div class="caja-m" data-area="c"><span class="paso-tag"><i>2</i>Al repetir</span><b>Ganglios basales</b><p>Poco a poco la conducta pasa aquí y empiezas a actuar en automático.</p></div>
-        <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
+        <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Tras <b>60+ días</b> de repetirlo, construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
       </div>
       <div class="mec-dato">
         <p>El problema es que hacer que <b>nuevas conductas de entrenamiento y nutrición</b> pasen a los ganglios basales <span class="hl">no es tan simple</span>. En un estudio del <b><i>European Journal of Social Psychology</i></b>, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
@@ -1006,7 +1006,6 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     else p2={x:(r2.left-mr.left>gb.x?r2.left-mr.left-6:r2.right-mr.left+6),y:r2.top-mr.top+r2.height/2};
     flecha(cerca(gb,p2,16),p2,'#017FA7',.18);
     var a3=borde(c3,pt(c2)),d3=borde(c2,pt(c3)); flecha(d3,a3,'#1E7A45',0);
-    svg.appendChild(n2);
   }
   var t; function pedir(){cancelAnimationFrame(t);t=requestAnimationFrame(dibujar)}
   addEventListener('resize',pedir); addEventListener('load',pedir); var im=M.querySelector('img'); if(im) im.addEventListener('load',pedir); pedir();
