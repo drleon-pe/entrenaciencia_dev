@@ -213,6 +213,7 @@ p{margin:0}
 /* flecha que une "Lo que nadie te explicó…" con el mecanismo */
 .fondo-celeste{position:relative}
 .conector{display:flex;justify-content:center;align-items:center;height:80px;color:var(--teal)}
+.conector svg{animation:baja 1.6s ease-in-out infinite}
 .conector path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .conector .c1{animation:parpadea 1.6s ease-in-out infinite}
 .conector .c2{animation:parpadea 1.6s ease-in-out .2s infinite}
@@ -277,8 +278,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .foco{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--teal);border:3px solid #fff;color:#fff;font:700 12px/20px "Poppins";font-style:normal;text-align:center;box-shadow:0 0 0 0 rgba(1,127,167,.5);animation:latido 2.2s ease-out infinite;z-index:2}
 .foco[data-foco="gb"]{background:var(--navy)}
 .zonas{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible}
-/* corteza prefrontal: toda la parte frontal, recortada a la silueta del cerebro */
-.zona-pf-mask{position:absolute;inset:0;z-index:1;transform:scaleX(-1);-webkit-mask:url(assets/servier/cerebro-lateral-900.png) center/100% 100% no-repeat;mask:url(assets/servier/cerebro-lateral-900.png) center/100% 100% no-repeat;background:radial-gradient(ellipse 36% 46% at 92% 40%,rgba(1,127,167,.5) 0 96%,rgba(1,127,167,0) 100%)}
+.zona-pf{fill:rgba(1,127,167,.2);stroke:#017FA7;stroke-width:1.1;vector-effect:non-scaling-stroke;stroke-width:2.2;stroke-linejoin:round}
 .zona-gb-fill{fill:rgba(255,195,0,.62);filter:drop-shadow(0 0 3px rgba(255,195,0,.7))}
 .zona-gb{fill:none;stroke:#B07F00;stroke-width:2.6;stroke-linecap:round;opacity:1}
 .zona-tag{position:absolute;z-index:2;padding:4px 8px;border-radius:6px;font:700 9.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(1,13,21,.5)}
@@ -711,8 +711,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         <div class="mapa-cerebro" id="cerebro">
           <img src="assets/servier/cerebro-lateral-900.png" alt="Ilustración del cerebro" loading="lazy">
           <!-- zonas dibujadas sobre la ilustración (vista lateral, lóbulo frontal a la izquierda) -->
-          <span class="zona-pf-mask"></span>
           <svg class="zonas" viewBox="0 0 100 102" preserveAspectRatio="none" aria-hidden="true">
+            <path class="zona-pf" d="M6 42 C4 30 9 18 19 12 C25 9 31 10 33 14 C35 22 33 33 30 41 C27 49 20 54 13 53 C9 52 7 48 6 42Z"/>
             <path class="zona-gb" d="M58 33 C53 28 44 29 40 34 C37 38 38 44 41 47 M41 47 C44 51 49 53 55 52 C61 51 63 46 61 42 C59 38 53 37 49 40 C46 42 46 46 49 48"/>
             <ellipse class="zona-gb-fill" cx="50" cy="44" rx="11" ry="8"/>
           </svg>
