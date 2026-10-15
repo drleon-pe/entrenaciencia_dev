@@ -149,14 +149,15 @@ p{margin:0}
 .regalos-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;background:var(--navy);color:#fff}
 .regalos-top b{font-size:15px;font-weight:600}
 .tag-off{background:var(--amarillo);color:var(--navy-2);font:700 12px/1 "Poppins";letter-spacing:.06em;padding:6px 10px;border-radius:6px}
-.regalos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
+.regalos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px;align-items:stretch}
 .regalo{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
-.regalo{position:relative;container-type:inline-size}
-.regalo img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#091828;border-radius:10px;box-shadow:0 6px 14px -8px rgba(10,37,64,.5)}
-.regalo-txt{position:absolute;left:8%;right:6%;top:67%;display:flex;flex-direction:column;gap:4%;text-align:left}
-.regalo-txt small{display:flex;align-items:center;gap:5%;font:600 5.2cqw/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+/* tarjeta de cada curso: foto limpia arriba y caja con el texto abajo */
+.regalo{container-type:inline-size;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:var(--navy);box-shadow:0 8px 18px -12px rgba(10,37,64,.55)}
+.regalo img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.regalo-txt{flex:1;display:flex;flex-direction:column;gap:5px;padding:9% 9% 11%;text-align:left}
+.regalo-txt small{display:flex;align-items:center;gap:5%;font:600 6cqw/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
 .regalo-txt small::after{content:"";width:16%;height:1px;background:var(--cyan)}
-.regalo-txt b{font:700 7.8cqw/1.12 "Poppins";letter-spacing:-.02em;color:#fff;overflow-wrap:anywhere}
+.regalo-txt b{font:700 8.4cqw/1.15 "Poppins";letter-spacing:-.015em;color:#fff;overflow-wrap:anywhere}
 .regalo span{font-size:13px;line-height:1.25;font-weight:700;color:var(--navy);letter-spacing:-.01em}
 @media (min-width:860px){.regalo span{font-size:14.5px}}
 
@@ -627,12 +628,12 @@ p{margin:0}
     <div class="regalos">
       <div class="regalos-top"><b>Qué incluye el programa</b><span class="tag-off">-40%</span></div>
       <div class="regalos-grid">
-        <div class="regalo"><img src="assets/portadas/neurociencia-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
-        <div class="regalo"><img src="assets/portadas/entrenamiento-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
-        <div class="regalo"><img src="assets/portadas/nutricion-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
-        <div class="regalo"><img src="assets/portadas/app-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 04</small><b>Rutinas y plan de nutrición en la app</b></span></div>
-        <div class="regalo"><img src="assets/portadas/protocolos-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 05</small><b>Protocolos para días difíciles</b></span></div>
-        <div class="regalo"><img src="assets/portadas/comunidad-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 06</small><b>Comunidad privada</b></span></div>
+        <div class="regalo"><img src="assets/portadas/neurociencia-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
+        <div class="regalo"><img src="assets/portadas/entrenamiento-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
+        <div class="regalo"><img src="assets/portadas/nutricion-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
+        <div class="regalo"><img src="assets/portadas/app-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 04</small><b>Rutinas y plan de nutrición en la app</b></span></div>
+        <div class="regalo"><img src="assets/portadas/protocolos-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 05</small><b>Protocolos para días difíciles</b></span></div>
+        <div class="regalo"><img src="assets/portadas/comunidad-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 06</small><b>Comunidad privada</b></span></div>
       </div>
     </div>
   </div>
