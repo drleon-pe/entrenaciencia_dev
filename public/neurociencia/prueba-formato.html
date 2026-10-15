@@ -491,8 +491,8 @@ p{margin:0}
 <header class="cabecera">
   <div class="envase">
     <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></a>
-    <div class="timer" id="timer" aria-label="Tiempo para el lanzamiento">
-      <span class="timer-tit">Lanzamiento en</span>
+    <div class="timer" id="timer" aria-label="Tiempo para que termine la oferta">
+      <span class="timer-tit">La oferta termina en</span>
       <span class="timer-num"><span><b data-t="d">--</b><small>días</small></span><i>:</i><span><b data-t="h">--</b><small>hrs</small></span><i>:</i><span><b data-t="m">--</b><small>min</small></span><i>:</i><span><b data-t="s">--</b><small>seg</small></span></span>
     </div>
   </div>
@@ -828,15 +828,18 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   });
 })();
 
-/* Contador hasta el lanzamiento: fecha fija igual para todos (no se reinicia). Misma FIN_OFERTA que las landings. */
+/* Contador en ciclos de 7 días: igual para todos, cada ciclo termina el lunes a las 00:00 de Lima
+   (pedido del Dr. León para la prueba; la regla de la landing es contar hasta una fecha fija).
+   El lanzamiento (FIN_OFERTA, lunes 7 dic) coincide con el cierre de un ciclo: ahí el contador se detiene. */
 (function(){
-  var FIN_OFERTA='2026-12-07T00:00:00-05:00'; /* lanzamiento: lunes 7 de diciembre (hora de Lima) */
-  var fin=Date.parse(FIN_OFERTA), T=document.getElementById('timer'); if(!T) return;
+  var FIN_OFERTA=Date.parse('2026-12-07T00:00:00-05:00'), ANCLA=Date.parse('2026-10-12T00:00:00-05:00'), SEMANA=7*864e5;
+  var T=document.getElementById('timer'); if(!T) return;
   var el={}; ['d','h','m','s'].forEach(function(k){el[k]=T.querySelector('[data-t="'+k+'"]')});
   function dos(n){return (n<10?'0':'')+n}
-  function pinta(){var r=Math.max(0,fin-Date.now()),t=Math.floor(r/1000);
+  function pinta(){var ahora=Date.now(), fin=ahora>=FIN_OFERTA?FIN_OFERTA:Math.min(FIN_OFERTA,ANCLA+Math.ceil((ahora-ANCLA+1)/SEMANA)*SEMANA);
+    var r=Math.max(0,fin-ahora),t=Math.floor(r/1000);
     el.d.textContent=dos(Math.floor(t/86400)); el.h.textContent=dos(Math.floor(t%86400/3600)); el.m.textContent=dos(Math.floor(t%3600/60)); el.s.textContent=dos(t%60);
-    if(r<=0){T.querySelector('.timer-tit').textContent='Ya lanzamos'; clearInterval(iv)}}
+    if(ahora>=FIN_OFERTA){T.querySelector('.timer-tit').textContent='Ya lanzamos'; clearInterval(iv)}}
   var iv=setInterval(pinta,1000); pinta();
 })();
 
