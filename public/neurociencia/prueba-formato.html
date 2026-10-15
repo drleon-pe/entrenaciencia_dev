@@ -63,14 +63,14 @@ p{margin:0}
 .cabecera .btn-mini{display:inline-flex;align-items:center;gap:7px;flex:none;padding:11px 16px;border-radius:999px;background:var(--teal);color:#fff;font:600 12.5px/1 "Poppins";letter-spacing:.05em;text-transform:uppercase;text-decoration:none}
 .cabecera .btn-mini i{font-size:15px}
 /* contador al lanzamiento (fecha fija, igual para todos) */
-/* como en escritorio: el rótulo a la izquierda de los números, todo en amarillo */
+/* como en escritorio: rótulo blanco a la izquierda; cajas blancas con borde celeste */
 .timer{display:flex;flex-direction:row;align-items:center;gap:8px;flex:none}
-.timer-tit{max-width:74px;text-align:right;font:700 9.5px/1.25 "Poppins";letter-spacing:.08em;text-transform:uppercase;color:var(--amarillo)}
+.timer-tit{max-width:74px;text-align:right;font:700 9.5px/1.25 "Poppins";letter-spacing:.08em;text-transform:uppercase;color:#fff}
 .timer-num{display:flex;align-items:flex-start;gap:3px}
-.timer-num > span{display:flex;flex-direction:column;align-items:center;min-width:38px;padding:6px 4px 5px;border-radius:8px;background:var(--amarillo)}
-.timer-num b{font:700 18px/1 "Poppins";color:var(--navy-2);font-variant-numeric:tabular-nums}
-.timer-num small{margin-top:3px;font:700 7.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;color:rgba(1,13,21,.7)}
-.timer-num i{font:700 16px/32px "Poppins";font-style:normal;color:var(--amarillo)}
+.timer-num > span{display:flex;flex-direction:column;align-items:center;min-width:38px;padding:5px 4px 4px;border-radius:8px;background:#fff;border:2px solid var(--cyan)}
+.timer-num b{font:700 18px/1 "Poppins";color:var(--navy);font-variant-numeric:tabular-nums}
+.timer-num small{margin-top:3px;font:700 7.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;color:var(--suave)}
+.timer-num i{font:700 16px/32px "Poppins";font-style:normal;color:#fff}
 .cabecera .logo{font-size:13px}
 @media (max-width:359px){.timer-tit{display:none}.timer-num > span{min-width:32px}.timer-num b{font-size:15px}}
 
@@ -119,7 +119,7 @@ p{margin:0}
 .remate small{display:block;font:600 11.5px/1 "Poppins";letter-spacing:.16em;color:var(--teal);margin-bottom:6px}
 .hero-desc{font-size:15px;color:var(--suave)}
 .hero-col{display:flex;flex-direction:column;gap:18px}
-.desliza{display:flex;flex-direction:column;align-items:center;gap:2px;margin:2px auto -8px;color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
+.desliza{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;flex-direction:column;align-items:center;gap:2px;margin:0;padding:14px 0 calc(6px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.95) 60%);color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
 .desliza svg{animation:baja 1.6s ease-in-out infinite}
 .desliza.fuera{opacity:0;pointer-events:none}
 @keyframes baja{50%{transform:translateY(5px)}}
@@ -895,7 +895,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 })();
 
 /* Indicador "Desliza" del hero móvil: se va al empezar a bajar */
-(function(){var d=document.querySelector('.desliza');if(!d)return;function v(){d.classList.toggle('fuera',scrollY>60)}addEventListener('scroll',v,{passive:true});v();})();
+(function(){var d=document.querySelector('.desliza'),c=document.getElementById('cta-hero');if(!d)return;function v(){var r=c.getBoundingClientRect(),tapa=r.bottom>innerHeight-42&&r.top<innerHeight;d.classList.toggle('fuera',scrollY>60||tapa)}addEventListener('scroll',v,{passive:true});addEventListener('resize',v);v();})();
 
 /* Carrusel de testimonios: flechas a los costados, arrastre con el mouse y scroll-snap */
 (function(){
