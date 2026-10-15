@@ -80,16 +80,17 @@ p{margin:0}
 .hero-grid > *{min-width:0}
 .hero-foto{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:var(--navy)}
 .hero-foto img,.hero-foto video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
-.vsl-sonido{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:flex;align-items:center;gap:10px;padding:13px 20px;border:0;border-radius:999px;background:rgba(10,37,64,.88);color:#fff;font:600 14.5px/1.2 "Poppins";white-space:nowrap;cursor:pointer;box-shadow:0 14px 34px -12px rgba(1,13,21,.7);backdrop-filter:blur(6px);animation:latido-btn 1.8s ease-in-out infinite}
-.vsl-sonido i{font-size:22px;color:var(--amarillo)}
-.vsl-sonido[hidden]{display:none}
-@keyframes latido-btn{50%{transform:translate(-50%,-50%) scale(1.05)}}
-.hero-foto.sonando .firma,.hero-foto.sonando .calco{display:none}
-.calco{position:absolute;right:12px;top:12px;width:78px;height:78px;z-index:2;border-radius:50%;background:var(--amarillo);color:var(--navy-2);display:grid;place-content:center;text-align:center;transform:rotate(-10deg);box-shadow:0 8px 20px -8px rgba(1,13,21,.5)}
+.vsl-play{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:0;background:linear-gradient(180deg,rgba(1,13,21,0) 40%,rgba(1,13,21,.18));cursor:pointer;padding:0}
+.vsl-play-ico{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.96);color:var(--teal);display:grid;place-items:center;padding-left:4px;box-shadow:0 0 0 8px rgba(255,255,255,.22),0 16px 36px -10px rgba(1,13,21,.7);transition:transform .2s ease}
+.vsl-play:hover .vsl-play-ico{transform:scale(1.06)}
+.vsl-play-txt{background:rgba(10,37,64,.9);color:#fff;font:600 13px/1 "Poppins";padding:8px 13px;border-radius:999px;white-space:nowrap}
+.vsl-play-txt[hidden]{display:none}
+.hero-foto.sonando .firma,.hero-foto.sonando .calco,.hero-foto.sonando .vsl-play{display:none}
+.calco{position:absolute;right:12px;top:12px;width:78px;height:78px;z-index:4;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFD84D,var(--amarillo) 60%,#F0B400);color:var(--navy-2);display:grid;place-content:center;text-align:center;transform:rotate(-10deg);border:3px solid #fff;box-shadow:0 0 0 1px rgba(10,37,64,.10),0 14px 28px -10px rgba(1,13,21,.6)}
 .calco b{display:block;font:700 23px/1 "Poppins";letter-spacing:-.03em}
 .calco small{display:block;margin-top:3px;font:600 8px/1.15 "Poppins";letter-spacing:.06em;text-transform:uppercase}
-.firma{position:absolute;z-index:2;left:10px;bottom:10px;background:rgba(10,37,64,.82);color:#fff;border-radius:10px;padding:7px 11px;font-size:12.5px;line-height:1.3;backdrop-filter:blur(6px)}
-.firma b{display:block;font-size:13.5px}
+.firma{position:absolute;z-index:4;left:10px;bottom:10px;background:#fff;color:var(--suave);border-left:3px solid var(--teal);border-radius:8px;padding:6px 11px 7px;font-size:11.5px;line-height:1.3;box-shadow:0 10px 24px -10px rgba(1,13,21,.6)}
+.firma b{display:block;font-size:13px;color:var(--navy)}
 .confianza{display:flex;align-items:center;gap:12px}
 .caras{display:flex}
 .caras img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:2px solid #fff;box-shadow:0 2px 6px rgba(10,37,64,.2)}
@@ -105,6 +106,10 @@ p{margin:0}
 .remate small{display:block;font:600 11.5px/1 "Poppins";letter-spacing:.16em;color:var(--teal);margin-bottom:6px}
 .hero-desc{font-size:15px;color:var(--suave)}
 .hero-col{display:flex;flex-direction:column;gap:18px}
+.desliza{display:flex;flex-direction:column;align-items:center;gap:2px;margin:-4px auto -6px;color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
+.desliza svg{animation:baja 1.6s ease-in-out infinite}
+.desliza.fuera{opacity:0;pointer-events:none}
+@keyframes baja{50%{transform:translateY(5px)}}
 
 /* ---------- caja "qué incluye" (estilo regalos) ---------- */
 .regalos{margin-top:28px;border-radius:16px;overflow:hidden;background:var(--celeste-2);border:1px solid var(--borde);box-shadow:var(--sombra)}
@@ -113,7 +118,7 @@ p{margin:0}
 .tag-off{background:var(--amarillo);color:var(--navy-2);font:700 12px/1 "Poppins";letter-spacing:.06em;padding:6px 10px;border-radius:6px}
 .regalos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
 .regalo{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
-.regalo img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;background:#fff;box-shadow:0 6px 14px -8px rgba(10,37,64,.5)}
+.regalo img{width:100%;aspect-ratio:11/20;object-fit:cover;object-position:100% 50%;border-radius:10px;background:#fff;box-shadow:0 6px 14px -8px rgba(10,37,64,.5)}
 .regalo span{font-size:11.5px;line-height:1.25;font-weight:600}
 
 /* ---------- carrusel de testimonios ---------- */
@@ -144,11 +149,11 @@ p{margin:0}
 .aviso{margin-top:14px;font-size:12.5px;color:var(--suave);text-align:center}
 
 /* ---------- revistas (debajo del CTA del hero) ---------- */
-.revistas{margin-top:30px;padding:18px 0 20px;border-top:1px solid #EAF1F6;border-bottom:1px solid #EAF1F6}
-.revistas p{font:600 11px/1.3 "Poppins";letter-spacing:.14em;color:var(--suave);text-align:center;padding:0 16px}
-.revistas-ventana{margin-top:12px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.revistas{margin-top:30px;padding:24px 0 26px;background:var(--navy)}
+.revistas p{font:600 12px/1.35 "Poppins";letter-spacing:.14em;color:#fff;text-align:center;padding:0 16px}
+.revistas-ventana{margin-top:16px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .marquesina{display:flex;width:max-content;animation:correr 60s linear infinite}
-.marquesina img{height:26px;width:auto;margin:0 26px;filter:brightness(0);opacity:.62}
+.marquesina img{height:32px;width:auto;margin:0 26px;opacity:.95}
 @keyframes correr{to{transform:translateX(-50%)}}
 
 /* separador entre secciones: línea que se desvanece con el isotipo al centro */
@@ -227,6 +232,17 @@ p{margin:0}
 .mapa-svg path.via{fill:none;stroke:#E0A800;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:7 6;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff);animation:fluye 1s linear infinite}
 @keyframes fluye{to{stroke-dashoffset:-20}}
 .num-via text{font:700 11px "Poppins";fill:#010D15}
+
+.mec-dato{margin:6px 16px 4px;padding:18px 18px 20px;border-radius:16px;background:var(--crema);border:1px solid #F3E2A6;text-align:center}
+.mec-dato p{font-size:15.5px;line-height:1.6;color:var(--navy)}
+.linea-sola{display:block}
+/* biografías plegables del equipo */
+.bio summary{list-style:none;display:flex;align-items:center;gap:6px;margin:12px 18px 16px;font:600 13px/1 "Poppins";color:var(--teal);cursor:pointer}
+.bio summary::-webkit-details-marker{display:none}
+.bio summary i{transition:transform .2s}
+.bio[open] summary i{transform:rotate(180deg)}
+.bio .persona-txt{padding-top:0}
+.historia-fotos figcaption b.am{color:var(--amarillo)}
 
 /* ---------- programa ---------- */
 .modulos{display:grid;gap:18px;margin-top:30px}
@@ -384,6 +400,9 @@ p{margin:0}
   .mec{display:grid;grid-template-columns:1.15fr .85fr;align-items:center}
   .mec-izq{padding:16px 10px 16px 20px}
   .mec-pie{max-width:780px;margin:0 auto}
+  .mec-dato{max-width:760px;margin:10px auto 6px}
+  .desliza{display:none}
+  .equipo{align-items:start}
   .numerazo{border-left:1px solid #EAF1F6;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
   .mapa{grid-template-columns:1fr 1.5fr 1fr;grid-template-areas:"a cer c" "a cer d";gap:22px 40px;padding:30px 36px 10px;align-items:center}
   .mapa-cerebro{width:100%;max-width:400px;margin:0 auto}
@@ -420,6 +439,19 @@ p{margin:0}
   .checks li i{font-size:19px}
   .remate small{margin-bottom:3px}
 }
+/* celulares bajos (o Safari con sus barras): el hero llega hasta "Desliza" */
+@media (max-width:859px) and (max-height:760px){
+  .hero{padding-top:12px}
+  .hero-grid{gap:14px}
+  .hero-col{gap:11px}
+  .hero h1{font-size:30px}
+  .confianza .caras img{width:32px;height:32px}
+  .confianza p{font-size:12.5px}
+  .checks{gap:5px}
+  .checks li{font-size:14.5px}
+  .anuncio{padding:6px 16px 7px}
+  .cabecera .envase{height:56px}
+}
 @media (prefers-reduced-motion:reduce){.marquesina{animation-duration:80s}}
 </style>
 </head>
@@ -427,7 +459,7 @@ p{margin:0}
 
 <div class="anuncio">
   <b><i class="ph-fill ph-sparkle"></i> Lista de espera abierta <i class="ph-fill ph-sparkle"></i></b>
-  <span><em>40% OFF de lanzamiento:</em> te llega por correo cuando abran las inscripciones.</span>
+  <span><em>Oferta de Lanzamiento: 40% OFF</em></span>
 </div>
 
 <header class="cabecera">
@@ -444,8 +476,8 @@ p{margin:0}
     <div class="hero-foto" id="vsl">
       <!-- VSL horizontal (16:9) a todo el ancho. Mientras no haya video se ve la portada. -->
       <img class="vsl-poster" src="assets/vsl-portada.jpg" alt="Dr. Gonzalo León" fetchpriority="high">
-      <button type="button" class="vsl-sonido" hidden><i class="ph-fill ph-speaker-high"></i><span>Toca para activar el sonido</span></button>
-      <div class="firma"><b>Dr. Gonzalo León</b>Especialista en ciencia del deporte</div>
+      <button type="button" class="vsl-play" aria-label="Reproducir video"><span class="vsl-play-ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="vsl-play-txt" hidden>Toca para activar el sonido</span></button>
+      <div class="firma"><b>Dr. Gonzalo León</b>Especialista en Ciencia del Deporte</div>
       <div class="calco"><b>40%</b><small>OFF de<br>lanzamiento</small></div>
     </div>
     <div class="hero-col">
@@ -455,7 +487,7 @@ p{margin:0}
           <img src="assets/profesionales/lic-rafaela-silva.jpg" alt="">
           <img src="assets/profesionales/ps-ana-paula-ceballos.jpg" alt="">
         </div>
-        <p><b>Desarrollado por médicos</b><br>Más de 500 estudios revisados</p>
+        <p><b>Desarrollado por un equipo multidisciplinario médico</b><br>Más de 500 estudios revisados</p>
       </div>
       <h1>Transforma tu Cuerpo en <em>12 Semanas</em> con <em>Neurociencia</em></h1>
       <ul class="checks">
@@ -463,14 +495,14 @@ p{margin:0}
         <li><i class="ph-fill ph-check-circle"></i>Más de 500 estudios revisados</li>
         <li><i class="ph-fill ph-check-circle"></i>Basado en la última neurociencia y ciencia del deporte</li>
       </ul>
-      <p class="remate"><small>ESTA VEZ ES DISTINTO</small>Deja de <span class="hl">volver a empezar</span>.</p>
-      <p class="hero-desc">Nuestro equipo médico ha desarrollado un programa basado en neurociencia para que puedas crear nuevos hábitos de entrenamiento y nutrición que perduren en el tiempo y te permitan cambiar tu cuerpo una vez por todas.</p>
+      <a class="desliza" href="#tras-hero" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de <span class="hl">volver a empezar</span>.</p>
       <div>
         <div class="cta-wrap">
-          <span class="sello">Lista de espera gratuita</span>
-          <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
+          <span class="sello">40% OFF de lanzamiento</span>
+          <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a>
         </div>
-        <p class="micro"><i class="ph-fill ph-check-circle"></i>Registro 100% gratuito: sin pago y sin tarjeta.</p>
+        <p class="micro"><i class="ph-fill ph-check-circle"></i>Lista de espera gratis: sin pago ni tarjeta.</p>
       </div>
     </div>
   </div>
@@ -488,14 +520,14 @@ p{margin:0}
 
   <div class="envase">
     <div class="regalos">
-      <div class="regalos-top"><b>Qué incluye el curso</b><span class="tag-off">40% OFF</span></div>
+      <div class="regalos-top"><b>Qué incluye el programa</b><span class="tag-off">40% OFF</span></div>
       <div class="regalos-grid">
-        <div class="regalo"><img src="assets/portadas/neurociencia-movil.jpg" alt="" loading="lazy"><span>Curso de Neurociencia del Cambio de Hábitos</span></div>
-        <div class="regalo"><img src="assets/portadas/entrenamiento-movil.jpg" alt="" loading="lazy"><span>Curso de Fundamentos de Entrenamiento</span></div>
-        <div class="regalo"><img src="assets/portadas/nutricion-movil.jpg" alt="" loading="lazy"><span>Curso de Fundamentos de Nutrición</span></div>
-        <div class="regalo"><img src="assets/portadas/app-movil.jpg" alt="" loading="lazy"><span>Aplicación con Rutinas y Plan de Nutrición</span></div>
-        <div class="regalo"><img src="assets/portadas/protocolos-movil.jpg" alt="" loading="lazy"><span>Protocolos para Días Difíciles</span></div>
-        <div class="regalo"><img src="assets/portadas/comunidad-movil.jpg" alt="" loading="lazy"><span>Comunidad Privada</span></div>
+        <div class="regalo"><img src="assets/portadas/neurociencia.jpg" alt="" loading="lazy"><span>Curso de Neurociencia del Cambio de Hábitos</span></div>
+        <div class="regalo"><img src="assets/portadas/entrenamiento.jpg" alt="" loading="lazy"><span>Curso de Fundamentos de Entrenamiento</span></div>
+        <div class="regalo"><img src="assets/portadas/nutricion.jpg" alt="" loading="lazy"><span>Curso de Fundamentos de Nutrición</span></div>
+        <div class="regalo"><img src="assets/portadas/app.jpg" alt="" loading="lazy"><span>Aplicación con Rutinas y Plan de Nutrición</span></div>
+        <div class="regalo"><img src="assets/portadas/protocolos.jpg" alt="" loading="lazy"><span>Protocolos para Días Difíciles</span></div>
+        <div class="regalo"><img src="assets/portadas/comunidad-desk.jpg" alt="" loading="lazy"><span>Comunidad Privada</span></div>
       </div>
     </div>
   </div>
@@ -548,9 +580,9 @@ p{margin:0}
       </div>
     </div>
     <div class="pilares">
+      <div class="pilar"><span><i class="ph-light ph-brain"></i></span><b>Neurociencia</b></div>
       <div class="pilar"><span><i class="ph-light ph-barbell"></i></span><b>Ciencia del deporte</b></div>
       <div class="pilar"><span><i class="ph-light ph-bowl-food"></i></span><b>Nutrición</b></div>
-      <div class="pilar"><span><i class="ph-light ph-brain"></i></span><b>Neurociencia</b></div>
     </div>
   </div>
 </section>
@@ -568,39 +600,28 @@ p{margin:0}
           <i class="foco" data-foco="pf" style="left:15%;top:33%">1</i>
           <i class="foco" data-foco="gb" style="left:50%;top:46%">2</i>
         </div>
-        <div class="caja-m" data-area="a"><span class="paso-tag"><i>1</i>Al empezar</span><b>Corteza prefrontal</b><p>Cada decisión pasa por aquí: <em>¿entreno hoy?</em> <em>¿me como esto?</em> Te obliga a decidir una y otra vez.</p></div>
-        <div class="caja-m" data-area="c"><span class="paso-tag"><i>2</i>Al repetir</span><b>Ganglios basales</b><p>Poco a poco la decisión pasa aquí, y responden en automático.</p></div>
+        <div class="caja-m" data-area="a"><span class="paso-tag"><i>1</i>Al empezar</span><b>Corteza prefrontal</b><p>Cada decisión que tomas pasa por aquí. Te obliga a decidir qué hacer una y otra vez.</p></div>
+        <div class="caja-m" data-area="c"><span class="paso-tag"><i>2</i>Al repetir</span><b>Ganglios basales</b><p>Poco a poco la conducta pasa aquí y empiezas a actuar en automático.</p></div>
         <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
       </div>
-      <div class="mec">
-        <div class="mec-izq">
-          <ol class="pasos">
-            <li class="paso"><span class="paso-n">1</span><div><span class="paso-zona">Corteza prefrontal</span><p>Cuando empiezas algo nuevo, cada decisión pasa por algo que se conoce como la corteza prefrontal: <em>¿entreno hoy?</em>, <em>¿me como esto?</em> Funciona, pero te obliga a decidir una y otra vez.</p></div></li>
-            <li class="paso"><span class="paso-n">2</span><div><span class="paso-zona">Ganglios basales</span><p>Cuando repites una conducta a lo largo del tiempo, poco a poco esta decisión pasa de la corteza prefrontal a los ganglios basales, que responden en automático.</p></div></li>
-            <li class="paso"><span class="paso-n">3</span><div><span class="paso-zona">En automático</span><p>Eso significa que construiste un hábito. <b>Nunca más tienes que pensar en ello</b> y deja de fatigarte tomar tantas decisiones.</p></div></li>
-          </ol>
-        </div>
-        <div class="numerazo">
-          <b class="grande">66<small>días</small></b>
-          <p>El problema es que hacer que estos cambios en tu vida pasen a los ganglios basales no es tan simple. En un estudio del European Journal of Social Psychology, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
-        </div>
+      <div class="mec-dato">
+        <p>El problema es que hacer que nuevas conductas de entrenamiento y nutrición pasen a los ganglios basales no es tan simple. En un estudio del European Journal of Social Psychology, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
       </div>
       <div class="mec-pie">
-        <div class="tachado"><span><i class="ph-light ph-x"></i>Otra dieta</span><span><i class="ph-light ph-x"></i>Otro plan de ejercicios</span></div>
         <p>Por eso es que <b>no necesitas otra dieta u otro plan de ejercicios.</b></p>
-        <p>Necesitas un <span class="hl">método probado</span> que te ayude a llegar a las primeras 8 semanas y que aumente la probabilidad de que muevas todas estas conductas que son buenas para ti de la corteza prefrontal a los ganglios basales.</p>
+        <p>Necesitas un <span class="hl">método probado</span> basado en neurociencia y psicología del cambio conductual que te permita construir nuevos hábitos de entrenamiento y nutrición.</p>
         <p><b>Justamente ese es el método que hemos desarrollado en Entrena con Ciencia.</b></p>
-        <p>Nuestro grupo de profesionales en ciencia del deporte, nutrición y neurociencia ha construido un plan basado en la última neurociencia para ayudarte a hacer esto.</p>
-        <div class="cta-wrap"><span class="sello">40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
+        <p>Nuestro equipo médico especializado en neurociencia, ciencia del deporte y nutrición ha construido un plan basado en la última evidencia científica para ayudarte a lograr este objetivo.</p>
+        <div class="cta-wrap"><span class="sello">40% OFF de lanzamiento</span><a class="cta" href="#lista" data-ecc-lista>Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a></div>
       </div>
     </div>
 
     <div class="crema">
-      <h3><span>Llevas años creyendo que el problema eras tú.</span><span class="teal">El problema era el método que estabas siguiendo.</span></h3>
+      <h3><span>El problema no es tu rutina de entrenamiento o plan de nutrición.</span><span class="teal">El problema es que no entiendes cómo crear hábitos que perduren en el tiempo.</span></h3>
       <div class="cifras">
         <div><b>500+</b><span>estudios revisados</span></div>
-        <div><b>12</b><span>semanas</span></div>
-        <div><b>66</b><span>días: mediana para volver automática una conducta</span></div>
+        <div><b>15+</b><span>videos que te explican la última ciencia para lograr tus objetivos</span></div>
+        <div><b>10+</b><span>rutinas para entrenar en tu casa o el gimnasio</span></div>
       </div>
       <p style="margin-top:24px;font-weight:700;font-size:20px">Que este sea tu <span class="hl">último Día 1</span>.</p>
     </div>
@@ -620,7 +641,7 @@ p{margin:0}
       <article class="modulo"><img src="assets/portadas/protocolos-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado una biblioteca de protocolos que atacan problemas comunes que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></div></article>
       <article class="modulo"><img src="assets/portadas/comunidad-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><p>Accede a nuestra comunidad privada, donde tendrás a otras personas igual de motivadas para transformar tu cuerpo.</p></div></article>
     </div>
-    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Lista de espera gratuita</span><a class="cta" href="#lista" data-ecc-lista>Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div></div>
+    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">40% OFF de lanzamiento</span><a class="cta" href="#lista" data-ecc-lista>Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a></div><p class="micro">Lista de espera gratis: sin pago ni tarjeta.</p></div>
   </div>
 </section>
 
@@ -631,17 +652,17 @@ p{margin:0}
     <h2 class="titulo centro">Nuestro <span class="teal">Equipo Médico</span></h2>
     <div class="equipo">
       <article class="persona"><div class="persona-cab"><img src="assets/profesionales/dr-gonzalo-leon.jpg" alt="Dr. Gonzalo León" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Especialista en ciencia del deporte</span><h3>Dr. Gonzalo León</h3></div></div>
-        <div class="persona-txt"><p>Médico cirujano, enfocado en entrenamiento basado en evidencia. Hoy cursa la Maestría en Longevidad y Antienvejecimiento en el IL3 de la Universidad de Barcelona.</p><p>Durante la carrera de medicina llegó a pesar 120 kilos. El cambio llegó cuando entendió la fisiología del cuerpo humano y cómo se cruza con el balance energético: así logró su propia recomposición corporal.</p><p>Desde entonces ha atendido a decenas de pacientes con su método y los ha ayudado a conseguir resultados: perder peso con la mayor flexibilidad posible. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p></div></article>
-      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/lic-rafaela-silva.jpg" alt="Lic. Rafaela Silva" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Nutricionista clínica</span><h3>Lic. Rafaela Silva</h3></div></div>
-        <div class="persona-txt"><p>Licenciada en Nutrición y Dietética (UPC), con más de 5 años de experiencia. Cursos de especialización en microbiota y nutrición (Universidad Peruana Cayetano Heredia), nutrición hormonal (Nutrition Society) y nutrición renal (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p><p>Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición basado en evidencia, pero también práctico y aplicable a la vida real, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p></div></article>
+        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Médico cirujano, enfocado en entrenamiento basado en evidencia. Hoy cursa la Maestría en Longevidad y Antienvejecimiento en el IL3 de la Universidad de Barcelona.</p><p>Durante la carrera de medicina llegó a pesar 120 kilos. El cambio llegó cuando entendió la fisiología del cuerpo humano y cómo se cruza con el balance energético: así logró su propia recomposición corporal.</p><p>Desde entonces ha atendido a decenas de pacientes con su método y los ha ayudado a conseguir resultados: perder peso con la mayor flexibilidad posible. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p></div></details></article>
       <article class="persona"><div class="persona-cab"><img src="assets/profesionales/ps-ana-paula-ceballos.jpg" alt="Ps. Ana Paula Ceballos" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Psicóloga clínica · TCA y obesidad</span><h3>Ps. Ana Paula Ceballos</h3></div></div>
-        <div class="persona-txt"><p>Psicóloga clínica especialista en trastornos de la conducta alimentaria (TCA) y obesidad, con formación en terapia cognitivo-conductual. Máster en Trastornos Alimenticios y Obesidad (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Hoy atiende en la Clínica San Felipe, en Lima.</p><p>En Entrena con Ciencia diseñó el módulo de cambio de hábitos, con la Teoría de la Autodeterminación como marco: por qué la motivación no es suficiente y cómo desarrollar autonomía, competencia y relación para que un hábito se sostenga en el tiempo.</p></div></article>
+        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Psicóloga clínica especialista en trastornos de la conducta alimentaria (TCA) y obesidad, con formación en terapia cognitivo-conductual. Máster en Trastornos Alimenticios y Obesidad (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Hoy atiende en la Clínica San Felipe, en Lima.</p><p>En Entrena con Ciencia diseñó el módulo de cambio de hábitos, con la Teoría de la Autodeterminación como marco: por qué la motivación no es suficiente y cómo desarrollar autonomía, competencia y relación para que un hábito se sostenga en el tiempo.</p></div></details></article>
+      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/lic-rafaela-silva.jpg" alt="Lic. Rafaela Silva" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Nutricionista clínica</span><h3>Lic. Rafaela Silva</h3></div></div>
+        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Licenciada en Nutrición y Dietética (UPC), con más de 5 años de experiencia. Cursos de especialización en microbiota y nutrición (Universidad Peruana Cayetano Heredia), nutrición hormonal (Nutrition Society) y nutrición renal (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p><p>Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición basado en evidencia, pero también práctico y aplicable a la vida real, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p></div></details></article>
     </div>
 
     <div class="historia">
       <div class="historia-fotos">
         <figure><img src="assets/leon-antes.jpg" alt="Dr. Gonzalo León, antes" loading="lazy"><figcaption><b>120 kg</b><small>ANTES</small></figcaption></figure>
-        <figure><img src="assets/leon-despues.jpg" alt="Dr. Gonzalo León, después" loading="lazy"><figcaption><b>85 kg</b><small>DESPUÉS</small></figcaption></figure>
+        <figure><img src="assets/leon-despues.jpg" alt="Dr. Gonzalo León, después" loading="lazy"><figcaption><b class="am">85 kg</b><small>DESPUÉS</small></figcaption></figure>
       </div>
       <div class="historia-txt">
         <span class="eyebrow" style="color:var(--cyan)">Mi historia</span>
@@ -651,48 +672,6 @@ p{margin:0}
           <li><small>DESPUÉS DE 12 MESES</small>Con poca energía y vergüenza cada vez que me veía al espejo, decidí cambiar mi vida por completo.</li>
           <li><small>HOY</small>Con un equipo de nutricionistas, especialistas en ciencia del deporte y neurociencia, ayudo a personas como tú a cambiar su vida.</li>
         </ul>
-        <p class="remate-blanco">Un equipo médico no te promete kilos en un plazo: te explica cómo hacer un cambio real en tus hábitos y en tu vida.</p>
-        <p class="leyenda">Dr. Gonzalo León, antes y después de su propia recomposición corporal.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
-<!-- ============ OFERTA ============ -->
-<section class="sec" id="oferta" data-screen-label="06 Cierre">
-  <div class="envase oferta-wrap">
-    <div class="izq centro">
-      <h2 class="titulo">Transforma <span class="teal">tu Cuerpo</span></h2>
-      <p class="bajada">No te falta un plan nuevo de entrenamiento. Te falta <b style="color:var(--navy)">entender la ciencia para crear nuevos hábitos.</b></p>
-    </div>
-    <div class="oferta">
-      <div class="oferta-cinta"><i class="ph-fill ph-bell-ringing"></i> Lista de espera gratuita · 40% OFF</div>
-      <div class="oferta-cuerpo">
-        <div class="badges"><span class="badge">Lista de espera gratuita</span><span class="badge am">40% OFF</span></div>
-        <h3>Regístrate y accede a nuestra oferta de lanzamiento</h3>
-        <p class="bajada">Cuando lancemos, te enviamos un descuento exclusivo.</p>
-        <div class="incluye"><b>QUÉ INCLUYE EL CURSO</b>
-          <ul>
-            <li><i class="ph-fill ph-check-circle"></i>Curso de Neurociencia del Cambio de Hábitos</li>
-            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Entrenamiento</li>
-            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Nutrición</li>
-            <li><i class="ph-fill ph-check-circle"></i>Aplicación con Rutinas y Plan de Nutrición</li>
-            <li><i class="ph-fill ph-check-circle"></i>Protocolos para Días Difíciles</li>
-            <li><i class="ph-fill ph-check-circle"></i>Comunidad Privada</li>
-          </ul>
-        </div>
-        <ul class="beneficios">
-          <li><i class="ph-fill ph-tag"></i><span><b>40% OFF de lanzamiento:</b> te llega por correo cuando abran las inscripciones.</span></li>
-          <li><i class="ph-fill ph-gift"></i><span><b>Registro 100% gratuito:</b> sin pago y sin tarjeta.</span></li>
-        </ul>
-        <a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
-        <p class="nota-candado"><i class="ph-light ph-lock-simple"></i>Tus datos se usan solo para avisarte.</p>
-        <div class="sellos">
-          <div><i class="ph-light ph-stethoscope"></i>Desarrollado por médicos</div>
-          <div><i class="ph-light ph-books"></i>Más de 500 estudios revisados</div>
-          <div><i class="ph-light ph-brain"></i>Basado en la última neurociencia</div>
-        </div>
       </div>
     </div>
   </div>
@@ -713,14 +692,45 @@ p{margin:0}
   </div>
 </section>
 
-<!-- ============ CIERRE ============ -->
-<section class="cierre">
-  <div class="envase">
-    <h2>Deja de empezar de nuevo.<span>Haz un cambio real una vez por todas.</span></h2>
-    <div class="cta-wrap"><span class="sello">40% OFF</span><a class="cta" href="#lista" data-ecc-lista id="cta-cierre">Regístrate en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
-    <p>Registro 100% gratuito: sin pago y sin tarjeta.</p>
+<div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
+<!-- ============ OFERTA ============ -->
+<section class="sec" id="oferta" data-screen-label="06 Cierre">
+  <div class="envase oferta-wrap">
+    <div class="izq centro">
+      <h2 class="titulo">Transforma <span class="teal">tu Cuerpo</span></h2>
+      <p class="bajada"><span class="linea-sola">No te falta un plan nuevo de entrenamiento o nutrición.</span><span class="linea-sola">Te ayudamos a <b style="color:var(--navy)">entender la ciencia para crear nuevos hábitos.</b></span></p>
+    </div>
+    <div class="oferta">
+      <div class="oferta-cinta"><i class="ph-fill ph-bell-ringing"></i> Lista de espera gratuita · 40% OFF</div>
+      <div class="oferta-cuerpo">
+        <h3>Regístrate y accede a nuestra oferta de lanzamiento</h3>
+        <div class="incluye"><b>QUÉ INCLUYE EL PROGRAMA</b>
+          <ul>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Neurociencia del Cambio de Hábitos</li>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Entrenamiento</li>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Nutrición</li>
+            <li><i class="ph-fill ph-check-circle"></i>Aplicación con Rutinas y Plan de Nutrición</li>
+            <li><i class="ph-fill ph-check-circle"></i>Protocolos para Días Difíciles</li>
+            <li><i class="ph-fill ph-check-circle"></i>Comunidad Privada</li>
+          </ul>
+        </div>
+        <ul class="beneficios">
+          <li><i class="ph-fill ph-tag"></i><span><b>40% OFF de lanzamiento</b> para la lista de espera.</span></li>
+          <li><i class="ph-fill ph-gift"></i><span><b>100% gratis:</b> sin pago ni tarjeta.</span></li>
+        </ul>
+        <a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a>
+        <p class="nota-candado"><i class="ph-light ph-lock-simple"></i>Tus datos se usan solo para avisarte.</p>
+        <div class="sellos">
+          <div><i class="ph-light ph-stethoscope"></i>Desarrollado por médicos</div>
+          <div><i class="ph-light ph-books"></i>Más de 500 estudios revisados</div>
+          <div><i class="ph-light ph-brain"></i>Basado en la última neurociencia</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+
 </main>
 
 <footer class="pie">
@@ -734,8 +744,8 @@ p{margin:0}
 
 <div class="barra" id="barra" aria-hidden="true">
   <div class="envase">
-    <p><i class="ph-fill ph-bell-ringing"></i> Lista de espera abierta · Registro 100% gratuito</p>
-    <div class="cta-wrap"><span class="sello">40% OFF</span><a class="cta" href="#lista" data-ecc-lista tabindex="-1">Regístrate en la lista de espera</a></div>
+    <p><i class="ph-fill ph-bell-ringing"></i> Lista de espera abierta · sin pago ni tarjeta</p>
+    <div class="cta-wrap"><span class="sello">40% OFF de lanzamiento</span><a class="cta" href="#lista" data-ecc-lista tabindex="-1">Reclama tu descuento</a></div>
   </div>
 </div>
 
@@ -778,17 +788,20 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   var VSL_SRC=''; /* p. ej. 'https://…/vsl-ecc.mp4' (MP4 o HLS .m3u8 en Safari) */
   if(!VSL_SRC&&/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) VSL_SRC=new URLSearchParams(location.search).get('vsl')||''; /* prueba local: ?vsl=URL */
   var box=document.getElementById('vsl'); if(!box||!VSL_SRC) return;
-  var poster=box.querySelector('.vsl-poster'), btn=box.querySelector('.vsl-sonido');
+  var poster=box.querySelector('.vsl-poster'), btn=box.querySelector('.vsl-play'), txt=box.querySelector('.vsl-play-txt');
   var v=document.createElement('video'); v.src=VSL_SRC; v.poster=poster.src; v.muted=true; v.autoplay=true; v.loop=true; v.playsInline=true; v.preload='auto';
   v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
   box.insertBefore(v,poster.nextSibling);
-  v.addEventListener('playing',function(){poster.style.display='none'; if(v.muted) btn.hidden=false;},{once:true});
-  var p=v.play(); if(p&&p.catch) p.catch(function(){btn.hidden=false;});
+  v.addEventListener('playing',function(){poster.style.display='none'; if(v.muted) txt.hidden=false;},{once:true});
+  var p=v.play(); if(p&&p.catch) p.catch(function(){});
   btn.addEventListener('click',function(){
-    v.muted=false; v.loop=false; v.currentTime=0; v.controls=true; v.play(); btn.hidden=true; box.classList.add('sonando');
+    v.muted=false; v.loop=false; v.currentTime=0; v.controls=true; v.play(); box.classList.add('sonando');
     if(window.eccEvento) try{window.eccEvento('vsl_sonido','','!VSLSonido','vsl_sonido',null)}catch(x){}
   });
 })();
+
+/* Indicador "Desliza" del hero móvil: se va al empezar a bajar */
+(function(){var d=document.querySelector('.desliza');if(!d)return;function v(){d.classList.toggle('fuera',scrollY>60)}addEventListener('scroll',v,{passive:true});v();})();
 
 /* Carrusel de testimonios: flechas a los costados, arrastre con el mouse y scroll-snap */
 (function(){
@@ -848,7 +861,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 
 /* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando la caja de oferta o el cierre están en pantalla */
 (function(){
-  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('cta-oferta'),document.getElementById('cta-cierre')];
+  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('cta-oferta')];
   function ver(){var pasoHero=hero.getBoundingClientRect().bottom<0;var tapa=tapan.some(function(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var on=pasoHero&&!tapa;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');b.querySelector('a').tabIndex=on?0:-1}
   addEventListener('scroll',ver,{passive:true}); addEventListener('resize',ver); ver();
 })();
