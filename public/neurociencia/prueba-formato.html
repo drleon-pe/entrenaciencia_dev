@@ -123,6 +123,9 @@ p{margin:0}
 .hero-col{display:flex;flex-direction:column;gap:18px}
 .desliza{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px auto -8px;color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
 .desliza svg{animation:baja 1.6s ease-in-out infinite}
+.desliza .f1{animation:parpadea 1.6s ease-in-out infinite}
+.desliza .f2{animation:parpadea 1.6s ease-in-out .25s infinite}
+@keyframes parpadea{0%,100%{opacity:.35}50%{opacity:1}}
 .desliza.fuera{opacity:0;pointer-events:none}
 @keyframes baja{50%{transform:translateY(5px)}}
 
@@ -574,7 +577,7 @@ p{margin:0}
         </div>
         <p class="micro"><i class="ph-fill ph-check-circle"></i>Inscríbete gratis hoy: 40% OFF al lanzar.</p>
       </div>
-      <a class="desliza" href="#revistas" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="desliza" href="#revistas" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="f1" d="M6 5.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path class="f2" d="M6 12.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
