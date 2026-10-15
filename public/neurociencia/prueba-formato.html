@@ -151,7 +151,12 @@ p{margin:0}
 .tag-off{background:var(--amarillo);color:var(--navy-2);font:700 12px/1 "Poppins";letter-spacing:.06em;padding:6px 10px;border-radius:6px}
 .regalos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px}
 .regalo{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
-.regalo img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#0B2036;border-radius:10px;box-shadow:0 6px 14px -8px rgba(10,37,64,.5)}
+.regalo{position:relative;container-type:inline-size}
+.regalo img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#091828;border-radius:10px;box-shadow:0 6px 14px -8px rgba(10,37,64,.5)}
+.regalo-txt{position:absolute;left:8%;right:6%;bottom:8%;display:flex;flex-direction:column;gap:4%;text-align:left}
+.regalo-txt small{display:flex;align-items:center;gap:5%;font:600 6cqw/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.regalo-txt small::after{content:"";width:16%;height:1px;background:var(--cyan)}
+.regalo-txt b{font:700 9.6cqw/1.1 "Poppins";letter-spacing:-.02em;color:#fff;overflow-wrap:anywhere}
 .regalo span{font-size:13px;line-height:1.25;font-weight:700;color:var(--navy);letter-spacing:-.01em}
 @media (min-width:860px){.regalo span{font-size:14.5px}}
 
@@ -194,7 +199,7 @@ p{margin:0}
 .revistas p{font:700 11px/1.65 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:#566E7D;text-align:center;padding:0 16px}
 .revistas-ventana{margin-top:10px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .marquesina{display:flex;width:max-content;animation:correr 60s linear infinite}
-.marquesina img{width:152px;height:44px;object-fit:contain;margin:0 10px;filter:brightness(0);opacity:.45}
+.marquesina img{width:152px;height:44px;object-fit:contain;margin:0 10px;filter:brightness(0) invert(11%) sepia(39%) saturate(2400%) hue-rotate(190deg) brightness(92%) contrast(98%);opacity:1}
 @keyframes correr{to{transform:translateX(-50%)}}
 
 /* separador entre secciones: línea que se desvanece con el isotipo al centro */
@@ -617,12 +622,12 @@ p{margin:0}
     <div class="regalos">
       <div class="regalos-top"><b>Qué incluye el programa</b><span class="tag-off">40% OFF</span></div>
       <div class="regalos-grid">
-        <div class="regalo"><img src="assets/portadas/neurociencia-cuadro.jpg" alt="Curso de Neurociencia del Cambio de Hábitos" loading="lazy"></div>
-        <div class="regalo"><img src="assets/portadas/entrenamiento-cuadro.jpg" alt="Curso de Fundamentos de Entrenamiento" loading="lazy"></div>
-        <div class="regalo"><img src="assets/portadas/nutricion-cuadro.jpg" alt="Curso de Fundamentos de Nutrición" loading="lazy"></div>
-        <div class="regalo"><img src="assets/portadas/app-cuadro.jpg" alt="Aplicación con Rutinas y Plan de Nutrición" loading="lazy"></div>
-        <div class="regalo"><img src="assets/portadas/protocolos-cuadro.jpg" alt="Protocolos para Días Difíciles" loading="lazy"></div>
-        <div class="regalo"><img src="assets/portadas/comunidad-cuadro.jpg" alt="Comunidad Privada" loading="lazy"></div>
+        <div class="regalo"><img src="assets/portadas/neurociencia-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
+        <div class="regalo"><img src="assets/portadas/entrenamiento-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
+        <div class="regalo"><img src="assets/portadas/nutricion-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
+        <div class="regalo"><img src="assets/portadas/app-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 04</small><b>Rutinas y plan de nutrición en la app</b></span></div>
+        <div class="regalo"><img src="assets/portadas/protocolos-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 05</small><b>Protocolos para días difíciles</b></span></div>
+        <div class="regalo"><img src="assets/portadas/comunidad-cuadro.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 06</small><b>Comunidad privada</b></span></div>
       </div>
     </div>
   </div>
