@@ -43,7 +43,7 @@ p{margin:0}
 .bajada{margin-top:14px;font-size:17px;color:var(--suave)}
 .eyebrow{display:inline-block;font:600 11px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
 /* resaltado: subrayado grueso amarillo sobre la mitad inferior de las letras */
-.hl{font-weight:600;text-decoration:none;background:linear-gradient(rgba(255,195,0,.55),rgba(255,195,0,.55)) no-repeat;background-size:calc(100% - .06em) .36em;background-position:.03em .595em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl{font-weight:600;color:var(--navy);text-decoration:none;background:linear-gradient(rgba(255,195,0,.55),rgba(255,195,0,.55)) no-repeat;background-size:calc(100% - .06em) .36em;background-position:.03em .595em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
 /* ---------- barra de anuncio + header ---------- */
 .anuncio{background:var(--navy-2);color:#fff;text-align:center;padding:8px 16px 9px;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -194,7 +194,7 @@ p{margin:0}
 .pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
 .pilar{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
 .pilar span{width:58px;height:58px;border-radius:16px;background:var(--celeste);display:grid;place-items:center;color:var(--teal);font-size:30px}
-.pilar b{font:600 12.5px/1.25 "Poppins";letter-spacing:.06em;text-transform:uppercase}
+.pilar b{font:700 13px/1.25 "Poppins";letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
 .tachado{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
 .tachado span{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;background:#F3F5F7;color:#5B6B77;font-size:14px;font-weight:500;text-decoration:line-through;text-decoration-color:#C9402B}
 .tachado span i{color:#C9402B;font-size:16px;text-decoration:none}
@@ -226,12 +226,21 @@ p{margin:0}
 .cifras span{display:block;margin-top:6px;font-size:12.5px;line-height:1.3;font-weight:500}
 
 /* mapa del cerebro (como el producto al centro con beneficios alrededor) */
-.mapa{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"a a" "cer cer" "c d";gap:14px 34px;padding:22px 16px 8px}
+.mapa{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"a a" "cer cer" "c d" "nota nota";gap:14px 34px;padding:22px 16px 8px}
 .mapa-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
 .mapa-cerebro{grid-area:cer;position:relative;width:min(78%,330px);margin:18px auto;aspect-ratio:900/918}
 .mapa-cerebro img{width:100%;height:100%;transform:scaleX(-1);filter:drop-shadow(0 18px 24px rgba(10,37,64,.22))}
 .foco{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--teal);border:3px solid #fff;color:#fff;font:700 12px/20px "Poppins";font-style:normal;text-align:center;box-shadow:0 0 0 0 rgba(1,127,167,.5);animation:latido 2.2s ease-out infinite;z-index:2}
 .foco[data-foco="gb"]{background:var(--navy)}
+.zonas{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible}
+.zona-pf{fill:rgba(1,127,167,.22);stroke:#017FA7;stroke-width:.7;stroke-dasharray:2 1.4}
+.zona-gb-fill{fill:rgba(224,168,0,.28)}
+.zona-gb{fill:none;stroke:#B07F00;stroke-width:2.2;stroke-linecap:round;opacity:.85}
+.zona-tag{position:absolute;z-index:2;padding:4px 8px;border-radius:6px;font:700 9.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(1,13,21,.5)}
+.zona-tag.pf{background:var(--teal);color:#fff}
+.zona-tag.gb{background:var(--navy);color:#fff}
+.mapa-nota{grid-area:nota;margin:4px 0 4px;text-align:center;font-size:13px;line-height:1.5;color:var(--suave)}
+.mapa-nota b{color:var(--navy)}
 @keyframes latido{0%{box-shadow:0 0 0 0 rgba(1,127,167,.45)}70%{box-shadow:0 0 0 14px rgba(1,127,167,0)}100%{box-shadow:0 0 0 0 rgba(1,127,167,0)}}
 .caja-m{position:relative;z-index:2;background:#fff;border:1px solid var(--borde);border-radius:16px;padding:14px 14px 15px;box-shadow:0 14px 30px -20px rgba(10,37,64,.45);display:flex;flex-direction:column;gap:6px}
 .caja-m[data-area="a"]{grid-area:a}.caja-m[data-area="c"]{grid-area:c}.caja-m[data-area="d"]{grid-area:d}
@@ -430,7 +439,7 @@ p{margin:0}
   .desliza{display:none}
   .equipo{align-items:start}
   .numerazo{border-left:1px solid #EAF1F6;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
-  .mapa{grid-template-columns:1fr 1.5fr 1fr;grid-template-areas:"a cer c" "a cer d";gap:22px 40px;padding:30px 36px 10px;align-items:center}
+  .mapa{grid-template-columns:1fr 1.5fr 1fr;grid-template-areas:"a cer c" "a cer d" ". nota .";gap:22px 40px;padding:30px 36px 10px;align-items:center}
   .mapa-cerebro{width:100%;max-width:400px;margin:0 auto}
   .caja-m{padding:18px}
   .caja-m b{font-size:16px}.caja-m p{font-size:14px}
@@ -600,7 +609,7 @@ p{margin:0}
     <div class="centro"><span class="eyebrow">¿Por qué funciona este método?</span>
       <h2 class="titulo" style="margin-top:12px">El problema nunca fue tu <span class="teal">plan de entrenamiento o nutrición</span></h2></div>
     <div class="texto-largo">
-      <p>¿Cuántas veces has dicho «hoy empiezo a cambiar mi cuerpo»? Empiezas con ganas, los primeros días salen bien y luego aparece algún imprevisto: una salida, un antojo en la noche, una semana pesada en el trabajo. Y así dejas de comer bien y de ir al gimnasio, y empieza el ciclo de nuevo. Lo único que piensas es: <b>«me falta fuerza de voluntad»</b>.</p>
+      <p>¿Cuántas veces has dicho <b>«hoy empiezo a cambiar mi cuerpo»</b>? Empiezas con ganas, los primeros días salen bien y luego aparece <span class="hl">algún imprevisto</span>: una salida, un antojo en la noche, una semana pesada en el trabajo. Y así dejas de comer bien y de ir al gimnasio, y <b>empieza el ciclo de nuevo</b>. Lo único que piensas es: <span class="hl">«me falta fuerza de voluntad»</span>.</p>
       <p><b>No te pasa solo a ti. Es un problema muy común.</b></p>
       <div class="revela">
         <span class="revela-ico"><i class="ph-light ph-brain"></i></span>
@@ -625,21 +634,30 @@ p{margin:0}
         <svg class="mapa-svg" aria-hidden="true"><defs><marker id="punta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker><marker id="punta-ok" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1E7A45"/></marker><marker id="punta-am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E0A800"/></marker></defs></svg>
         <div class="mapa-cerebro" id="cerebro">
           <img src="assets/servier/cerebro-lateral-900.png" alt="Ilustración del cerebro" loading="lazy">
+          <!-- zonas dibujadas sobre la ilustración (vista lateral, lóbulo frontal a la izquierda) -->
+          <svg class="zonas" viewBox="0 0 100 102" preserveAspectRatio="none" aria-hidden="true">
+            <path class="zona-pf" d="M6 42 C4 30 9 18 19 12 C25 9 31 10 33 14 C35 22 33 33 30 41 C27 49 20 54 13 53 C9 52 7 48 6 42Z"/>
+            <path class="zona-gb" d="M58 33 C53 28 44 29 40 34 C37 38 38 44 41 47 M41 47 C44 51 49 53 55 52 C61 51 63 46 61 42 C59 38 53 37 49 40 C46 42 46 46 49 48"/>
+            <ellipse class="zona-gb-fill" cx="51" cy="45" rx="9" ry="6.5"/>
+          </svg>
+          <span class="zona-tag pf" style="left:3%;top:4%">Corteza prefrontal</span>
+          <span class="zona-tag gb" style="left:56%;top:57%">Ganglios basales</span>
           <i class="foco" data-foco="pf" style="left:15%;top:33%">1</i>
           <i class="foco" data-foco="gb" style="left:50%;top:46%">2</i>
         </div>
-        <div class="caja-m" data-area="a"><span class="paso-tag"><i>1</i>Al empezar</span><b>Corteza prefrontal</b><p>Cada decisión que tomas pasa por aquí. Te obliga a decidir qué hacer una y otra vez.</p></div>
+        <p class="mapa-nota">La <b>corteza prefrontal</b> (adelante) toma las decisiones conscientes. Los <b>ganglios basales</b> están en el interior del cerebro y automatizan lo que repites.</p>
+        <div class="caja-m" data-area="a"><span class="paso-tag"><i>1</i>Al empezar</span><b>Corteza prefrontal</b><p>Cada decisión que tomas pasa por aquí: <em>¿entreno hoy?</em>, <em>¿me como esto?</em>, <em>¿pido postre?</em> Te obliga a decidir qué hacer una y otra vez.</p></div>
         <div class="caja-m" data-area="c"><span class="paso-tag"><i>2</i>Al repetir</span><b>Ganglios basales</b><p>Poco a poco la conducta pasa aquí y empiezas a actuar en automático.</p></div>
         <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
       </div>
       <div class="mec-dato">
-        <p>El problema es que hacer que nuevas conductas de entrenamiento y nutrición pasen a los ganglios basales no es tan simple. En un estudio del European Journal of Social Psychology, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
+        <p>El problema es que hacer que nuevas conductas de entrenamiento y nutrición pasen a los ganglios basales <b>no es tan simple</b>. En un estudio del European Journal of Social Psychology, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
       </div>
       <div class="mec-pie">
-        <p>Por eso es que <b>no necesitas otra dieta u otro plan de ejercicios.</b></p>
-        <p>Necesitas un <span class="hl">método probado</span> basado en neurociencia y psicología del cambio conductual que te permita construir nuevos hábitos de entrenamiento y nutrición.</p>
+        <p>Por eso es que <b>no necesitas otra dieta</b> u <b>otro plan de ejercicios.</b></p>
+        <p>Necesitas un <span class="hl">método probado</span> basado en <b>neurociencia y psicología del cambio conductual</b> que te permita construir nuevos hábitos de entrenamiento y nutrición.</p>
         <p><b>Justamente ese es el método que hemos desarrollado en Entrena con Ciencia.</b></p>
-        <p>Nuestro equipo médico especializado en neurociencia, ciencia del deporte y nutrición ha construido un plan basado en la última evidencia científica para ayudarte a lograr este objetivo.</p>
+        <p>Nuestro <b>equipo médico</b> especializado en neurociencia, ciencia del deporte y nutrición ha construido un plan basado en <span class="hl">la última evidencia científica</span> para ayudarte a lograr este objetivo.</p>
         <div class="cta-wrap"><span class="sello">40% OFF de lanzamiento</span><a class="cta" href="#lista" data-ecc-lista>Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a></div>
       </div>
     </div>
@@ -662,12 +680,12 @@ p{margin:0}
   <div class="envase">
     <h2 class="titulo centro">Qué Incluye <span class="teal">Nuestro Programa</span></h2>
     <div class="modulos">
-      <article class="modulo"><img src="assets/portadas/neurociencia-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">El núcleo</span><h3>Curso de Neurociencia del Cambio de Hábitos</h3><p>Lo más importante de nuestro programa. Te explicamos el proceso por el que se crean nuevos hábitos y por qué la mayoría de las personas falla. La verdad es que crear un nuevo hábito <b>no depende de tu fuerza de voluntad</b>, sino de entender cómo funciona tu cuerpo.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/entrenamiento-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Entrenamiento</h3><p>El Dr. Gonzalo León te explica la última ciencia del deporte para que entiendas cuál es el mejor camino para ponerte en forma basado en ciencia. Deja de estar confundido con las recomendaciones que se contradicen en redes sociales.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/nutricion-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Nutrición</h3><p>La Lic. Rafaela Silva te explica la última ciencia de la nutrición funcional. Hemos desarrollado un programa que te ayuda a entender los mecanismos por los que tu cuerpo pierde peso y cómo aplicarlos en tu día a día, <b>sin que tengas que hacer dietas muy restrictivas.</b></p></div></article>
-      <article class="modulo"><img src="assets/portadas/app-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">App con IA</span><h3>Aplicación con Rutinas y Plan de Nutrición</h3><p>Te damos acceso por un mes a nuestra app con inteligencia artificial, que planifica tu entrenamiento, nutrición y recuperación. Incluye <b>rutinas basadas en evidencia con videos de cada ejercicio</b>, planes para casa y gimnasio, registro de calorías con IA y recetas de nuestro equipo.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/protocolos-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado una biblioteca de protocolos que atacan problemas comunes que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/comunidad-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><p>Accede a nuestra comunidad privada, donde tendrás a otras personas igual de motivadas para transformar tu cuerpo.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/neurociencia-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">El núcleo</span><h3>Curso de Neurociencia del Cambio de Hábitos</h3><p>Lo más importante de nuestro programa. Te explicamos el proceso por el que se crean nuevos hábitos y <span class="hl">por qué la mayoría de las personas falla</span>. La verdad es que crear un nuevo hábito <b>no depende de tu fuerza de voluntad</b>, sino de entender cómo funciona tu cuerpo.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/entrenamiento-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Entrenamiento</h3><p>El Dr. Gonzalo León te explica <b>la última ciencia del deporte</b> para que entiendas cuál es el mejor camino para ponerte en forma basado en ciencia. Deja de estar confundido con <span class="hl">las recomendaciones que se contradicen</span> en redes sociales.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/nutricion-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Nutrición</h3><p>La Lic. Rafaela Silva te explica la última ciencia de la nutrición funcional. Hemos desarrollado un programa que te ayuda a entender <span class="hl">los mecanismos por los que tu cuerpo pierde peso</span> y cómo aplicarlos en tu día a día, <b>sin que tengas que hacer dietas muy restrictivas.</b></p></div></article>
+      <article class="modulo"><img src="assets/portadas/app-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">App con IA</span><h3>Aplicación con Rutinas y Plan de Nutrición</h3><p>Te damos <b>acceso por un mes</b> a nuestra app con <span class="hl">inteligencia artificial</span>, que planifica tu entrenamiento, nutrición y recuperación. Incluye <b>rutinas basadas en evidencia con videos de cada ejercicio</b>, planes para casa y gimnasio, registro de calorías con IA y recetas de nuestro equipo.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/protocolos-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado <b>una biblioteca de protocolos</b> que atacan <span class="hl">problemas comunes</span> que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/comunidad-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><p>Accede a nuestra comunidad privada, donde tendrás a <b>otras personas igual de motivadas</b> para transformar tu cuerpo.</p></div></article>
     </div>
     <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">40% OFF de lanzamiento</span><a class="cta" href="#lista" data-ecc-lista>Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a></div><p class="micro">Lista de espera gratis: sin pago ni tarjeta.</p></div>
   </div>
@@ -680,11 +698,11 @@ p{margin:0}
     <h2 class="titulo centro">Nuestro <span class="teal">Equipo Médico</span></h2>
     <div class="equipo">
       <article class="persona"><div class="persona-cab"><img src="assets/profesionales/dr-gonzalo-leon.jpg" alt="Dr. Gonzalo León" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Especialista en ciencia del deporte</span><h3>Dr. Gonzalo León</h3></div></div>
-        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Médico cirujano, enfocado en entrenamiento basado en evidencia. Hoy cursa la Maestría en Longevidad y Antienvejecimiento en el IL3 de la Universidad de Barcelona.</p><p>Durante la carrera de medicina llegó a pesar 120 kilos. El cambio llegó cuando entendió la fisiología del cuerpo humano y cómo se cruza con el balance energético: así logró su propia recomposición corporal.</p><p>Desde entonces ha atendido a decenas de pacientes con su método y los ha ayudado a conseguir resultados: perder peso con la mayor flexibilidad posible. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p></div></details></article>
+        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Médico cirujano, enfocado en entrenamiento basado en evidencia. Hoy cursa la Maestría en Longevidad y Antienvejecimiento en el IL3 de la Universidad de Barcelona.</p><p>Durante la carrera de medicina <span class="hl">llegó a pesar 120 kilos</span>. El cambio llegó cuando entendió la fisiología del cuerpo humano y cómo se cruza con el balance energético: así logró <b>su propia recomposición corporal</b>.</p><p>Desde entonces ha atendido a <b>decenas de pacientes</b> con su método y los ha ayudado a conseguir resultados: perder peso con la mayor flexibilidad posible. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p></div></details></article>
       <article class="persona"><div class="persona-cab"><img src="assets/profesionales/ps-ana-paula-ceballos.jpg" alt="Ps. Ana Paula Ceballos" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Psicóloga clínica · TCA y obesidad</span><h3>Ps. Ana Paula Ceballos</h3></div></div>
-        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Psicóloga clínica especialista en trastornos de la conducta alimentaria (TCA) y obesidad, con formación en terapia cognitivo-conductual. Máster en Trastornos Alimenticios y Obesidad (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Hoy atiende en la Clínica San Felipe, en Lima.</p><p>En Entrena con Ciencia diseñó el módulo de cambio de hábitos, con la Teoría de la Autodeterminación como marco: por qué la motivación no es suficiente y cómo desarrollar autonomía, competencia y relación para que un hábito se sostenga en el tiempo.</p></div></details></article>
+        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Psicóloga clínica especialista en trastornos de la conducta alimentaria (TCA) y obesidad, con formación en terapia cognitivo-conductual. Máster en Trastornos Alimenticios y Obesidad (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Hoy atiende en la Clínica San Felipe, en Lima.</p><p>En Entrena con Ciencia <b>diseñó el módulo de cambio de hábitos</b>, con la Teoría de la Autodeterminación como marco: por qué <span class="hl">la motivación no es suficiente</span> y cómo desarrollar autonomía, competencia y relación para que un hábito se sostenga en el tiempo.</p></div></details></article>
       <article class="persona"><div class="persona-cab"><img src="assets/profesionales/lic-rafaela-silva.jpg" alt="Lic. Rafaela Silva" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Nutricionista clínica</span><h3>Lic. Rafaela Silva</h3></div></div>
-        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Licenciada en Nutrición y Dietética (UPC), con más de 5 años de experiencia. Cursos de especialización en microbiota y nutrición (Universidad Peruana Cayetano Heredia), nutrición hormonal (Nutrition Society) y nutrición renal (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p><p>Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición basado en evidencia, pero también práctico y aplicable a la vida real, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p></div></details></article>
+        <details class="bio"><summary>Ver trayectoria <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Licenciada en Nutrición y Dietética (UPC), con más de 5 años de experiencia. Cursos de especialización en microbiota y nutrición (Universidad Peruana Cayetano Heredia), nutrición hormonal (Nutrition Society) y nutrición renal (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p><p>Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición <b>basado en evidencia</b>, pero también <span class="hl">práctico y aplicable a la vida real</span>, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p></div></details></article>
     </div>
 
     <div class="historia">
@@ -697,7 +715,7 @@ p{margin:0}
         <h3>Soy el Dr. Gonzalo León</h3>
         <ul class="linea">
           <li><small>HACE 9 AÑOS</small>Empecé medicina y llegué a pesar 120 kilos.</li>
-          <li><small>DESPUÉS DE 12 MESES</small>Con poca energía y vergüenza cada vez que me veía al espejo, decidí cambiar mi vida por completo.</li>
+          <li><small>DESPUÉS DE 12 MESES</small>Con poca energía y vergüenza cada vez que me veía al espejo, <b>decidí cambiar mi vida por completo.</b></li>
           <li><small>HOY</small>Con un equipo de nutricionistas, especialistas en ciencia del deporte y neurociencia, ayudo a personas como tú a cambiar su vida.</li>
         </ul>
       </div>
@@ -711,11 +729,11 @@ p{margin:0}
   <div class="envase angosto">
     <h2 class="titulo centro">Preguntas <span class="teal">Frecuentes</span></h2>
     <div class="faq">
-      <details><summary>He tratado de transformar mi cuerpo antes. ¿Por qué esta vez sería distinto?<i class="ph-light ph-plus"></i></summary><p>Nuestro programa empieza por enseñarte neurociencia del cambio en vez de simplemente darte un plan de acción para el entrenamiento y tu nutrición; te ayudamos a diseñar un sistema que funcione con tu estilo de vida. Nadie te dice que será fácil, pero desarrollar la habilidad de ser constante es lo más importante para ver resultados.</p></details>
-      <details><summary>Quiero empezar con el programa, pero me preocupa no tener tiempo.<i class="ph-light ph-plus"></i></summary><p>No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que entrenar incluso solo 2 veces a la semana es suficiente para ver cambios. Adicionalmente, proveemos rutinas de entrenamiento en casa y en el gimnasio para adecuarse a lo que te funciona mejor.</p></details>
-      <details><summary>Soy principiante y no sé nada. ¿Voy a poder entender el material?<i class="ph-light ph-plus"></i></summary><p>El programa está diseñado con principiantes en mente. Hemos creado los módulos de fundamentos de entrenamiento y nutrición para explicarte qué tienes que hacer al detalle. La idea es llevar tus conocimientos de principiante a intermedio con el curso para que tengas los fundamentos correctos para progresar por tu cuenta.</p></details>
-      <details><summary>¿Tengo que dejar de comer lo que me gusta?<i class="ph-light ph-plus"></i></summary><p>No. Un plan que te saca de la comida familiar del domingo es un plan que vas a abandonar, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p></details>
-      <details><summary>¿Cuánto voy a bajar y en cuánto tiempo?<i class="ph-light ph-plus"></i></summary><p>Es difícil prometerte un número exacto, ya que varía entre persona y persona. Pero perder entre 1 y 2% de tu peso corporal al mes es un objetivo realizable.</p></details>
+      <details><summary>He tratado de transformar mi cuerpo antes. ¿Por qué esta vez sería distinto?<i class="ph-light ph-plus"></i></summary><p>Nuestro programa empieza por enseñarte <b>neurociencia del cambio</b> en vez de simplemente darte un plan de acción para el entrenamiento y tu nutrición; te ayudamos a diseñar un sistema que funcione con tu estilo de vida. Nadie te dice que será fácil, pero desarrollar <span class="hl">la habilidad de ser constante</span> es lo más importante para ver resultados.</p></details>
+      <details><summary>Quiero empezar con el programa, pero me preocupa no tener tiempo.<i class="ph-light ph-plus"></i></summary><p>No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que <b>entrenar incluso solo 2 veces a la semana</b> es suficiente para ver cambios. Adicionalmente, proveemos rutinas de entrenamiento en casa y en el gimnasio para adecuarse a lo que te funciona mejor.</p></details>
+      <details><summary>Soy principiante y no sé nada. ¿Voy a poder entender el material?<i class="ph-light ph-plus"></i></summary><p><b>El programa está diseñado con principiantes en mente.</b> Hemos creado los módulos de fundamentos de entrenamiento y nutrición para explicarte qué tienes que hacer al detalle. La idea es llevar tus conocimientos de principiante a intermedio con el curso para que tengas los fundamentos correctos para progresar por tu cuenta.</p></details>
+      <details><summary>¿Tengo que dejar de comer lo que me gusta?<i class="ph-light ph-plus"></i></summary><p><b>No.</b> Un plan que te saca de la comida familiar del domingo es <span class="hl">un plan que vas a abandonar</span>, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p></details>
+      <details><summary>¿Cuánto voy a bajar y en cuánto tiempo?<i class="ph-light ph-plus"></i></summary><p>Es difícil prometerte un número exacto, ya que varía entre persona y persona. Pero <b>perder entre 1 y 2% de tu peso corporal al mes</b> es un objetivo realizable.</p></details>
     </div>
   </div>
 </section>
