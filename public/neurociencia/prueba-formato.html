@@ -212,10 +212,11 @@ p{margin:0}
 
 /* flecha que une "Lo que nadie te explicó…" con el mecanismo */
 .fondo-celeste{position:relative}
-.conector{position:relative;height:96px;color:var(--teal)}
-.conector svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.conector .s{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1 7;animation:fluye 1.4s linear infinite}
-.conector .punta{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.conector{display:flex;justify-content:center;align-items:center;height:80px;color:var(--teal)}
+.conector path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.conector .c1{animation:parpadea 1.6s ease-in-out infinite}
+.conector .c2{animation:parpadea 1.6s ease-in-out .2s infinite}
+.conector .c3{animation:parpadea 1.6s ease-in-out .4s infinite}
 section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180deg,#fff 70%,var(--celeste-2))}
 
 /* separador entre secciones: línea que se desvanece con el isotipo al centro */
@@ -702,7 +703,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 <!-- ============ MECANISMO + NÚMEROS GRANDES ============ -->
 <section class="sec fondo-celeste" style="padding-top:0">
   <div class="envase">
-    <div class="conector" id="conector" aria-hidden="true"><svg><path class="s"/><path class="punta"/></svg></div>
+    <div class="conector" aria-hidden="true"><svg viewBox="0 0 24 30" width="30" height="38"><path class="c1" d="M6 4l6 6 6-6"/><path class="c2" d="M6 12l6 6 6-6"/><path class="c3" d="M6 20l6 6 6-6"/></svg></div>
     <div class="tarjeta">
       <div class="mec-cab"><h2 class="titulo-sm">Conoce el mecanismo por el cual <span class="teal">se crean los hábitos</span></h2></div>
       <div class="mapa" id="mapa">
@@ -975,19 +976,6 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   function soltar(e){if(!activo)return;activo=false;if(!movio)return;var dx=e.clientX-x0;p.classList.remove('arrastrando');var k=idx(p.scrollLeft);if(Math.abs(dx)>40){var k0=idx(s0);k=dx<0?Math.max(k,k0+1):Math.min(k,k0-1)}a(k)}
   p.addEventListener('pointerup',soltar); p.addEventListener('pointercancel',soltar);
   p.addEventListener('click',function(e){if(movio){e.preventDefault();e.stopPropagation();movio=false}},true);
-})();
-
-/* Línea en S: del centro de "Lo que nadie te explicó…" a la esquina superior izquierda de la tarjeta del mecanismo */
-(function(){
-  var c=document.getElementById('conector'); if(!c) return;
-  var s=c.querySelector('.s'), pu=c.querySelector('.punta'), caja=document.querySelector('.revela'), tarjeta=c.parentNode.querySelector('.tarjeta');
-  function dibujar(){
-    var rc=c.getBoundingClientRect(), rr=caja.getBoundingClientRect(), rt=tarjeta.getBoundingClientRect();
-    var x0=rr.right-rc.left-30, y0=rr.bottom-rc.top+4, x1=rt.left-rc.left+30, y1=rt.top-rc.top-6, h=y1-y0;
-    s.setAttribute('d','M'+x0+' '+y0+' C'+x0+' '+(y0+h*.55)+' '+x1+' '+(y1-h*.55)+' '+x1+' '+y1);
-    pu.setAttribute('d','M'+(x1-6)+' '+(y1-7)+' L'+x1+' '+(y1+1)+' L'+(x1+6)+' '+(y1-7));
-  }
-  addEventListener('resize',dibujar); addEventListener('load',dibujar); dibujar();
 })();
 
 /* Mapa: flechas desde los puntos del cerebro hasta cada caja (se recalculan al cambiar el tamaño) */
