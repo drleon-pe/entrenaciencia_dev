@@ -277,7 +277,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .mapa-cerebro{grid-area:cer;position:relative;width:min(78%,330px);margin:18px auto;aspect-ratio:900/918}
 .mapa-cerebro img{width:100%;height:100%;transform:scaleX(-1);filter:drop-shadow(0 18px 24px rgba(10,37,64,.22))}
 .foco{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--teal);border:3px solid #fff;color:#fff;font:700 12px/20px "Poppins";font-style:normal;text-align:center;box-shadow:0 0 0 0 rgba(1,127,167,.5);animation:latido 2.2s ease-out infinite;z-index:2}
-.foco[data-foco="gb"]{background:#FFC300;color:var(--navy-2)}
+.foco[data-foco="gb"]{background:#FFC300;color:var(--navy-2);animation-name:latido-am}
+@keyframes latido-am{0%{box-shadow:0 0 0 0 rgba(255,195,0,.6)}70%{box-shadow:0 0 0 14px rgba(255,195,0,0)}100%{box-shadow:0 0 0 0 rgba(255,195,0,0)}}
 .zonas{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;-webkit-mask:url(assets/servier/cerebro-mascara.png) center/100% 100% no-repeat;mask:url(assets/servier/cerebro-mascara.png) center/100% 100% no-repeat}
 .zona-pf{fill:rgba(1,127,167,.38);stroke:#017FA7;stroke-width:2.2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
 .zona-gb{fill:rgba(255,195,0,.4);stroke:#B07F00;stroke-width:2.2;vector-effect:non-scaling-stroke}
@@ -998,6 +999,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     var ec={x:ze.left-mr0.left+ze.width/2,y:ze.top-mr0.top+ze.height/2}, erx=ze.width/2, ery=ze.height/2;
     function bordeGB(h,extra){var dx=h.x-ec.x,dy=h.y-ec.y,t=1/Math.sqrt((dx*dx)/(erx*erx)+(dy*dy)/(ery*ery));return {x:ec.x+dx*t+(dx/(Math.hypot(dx,dy)||1))*(extra||0),y:ec.y+dy*t+(dy/(Math.hypot(dx,dy)||1))*(extra||0)}}
     var g2=bordeGB(pf,4), k=-.55, cx=(pf.x+g2.x)/2-(g2.y-pf.y)*k, cy=(pf.y+g2.y)/2+(g2.x-pf.x)*k;
+    var hv=document.createElementNS(NS,'path'); hv.setAttribute('class','halo'); hv.setAttribute('d',curva(pf,g2,k)); svg.appendChild(hv);
     var via=document.createElementNS(NS,'path'); via.setAttribute('class','via'); via.setAttribute('d',curva(pf,g2,k)); via.setAttribute('marker-end','url(#punta)'); svg.appendChild(via);
     var mid={x:.25*pf.x+.5*cx+.25*g2.x,y:.25*pf.y+.5*cy+.25*g2.y-16};
     var n2=document.createElementNS(NS,'g'); n2.setAttribute('class','num-via'); n2.innerHTML='<rect x="-30" y="-12" width="60" height="24" rx="12" fill="#E0A800" stroke="#fff" stroke-width="3"/><text text-anchor="middle" dy="4.5">66 días</text>'; n2.setAttribute('transform','translate('+mid.x.toFixed(1)+' '+mid.y.toFixed(1)+')');
