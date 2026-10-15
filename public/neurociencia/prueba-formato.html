@@ -213,11 +213,12 @@ p{margin:0}
 /* flecha que une "Lo que nadie te explicó…" con el mecanismo */
 .fondo-celeste{position:relative}
 .conector{display:flex;justify-content:center;align-items:center;height:80px;color:var(--teal)}
-.conector svg{animation:baja 1.6s ease-in-out infinite}
 .conector path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.conector .c1{animation:parpadea 1.6s ease-in-out infinite}
-.conector .c2{animation:parpadea 1.6s ease-in-out .2s infinite}
-.conector .c3{animation:parpadea 1.6s ease-in-out .4s infinite}
+/* cascada hacia abajo: cada flecha se enciende después de la anterior, sin rebote */
+.conector path{opacity:.15;animation:cae 2.4s linear infinite}
+.conector .c2{animation-delay:.4s}
+.conector .c3{animation-delay:.8s}
+@keyframes cae{0%{opacity:.15;transform:translateY(-2px)}25%{opacity:1;transform:translateY(0)}55%,100%{opacity:.15;transform:translateY(2px)}}
 section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180deg,#fff 70%,var(--celeste-2))}
 
 /* separador entre secciones: línea que se desvanece con el isotipo al centro */
@@ -729,7 +730,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Tras <b>60+ días</b> de repetirlo, construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
       </div>
       <div class="mec-dato">
-        <p>El problema es que hacer que <b>nuevas conductas de entrenamiento y nutrición</b> pasen a los ganglios basales <span class="hl">no es tan simple</span>. En un estudio del <b><i>European Journal of Social Psychology</i></b>, volver automática una conducta tomó una <b>mediana de 66 días</b>.</p>
+        <p>El problema es que pasar <b>nuevas conductas de entrenamiento y nutrición</b> a los ganglios basales <span class="hl">no es tan simple</span>. En un estudio del <b><i>European Journal of Social Psychology</i></b>, volver una conducta automática tomó una <b>mediana de 66 días</b>.</p>
       </div>
       <div class="mec-pie">
         <p>Por eso es que <b>no necesitas otra dieta</b> u <b>otro plan de ejercicios.</b></p>
