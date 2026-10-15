@@ -117,7 +117,7 @@ p{margin:0}
 .remate small{display:block;font:600 11.5px/1 "Poppins";letter-spacing:.16em;color:var(--teal);margin-bottom:6px}
 .hero-desc{font-size:15px;color:var(--suave)}
 .hero-col{display:flex;flex-direction:column;gap:18px}
-.desliza{display:flex;flex-direction:column;align-items:center;gap:2px;margin:-4px auto -6px;color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
+.desliza{display:flex;flex-direction:column;align-items:center;gap:2px;margin:2px auto -8px;color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
 .desliza svg{animation:baja 1.6s ease-in-out infinite}
 .desliza.fuera{opacity:0;pointer-events:none}
 @keyframes baja{50%{transform:translateY(5px)}}
@@ -491,6 +491,14 @@ p{margin:0}
   .checks li i{font-size:19px}
   .remate small{margin-bottom:3px}
 }
+/* hero móvil compacto: botón, frase y "Desliza" dentro de la primera pantalla */
+@media (max-width:859px){
+  .hero{padding-top:14px}
+  .hero-grid{gap:16px}
+  .hero-col{gap:12px}
+  .hero h1{font-size:clamp(30px,8.6vw,34px)}
+  .hero .micro{margin-top:10px;font-size:13.5px}
+}
 /* celulares bajos (o Safari con sus barras): el hero llega hasta "Desliza" */
 @media (max-width:859px) and (max-height:760px){
   .hero{padding-top:12px}
@@ -514,7 +522,7 @@ p{margin:0}
     <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></a>
     <div class="timer" id="timer" aria-label="Tiempo para que termine la oferta">
       <span class="timer-tit">La oferta termina en</span>
-      <span class="timer-num"><span><b data-t="d">--</b><small>días</small></span><i>:</i><span><b data-t="h">--</b><small>hrs</small></span><i>:</i><span><b data-t="m">--</b><small>min</small></span><i>:</i><span><b data-t="s">--</b><small>seg</small></span></span>
+      <span class="timer-num"><span><b data-t="d">--</b><small>días</small></span><i>:</i><span><b data-t="h">--</b><small>hrs</small></span><i>:</i><span><b data-t="m">--</b><small>min</small></span></span>
     </div>
   </div>
 </header>
@@ -544,19 +552,19 @@ p{margin:0}
         <li><i class="ph-fill ph-check-circle"></i>500+ estudios revisados</li>
         <li><i class="ph-fill ph-check-circle"></i>Basado en la última neurociencia y ciencia del deporte</li>
       </ul>
-      <a class="desliza" href="#tras-hero" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de <span class="hl">volver a empezar</span>.</p>
       <div>
         <div class="cta-wrap">
           <span class="sello">40% OFF de lanzamiento</span>
           <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
         </div>
-        <p class="micro"><i class="ph-fill ph-check-circle"></i>Inscríbete gratis hoy y al lanzar recibes tu 40% OFF.</p>
+        <p class="micro"><i class="ph-fill ph-check-circle"></i>Inscríbete gratis hoy: 40% OFF al lanzar.</p>
       </div>
+      <a class="desliza" href="#revistas" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 
-  <div class="envase"><div class="revistas" aria-label="Revistas científicas">
+  <div class="envase" id="revistas"><div class="revistas" aria-label="Revistas científicas">
     <p>Basado en los Últimos Estudios Publicados en</p>
     <div class="revistas-ventana"><div class="marquesina">
     <img src="assets/journals/bjsm-white.png" alt="British Journal of Sports Medicine"><img src="assets/journals/acsm-white.png" alt="ACSM"><img src="assets/journals/ajcn-white.png" alt="American Journal of Clinical Nutrition"><img src="assets/journals/ajsm-white.png" alt="American Journal of Sports Medicine"><img src="assets/journals/apnm-white.png" alt="Applied Physiology, Nutrition, and Metabolism"><img src="assets/journals/nsca-white.png" alt="NSCA">
@@ -872,11 +880,11 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 (function(){
   var FIN_OFERTA=Date.parse('2026-12-07T00:00:00-05:00'), ANCLA=Date.parse('2026-10-12T00:00:00-05:00'), SEMANA=7*864e5;
   var T=document.getElementById('timer'); if(!T) return;
-  var el={}; ['d','h','m','s'].forEach(function(k){el[k]=T.querySelector('[data-t="'+k+'"]')});
+  var el={}; ['d','h','m'].forEach(function(k){el[k]=T.querySelector('[data-t="'+k+'"]')});
   function dos(n){return (n<10?'0':'')+n}
   function pinta(){var ahora=Date.now(), fin=ahora>=FIN_OFERTA?FIN_OFERTA:Math.min(FIN_OFERTA,ANCLA+Math.ceil((ahora-ANCLA+1)/SEMANA)*SEMANA);
     var r=Math.max(0,fin-ahora),t=Math.floor(r/1000);
-    el.d.textContent=dos(Math.floor(t/86400)); el.h.textContent=dos(Math.floor(t%86400/3600)); el.m.textContent=dos(Math.floor(t%3600/60)); el.s.textContent=dos(t%60);
+    el.d.textContent=dos(Math.floor(t/86400)); el.h.textContent=dos(Math.floor(t%86400/3600)); el.m.textContent=dos(Math.floor(t%3600/60)); 
     if(ahora>=FIN_OFERTA){T.querySelector('.timer-tit').textContent='Ya lanzamos'; clearInterval(iv)}}
   var iv=setInterval(pinta,1000); pinta();
 })();
