@@ -67,11 +67,13 @@ p{margin:0}
 .timer{display:flex;flex-direction:row;align-items:center;gap:8px;flex:none}
 .timer-tit{max-width:74px;text-align:right;font:700 9.5px/1.25 "Poppins";letter-spacing:.08em;text-transform:uppercase;color:#fff}
 .timer-num{display:flex;align-items:flex-start;gap:3px}
-.timer-num > span{display:flex;flex-direction:column;align-items:center;min-width:38px;padding:5px 4px 4px;border-radius:8px;background:#fff;border:2px solid var(--cyan)}
-.timer-num b{font:700 18px/1 "Poppins";color:var(--navy);font-variant-numeric:tabular-nums}
+.timer-num > span{display:flex;flex-direction:column;align-items:center;position:relative;min-width:40px;padding:6px 4px 5px;border-radius:8px;background:linear-gradient(180deg,#fff 0%,#fff 50%,#EDF3F7 50%,#E2ECF2 100%);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 8px 16px -6px rgba(0,0,0,.65),0 2px 0 #B9CCD8}
+.timer-num > span::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(10,37,64,.10)}
+.timer-num b{position:relative;z-index:1;font:800 20px/1 "Poppins";letter-spacing:-.02em;color:var(--navy);font-variant-numeric:tabular-nums}
 .timer-num small{margin-top:3px;font:700 7.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;color:var(--suave)}
 .timer-num i{font:700 16px/32px "Poppins";font-style:normal;color:#fff}
-.cabecera .logo{font-size:13px}
+.cabecera .logo{font-size:12.5px;gap:7px}
+.cabecera .logo img{width:26px;height:26px}
 @media (max-width:359px){.timer-tit{display:none}.timer-num > span{min-width:32px}.timer-num b{font-size:15px}}
 
 /* ---------- botones ---------- */
@@ -422,7 +424,7 @@ p{margin:0}
   .timer{gap:12px}
   .timer-tit{max-width:none;font-size:11px}
   .timer-num > span{min-width:46px;padding:6px 6px 5px}
-  .timer-num b{font-size:20px}
+  .timer-num b{font-size:23px}
   .timer-num small{font-size:8.5px}
   .timer-num i{line-height:36px}
   /* el hero entra completo en la pantalla: los tamaños dependen también del alto de la ventana */
