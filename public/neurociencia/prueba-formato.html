@@ -982,7 +982,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   var s=c.querySelector('.s'), pu=c.querySelector('.punta'), caja=document.querySelector('.revela'), tarjeta=c.parentNode.querySelector('.tarjeta');
   function dibujar(){
     var rc=c.getBoundingClientRect(), rr=caja.getBoundingClientRect(), rt=tarjeta.getBoundingClientRect();
-    var x0=rr.left+rr.width/2-rc.left, y0=rr.bottom-rc.top+4, x1=rt.left-rc.left+30, y1=rt.top-rc.top-6, h=y1-y0;
+    var x0=rr.right-rc.left-30, y0=rr.bottom-rc.top+4, x1=rt.left-rc.left+30, y1=rt.top-rc.top-6, h=y1-y0;
     s.setAttribute('d','M'+x0+' '+y0+' C'+x0+' '+(y0+h*.55)+' '+x1+' '+(y1-h*.55)+' '+x1+' '+y1);
     pu.setAttribute('d','M'+(x1-6)+' '+(y1-7)+' L'+x1+' '+(y1+1)+' L'+(x1+6)+' '+(y1-7));
   }
