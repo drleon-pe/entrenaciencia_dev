@@ -428,7 +428,7 @@ p{margin:0}
   /* el hero entra completo en la pantalla: los tamaños dependen también del alto de la ventana */
   .anuncio{padding:6px 16px 7px}
   .hero{padding:clamp(14px,3vh,36px) 0 clamp(18px,3.5vh,44px)}
-  .hero-grid{grid-template-columns:1.12fr 1fr;gap:clamp(28px,4vw,60px);align-items:center}
+  .hero-grid{grid-template-columns:.92fr 1.18fr;gap:clamp(28px,4vw,60px);align-items:center}
   .hero-col{gap:clamp(8px,1.6vh,18px)}
   .hero h1{font-size:clamp(34px,min(4.2vw,6.2vh),54px)}
   .checks{gap:clamp(4px,.9vh,10px)}
@@ -500,6 +500,9 @@ p{margin:0}
   .hero-col{gap:12px}
   .hero h1{font-size:clamp(30px,8.6vw,34px)}
   .hero .micro{margin-top:10px;font-size:13.5px}
+  /* video de borde a borde en el celular */
+  .hero-foto{margin:-14px -16px 0;border-radius:0}
+  .hero{padding-top:14px}
 }
 /* celulares bajos (o Safari con sus barras): el hero llega hasta "Desliza" */
 @media (max-width:859px) and (max-height:760px){
