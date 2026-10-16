@@ -338,6 +338,12 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .modulo-txt p{font-size:15px;line-height:1.6;color:var(--suave)}
 .modulo:nth-child(1){border-color:#B9DCEC}
 
+.mod-mas summary{list-style:none;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;padding:9px 12px;border-radius:999px;background:var(--celeste);border:1px solid #C9E1EF;font:600 12.5px/1 "Poppins";color:var(--teal);cursor:pointer}
+.mod-mas summary::-webkit-details-marker{display:none}
+.mod-mas summary i{transition:transform .2s}
+.mod-mas[open] summary{margin-bottom:10px}
+.mod-mas[open] summary i{transform:rotate(180deg)}
+.mod-mas p+p{margin-top:8px}
 /* ---------- equipo ---------- */
 .equipo{display:grid;gap:18px;margin-top:30px}
 .persona{background:#fff;border:1px solid var(--borde);border-radius:20px;overflow:hidden;box-shadow:var(--sombra)}
@@ -525,8 +531,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .modulo-txt > *{padding:0 22px}
   .modulo-txt .eyebrow{padding-top:20px;padding-bottom:8px}
   .modulo-txt h3{padding-bottom:10px;align-self:start}
-  .modulo-txt p{padding-bottom:10px}
-  .modulo-txt p:last-child{padding-bottom:22px}
+  .modulo-txt .mod-mas{padding:0 22px 22px;align-self:start}
+  .modulo-txt .mod-mas p{padding:0}
   .equipo{grid-template-columns:repeat(3,1fr)}
   .historia{display:grid;grid-template-columns:1fr 1fr}
   .historia-txt{padding:40px;align-content:center}
@@ -549,6 +555,20 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .checks li{grid-template-columns:20px auto;gap:7px}
   .checks li i{font-size:19px}
   .remate small{margin-bottom:3px}
+}
+/* programa en 2 columnas en el celular */
+@media (max-width:859px){
+  .modulos{grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+  .modulo{display:flex;flex-direction:column}
+  .modulo-txt{flex:1}
+  .mod-mas{margin-top:auto}
+  .modulo{border-radius:14px}
+  .modulo img{aspect-ratio:1/1}
+  .modulo-txt{padding:11px 11px 12px;gap:5px}
+  .modulo-txt .eyebrow{font-size:8.5px;letter-spacing:.1em;line-height:1.25}
+  .modulo-txt h3{font-size:13.5px;line-height:1.2}
+  .modulo-txt p{font-size:12.5px;line-height:1.5}
+  .mod-mas summary{padding:7px 8px;font-size:11px;gap:4px}
 }
 /* hero móvil compacto: botón, frase y "Desliza" dentro de la primera pantalla */
 @media (max-width:859px){
@@ -767,14 +787,14 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   <div class="envase">
     <h2 class="titulo centro">Qué Incluye <span class="teal">Nuestro Programa</span></h2>
     <div class="modulos">
-      <article class="modulo"><img src="assets/portadas/neurociencia-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">El núcleo</span><h3>Curso de Neurociencia del Cambio de Hábitos</h3><p>Lo más importante de nuestro programa. Te explicamos el proceso por el que se crean nuevos hábitos y <span class="hl">por qué la mayoría de las personas falla</span>. La verdad es que crear un nuevo hábito <b>no depende de tu fuerza de voluntad</b>, sino de entender cómo funciona tu cuerpo.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/entrenamiento-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Entrenamiento</h3><p>El Dr. Gonzalo León te explica <b>la última ciencia del deporte</b> para que entiendas cuál es el mejor camino para ponerte en forma basado en ciencia. Deja de estar confundido con <span class="hl">las recomendaciones que se contradicen</span> en redes sociales.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/nutricion-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Nutrición</h3><p>La Lic. Rafaela Silva te explica la última ciencia de la nutrición funcional. Hemos desarrollado un programa que te ayuda a entender <span class="hl">los mecanismos por los que tu cuerpo pierde peso</span> y cómo aplicarlos en tu día a día, <b>sin que tengas que hacer dietas muy restrictivas.</b></p></div></article>
-      <article class="modulo"><img src="assets/portadas/app-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">App con IA</span><h3>Aplicación con Rutinas y Plan de Nutrición</h3><p>Te damos <b>acceso por un mes</b> a nuestra app con <span class="hl">inteligencia artificial</span>, que planifica tu entrenamiento, nutrición y recuperación. Incluye <b>rutinas basadas en evidencia con videos de cada ejercicio</b>, planes para casa y gimnasio, registro de calorías con IA y recetas de nuestro equipo.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/protocolos-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado <b>una biblioteca de protocolos</b> que atacan <span class="hl">problemas comunes</span> que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></div></article>
-      <article class="modulo"><img src="assets/portadas/comunidad-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><p>Accede a nuestra comunidad privada, donde tendrás a <b>otras personas igual de motivadas</b> para transformar tu cuerpo.</p></div></article>
+      <article class="modulo"><img src="assets/portadas/neurociencia-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">El núcleo</span><h3>Curso de Neurociencia del Cambio de Hábitos</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Lo más importante de nuestro programa. Te explicamos el proceso por el que se crean nuevos hábitos y <span class="hl">por qué la mayoría de las personas falla</span>. La verdad es que crear un nuevo hábito <b>no depende de tu fuerza de voluntad</b>, sino de entender cómo funciona tu cuerpo.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/entrenamiento-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Entrenamiento</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>El Dr. Gonzalo León te explica <b>la última ciencia del deporte</b> para que entiendas cuál es el mejor camino para ponerte en forma basado en ciencia. Deja de estar confundido con <span class="hl">las recomendaciones que se contradicen</span> en redes sociales.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/nutricion-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Nutrición</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>La Lic. Rafaela Silva te explica la última ciencia de la nutrición funcional. Hemos desarrollado un programa que te ayuda a entender <span class="hl">los mecanismos por los que tu cuerpo pierde peso</span> y cómo aplicarlos en tu día a día, <b>sin que tengas que hacer dietas muy restrictivas.</b></p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/app-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">App con IA</span><h3>Aplicación con Rutinas y Plan de Nutrición</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Te damos <b>acceso por un mes</b> a nuestra app con <span class="hl">inteligencia artificial</span>, que planifica tu entrenamiento, nutrición y recuperación. Incluye <b>rutinas basadas en evidencia con videos de cada ejercicio</b>, planes para casa y gimnasio, registro de calorías con IA y recetas de nuestro equipo.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/protocolos-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado <b>una biblioteca de protocolos</b> que atacan <span class="hl">problemas comunes</span> que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/comunidad-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Accede a nuestra comunidad privada, donde tendrás a <b>otras personas igual de motivadas</b> para transformar tu cuerpo.</p></details></div></article>
     </div>
-    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div><p class="micro">Lista de espera gratis: sin pago ni tarjeta.</p></div>
+    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div><p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p></div>
   </div>
 </section>
 
