@@ -212,6 +212,13 @@ p{margin:0}
 .regalo-txt small::after{content:"";width:16%;height:1px;background:var(--cyan)}
 .regalo-txt b{font:700 8.4cqw/1.15 "Poppins";letter-spacing:-.015em;color:#fff;overflow-wrap:anywhere}
 .regalo span{font-size:13px;line-height:1.25;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+/* cursos 1-3 y, aparte, los 3 regalos agrupados en una caja tipo bundle */
+.regalos-grid{display:grid;grid-template-columns:1fr;gap:24px}
+.grupo-cursos,.bundle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:stretch}
+.bundle{position:relative;border:1.5px solid var(--amarillo);background:linear-gradient(180deg,#FFF6D8,#FFFBEE);border-radius:14px;padding:24px 9px 9px;box-shadow:0 10px 24px -18px rgba(150,110,0,.55)}
+.bundle-cinta{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--amarillo);color:var(--navy-2);font:700 11px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;box-shadow:0 6px 14px -8px rgba(150,110,0,.7)}
+.de-regalo .regalo-txt small{color:var(--amarillo)}
+.de-regalo .regalo-txt small::after{background:var(--amarillo)}
 @media (min-width:860px){.regalo span{font-size:14.5px}}
 
 /* ---------- carrusel de testimonios ---------- */
@@ -574,7 +581,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .cta-wrap{align-items:flex-start}
   .hero .micro{justify-content:center;max-width:440px}
   .hero .remate{text-align:left}
-  .regalos-grid{grid-template-columns:repeat(6,1fr)}
+  .regalos-grid{grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  .grupo-cursos{padding:24px 9px 9px;border:1.5px solid transparent}
   .regalos{margin-bottom:27px}
   .testi{flex-basis:calc((100% - 40px)/2.6)}
   .pista{padding-left:0;padding-right:0;margin:0}
@@ -755,12 +763,18 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     <div class="regalos">
       <div class="regalos-top"><b>Qué incluye el programa</b><span class="tag-off">-40%</span></div>
       <div class="regalos-grid">
-        <div class="regalo"><img src="assets/portadas/neurociencia-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
-        <div class="regalo"><img src="assets/portadas/entrenamiento-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
-        <div class="regalo"><img src="assets/portadas/nutricion-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
-        <div class="regalo"><img src="assets/portadas/app-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 04</small><b>Rutinas y plan de nutrición en la app</b></span></div>
-        <div class="regalo"><img src="assets/portadas/protocolos-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 05</small><b>Protocolos para días difíciles</b></span></div>
-        <div class="regalo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 06</small><b>Comunidad privada</b></span></div>
+        <div class="grupo-cursos">
+          <div class="regalo"><img src="assets/portadas/neurociencia-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
+          <div class="regalo"><img src="assets/portadas/entrenamiento-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
+          <div class="regalo"><img src="assets/portadas/nutricion-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
+        </div>
+        <div class="bundle"><span class="bundle-cinta"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>De regalo con tu inscripción</span>
+          <div class="bundle-grid">
+            <div class="regalo de-regalo"><img src="assets/portadas/app-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 1</small><b>Rutinas y plan de nutrición en la app</b></span></div>
+            <div class="regalo de-regalo"><img src="assets/portadas/protocolos-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 2</small><b>Protocolos para días difíciles</b></span></div>
+            <div class="regalo de-regalo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 3</small><b>Comunidad privada</b></span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
