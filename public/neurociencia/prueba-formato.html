@@ -1261,9 +1261,9 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     [].slice.call(box.querySelectorAll('.ai-nota')).forEach(function(n){
       var t=box.querySelector('[data-p="'+n.getAttribute('data-a')+'"]'); if(!t) return;
       var r=t.getBoundingClientRect(), q=n.getBoundingClientRect(), der=q.left>r.left;
-      /* en celular la flecha arranca en el borde de la pantalla, a la altura del elemento, para no cruzar el contenido */
-      var pan=t.closest('.tel-pantalla').getBoundingClientRect(), mov=innerWidth<860;
-      var a={x:(mov?(der?pan.right-3:pan.left+3):(der?r.right-4:r.left+4))-B.left, y:r.top+r.height/2-B.top};
+      /* la flecha arranca en el borde de la pantalla, a la altura del elemento, para no tapar el texto */
+      var pan=t.closest('.tel-pantalla').getBoundingClientRect();
+      var a={x:(der?pan.right-3:pan.left-3)-B.left, y:r.top+r.height/2-B.top};
       var b={x:(der?q.left-3:q.right+3)-B.left, y:q.top+Math.min(q.height/2,22)-B.top};
       var mx=(a.x+b.x)/2, d='M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' C'+mx.toFixed(1)+' '+a.y.toFixed(1)+' '+mx.toFixed(1)+' '+b.y.toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1);
       var l=document.createElementNS(NS,'path'); l.setAttribute('class','linea'); l.setAttribute('d',d); l.setAttribute('marker-end','url(#punta-app)'); svg.appendChild(l);
