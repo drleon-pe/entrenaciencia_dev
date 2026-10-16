@@ -363,6 +363,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .historia-txt{padding:22px 20px 26px;display:grid;gap:16px}
 .historia-txt .leyenda{font-size:12.5px;color:#BFD6E6}
 .historia-txt h3{font-size:24px}
+.historia .eyebrow{color:var(--cyan)}
 .linea{list-style:none;margin:0;padding:0;display:grid;gap:14px}
 .linea li{position:relative;padding-left:22px;font-size:15px;line-height:1.55;color:#E3EEF5}
 .linea li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--cyan)}
@@ -565,6 +566,22 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .modulo-txt h3{font-size:13.5px;line-height:1.2}
   .modulo-txt p{font-size:12.5px;line-height:1.5}
   .mod-mas summary{padding:7px 8px;font-size:11px;gap:4px}
+}
+/* historia del Dr. León: compacta y clara en el celular (escritorio queda como estaba) */
+@media (max-width:859px){
+  .historia .eyebrow{color:var(--teal)}
+  .historia{margin-top:22px;background:#fff;color:var(--navy);border:1px solid var(--borde);border-radius:20px;overflow:hidden;box-shadow:0 16px 34px -24px rgba(10,37,64,.5)}
+  .historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px 10px 0}
+  .historia-fotos figure{position:relative;margin:0;aspect-ratio:4/4.6;overflow:hidden;border-radius:12px}
+  .historia-fotos figcaption b{align-self:flex-start;padding:5px 9px;border-radius:7px;background:var(--navy);color:#fff;font:700 17px/1 "Poppins";letter-spacing:-.02em}
+  .historia-fotos figcaption small{align-self:flex-start;background:var(--navy);color:#fff;font:600 9.5px/1 "Poppins";letter-spacing:.12em;padding:5px 8px;border-radius:5px}
+  .historia-txt{padding:16px 18px 18px;display:grid;gap:10px}
+  .historia-txt h3{font-size:20px}
+  .linea{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+  .linea li{position:relative;padding-left:20px;font-size:13.5px;line-height:1.5;color:var(--suave)}
+  .linea li::before{content:"";position:absolute;left:0;top:6px;width:9px;height:9px;border-radius:50%;background:var(--teal)}
+  .linea li small{display:block;font:600 10px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:4px}
+  .historia-fotos figcaption b.am{background:var(--amarillo);color:var(--navy-2)}
 }
 /* hero móvil compacto: botón, frase y "Desliza" dentro de la primera pantalla */
 @media (max-width:859px){
@@ -814,7 +831,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         <figure><img src="assets/leon-despues.jpg" alt="Dr. Gonzalo León, después" loading="lazy"><figcaption><b class="am">85 kg</b><small>DESPUÉS</small></figcaption></figure>
       </div>
       <div class="historia-txt">
-        <span class="eyebrow" style="color:var(--cyan)">Mi historia</span>
+        <span class="eyebrow">Mi historia</span>
         <h3>Soy el Dr. Gonzalo León</h3>
         <ul class="linea">
           <li><small>HACE 9 AÑOS</small>Empecé medicina y llegué a pesar 120 kilos.</li>
