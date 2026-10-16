@@ -214,10 +214,11 @@ p{margin:0}
 .regalo span{font-size:13px;line-height:1.25;font-weight:700;color:var(--navy);letter-spacing:-.01em}
 /* cursos 1-3 y, aparte, los 3 regalos agrupados en una caja tipo bundle */
 .regalos-grid{display:grid;grid-template-columns:1fr;gap:24px}
-.grupo-cursos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:stretch}
-.fila-extra{display:grid;grid-template-columns:1fr 2fr;gap:10px;align-items:stretch}
-.extra-app{display:flex;padding:24px 0 9px;border:1.5px solid transparent}
-.extra-app .regalo{flex:1}
+.grupo-cursos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;align-items:stretch}
+/* el "+" va fuera de las tarjetas, en el espacio entre el curso 03 y la app */
+.con-mas{position:relative;display:flex}
+.con-mas .regalo{flex:1}
+.mas{position:absolute;left:-25px;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--teal);color:#fff;font:600 18px/1 "Poppins";box-shadow:0 4px 10px -4px rgba(1,127,167,.6)}
 .bundle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
 .bundle{position:relative;min-width:0;border:1.5px solid var(--amarillo);background:linear-gradient(180deg,#FFF6D8,#FFFBEE);border-radius:14px;padding:24px 9px 9px;box-shadow:0 10px 24px -18px rgba(150,110,0,.55)}
 .bundle-cinta{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--amarillo);color:var(--navy-2);font:700 11px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;box-shadow:0 6px 14px -8px rgba(150,110,0,.7)}
@@ -586,7 +587,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .cta-wrap{align-items:flex-start}
   .hero .micro{justify-content:center;max-width:440px}
   .hero .remate{text-align:left}
-  .regalos-grid{grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  .regalos-grid{grid-template-columns:2fr 1fr;gap:18px;align-items:start}
+  .grupo-cursos{grid-template-columns:repeat(4,1fr)}
   .grupo-cursos{padding:24px 9px 9px;border:1.5px solid transparent}
   .regalos{margin-bottom:27px}
   .testi{flex-basis:calc((100% - 40px)/2.6)}
@@ -772,14 +774,12 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
           <div class="regalo"><img src="assets/portadas/neurociencia-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
           <div class="regalo"><img src="assets/portadas/entrenamiento-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
           <div class="regalo"><img src="assets/portadas/nutricion-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
+          <div class="con-mas"><span class="mas" aria-hidden="true">+</span><div class="regalo es-app"><img src="assets/portadas/app-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>App</small><b>Entrenamiento y nutrición</b></span></div></div>
         </div>
-        <div class="fila-extra">
-          <div class="extra-app"><div class="regalo es-app"><img src="assets/portadas/app-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>+ App</small><b>Entrenamiento y nutrición</b></span></div></div>
-          <div class="bundle"><span class="bundle-cinta"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>De regalo con tu inscripción</span>
-            <div class="bundle-grid">
-              <div class="regalo de-regalo"><img src="assets/portadas/protocolos-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 1</small><b>Protocolos para días difíciles</b></span></div>
-              <div class="regalo de-regalo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 2</small><b>Comunidad privada</b></span></div>
-            </div>
+        <div class="bundle"><span class="bundle-cinta"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>De regalo con tu inscripción</span>
+          <div class="bundle-grid">
+            <div class="regalo de-regalo"><img src="assets/portadas/protocolos-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 1</small><b>Protocolos para días difíciles</b></span></div>
+            <div class="regalo de-regalo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 2</small><b>Comunidad privada</b></span></div>
           </div>
         </div>
       </div>
