@@ -125,6 +125,7 @@ p{margin:0}
 .remate small{display:block;font:600 11.5px/1 "Poppins";letter-spacing:.16em;color:var(--teal);margin-bottom:6px}
 .hero-desc{font-size:15px;color:var(--suave)}
 .hero-col{display:flex;flex-direction:column;gap:18px}
+.hero-flecha{display:none}
 .desliza{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px auto -8px;color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
 .desliza span{margin-right:-.2em}
 .desliza svg{animation:baja 1.6s ease-in-out infinite}
@@ -504,7 +505,10 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .hero-der{order:2;display:flex;flex-direction:column;gap:14px;align-self:stretch;justify-content:center}
   .hero-foto{width:100%}
   /* remate centrado bajo el video, ocupando el espacio hasta la caja de revistas */
-  .hero .hero-der .remate{display:block;margin:auto auto;padding:12px 28px;text-align:center;font-size:18px;max-width:none;width:auto;border-radius:12px;background:var(--navy);color:#fff;box-shadow:0 14px 28px -16px rgba(10,37,64,.7)}
+  .hero-flecha{display:flex;align-items:center;justify-content:center;color:var(--teal);min-height:28px}
+  .hero-der{justify-content:flex-start!important;gap:0!important}
+  .hero-grid{align-items:start!important}
+  .hero .hero-der .remate{display:block;margin:0 auto;padding:12px 28px;text-align:center;font-size:18px;max-width:none;width:auto;border-radius:12px;background:var(--navy);color:#fff;box-shadow:0 14px 28px -16px rgba(10,37,64,.7)}
   .hero .hero-der .remate small{color:var(--cyan)}
   .hero .hero-der .remate .hl{color:#fff}
   .hero .hero-der .remate small{display:block}
@@ -651,6 +655,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       <div class="firma"><b>Dr. Gonzalo León</b><span>Especialista en Ciencia del Deporte</span></div>
       
     </div>
+      <span class="hero-flecha" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 4v14M6 12l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de volver a empezar.</p>
     </div>
     <div class="hero-col">
@@ -885,9 +890,9 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       <p class="trato-aviso"><i class="ph-fill ph-info"></i>Si no estás en la lista, te pierdes el descuento.</p>
     </div>
     <div class="oferta">
-      <div class="oferta-cinta"><i class="ph-fill ph-bell-ringing"></i> Lista de espera gratuita · 40% OFF</div>
+      <div class="oferta-cinta"><i class="ph-fill ph-bell-ringing"></i> Lista de espera gratuita</div>
       <div class="oferta-cuerpo">
-        <h3>Regístrate y accede a nuestra oferta de lanzamiento</h3>
+        <h3>Accede a nuestra oferta de lanzamiento</h3>
         <div class="incluye"><b>QUÉ INCLUYE EL PROGRAMA</b>
           <ul>
             <li><i class="ph-fill ph-check-circle"></i>Curso de Neurociencia del Cambio de Hábitos</li>
@@ -1030,6 +1035,20 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   function soltar(e){if(!activo)return;activo=false;if(!movio)return;var dx=e.clientX-x0;p.classList.remove('arrastrando');var k=idx(p.scrollLeft);if(Math.abs(dx)>40){var k0=idx(s0);k=dx<0?Math.max(k,k0+1):Math.min(k,k0-1)}a(k)}
   p.addEventListener('pointerup',soltar); p.addEventListener('pointercancel',soltar);
   p.addEventListener('click',function(e){if(movio){e.preventDefault();e.stopPropagation();movio=false}},true);
+})();
+
+/* Escritorio: la caja "Esta vez es distinto" queda a la altura del botón del hero; la flecha ocupa el espacio entre el video y la caja */
+(function(){
+  var f=document.querySelector('.hero-flecha'), r=document.querySelector('.hero-der .remate'), c=document.getElementById('cta-hero'), v=document.getElementById('vsl'); if(!f||!r||!c||!v) return;
+  var col=document.querySelector('.hero-col');
+  function mid(e){var k=e.getBoundingClientRect();return k.top+k.height/2}
+  function ajustar(){ col.style.marginTop=''; f.style.height=''; if(innerWidth<860) return;
+    f.style.height='28px';
+    var d=Math.round(mid(r)-mid(c));
+    if(d>0) col.style.marginTop=d+'px';            /* la caja está más abajo: baja la columna de texto */
+    else f.style.height=(28-d)+'px';                /* el botón está más abajo: alarga la flecha */
+  }
+  addEventListener('resize',ajustar); addEventListener('load',ajustar); ajustar();
 })();
 
 /* Mapa: flechas desde los puntos del cerebro hasta cada caja (se recalculan al cambiar el tamaño) */
