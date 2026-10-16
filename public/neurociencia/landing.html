@@ -225,7 +225,7 @@ p{margin:0}
 @media (min-width:860px){.regalo span{font-size:14.5px}}
 
 /* ---------- sección de la app ---------- */
-.app-sec{padding-top:26px}
+.app-bloque{margin-top:30px}
 .app-caja{display:grid;gap:28px;background:linear-gradient(160deg,#fff 0%,#F3FAFE 100%);border:1px solid var(--borde);border-radius:22px;box-shadow:var(--sombra);padding:28px 20px 24px;overflow:hidden}
 .app-regalo{display:inline-flex;align-items:center;gap:7px;background:var(--amarillo);color:var(--navy-2);font:700 11px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px;margin-bottom:14px}
 .app-txt h2{margin:0 0 12px}
@@ -914,6 +914,38 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       </div>
     </div>
 
+    <!-- La app (regalo: 1 mes de membresía), justo después del mecanismo -->
+    <div class="app-bloque" id="app">
+      <div class="app-caja">
+        <div class="app-txt">
+          <span class="app-regalo"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Regalo · 1 mes de membresía</span>
+          <h2 class="titulo">Aprendes qué hacer. <span class="teal">La app te ayuda a hacerlo.</span></h2>
+          <p>Además del curso, te regalamos <b>un mes de membresía</b> a la app de entrenamiento y nutrición que <span class="hl">desarrollamos nosotros</span>. Es la herramienta para llevar a tu día a día todo lo que aprendes.</p>
+          <ul class="app-lista">
+            <li><i class="ph-fill ph-check-circle"></i><span><b>Tu plan del día, listo.</b> La inteligencia artificial planifica tu entrenamiento, nutrición y recuperación.</span></li>
+            <li><i class="ph-fill ph-check-circle"></i><span><b>Rutinas basadas en evidencia</b> con videos de cada ejercicio, para casa o gimnasio.</span></li>
+            <li><i class="ph-fill ph-check-circle"></i><span><b>Registro de calorías con IA</b> y recetas de nuestro equipo.</span></li>
+            <li><i class="ph-fill ph-check-circle"></i><span><b>Menos decisiones.</b> Abres la app y ya sabes qué toca hoy: así el hábito se vuelve automático.</span></li>
+          </ul>
+        </div>
+        <figure class="app-visual" aria-label="Vista referencial de la app">
+          <div class="tel">
+            <div class="tel-isla"></div>
+            <div class="tel-pantalla">
+              <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div>
+              <small class="tel-ey">Hoy · Semana 3</small>
+              <b class="tel-h">Tu plan de hoy</b>
+              <div class="tel-ent"><small>Entrenamiento</small><b>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em>Empezar</em></div>
+              <div class="tel-nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div>
+              <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul>
+            </div>
+          </div>
+          <div class="app-chips"><span class="app-chip chip-a"><i class="ph-fill ph-check-circle"></i>Videos de cada ejercicio</span><span class="app-chip chip-b"><i class="ph-fill ph-check-circle"></i>Calorías con IA</span></div>
+          <figcaption>Vista referencial de la app</figcaption>
+        </figure>
+      </div>
+    </div>
+
     <div class="crema">
       <h3><span>El problema no es tu plan de entrenamiento o nutrición.</span><span class="teal">Te ayudamos a crear nuevos hábitos para siempre.</span></h3>
       <div class="cifras">
@@ -940,41 +972,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       <article class="modulo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Accede a nuestra comunidad privada, donde tendrás a <b>otras personas igual de motivadas</b> para transformar tu cuerpo.</p></details></div></article>
     </div>
     <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div><p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p></div>
-  </div>
-</section>
-
-<div class="separador" aria-hidden="true"><span><img src="assets/isotipo-ecc.webp" alt="" loading="lazy" decoding="async"></span></div>
-<!-- ============ LA APP (regalo: 1 mes de membresía) ============ -->
-<section class="sec app-sec" id="app" data-screen-label="03b La app">
-  <div class="envase">
-    <div class="app-caja">
-      <div class="app-txt">
-        <span class="app-regalo"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Regalo · 1 mes de membresía</span>
-        <h2 class="titulo">Aprendes qué hacer. <span class="teal">La app te ayuda a hacerlo.</span></h2>
-        <p>Además del curso, te regalamos <b>un mes de membresía</b> a la app de entrenamiento y nutrición que <span class="hl">desarrollamos nosotros</span>. Es la herramienta para llevar a tu día a día todo lo que aprendes.</p>
-        <ul class="app-lista">
-          <li><i class="ph-fill ph-check-circle"></i><span><b>Tu plan del día, listo.</b> La inteligencia artificial planifica tu entrenamiento, nutrición y recuperación.</span></li>
-          <li><i class="ph-fill ph-check-circle"></i><span><b>Rutinas basadas en evidencia</b> con videos de cada ejercicio, para casa o gimnasio.</span></li>
-          <li><i class="ph-fill ph-check-circle"></i><span><b>Registro de calorías con IA</b> y recetas de nuestro equipo.</span></li>
-          <li><i class="ph-fill ph-check-circle"></i><span><b>Menos decisiones.</b> Abres la app y ya sabes qué toca hoy: así el hábito se vuelve automático.</span></li>
-        </ul>
-      </div>
-      <figure class="app-visual" aria-label="Vista referencial de la app">
-        <div class="tel">
-          <div class="tel-isla"></div>
-          <div class="tel-pantalla">
-            <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div>
-            <small class="tel-ey">Hoy · Semana 3</small>
-            <b class="tel-h">Tu plan de hoy</b>
-            <div class="tel-ent"><small>Entrenamiento</small><b>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em>Empezar</em></div>
-            <div class="tel-nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div>
-            <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul>
-          </div>
-        </div>
-        <div class="app-chips"><span class="app-chip chip-a"><i class="ph-fill ph-check-circle"></i>Videos de cada ejercicio</span><span class="app-chip chip-b"><i class="ph-fill ph-check-circle"></i>Calorías con IA</span></div>
-        <figcaption>Vista referencial de la app</figcaption>
-      </figure>
-    </div>
   </div>
 </section>
 
