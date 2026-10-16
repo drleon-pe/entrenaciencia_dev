@@ -501,9 +501,12 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .hero .cta{min-height:clamp(48px,6.6vh,60px);padding-top:12px;padding-bottom:11px}
   .hero .micro{margin-top:clamp(6px,1.2vh,14px);font-size:13.5px}
   .confianza .caras img{width:clamp(30px,4.4vh,40px);height:clamp(30px,4.4vh,40px)}
-  .hero-der{order:2;display:flex;flex-direction:column;gap:18px}
+  .hero-der{order:2;display:flex;flex-direction:column;gap:14px;align-self:stretch;justify-content:center}
   .hero-foto{width:100%}
-  .hero .hero-der .remate{text-align:right}
+  /* remate centrado bajo el video, ocupando el espacio hasta la caja de revistas */
+  .hero .hero-der .remate{display:block;margin:auto 0;padding-top:6px;text-align:center;font-size:21px;max-width:none;width:100%}
+  .hero .hero-der .remate small{display:block}
+  .hero .hero-der .remate small{font-size:11.5px;margin-bottom:6px}
   .hero-col{order:1}
   .calco{left:16px;top:16px;padding:8px 14px 8px 9px}.calco b{font-size:15px}.calco span{font-size:11px}
   .firma{left:18px;bottom:18px;padding:10px 16px 10px 13px}.firma b{font-size:24px}.firma span{font-size:11.5px}
