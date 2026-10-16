@@ -314,7 +314,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .rotulo-firma{font:600 13px/1.6 "Poppins"!important;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)!important}
 .dia-uno{display:inline-block;margin:26px auto 0;padding:14px 22px;border-radius:14px;background:var(--navy);color:#fff;font:700 clamp(17px,4.8vw,22px)/1.3 "Poppins",sans-serif;letter-spacing:-.01em;box-shadow:0 14px 30px -18px rgba(10,37,64,.7)}
 .dia-uno span{color:var(--amarillo);white-space:nowrap}
-.mec-pie .cta{font-size:13.5px;padding-left:14px;padding-right:14px;white-space:nowrap;text-wrap:nowrap}
+.oferta .cta,.mec-pie .cta{font-size:13.5px;padding-left:14px;padding-right:14px;white-space:nowrap;text-wrap:nowrap}
 .mec-pie .micro{margin-top:-12px}
 .metodo-ecc{display:flex;flex-direction:column;align-items:center;gap:10px;margin:0 auto;padding:20px 22px 22px;max-width:520px;text-align:center;border-radius:16px;background:#fff;border:1px solid var(--borde);border-top:3px solid var(--teal);color:var(--navy)!important;font-weight:600;font-size:17px;line-height:1.45;box-shadow:0 16px 34px -24px rgba(10,37,64,.55)}
 .metodo-ecc img{width:38px;height:38px}
@@ -422,7 +422,11 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .cierre .cta{background:var(--amarillo);color:var(--navy-2);box-shadow:0 16px 34px -14px rgba(255,195,0,.55)}
 .cierre .sello{background:#fff;color:var(--navy)}
 .pie{background:var(--navy-2);color:#9FB6C6;font-size:12.5px;line-height:1.6;padding:28px 0 120px;text-align:center}
-.pie .logo{justify-content:center;margin-bottom:14px}
+.pie-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.pie .logo{margin:0}
+.redes{display:flex;align-items:center;gap:10px}
+.redes a{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);color:#fff;font-size:19px;text-decoration:none;transition:background .2s,border-color .2s}
+.redes a:hover{background:rgba(35,211,255,.15);border-color:var(--cyan)}
 .pie .logo span{color:#fff} .pie .logo span+span{color:var(--cyan)}
 .pie .logo-txt{text-align:left}
 .pie p+p{margin-top:8px}
@@ -903,12 +907,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <li><i class="ph-fill ph-check-circle"></i>Comunidad Privada</li>
           </ul>
         </div>
-        <ul class="beneficios">
-          <li><i class="ph-fill ph-tag"></i><span><b>40% OFF de lanzamiento</b> para la lista de espera.</span></li>
-          <li><i class="ph-fill ph-gift"></i><span><b>100% gratis:</b> sin pago ni tarjeta.</span></li>
-        </ul>
-        <a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
-        <p class="nota-candado"><i class="ph-light ph-lock-simple"></i>Tus datos se usan solo para avisarte.</p>
+        <div class="cta-wrap" style="align-items:center;margin:4px auto 0"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
+        <p class="micro" style="margin-top:-4px"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
         <div class="sellos">
           <div><i class="ph-light ph-stethoscope"></i>Desarrollado por un equipo médico multidisciplinario</div>
           <div><i class="ph-light ph-books"></i>Más de 500 estudios revisados</div>
@@ -924,7 +924,14 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 
 <footer class="pie">
   <div class="envase">
-    <div class="logo"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></div>
+    <div class="pie-top">
+      <div class="logo"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></div>
+      <nav class="redes" aria-label="Redes de Entrena con Ciencia">
+        <a href="https://www.instagram.com/entrena.con.ciencia/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph-light ph-instagram-logo"></i></a>
+        <a href="https://www.tiktok.com/@entrenaciencia" target="_blank" rel="noopener" aria-label="TikTok"><i class="ph-light ph-tiktok-logo"></i></a>
+        <a href="mailto:contacto@entrenaciencia.com" aria-label="Correo"><i class="ph-light ph-envelope-simple"></i></a>
+      </nav>
+    </div>
     <p>Este contenido es informativo y educativo y no reemplaza la consulta con tu médico. Los resultados varían entre personas. Si tienes una condición de salud o tomas medicación, consulta a tu especialista antes de cambiar tu alimentación o entrenamiento.</p>
     <p>Ilustración del cerebro: <a href="https://smart.servier.com/" target="_blank" rel="noopener">Servier Medical Art</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p>
     <p>© 2026 Entrena con Ciencia · <a href="legal.html?v=3">Términos</a> · <a href="legal.html?v=3#privacidad">Privacidad</a></p>
