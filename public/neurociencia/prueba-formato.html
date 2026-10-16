@@ -224,17 +224,24 @@ p{margin:0}
 .de-regalo .regalo-txt small::after{background:var(--amarillo)}
 @media (min-width:860px){.regalo span{font-size:14.5px}}
 
-/* ---------- sección de la app ---------- */
+/* ---------- sección de la app (infografía: de cada parte del celular sale una flecha a su texto) ---------- */
 .app-bloque{margin-top:30px}
-.app-caja{display:grid;gap:28px;background:linear-gradient(160deg,#fff 0%,#F3FAFE 100%);border:1px solid var(--borde);border-radius:22px;box-shadow:var(--sombra);padding:28px 20px 24px;overflow:hidden}
+.app-caja{background:linear-gradient(160deg,#fff 0%,#F3FAFE 100%);border:1px solid var(--borde);border-radius:22px;box-shadow:var(--sombra);padding:28px 18px 26px;overflow:hidden}
+.app-txt{max-width:720px;margin:0 auto 22px;text-align:center}
 .app-regalo{display:inline-flex;align-items:center;gap:7px;background:var(--amarillo);color:var(--navy-2);font:700 11px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px;margin-bottom:14px}
 .app-txt h2{margin:0 0 12px}
-.app-txt p{margin:0 0 16px;color:var(--texto)}
-.app-lista{list-style:none;margin:0;padding:0;display:grid;gap:11px}
-.app-lista li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5}
-.app-lista i{color:var(--teal);font-size:19px;margin-top:2px;flex:none}
-.app-visual{position:relative;margin:0;display:flex;flex-direction:column;align-items:center;padding:18px 0 0}
-.app-visual::before{content:"";position:absolute;width:260px;height:260px;top:20px;left:50%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(35,211,255,.28),rgba(35,211,255,0) 68%)}
+.app-txt p{margin:0;color:var(--texto)}
+.app-info{position:relative;max-width:820px;margin:0 auto;display:grid;gap:26px}
+.app-lineas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}
+.app-lineas path.halo{fill:none;stroke:rgba(255,255,255,.9);stroke-width:6;stroke-linecap:round}
+.app-lineas path.linea{fill:none;stroke:#017FA7;stroke-width:2;stroke-dasharray:5 5;animation:fluye 1.2s linear infinite}
+.ai-fila{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center}
+.ai-inv{grid-template-columns:1fr auto}
+.ai-notas{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative;z-index:3}
+.ai-nota{display:flex;gap:9px;align-items:flex-start;background:#fff;border:1px solid var(--borde);border-radius:12px;padding:10px 11px;box-shadow:0 10px 22px -18px rgba(10,37,64,.55);font-size:13px;line-height:1.45;color:var(--texto)}
+.ai-nota>i{flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--teal);color:#fff;font:700 11px/1 "Poppins";font-style:normal;margin-top:1px}
+.ai-nota b{color:var(--navy)}
+.tel{zoom:.72}
 .tel{position:relative;width:200px;border-radius:38px;background:#0B1B2B;padding:10px;box-shadow:0 30px 50px -24px rgba(10,37,64,.65),inset 0 0 0 2px #22384D}
 .tel-isla{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:70px;height:18px;border-radius:12px;background:#000;z-index:2}
 .tel-pantalla{border-radius:30px;background:linear-gradient(180deg,#0E2A40,#0A1D2E);padding:40px 14px 18px;color:#fff;font-family:"Poppins"}
@@ -258,15 +265,50 @@ p{margin:0}
 .tel-hab li{display:flex;align-items:center;gap:7px;font-size:8.5px}
 .tel-hab li::before{content:"";width:11px;height:11px;border-radius:3px;border:1.5px solid #4C6A82;flex:none}
 .tel-hab li.ok::before{background:var(--cyan) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2.5 6.2l2.2 2.2 4.8-5' fill='none' stroke='%230A2540' stroke-width='1.8'/></svg>") center/9px no-repeat;border-color:var(--cyan)}
-.app-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--borde);color:var(--navy);font:600 12px/1 "Poppins";padding:9px 12px;border-radius:999px;box-shadow:0 12px 24px -14px rgba(10,37,64,.5);white-space:nowrap}
-.app-chip i{color:var(--teal);font-size:15px}
-.app-visual figcaption{margin-top:14px;font-size:11.5px;color:var(--suave)}
-.app-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
-@media (max-width:859px){.app-chip{font-size:11.5px;padding:8px 11px}}
+.tel-scan .tel-pantalla{padding-bottom:14px}
+.scan-tit{font:700 12px/1 "Poppins"}
+.scan-cam{position:relative;height:178px;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#5a4636,#2a1f18 75%);display:grid;place-items:center;margin-bottom:10px}
+.plato{width:150px;height:150px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.45))}
+.esq{position:absolute;width:22px;height:22px;border:2.5px solid var(--cyan)}
+.e1{top:12px;left:12px;border-right:0;border-bottom:0;border-top-left-radius:8px}
+.e2{top:12px;right:12px;border-left:0;border-bottom:0;border-top-right-radius:8px}
+.e3{bottom:12px;left:12px;border-right:0;border-top:0;border-bottom-left-radius:8px}
+.e4{bottom:12px;right:12px;border-left:0;border-top:0;border-bottom-right-radius:8px}
+.scan-linea{position:absolute;left:14px;right:14px;top:16px;height:2px;background:var(--cyan);box-shadow:0 0 12px 3px rgba(35,211,255,.55);animation:escanea 2.6s ease-in-out infinite}
+@keyframes escanea{0%,100%{top:16px}50%{top:158px}}
+.scan-ia{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:rgba(10,37,64,.85);color:#fff;font:600 8px/1 "Poppins";letter-spacing:.06em;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.scan-res{background:#13314A;border-radius:12px;padding:10px 11px;display:grid;gap:3px}
+.scan-res small{font:600 6.5px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.scan-res b{font-size:11px}
+.kcal{font:800 17px/1.1 "Poppins";color:#fff}
+.macros{display:flex;gap:8px;margin-top:4px}
+.macros span{display:flex;align-items:center;gap:4px;font-size:8px;color:#D5EEF8}
+.macros i{width:6px;height:6px;border-radius:50%}
+@media (prefers-reduced-motion:reduce){.scan-linea{animation:none;top:50%}}
+@media (max-width:859px){
+  .ai-fila,.ai-inv{grid-template-columns:1fr;gap:18px;justify-items:center}
+  .ai-inv .tel{order:-1}
+  .ai-notas{width:100%}
+  .tel{zoom:.92}
+  .app-lineas{display:none}
+}
+[data-p]{position:relative}
+.pin{position:absolute;right:-9px;top:-9px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--cyan);color:var(--navy-2);font:800 12px/1 "Poppins";font-style:normal;border:2px solid #0B1B2B;z-index:2}
+.tel-ent em .pin{right:-28px;top:50%;margin-top:-11px}
+@media (min-width:860px){.pin{display:none}}
+@media (min-width:860px) and (max-width:1099px){.app-bloque .app-caja{padding:40px 26px}.app-bloque .app-info{gap:0 24px}.app-info .tel{zoom:.68}.app-info .ai-nota{font-size:13.5px;padding:11px 12px}}
 @media (min-width:860px){
-  .app-caja{grid-template-columns:1.1fr .9fr;align-items:center;gap:40px;padding:48px 52px}
-  .app-lista li{font-size:16px}
-  .tel{width:220px}
+  .app-caja{padding:46px 48px 44px}
+  .app-txt{margin-bottom:34px}
+  .app-info{max-width:1020px;grid-template-columns:1fr auto auto 1fr;gap:0 44px;align-items:center}
+  .ai-fila,.ai-inv{display:contents}
+  .ai-fila>.tel{grid-column:2;grid-row:1}
+  .ai-fila>.ai-notas{grid-column:1;grid-row:1}
+  .ai-inv>.tel{grid-column:3;grid-row:1}
+  .ai-inv>.ai-notas{grid-column:4;grid-row:1}
+  .tel{zoom:.86}
+  .ai-nota{font-size:15px;padding:13px 15px}
+  .ai-nota>i{width:24px;height:24px;font-size:12px}
 }
 
 /* ---------- carrusel de testimonios ---------- */
@@ -921,26 +963,24 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
           <span class="app-regalo"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Regalo · 1 mes de membresía</span>
           <h2 class="titulo">Aprendes qué hacer. <span class="teal">La app te ayuda a hacerlo.</span></h2>
           <p>Además del curso, te regalamos <b>un mes de membresía</b> a la app de entrenamiento y nutrición que <span class="hl">desarrollamos nosotros</span>. Es la herramienta para llevar a tu día a día todo lo que aprendes.</p>
-          <ul class="app-lista">
-            <li><i class="ph-fill ph-check-circle"></i><span><b>Tu plan del día, listo.</b> La inteligencia artificial planifica tu entrenamiento, nutrición y recuperación.</span></li>
-            <li><i class="ph-fill ph-check-circle"></i><span><b>Rutinas basadas en evidencia</b> con videos de cada ejercicio, para casa o gimnasio.</span></li>
-            <li><i class="ph-fill ph-check-circle"></i><span><b>Registro de calorías con IA</b> y recetas de nuestro equipo.</span></li>
-            <li><i class="ph-fill ph-check-circle"></i><span><b>Menos decisiones.</b> Abres la app y ya sabes qué toca hoy: así el hábito se vuelve automático.</span></li>
-          </ul>
         </div>
-        <figure class="app-visual" aria-label="La app de Entrena con Ciencia">
-          <div class="tel">
-            <div class="tel-isla"></div>
-            <div class="tel-pantalla">
-              <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div>
-              <small class="tel-ey">Hoy · Semana 3</small>
-              <b class="tel-h">Tu plan de hoy</b>
-              <div class="tel-ent"><small>Entrenamiento</small><b>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em>Empezar</em></div>
-              <div class="tel-nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div>
-              <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul>
-            </div>
+        <div class="app-info" id="app-info">
+          <svg class="app-lineas" aria-hidden="true"><defs><marker id="punta-app" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker></defs></svg>
+          <div class="ai-fila">
+            <div class="tel"> <div class="tel-isla"></div> <div class="tel-pantalla"> <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div> <small class="tel-ey">Hoy · Semana 3</small> <b class="tel-h" data-p="plan"><i class="pin" aria-hidden="true">1</i>Tu plan de hoy</b> <div class="tel-ent" data-p="rutina"><i class="pin" aria-hidden="true">2</i><small>Entrenamiento</small><b>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em data-p="empezar"><i class="pin" aria-hidden="true">3</i>Empezar</em></div> <div class="tel-nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div> <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul> </div> </div>
+            <ol class="ai-notas">
+              <li class="ai-nota" data-a="plan"><i>1</i><span><b>Tu plan del día, listo.</b> La inteligencia artificial planifica tu entrenamiento, nutrición y recuperación.</span></li>
+              <li class="ai-nota" data-a="rutina"><i>2</i><span><b>Rutinas basadas en evidencia</b> con videos de cada ejercicio, para casa o gimnasio.</span></li>
+              <li class="ai-nota" data-a="empezar"><i>3</i><span><b>Menos decisiones.</b> Abres la app y ya sabes qué toca hoy: así el hábito se vuelve automático.</span></li>
+            </ol>
           </div>
-        </figure>
+          <div class="ai-fila ai-inv">
+            <ol class="ai-notas" start="4">
+              <li class="ai-nota" data-a="ia"><i>4</i><span><b>Registro de calorías con IA:</b> le tomas una foto a tu plato y la app calcula calorías y macros. Además, recetas de nuestro equipo.</span></li>
+            </ol>
+            <div class="tel tel-scan"><div class="tel-isla"></div><div class="tel-pantalla"><div class="tel-top"><b class="scan-tit">Registrar comida</b><span class="tel-av"></span></div><div class="scan-cam"><svg class="plato" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="#EDE8DE"/><circle cx="60" cy="60" r="43" fill="#FAF7F1"/><path d="M24 58c2-16 14-26 30-25 4 0 6 4 4 8-3 8-3 17 1 25 2 5-1 9-6 9-15-1-31-4-29-17Z" fill="#F1E9D6"/><g fill="#E6DBC3"><circle cx="34" cy="52" r="1.6"/><circle cx="41" cy="45" r="1.6"/><circle cx="45" cy="60" r="1.6"/><circle cx="33" cy="64" r="1.6"/><circle cx="50" cy="50" r="1.6"/></g><g transform="rotate(-18 78 50)"><rect x="62" y="34" width="34" height="10" rx="5" fill="#CF9156"/><rect x="62" y="47" width="34" height="10" rx="5" fill="#D9A066"/><rect x="62" y="60" width="34" height="10" rx="5" fill="#C98545"/></g><g fill="#4F9A4C"><circle cx="66" cy="84" r="7"/><circle cx="76" cy="88" r="6"/><circle cx="58" cy="90" r="5.5"/></g><g fill="#3E8640"><circle cx="70" cy="80" r="3.5"/><circle cx="80" cy="83" r="3"/></g><circle cx="88" cy="74" r="6" fill="#E25B43"/><circle cx="86" cy="73" r="2" fill="#F08C78"/></svg><span class="esq e1"></span><span class="esq e2"></span><span class="esq e3"></span><span class="esq e4"></span><span class="scan-linea"></span><span class="scan-ia">IA analizando…</span></div><div class="scan-res" data-p="ia"><i class="pin" aria-hidden="true">4</i><small>Detectado con IA</small><b>Pollo, arroz y ensalada</b><span class="kcal">≈ 520 kcal</span><div class="macros"><span><i style="background:var(--cyan)"></i>P 38 g</span><span><i style="background:var(--amarillo)"></i>C 55 g</span><span><i style="background:#7FD8F5"></i>G 14 g</span></div></div></div></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1204,6 +1244,30 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   addEventListener('resize',ajustar); addEventListener('load',ajustar); ajustar();
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(ajustar);
   if(window.ResizeObserver) new ResizeObserver(function(){requestAnimationFrame(ajustar)}).observe(h1);
+})();
+
+/* App: flechas punteadas desde cada parte del celular hasta su texto (como el mapa del cerebro) */
+(function(){
+  var box=document.getElementById('app-info'); if(!box) return;
+  var svg=box.querySelector('.app-lineas'), NS='http://www.w3.org/2000/svg';
+  function dibujar(){
+    [].slice.call(svg.querySelectorAll('path')).forEach(function(x){x.remove()});
+    if(innerWidth<860) return;
+    var B=box.getBoundingClientRect();
+    [].slice.call(box.querySelectorAll('.ai-nota')).forEach(function(n){
+      var t=box.querySelector('[data-p="'+n.getAttribute('data-a')+'"]'); if(!t) return;
+      var r=t.getBoundingClientRect(), q=n.getBoundingClientRect(), der=q.left>r.left;
+      var a={x:(der?r.right-4:r.left+4)-B.left, y:r.top+r.height/2-B.top};
+      var b={x:(der?q.left-3:q.right+3)-B.left, y:q.top+Math.min(q.height/2,22)-B.top};
+      var mx=(a.x+b.x)/2, d='M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' C'+mx.toFixed(1)+' '+a.y.toFixed(1)+' '+mx.toFixed(1)+' '+b.y.toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1);
+      var h=document.createElementNS(NS,'path'); h.setAttribute('class','halo'); h.setAttribute('d',d); svg.appendChild(h);
+      var l=document.createElementNS(NS,'path'); l.setAttribute('class','linea'); l.setAttribute('d',d); l.setAttribute('marker-end','url(#punta-app)'); svg.appendChild(l);
+      var c=document.createElementNS(NS,'path'); c.setAttribute('d','M'+(a.x-3.5)+' '+a.y+'a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0'); c.setAttribute('fill','#23D3FF'); c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','1.5'); svg.appendChild(c);
+    });
+  }
+  addEventListener('resize',dibujar); addEventListener('load',dibujar); dibujar();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(dibujar);
+  if(window.ResizeObserver) new ResizeObserver(function(){requestAnimationFrame(dibujar)}).observe(box);
 })();
 
 /* Mapa: flechas desde los puntos del cerebro hasta cada caja (se recalculan al cambiar el tamaño) */
