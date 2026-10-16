@@ -234,7 +234,7 @@ p{margin:0}
 .app-info{position:relative;max-width:820px;margin:0 auto;display:grid;gap:26px}
 .app-lineas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}
 .app-lineas path.halo{fill:none;stroke:rgba(255,255,255,.9);stroke-width:6;stroke-linecap:round}
-.app-lineas path.linea{fill:none;stroke:#017FA7;stroke-width:2;stroke-dasharray:5 5;animation:fluye 1.2s linear infinite}
+.app-lineas path.linea{fill:none;stroke:#017FA7;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .ai-fila{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center}
 .ai-inv{grid-template-columns:1fr auto}
 .ai-notas{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative;z-index:3}
@@ -999,7 +999,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
           <p>Además del curso, te regalamos <b>un mes de membresía</b> a la app de entrenamiento y nutrición que <span class="hl">desarrollamos nosotros</span>. Es la herramienta para llevar a tu día a día todo lo que aprendes.</p>
         </div>
         <div class="app-info" id="app-info">
-          <svg class="app-lineas" aria-hidden="true"><defs><marker id="punta-app" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker></defs></svg>
+          <svg class="app-lineas" aria-hidden="true"><defs><marker id="punta-app" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2.5 2.2 L9.5 6 L2.5 9.8" fill="none" stroke="#017FA7" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></marker></defs></svg>
           <div class="ai-fila">
             <div class="tel"> <div class="tel-isla"></div> <div class="tel-pantalla"> <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div> <small class="tel-ey">Hoy · Semana 3</small> <b class="tel-h" data-p="plan">Tu plan de hoy</b> <div class="tel-ent" data-p="rutina"><small>Entrenamiento</small><b>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em data-p="empezar">Empezar</em></div> <div class="tel-nut" data-p="nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div> <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul> </div> </div>
             <ol class="ai-notas">
@@ -1266,20 +1266,32 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
       var c=document.createElementNS(NS,'path'); c.setAttribute('d','M'+(a.x-3.5)+' '+a.y+'a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0'); c.setAttribute('fill','#23D3FF'); c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','1.5'); svg.appendChild(c);
     }
     function f(v){return v.toFixed(1)}
+    var lat=[]; /* flechas laterales: se agrupan por celular y lado para darle a cada una su propio carril */
     [].slice.call(box.querySelectorAll('.ai-nota')).forEach(function(n){
       n.getAttribute('data-a').split(' ').forEach(function(k){
         var t=box.querySelector('[data-p="'+k+'"]'); if(!t) return;
         /* sale del borde del recuadro celeste (fuera del texto) y llega al borde de la nota */
         var r=t.getBoundingClientRect(), q=n.getBoundingClientRect(), T=t.closest('.tel').getBoundingClientRect(), o=5, a, b, d;
         var cy=r.top+r.height/2-B.top, ny=q.top+Math.min(q.height/2,22)-B.top;
-        if(q.left>=r.right-1){ a={x:r.right+o-B.left,y:cy}; b={x:q.left-3-B.left,y:ny}; }
-        else if(q.right<=r.left+1){ a={x:r.left-o-B.left,y:cy}; b={x:q.right+3-B.left,y:ny}; }
-        else { /* la nota está debajo (celular): baja por el lado izquierdo del celular, sin cruzar las otras flechas */
-          var gx=T.left-7-B.left; a={x:r.left-o-B.left,y:cy}; b={x:q.left+26-B.left,y:q.top-3-B.top};
-          d='M'+f(a.x)+' '+f(a.y)+' L'+f(gx+2)+' '+f(a.y)+' C'+f(gx-4)+' '+f(a.y)+' '+f(gx-4)+' '+f(a.y+40)+' '+f(gx-4)+' '+f(a.y+60)+' L'+f(gx-4)+' '+f(b.y-40)+' C'+f(gx-4)+' '+f(b.y-12)+' '+f(b.x)+' '+f(b.y-30)+' '+f(b.x)+' '+f(b.y); linea(d,a); return; }
-        /* el tramo curvo va por fuera del celular para no cruzar su contenido */
-        var der=b.x>a.x, gx=der?T.right+8-B.left:T.left-8-B.left, mx=der?Math.max((a.x+b.x)/2,gx):Math.min((a.x+b.x)/2,gx);
-        d='M'+f(a.x)+' '+f(a.y)+((der?a.x<gx:a.x>gx)?' L'+f(gx)+' '+f(a.y):'')+' C'+f(mx)+' '+f(a.y)+' '+f(mx)+' '+f(b.y)+' '+f(b.x)+' '+f(b.y);
+        if(q.left>=r.right-1){ lat.push({a:{x:r.right+o-B.left,y:cy},b:{x:q.left-3-B.left,y:ny},der:true,T:T}); }
+        else if(q.right<=r.left+1){ lat.push({a:{x:r.left-o-B.left,y:cy},b:{x:q.right+3-B.left,y:ny},der:false,T:T}); }
+        else { /* la nota está debajo (celular): una S suave por el lado izquierdo del celular, sin cruzar las otras flechas */
+          var gx=T.left-11-B.left; a={x:r.left-o-B.left,y:cy}; b={x:q.left+34-B.left,y:q.top-4-B.top}; var h=b.y-a.y;
+          d='M'+f(a.x)+' '+f(a.y)+' C'+f(gx-10)+' '+f(a.y+h*.12)+' '+f(gx-4)+' '+f(a.y+h*.55)+' '+f(gx+6)+' '+f(a.y+h*.72)+' S'+f(b.x)+' '+f(b.y-h*.2)+' '+f(b.x)+' '+f(b.y); linea(d,a); }
+      });
+    });
+    /* carriles: la flecha que termina más abajo va más pegada al celular, así ninguna se toca */
+    var grupos={};
+    lat.forEach(function(L){var key=Math.round(L.T.left)+(L.der?'d':'i'); (grupos[key]=grupos[key]||[]).push(L)});
+    Object.keys(grupos).forEach(function(key){
+      var g=grupos[key].sort(function(x,y){return y.b.y-x.b.y});
+      g.forEach(function(L,i){
+        var a=L.a, b=L.b, s=L.der?1:-1, borde=(L.der?L.T.right:L.T.left)-B.left;
+        var hueco=Math.abs(b.x-borde), paso=Math.min(9,hueco/(g.length+1.5)), carril=borde+s*paso*(i+1);
+        var dentro=L.der?a.x<borde:a.x>borde, ini=dentro?borde:a.x;
+        var d='M'+f(a.x)+' '+f(a.y)+(dentro?' L'+f(ini)+' '+f(a.y):'');
+        /* S suave: sale horizontal, baja (o sube) en su carril y entra horizontal a la nota */
+        d+=' C'+f(carril+s*2)+' '+f(a.y)+' '+f(carril-s*2)+' '+f(b.y)+' '+f(b.x)+' '+f(b.y);
         linea(d,a);
       });
     });
