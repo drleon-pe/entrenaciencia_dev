@@ -1274,9 +1274,9 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
         var cy=r.top+r.height/2-B.top, ny=q.top+Math.min(q.height/2,22)-B.top;
         if(q.left>=r.right-1){ a={x:r.right+o-B.left,y:cy}; b={x:q.left-3-B.left,y:ny}; }
         else if(q.right<=r.left+1){ a={x:r.left-o-B.left,y:cy}; b={x:q.right+3-B.left,y:ny}; }
-        else { /* la nota está debajo (celular): baja por el espacio entre el celular y las notas */
-          var gx=T.right+16-B.left; a={x:r.right+o-B.left,y:cy}; b={x:Math.min(q.right-28,gx+6)-B.left+B.left,y:q.top-3-B.top};
-          d='M'+f(a.x)+' '+f(a.y)+' L'+f(gx-8)+' '+f(a.y)+' C'+f(gx)+' '+f(a.y)+' '+f(gx)+' '+f(b.y-70)+' '+f(b.x)+' '+f(b.y); linea(d,a); return; }
+        else { /* la nota está debajo (celular): baja por el lado izquierdo del celular, sin cruzar las otras flechas */
+          var gx=T.left-7-B.left; a={x:r.left-o-B.left,y:cy}; b={x:q.left+26-B.left,y:q.top-3-B.top};
+          d='M'+f(a.x)+' '+f(a.y)+' L'+f(gx+2)+' '+f(a.y)+' C'+f(gx-4)+' '+f(a.y)+' '+f(gx-4)+' '+f(a.y+40)+' '+f(gx-4)+' '+f(a.y+60)+' L'+f(gx-4)+' '+f(b.y-40)+' C'+f(gx-4)+' '+f(b.y-12)+' '+f(b.x)+' '+f(b.y-30)+' '+f(b.x)+' '+f(b.y); linea(d,a); return; }
         /* el tramo curvo va por fuera del celular para no cruzar su contenido */
         var der=b.x>a.x, gx=der?T.right+8-B.left:T.left-8-B.left, mx=der?Math.max((a.x+b.x)/2,gx):Math.min((a.x+b.x)/2,gx);
         d='M'+f(a.x)+' '+f(a.y)+((der?a.x<gx:a.x>gx)?' L'+f(gx)+' '+f(a.y):'')+' C'+f(mx)+' '+f(a.y)+' '+f(mx)+' '+f(b.y)+' '+f(b.x)+' '+f(b.y);
