@@ -212,20 +212,62 @@ p{margin:0}
 .regalo-txt small::after{content:"";width:16%;height:1px;background:var(--cyan)}
 .regalo-txt b{font:700 8.4cqw/1.15 "Poppins";letter-spacing:-.015em;color:#fff;overflow-wrap:anywhere}
 .regalo span{font-size:13px;line-height:1.25;font-weight:700;color:var(--navy);letter-spacing:-.01em}
-/* cursos 1-3 y, aparte, los 3 regalos agrupados en una caja tipo bundle */
+/* el curso (3 módulos) y, aparte, los 3 regalos en una caja tipo bundle */
 .regalos-grid{display:grid;grid-template-columns:1fr;gap:24px}
-.grupo-cursos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;align-items:stretch}
-/* el "+" va fuera de las tarjetas, en el espacio entre el curso 03 y la app */
-.con-mas{position:relative;display:flex}
-.con-mas .regalo{flex:1}
-.mas{position:absolute;left:-25px;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--teal);color:#fff;font:600 18px/1 "Poppins";box-shadow:0 4px 10px -4px rgba(1,127,167,.6)}
-.bundle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+.grupo-curso{position:relative;border:1.5px solid var(--borde);background:#fff;border-radius:14px;padding:24px 9px 9px}
+.grupo-tit{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);white-space:nowrap;background:var(--navy);color:#fff;font:700 11px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px}
+.grupo-tiles,.bundle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:stretch}
 .bundle{position:relative;min-width:0;border:1.5px solid var(--amarillo);background:linear-gradient(180deg,#FFF6D8,#FFFBEE);border-radius:14px;padding:24px 9px 9px;box-shadow:0 10px 24px -18px rgba(150,110,0,.55)}
 .bundle-cinta{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--amarillo);color:var(--navy-2);font:700 11px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:7px 13px;border-radius:999px;box-shadow:0 6px 14px -8px rgba(150,110,0,.7)}
 @media (max-width:859px){.bundle-cinta{font-size:9.5px;letter-spacing:.04em;padding:6px 9px;gap:5px;width:max-content;max-width:calc(100% - 8px);white-space:normal;text-align:center;line-height:1.2}.bundle-cinta svg{width:13px;height:13px;flex:none}}
 .de-regalo .regalo-txt small{color:var(--amarillo)}
 .de-regalo .regalo-txt small::after{background:var(--amarillo)}
 @media (min-width:860px){.regalo span{font-size:14.5px}}
+
+/* ---------- sección de la app ---------- */
+.app-sec{padding-top:26px}
+.app-caja{display:grid;gap:28px;background:linear-gradient(160deg,#fff 0%,#F3FAFE 100%);border:1px solid var(--borde);border-radius:22px;box-shadow:var(--sombra);padding:28px 20px 24px;overflow:hidden}
+.app-regalo{display:inline-flex;align-items:center;gap:7px;background:var(--amarillo);color:var(--navy-2);font:700 11px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px;margin-bottom:14px}
+.app-txt h2{margin:0 0 12px}
+.app-txt p{margin:0 0 16px;color:var(--texto)}
+.app-lista{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.app-lista li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5}
+.app-lista i{color:var(--teal);font-size:19px;margin-top:2px;flex:none}
+.app-visual{position:relative;margin:0;display:flex;flex-direction:column;align-items:center;padding:18px 0 0}
+.app-visual::before{content:"";position:absolute;width:300px;height:300px;top:30px;left:50%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(35,211,255,.28),rgba(35,211,255,0) 68%)}
+.tel{position:relative;width:236px;border-radius:38px;background:#0B1B2B;padding:10px;box-shadow:0 30px 50px -24px rgba(10,37,64,.65),inset 0 0 0 2px #22384D}
+.tel-isla{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:70px;height:18px;border-radius:12px;background:#000;z-index:2}
+.tel-pantalla{border-radius:30px;background:linear-gradient(180deg,#0E2A40,#0A1D2E);padding:40px 14px 18px;color:#fff;font-family:"Poppins"}
+.tel-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tel-logo{display:flex;align-items:center;gap:5px;font:700 7px/1.05 "Poppins";letter-spacing:.04em}
+.tel-logo em{font-style:normal;color:var(--cyan)}
+.tel-logo img{width:18px;height:18px}
+.tel-av{width:18px;height:18px;border-radius:50%;background:#2B4256}
+.tel-ey{display:block;font:600 7px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:#9FC3D6}
+.tel-h{display:block;font:700 15px/1.2 "Poppins";margin:4px 0 10px}
+.tel-ent{background:linear-gradient(135deg,#0E6F95,#0B4C6E);border-radius:12px;padding:10px 11px;display:grid;gap:3px;margin-bottom:9px}
+.tel-ent small,.tel-nut small{font:600 6.5px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:#BFE6F5}
+.tel-ent b{font-size:11.5px}
+.tel-ent span{font-size:8px;color:#D5EEF8}
+.tel-ent em{justify-self:start;margin-top:5px;font:700 8px/1 "Poppins";font-style:normal;background:var(--amarillo);color:var(--navy-2);padding:5px 10px;border-radius:999px}
+.tel-nut{background:#13314A;border-radius:12px;padding:9px 10px 10px;margin-bottom:9px}
+.anillos{display:flex;justify-content:space-between;margin-top:8px}
+.anillos span{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:6.5px;color:#BFD6E3}
+.anillos i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;font:700 8px/1 "Poppins";font-style:normal;color:#fff;background:radial-gradient(closest-side,#13314A 74%,transparent 76%),conic-gradient(var(--c) calc(var(--p)*1%),#2A4A62 0)}
+.tel-hab{list-style:none;margin:0;padding:9px 10px;background:#13314A;border-radius:12px;display:grid;gap:6px}
+.tel-hab li{display:flex;align-items:center;gap:7px;font-size:8.5px}
+.tel-hab li::before{content:"";width:11px;height:11px;border-radius:3px;border:1.5px solid #4C6A82;flex:none}
+.tel-hab li.ok::before{background:var(--cyan) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2.5 6.2l2.2 2.2 4.8-5' fill='none' stroke='%230A2540' stroke-width='1.8'/></svg>") center/9px no-repeat;border-color:var(--cyan)}
+.app-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--borde);color:var(--navy);font:600 12px/1 "Poppins";padding:9px 12px;border-radius:999px;box-shadow:0 12px 24px -14px rgba(10,37,64,.5);white-space:nowrap}
+.app-chip i{color:var(--teal);font-size:15px}
+.app-visual figcaption{margin-top:14px;font-size:11.5px;color:var(--suave)}
+.app-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+@media (max-width:859px){.app-chip{font-size:11.5px;padding:8px 11px}}
+@media (min-width:860px){
+  .app-caja{grid-template-columns:1.1fr .9fr;align-items:center;gap:40px;padding:48px 52px}
+  .app-lista li{font-size:16px}
+  .tel{width:262px}
+}
 
 /* ---------- carrusel de testimonios ---------- */
 .carrusel{position:relative;margin-top:30px}
@@ -587,9 +629,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .cta-wrap{align-items:flex-start}
   .hero .micro{justify-content:center;max-width:440px}
   .hero .remate{text-align:left}
-  .regalos-grid{grid-template-columns:2fr 1fr;gap:18px;align-items:start}
-  .grupo-cursos{grid-template-columns:repeat(4,1fr)}
-  .grupo-cursos{padding:24px 9px 9px;border:1.5px solid transparent}
+  .regalos-grid{grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
   .regalos{margin-bottom:27px}
   .testi{flex-basis:calc((100% - 40px)/2.6)}
   .pista{padding-left:0;padding-right:0;margin:0}
@@ -770,16 +810,18 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     <div class="regalos">
       <div class="regalos-top"><b>Qué incluye el programa</b><span class="tag-off">-40%</span></div>
       <div class="regalos-grid">
-        <div class="grupo-cursos">
-          <div class="regalo"><img src="assets/portadas/neurociencia-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
-          <div class="regalo"><img src="assets/portadas/entrenamiento-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
-          <div class="regalo"><img src="assets/portadas/nutricion-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
-          <div class="con-mas"><span class="mas" aria-hidden="true">+</span><div class="regalo es-app"><img src="assets/portadas/app-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>App</small><b>Entrenamiento y nutrición</b></span></div></div>
+        <div class="grupo-curso"><span class="grupo-tit">El curso · 3 módulos</span>
+          <div class="grupo-tiles">
+            <div class="regalo"><img src="assets/portadas/neurociencia-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Módulo 1</small><b>Neurociencia del cambio de hábitos</b></span></div>
+            <div class="regalo"><img src="assets/portadas/entrenamiento-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Módulo 2</small><b>Fundamentos de entrenamiento</b></span></div>
+            <div class="regalo"><img src="assets/portadas/nutricion-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Módulo 3</small><b>Fundamentos de nutrición</b></span></div>
+          </div>
         </div>
         <div class="bundle"><span class="bundle-cinta"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>De regalo con tu inscripción</span>
           <div class="bundle-grid">
-            <div class="regalo de-regalo"><img src="assets/portadas/protocolos-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 1</small><b>Protocolos para días difíciles</b></span></div>
-            <div class="regalo de-regalo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 2</small><b>Comunidad privada</b></span></div>
+            <div class="regalo de-regalo es-app"><img src="assets/portadas/app-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 1</small><b>1 mes de membresía a la app</b></span></div>
+            <div class="regalo de-regalo"><img src="assets/portadas/protocolos-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 2</small><b>Protocolos para días difíciles</b></span></div>
+            <div class="regalo de-regalo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><span class="regalo-txt"><small>Regalo 3</small><b>Comunidad privada</b></span></div>
           </div>
         </div>
       </div>
@@ -898,6 +940,41 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       <article class="modulo"><img src="assets/portadas/comunidad-tile.webp" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Accede a nuestra comunidad privada, donde tendrás a <b>otras personas igual de motivadas</b> para transformar tu cuerpo.</p></details></div></article>
     </div>
     <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div><p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p></div>
+  </div>
+</section>
+
+<div class="separador" aria-hidden="true"><span><img src="assets/isotipo-ecc.webp" alt="" loading="lazy" decoding="async"></span></div>
+<!-- ============ LA APP (regalo: 1 mes de membresía) ============ -->
+<section class="sec app-sec" id="app" data-screen-label="03b La app">
+  <div class="envase">
+    <div class="app-caja">
+      <div class="app-txt">
+        <span class="app-regalo"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Regalo · 1 mes de membresía</span>
+        <h2 class="titulo">Aprendes qué hacer. <span class="teal">La app te ayuda a hacerlo.</span></h2>
+        <p>Además del curso, te regalamos <b>un mes de membresía</b> a la app de entrenamiento y nutrición que <span class="hl">desarrollamos nosotros</span>. Es la herramienta para llevar a tu día a día todo lo que aprendes.</p>
+        <ul class="app-lista">
+          <li><i class="ph-fill ph-check-circle"></i><span><b>Tu plan del día, listo.</b> La inteligencia artificial planifica tu entrenamiento, nutrición y recuperación.</span></li>
+          <li><i class="ph-fill ph-check-circle"></i><span><b>Rutinas basadas en evidencia</b> con videos de cada ejercicio, para casa o gimnasio.</span></li>
+          <li><i class="ph-fill ph-check-circle"></i><span><b>Registro de calorías con IA</b> y recetas de nuestro equipo.</span></li>
+          <li><i class="ph-fill ph-check-circle"></i><span><b>Menos decisiones.</b> Abres la app y ya sabes qué toca hoy: así el hábito se vuelve automático.</span></li>
+        </ul>
+      </div>
+      <figure class="app-visual" aria-label="Vista referencial de la app">
+        <div class="tel">
+          <div class="tel-isla"></div>
+          <div class="tel-pantalla">
+            <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div>
+            <small class="tel-ey">Hoy · Semana 3</small>
+            <b class="tel-h">Tu plan de hoy</b>
+            <div class="tel-ent"><small>Entrenamiento</small><b>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em>Empezar</em></div>
+            <div class="tel-nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div>
+            <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul>
+          </div>
+        </div>
+        <div class="app-chips"><span class="app-chip chip-a"><i class="ph-fill ph-check-circle"></i>Videos de cada ejercicio</span><span class="app-chip chip-b"><i class="ph-fill ph-check-circle"></i>Calorías con IA</span></div>
+        <figcaption>Vista referencial de la app</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
