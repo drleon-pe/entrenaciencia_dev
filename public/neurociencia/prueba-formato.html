@@ -333,7 +333,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 /* ---------- programa ---------- */
 .modulos{display:grid;gap:18px;margin-top:30px}
 .modulo{display:grid;background:#fff;border:1px solid var(--borde);border-radius:20px;overflow:hidden;box-shadow:var(--sombra)}
-.modulo img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.modulo img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 0}
 .modulo-txt{padding:20px 20px 22px;display:flex;flex-direction:column;gap:9px}
 .modulo-txt h3{font-size:19px}
 .modulo-txt p{font-size:15px;line-height:1.6;color:var(--suave)}
@@ -639,7 +639,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     <div class="hero-foto" id="vsl">
       <!-- VSL horizontal (16:9) a todo el ancho. Mientras no haya video se ve la portada. -->
       <img class="vsl-poster" src="assets/vsl-portada.jpg" alt="Dr. Gonzalo León" fetchpriority="high">
-      <button type="button" class="vsl-play" aria-label="Reproducir video"><span class="vsl-play-ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M8.6 5.8v12.4L19 12z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></span><span class="vsl-play-txt" hidden>Toca para activar el sonido</span></button>
       <div class="firma"><b>Dr. Gonzalo León</b><span>Especialista en Ciencia del Deporte</span></div>
       
     </div>
@@ -864,7 +863,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   <div class="envase oferta-wrap">
     <div class="izq centro">
       <h2 class="titulo">Transforma <span class="teal">tu Cuerpo</span></h2>
-      <p class="bajada"><span class="linea-sola">No te falta un plan nuevo de entrenamiento o nutrición.</span><span class="linea-sola">Te ayudamos a <b style="color:var(--navy)">entender la ciencia para crear nuevos hábitos.</b></span></p>
+      <p class="bajada"><span class="linea-sola">Te ayudamos a <b style="color:var(--navy)">entender la ciencia para crear nuevos hábitos.</b></span></p>
     </div>
     <div class="trato" aria-label="Cómo funciona la lista de espera">
       <b class="trato-tit">Así funciona</b>
@@ -967,9 +966,9 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   var v=document.createElement('video'); v.src=VSL_SRC; v.poster=poster.src; v.muted=true; v.autoplay=true; v.loop=true; v.playsInline=true; v.preload='auto';
   v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
   box.insertBefore(v,poster.nextSibling);
-  v.addEventListener('playing',function(){poster.style.display='none'; if(v.muted) txt.hidden=false;},{once:true});
+  v.addEventListener('playing',function(){poster.style.display='none'; if(v.muted&&txt) txt.hidden=false;},{once:true});
   var p=v.play(); if(p&&p.catch) p.catch(function(){});
-  btn.addEventListener('click',function(){
+  if(btn) btn.addEventListener('click',function(){
     v.muted=false; v.loop=false; v.currentTime=0; v.controls=true; v.play(); box.classList.add('sonando');
     if(window.eccEvento) try{window.eccEvento('vsl_sonido','','!VSLSonido','vsl_sonido',null)}catch(x){}
   });
