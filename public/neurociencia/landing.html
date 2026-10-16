@@ -265,7 +265,9 @@ p{margin:0}
 .tel-hab li{display:flex;align-items:center;gap:calc(7px*var(--z));font-size:calc(8.5px*var(--z))}
 .tel-hab li::before{content:"";width:calc(11px*var(--z));height:calc(11px*var(--z));border-radius:calc(3px*var(--z));border:calc(1.5px*var(--z)) solid #4C6A82;flex:none}
 .tel-hab li.ok::before{background:var(--cyan) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2.5 6.2l2.2 2.2 4.8-5' fill='none' stroke='%230A2540' stroke-width='1.8'/></svg>") center/calc(9px*var(--z)) no-repeat;border-color:var(--cyan)}
-.tel-scan .tel-pantalla{padding-bottom:calc(14px*var(--z))}
+.tel-scan .tel-pantalla{padding-bottom:calc(18px*var(--z));display:flex;flex-direction:column}
+.tel-pantalla{min-height:calc(436px*var(--z));box-sizing:border-box}
+.tel-scan .scan-cam{flex:1}
 .scan-tit{font:700 calc(12px*var(--z))/1 "Poppins"}
 .scan-cam{position:relative;height:calc(178px*var(--z));border-radius:calc(14px*var(--z));overflow:hidden;background:radial-gradient(circle at 50% 45%,#5a4636,#2a1f18 75%);display:grid;place-items:center;margin-bottom:calc(10px*var(--z))}
 .plato{width:calc(150px*var(--z));height:calc(150px*var(--z));filter:drop-shadow(0 calc(10px*var(--z)) calc(14px*var(--z)) rgba(0,0,0,.45))}
@@ -275,7 +277,7 @@ p{margin:0}
 .e3{bottom:12px;left:12px;border-right:0;border-top:0;border-bottom-left-radius:8px}
 .e4{bottom:12px;right:12px;border-left:0;border-top:0;border-bottom-right-radius:8px}
 .scan-linea{position:absolute;left:calc(14px*var(--z));right:calc(14px*var(--z));top:calc(16px*var(--z));height:calc(2px*var(--z));background:var(--cyan);box-shadow:0 0 calc(12px*var(--z)) calc(3px*var(--z)) rgba(35,211,255,.55);animation:escanea 2.6s ease-in-out infinite}
-@keyframes escanea{0%,100%{top:calc(16px*var(--z))}50%{top:calc(158px*var(--z))}}
+@keyframes escanea{0%,100%{top:9%}50%{top:89%}}
 .scan-ia{position:absolute;left:50%;bottom:calc(10px*var(--z));transform:translateX(-50%);background:rgba(10,37,64,.85);color:#fff;font:600 calc(8px*var(--z))/1 "Poppins";letter-spacing:.06em;padding:calc(5px*var(--z)) calc(9px*var(--z));border-radius:calc(999px*var(--z));white-space:nowrap}
 .scan-res{background:#13314A;border-radius:calc(12px*var(--z));padding:calc(10px*var(--z)) calc(11px*var(--z));display:grid;gap:calc(3px*var(--z))}
 .scan-res small{font:600 calc(6.5px*var(--z))/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
@@ -288,13 +290,14 @@ p{margin:0}
 @media (max-width:859px){
   .app-caja{padding:26px 14px 24px}
   .ai-fila{gap:22px;align-items:start}
-  .ai-inv{gap:22px}
+  .ai-inv{gap:22px;align-items:center}
   .app-info .tel{--z:.6}
   .ai-notas{gap:10px}
   .ai-nota{font-size:12px;line-height:1.42;padding:9px 10px;gap:7px}
   .ai-nota>i{width:18px;height:18px;font-size:10px}
 }
-[data-p]{position:relative}
+[data-p]{position:relative;outline:calc(1.5px*var(--z)) solid var(--cyan);outline-offset:calc(3px*var(--z));box-shadow:0 0 calc(14px*var(--z)) rgba(35,211,255,.35)}
+.tel-h[data-p]{display:inline-block;border-radius:calc(6px*var(--z))}
 .pin{position:absolute;right:calc(-9px*var(--z));top:calc(-9px*var(--z));display:grid;place-items:center;width:calc(22px*var(--z));height:calc(22px*var(--z));border-radius:50%;background:var(--cyan);color:var(--navy-2);font:800 calc(12px*var(--z))/1 "Poppins";font-style:normal;border:calc(2px*var(--z)) solid #0B1B2B;z-index:2}
 .tel-ent em .pin{right:calc(-28px*var(--z));top:50%;margin-top:calc(-11px*var(--z))}
 .pin{display:none}
@@ -302,12 +305,12 @@ p{margin:0}
 @media (min-width:860px){
   .app-caja{padding:46px 48px 44px}
   .app-txt{margin-bottom:34px}
-  .app-info{max-width:1020px;grid-template-columns:1fr auto auto 1fr;gap:0 44px;align-items:center}
+  .app-info{max-width:1060px;grid-template-columns:1.15fr auto 1fr auto;gap:0 44px;align-items:center}
   .ai-fila,.ai-inv{display:contents}
   .ai-fila>.tel{grid-column:2;grid-row:1}
   .ai-fila>.ai-notas{grid-column:1;grid-row:1}
-  .ai-inv>.tel{grid-column:3;grid-row:1}
-  .ai-inv>.ai-notas{grid-column:4;grid-row:1}
+  .ai-inv>.tel{grid-column:4;grid-row:1}
+  .ai-inv>.ai-notas{grid-column:3;grid-row:1}
   .tel{--z:.86}
   .ai-nota{font-size:15px;padding:13px 15px}
   .ai-nota>i{width:24px;height:24px;font-size:12px}
@@ -998,7 +1001,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         <div class="app-info" id="app-info">
           <svg class="app-lineas" aria-hidden="true"><defs><marker id="punta-app" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker></defs></svg>
           <div class="ai-fila">
-            <div class="tel"> <div class="tel-isla"></div> <div class="tel-pantalla"> <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div> <small class="tel-ey">Hoy · Semana 3</small> <b class="tel-h" data-p="plan"><i class="pin" aria-hidden="true">1</i>Tu plan de hoy</b> <div class="tel-ent"><small>Entrenamiento</small><b data-p="rutina"><i class="pin" aria-hidden="true">2</i>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em data-p="empezar"><i class="pin" aria-hidden="true">3</i>Empezar</em></div> <div class="tel-nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div> <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul> </div> </div>
+            <div class="tel"> <div class="tel-isla"></div> <div class="tel-pantalla"> <div class="tel-top"><span class="tel-logo"><img src="assets/isotipo-ecc.webp" alt="" loading="lazy">ENTRENA<br><em>CON CIENCIA</em></span><span class="tel-av"></span></div> <small class="tel-ey">Hoy · Semana 3</small> <b class="tel-h" data-p="plan">Tu plan de hoy</b> <div class="tel-ent" data-p="rutina"><small>Entrenamiento</small><b>Fuerza · Tren superior</b><span>45 min · 6 ejercicios</span><em data-p="empezar">Empezar</em></div> <div class="tel-nut" data-p="nut"><small>Nutrición</small><div class="anillos"><span style="--p:72;--c:var(--cyan)"><i>72%</i>Proteína</span><span style="--p:55;--c:var(--amarillo)"><i>55%</i>Carbos</span><span style="--p:64;--c:#7FD8F5"><i>64%</i>Grasas</span></div></div> <ul class="tel-hab"><li class="ok">Dormir 7 h</li><li class="ok">2 L de agua</li><li>8.000 pasos</li></ul> </div> </div>
             <ol class="ai-notas">
               <li class="ai-nota" data-a="plan"><i>1</i><span><b>Tu plan del día, listo.</b> La inteligencia artificial planifica tu entrenamiento, nutrición y recuperación.</span></li>
               <li class="ai-nota" data-a="rutina"><i>2</i><span><b>Rutinas basadas en evidencia</b> con videos de cada ejercicio, para casa o gimnasio.</span></li>
@@ -1007,9 +1010,9 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
           </div>
           <div class="ai-fila ai-inv">
             <ol class="ai-notas" start="4">
-              <li class="ai-nota" data-a="ia"><i>4</i><span><b>Registro de calorías con IA:</b> le tomas una foto a tu plato y la app calcula calorías y macros. Además, recetas de nuestro equipo.</span></li>
+              <li class="ai-nota" data-a="ia nut"><i>4</i><span><b>Registro de calorías con IA:</b> le tomas una foto a tu plato y la app calcula calorías y macros. Además, recetas de nuestro equipo.</span></li>
             </ol>
-            <div class="tel tel-scan"><div class="tel-isla"></div><div class="tel-pantalla"><div class="tel-top"><b class="scan-tit">Registrar comida</b><span class="tel-av"></span></div><div class="scan-cam"><svg class="plato" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="#EDE8DE"/><circle cx="60" cy="60" r="43" fill="#FAF7F1"/><path d="M24 58c2-16 14-26 30-25 4 0 6 4 4 8-3 8-3 17 1 25 2 5-1 9-6 9-15-1-31-4-29-17Z" fill="#F1E9D6"/><g fill="#E6DBC3"><circle cx="34" cy="52" r="1.6"/><circle cx="41" cy="45" r="1.6"/><circle cx="45" cy="60" r="1.6"/><circle cx="33" cy="64" r="1.6"/><circle cx="50" cy="50" r="1.6"/></g><g transform="rotate(-18 78 50)"><rect x="62" y="34" width="34" height="10" rx="5" fill="#CF9156"/><rect x="62" y="47" width="34" height="10" rx="5" fill="#D9A066"/><rect x="62" y="60" width="34" height="10" rx="5" fill="#C98545"/></g><g fill="#4F9A4C"><circle cx="66" cy="84" r="7"/><circle cx="76" cy="88" r="6"/><circle cx="58" cy="90" r="5.5"/></g><g fill="#3E8640"><circle cx="70" cy="80" r="3.5"/><circle cx="80" cy="83" r="3"/></g><circle cx="88" cy="74" r="6" fill="#E25B43"/><circle cx="86" cy="73" r="2" fill="#F08C78"/></svg><span class="esq e1"></span><span class="esq e2"></span><span class="esq e3"></span><span class="esq e4"></span><span class="scan-linea"></span><span class="scan-ia">IA analizando…</span></div><div class="scan-res" data-p="ia"><i class="pin" aria-hidden="true">4</i><small>Detectado con IA</small><b>Pollo, arroz y ensalada</b><span class="kcal">≈ 520 kcal</span><div class="macros"><span><i style="background:var(--cyan)"></i>P 38 g</span><span><i style="background:var(--amarillo)"></i>C 55 g</span><span><i style="background:#7FD8F5"></i>G 14 g</span></div></div></div></div>
+            <div class="tel tel-scan"><div class="tel-isla"></div><div class="tel-pantalla"><div class="tel-top"><b class="scan-tit">Registrar comida</b><span class="tel-av"></span></div><div class="scan-cam"><svg class="plato" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="#EDE8DE"/><circle cx="60" cy="60" r="43" fill="#FAF7F1"/><path d="M24 58c2-16 14-26 30-25 4 0 6 4 4 8-3 8-3 17 1 25 2 5-1 9-6 9-15-1-31-4-29-17Z" fill="#F1E9D6"/><g fill="#E6DBC3"><circle cx="34" cy="52" r="1.6"/><circle cx="41" cy="45" r="1.6"/><circle cx="45" cy="60" r="1.6"/><circle cx="33" cy="64" r="1.6"/><circle cx="50" cy="50" r="1.6"/></g><g transform="rotate(-18 78 50)"><rect x="62" y="34" width="34" height="10" rx="5" fill="#CF9156"/><rect x="62" y="47" width="34" height="10" rx="5" fill="#D9A066"/><rect x="62" y="60" width="34" height="10" rx="5" fill="#C98545"/></g><g fill="#4F9A4C"><circle cx="66" cy="84" r="7"/><circle cx="76" cy="88" r="6"/><circle cx="58" cy="90" r="5.5"/></g><g fill="#3E8640"><circle cx="70" cy="80" r="3.5"/><circle cx="80" cy="83" r="3"/></g><circle cx="88" cy="74" r="6" fill="#E25B43"/><circle cx="86" cy="73" r="2" fill="#F08C78"/></svg><span class="esq e1"></span><span class="esq e2"></span><span class="esq e3"></span><span class="esq e4"></span><span class="scan-linea"></span><span class="scan-ia">IA analizando…</span></div><div class="scan-res" data-p="ia"><small>Detectado con IA</small><b>Pollo, arroz y ensalada</b><span class="kcal">≈ 520 kcal</span><div class="macros"><span><i style="background:var(--cyan)"></i>P 38 g</span><span><i style="background:var(--amarillo)"></i>C 55 g</span><span><i style="background:#7FD8F5"></i>G 14 g</span></div></div></div></div>
           </div>
         </div>
       </div>
@@ -1258,16 +1261,27 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   function dibujar(){
     [].slice.call(svg.querySelectorAll('path')).forEach(function(x){x.remove()});
     var B=box.getBoundingClientRect();
-    [].slice.call(box.querySelectorAll('.ai-nota')).forEach(function(n){
-      var t=box.querySelector('[data-p="'+n.getAttribute('data-a')+'"]'); if(!t) return;
-      var r=t.getBoundingClientRect(), q=n.getBoundingClientRect(), der=q.left>r.left;
-      /* la flecha arranca en el borde de la pantalla, a la altura del elemento, para no tapar el texto */
-      var pan=t.closest('.tel-pantalla').getBoundingClientRect();
-      var a={x:(der?pan.right-3:pan.left-3)-B.left, y:r.top+r.height/2-B.top};
-      var b={x:(der?q.left-3:q.right+3)-B.left, y:q.top+Math.min(q.height/2,22)-B.top};
-      var mx=(a.x+b.x)/2, d='M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' C'+mx.toFixed(1)+' '+a.y.toFixed(1)+' '+mx.toFixed(1)+' '+b.y.toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1);
+    function linea(d,a){
       var l=document.createElementNS(NS,'path'); l.setAttribute('class','linea'); l.setAttribute('d',d); l.setAttribute('marker-end','url(#punta-app)'); svg.appendChild(l);
       var c=document.createElementNS(NS,'path'); c.setAttribute('d','M'+(a.x-3.5)+' '+a.y+'a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0'); c.setAttribute('fill','#23D3FF'); c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','1.5'); svg.appendChild(c);
+    }
+    function f(v){return v.toFixed(1)}
+    [].slice.call(box.querySelectorAll('.ai-nota')).forEach(function(n){
+      n.getAttribute('data-a').split(' ').forEach(function(k){
+        var t=box.querySelector('[data-p="'+k+'"]'); if(!t) return;
+        /* sale del borde del recuadro celeste (fuera del texto) y llega al borde de la nota */
+        var r=t.getBoundingClientRect(), q=n.getBoundingClientRect(), T=t.closest('.tel').getBoundingClientRect(), o=5, a, b, d;
+        var cy=r.top+r.height/2-B.top, ny=q.top+Math.min(q.height/2,22)-B.top;
+        if(q.left>=r.right-1){ a={x:r.right+o-B.left,y:cy}; b={x:q.left-3-B.left,y:ny}; }
+        else if(q.right<=r.left+1){ a={x:r.left-o-B.left,y:cy}; b={x:q.right+3-B.left,y:ny}; }
+        else { /* la nota está debajo (celular): baja por el espacio entre el celular y las notas */
+          var gx=T.right+16-B.left; a={x:r.right+o-B.left,y:cy}; b={x:Math.min(q.right-28,gx+6)-B.left+B.left,y:q.top-3-B.top};
+          d='M'+f(a.x)+' '+f(a.y)+' L'+f(gx-8)+' '+f(a.y)+' C'+f(gx)+' '+f(a.y)+' '+f(gx)+' '+f(b.y-70)+' '+f(b.x)+' '+f(b.y); linea(d,a); return; }
+        /* el tramo curvo va por fuera del celular para no cruzar su contenido */
+        var der=b.x>a.x, gx=der?T.right+8-B.left:T.left-8-B.left, mx=der?Math.max((a.x+b.x)/2,gx):Math.min((a.x+b.x)/2,gx);
+        d='M'+f(a.x)+' '+f(a.y)+((der?a.x<gx:a.x>gx)?' L'+f(gx)+' '+f(a.y):'')+' C'+f(mx)+' '+f(a.y)+' '+f(mx)+' '+f(b.y)+' '+f(b.x)+' '+f(b.y);
+        linea(d,a);
+      });
     });
   }
   addEventListener('resize',dibujar); addEventListener('load',dibujar); dibujar();
@@ -1314,9 +1328,9 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   if(window.ResizeObserver) new ResizeObserver(pedir).observe(M);
 })();
 
-/* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando la caja de oferta o el cierre están en pantalla */
+/* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando la sección de la app (y su botón), la caja de oferta o el cierre están en pantalla */
 (function(){
-  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('cta-oferta')];
+  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('cta-oferta'),document.getElementById('app'),document.querySelector('#app + .centro')].filter(Boolean);
   function ver(){var pasoHero=hero.getBoundingClientRect().bottom<0;var tapa=tapan.some(function(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var on=pasoHero&&!tapa;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');b.querySelector('a').tabIndex=on?0:-1}
   addEventListener('scroll',ver,{passive:true}); addEventListener('resize',ver); ver();
 })();
