@@ -950,18 +950,16 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   <div class="ecc-lista-caja" role="document">
     <button type="button" class="ecc-lista-x" data-cerrar aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     <form class="ecc-lista-form" novalidate>
-      <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera · Gratis</span><span class="ecc-lista-off">40% OFF</span></span>
-      <h2 id="ecc-lista-titulo">Regístrate y accede a nuestra oferta de lanzamiento</h2>
-      <p class="ecc-lista-intro">El registro es <strong>100% gratuito</strong>. Cuando lancemos el programa, te enviamos por correo un <strong>descuento exclusivo del 40%</strong> para inscribirte.</p>
+      <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera</span><span class="ecc-lista-off">40% OFF</span></span>
+      <h2 id="ecc-lista-titulo">Accede a nuestra oferta de lanzamiento</h2>
       <label class="ecc-campo"><span>Nombre</span><input id="ecc-l-nombre" name="nombre" type="text" autocomplete="given-name" required maxlength="80" placeholder="Tu nombre"></label>
       <label class="ecc-campo"><span>Correo</span><input id="ecc-l-correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="120" placeholder="tu@correo.com"></label>
-      <div class="ecc-campo"><label for="ecc-l-cel">WhatsApp <em>(opcional)</em></label>
+      <div class="ecc-campo" hidden style="display:none"><label for="ecc-l-cel">WhatsApp <em>(opcional)</em></label>
         <div class="ecc-cel"><select id="ecc-l-pais" name="pais" aria-label="País"></select><input id="ecc-l-cel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="20" placeholder="Número"></div>
       </div>
       <label class="ecc-check"><input id="ecc-l-ok" name="consentimiento" type="checkbox" required><span>Acepto recibir información sobre el lanzamiento y la <a href="legal.html?v=3#privacidad" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
       <p class="ecc-lista-error" role="alert" hidden></p>
       <button type="submit" class="cta ecc-lista-enviar"><span>Unirme gratis a la lista de espera</span><i class="ph-light ph-arrow-right"></i></button>
-      <p class="ecc-lista-nota"><i class="ph-light ph-lock-simple"></i>Tus datos están protegidos. Puedes darte de baja cuando quieras.</p>
     </form>
     <div class="ecc-lista-ok" hidden>
       <span class="ecc-lista-ok-ico"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
