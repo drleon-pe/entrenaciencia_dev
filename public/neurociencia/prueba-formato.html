@@ -26,7 +26,7 @@
   --suave-card:0 20px 44px -26px rgba(10,37,64,.4);
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--navy-2);overscroll-behavior-y:none}
 body{margin:0;background:#fff;color:var(--texto);font:400 16px/1.65 "Poppins",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -959,7 +959,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       </div>
       <label class="ecc-check"><input id="ecc-l-ok" name="consentimiento" type="checkbox" required><span>Acepto recibir información sobre el lanzamiento y la <a href="legal.html?v=3#privacidad" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
       <p class="ecc-lista-error" role="alert" hidden></p>
-      <button type="submit" class="cta ecc-lista-enviar"><span>Unirme gratis a la lista de espera</span><i class="ph-light ph-arrow-right"></i></button>
+      <button type="submit" class="cta ecc-lista-enviar"><span>¡Inscríbeme!</span><i class="ph-light ph-arrow-right"></i></button>
     </form>
     <div class="ecc-lista-ok" hidden>
       <span class="ecc-lista-ok-ico"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -1151,7 +1151,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
       if(window.eccEvento) try{window.eccEvento('lista_espera',p[1],'Lead','generate_lead','SubmitForm')}catch(x){}
       M.querySelector('.ecc-lista-ok-correo').textContent=correo; form.hidden=true; ok.hidden=false; ok.querySelector('button').focus({preventScroll:true});
     }).catch(function(){ err.textContent='No pudimos registrarte. Revisa tu conexión e inténtalo otra vez.'; err.hidden=false; })
-    .then(function(){ btn.disabled=false; btn.querySelector('span').textContent='Unirme gratis a la lista de espera'; });
+    .then(function(){ btn.disabled=false; btn.querySelector('span').textContent='¡Inscríbeme!'; });
   });
   [form.nombre,form.correo,form.whatsapp,form.consentimiento].forEach(function(el){el.addEventListener('input',function(){marca(el,false)});el.addEventListener('change',function(){marca(el,false)});});
 })();

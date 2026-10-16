@@ -1484,7 +1484,7 @@ document.addEventListener('click',function(e){
       </div>
       <label class="ecc-check"><input id="ecc-l-ok" name="consentimiento" type="checkbox" required><span>Acepto recibir información sobre el lanzamiento y la <a href="legal.html?v=3#privacidad" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
       <p class="ecc-lista-error" role="alert" hidden></p>
-      <button type="submit" class="ecc-cta ecc-lista-enviar"><span>Unirme gratis a la lista de espera</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></button>
+      <button type="submit" class="ecc-cta ecc-lista-enviar"><span>¡Inscríbeme!</span><span class="ecc-cta-ico"><i class="ph-light ph-arrow-right" style="font-size:17px"></i></span></button>
     </form>
     <div class="ecc-lista-ok" hidden>
       <span class="ecc-lista-ok-ico"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -1540,7 +1540,7 @@ document.addEventListener('click',function(e){
       if(window.eccEvento) try{window.eccEvento('lista_espera',p[1],'Lead','generate_lead','SubmitForm')}catch(x){}
       M.querySelector('.ecc-lista-ok-correo').textContent=correo; form.hidden=true; ok.hidden=false; ok.querySelector('button').focus({preventScroll:true});
     }).catch(function(){ err.textContent='No pudimos registrarte. Revisa tu conexión e inténtalo otra vez.'; err.hidden=false; })
-    .then(function(){ btn.disabled=false; btn.classList.remove('cargando'); btn.querySelector('span').textContent='Unirme gratis a la lista de espera'; });
+    .then(function(){ btn.disabled=false; btn.classList.remove('cargando'); btn.querySelector('span').textContent='¡Inscríbeme!'; });
   });
   [form.nombre,form.correo,form.whatsapp,form.consentimiento].forEach(function(el){el.addEventListener('input',function(){marca(el,false)});el.addEventListener('change',function(){marca(el,false)});});
 })();
