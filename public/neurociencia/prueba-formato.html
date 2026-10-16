@@ -512,9 +512,9 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .hero-flecha{display:flex;align-items:center;justify-content:center;color:var(--teal);height:22px;margin:4px 0}
   .hero-der{justify-content:flex-start!important;gap:0!important}
   .hero-grid{align-items:start!important}
-  .hero .hero-der .remate{display:block;margin:0 auto;padding:12px 28px;text-align:center;font-size:18px;max-width:none;width:auto;border-radius:12px;background:var(--navy);color:#fff;box-shadow:0 14px 28px -16px rgba(10,37,64,.7)}
-  .hero .hero-der .remate small{color:var(--cyan)}
-  .hero .hero-der .remate .hl{color:#fff}
+  .hero .hero-der .remate{display:block;margin:0 auto;padding:12px 28px;text-align:center;font-size:18px;max-width:none;width:auto;border-radius:12px;background:#fff;color:var(--navy);border:1px solid var(--borde);box-shadow:0 14px 30px -18px rgba(10,37,64,.35)}
+  .hero .hero-der .remate small{color:var(--teal)}
+  .hero .hero-der .remate .hl{color:var(--navy)}
   .hero .hero-der .remate small{display:block}
   .hero .hero-der .remate small{font-size:10.5px;margin-bottom:5px}
   .hero-col{order:1}
@@ -1048,12 +1048,16 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 (function(){
   var f=document.querySelector('.hero-flecha'), r=document.querySelector('.hero-der .remate'), c=document.getElementById('cta-hero'), v=document.getElementById('vsl'); if(!f||!r||!c||!v) return;
   var col=document.querySelector('.hero-col');
-  var der=document.querySelector('.hero-der'), h1=document.querySelector('.hero h1');
+  var der=document.querySelector('.hero-der'), h1=document.querySelector('.hero h1'), ck=col.querySelector('.checks'), cw=c.closest('.cta-wrap');
+  function mid(e){var k=e.getBoundingClientRect();return k.top+k.height/2}
+  function base(e){return parseFloat(getComputedStyle(e).marginTop)||0}
   /* escritorio: el video arranca a la altura del título; la flecha y la caja van pegadas debajo */
-  function ajustar(){ col.style.marginTop=''; der.style.marginTop=''; f.style.height=''; if(innerWidth<860) return;
+  function ajustar(){ ck.style.marginTop=''; cw.style.marginTop=''; col.style.marginTop=''; der.style.marginTop=''; f.style.height=''; if(innerWidth<860) return;
     f.style.height='22px';
     var d=Math.round(h1.getBoundingClientRect().top-v.getBoundingClientRect().top);
     if(d>0) der.style.marginTop=d+'px'; else col.style.marginTop=(-d)+'px';
+    /* el botón queda centrado con la caja: el espacio extra se reparte antes de los checks y antes del botón */
+    var e=Math.round(mid(r)-mid(c)); if(e>0){ ck.style.marginTop=(base(ck)+e/2)+'px'; cw.style.marginTop=(base(cw)+e/2)+'px'; }
   }
   addEventListener('resize',ajustar); addEventListener('load',ajustar); ajustar();
 })();
