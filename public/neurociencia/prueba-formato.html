@@ -1055,9 +1055,11 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     var d=Math.round(h1.getBoundingClientRect().top-v.getBoundingClientRect().top);
     if(d>0) der.style.marginTop=d+'px'; else col.style.marginTop=(-d)+'px';
     /* el botón queda centrado con la caja: el espacio extra se reparte antes de los checks y antes del botón */
-    var e=Math.round(mid(r)-mid(c)); if(e>0){ ck.style.marginTop=(base(ck)+e/2)+'px'; cw.style.marginTop=(base(cw)+e/2)+'px'; }
+    var e=Math.round(mid(r)-mid(c)); if(e>0){ ck.style.marginTop=(base(ck)+e/2)+'px'; cw.style.marginTop=(base(cw)+e/2)+'px'; } else if(e<0) f.style.height=(22-e)+'px';
   }
   addEventListener('resize',ajustar); addEventListener('load',ajustar); ajustar();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(ajustar);
+  if(window.ResizeObserver) new ResizeObserver(function(){requestAnimationFrame(ajustar)}).observe(h1);
 })();
 
 /* Mapa: flechas desde los puntos del cerebro hasta cada caja (se recalculan al cambiar el tamaño) */
