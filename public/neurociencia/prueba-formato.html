@@ -328,7 +328,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .bio summary i{transition:transform .2s}
 .bio[open] summary i{transform:rotate(180deg)}
 .bio .persona-txt{padding-top:0}
-.historia-fotos figcaption b.am{color:var(--amarillo)}
+.historia-fotos figcaption b.am{background:var(--amarillo);color:var(--navy-2)}
 
 /* ---------- programa ---------- */
 .modulos{display:grid;gap:18px;margin-top:30px}
@@ -352,22 +352,22 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .persona-cab img{width:96px;height:96px;border-radius:16px;object-fit:cover;object-position:50% 50%}
 .persona-cab h3{font-size:19px;margin-top:6px}
 .persona-txt{padding:14px 18px 20px;display:grid;gap:10px;font-size:14.5px;line-height:1.6;color:var(--suave)}
-.historia{margin-top:26px;background:var(--navy);color:#fff;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(10,37,64,.7),0 8px 18px -12px rgba(10,37,64,.35)}
+.historia{margin-top:26px;background:linear-gradient(135deg,#fff 0%,#fff 55%,var(--celeste) 100%);color:var(--navy);border:1px solid var(--borde);border-left:5px solid var(--teal);border-radius:22px;overflow:hidden;box-shadow:var(--sombra)}
 .historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:2px}
 .historia-fotos figure{position:relative;margin:0;aspect-ratio:3/4;overflow:hidden}
 .historia-fotos img{width:100%;height:100%;object-fit:cover}
 .historia-fotos figcaption{position:absolute;left:10px;bottom:10px;display:flex;flex-direction:column;gap:4px}
-.historia-fotos figcaption b{font:700 24px/1 "Poppins";letter-spacing:-.03em;text-shadow:0 2px 10px rgba(0,0,0,.45)}
-.historia-fotos figcaption small{align-self:flex-start;background:#fff;color:var(--navy);font:600 10px/1 "Poppins";letter-spacing:.12em;padding:5px 8px;border-radius:5px}
+.historia-fotos figcaption b{align-self:flex-start;padding:5px 10px;border-radius:7px;background:var(--navy);color:#fff;font:700 20px/1 "Poppins";letter-spacing:-.02em}
+.historia-fotos figcaption small{align-self:flex-start;background:var(--navy);color:#fff;font:600 10px/1 "Poppins";letter-spacing:.12em;padding:5px 8px;border-radius:5px}
 .historia-fotos figure+figure figcaption small{background:var(--amarillo);color:var(--navy-2)}
 .historia-txt{padding:22px 20px 26px;display:grid;gap:16px}
-.historia-txt .leyenda{font-size:12.5px;color:#BFD6E6}
+.historia-txt .leyenda{font-size:12.5px;color:var(--suave)}
 .historia-txt h3{font-size:24px}
-.historia .eyebrow{color:var(--cyan)}
+.historia .eyebrow{color:var(--teal)}
 .linea{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.linea li{position:relative;padding-left:22px;font-size:15px;line-height:1.55;color:#E3EEF5}
-.linea li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--cyan)}
-.linea li small{display:block;font:600 11px/1 "Poppins";letter-spacing:.14em;color:var(--cyan);margin-bottom:5px}
+.linea li{position:relative;padding-left:22px;font-size:15px;line-height:1.55;color:var(--suave)}
+.linea li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.linea li small{display:block;font:600 11px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:5px}
 .historia-txt .remate-blanco{font-weight:600;color:#fff;border-top:1px solid rgba(255,255,255,.16);padding-top:16px}
 
 /* ---------- caja de oferta ---------- */
@@ -504,7 +504,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .hero-der{order:2;display:flex;flex-direction:column;gap:14px;align-self:stretch;justify-content:center}
   .hero-foto{width:100%}
   /* remate centrado bajo el video, ocupando el espacio hasta la caja de revistas */
-  .hero .hero-der .remate{display:block;margin:auto 0;padding:12px 18px;text-align:center;font-size:18px;max-width:none;width:100%;border-radius:12px;background:var(--navy);color:#fff;box-shadow:0 14px 28px -16px rgba(10,37,64,.7)}
+  .hero .hero-der .remate{display:block;margin:auto auto;padding:12px 28px;text-align:center;font-size:18px;max-width:none;width:auto;border-radius:12px;background:var(--navy);color:#fff;box-shadow:0 14px 28px -16px rgba(10,37,64,.7)}
   .hero .hero-der .remate small{color:var(--cyan)}
   .hero .hero-der .remate .hl{color:#fff}
   .hero .hero-der .remate small{display:block}
@@ -651,7 +651,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       <div class="firma"><b>Dr. Gonzalo León</b><span>Especialista en Ciencia del Deporte</span></div>
       
     </div>
-      <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de <span class="hl">volver a empezar</span>.</p>
+      <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de volver a empezar.</p>
     </div>
     <div class="hero-col">
       <div class="confianza">
