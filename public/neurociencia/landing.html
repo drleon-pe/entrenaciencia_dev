@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entrena con Ciencia — Prueba de formato</title>
+
+<meta name="description" content="Programa de 12 semanas de entrenamiento y nutrición basado en neurociencia, diseñado por un equipo médico. Únete a la lista de espera.">
+<link rel="icon" href="https://www.entrenaciencia.com/neurociencia/assets/isotipo-ecc.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700&display=swap">
+<link rel="stylesheet" href="vendor/phosphor/fill/style.css">
+<link rel="stylesheet" href="vendor/phosphor/light/style.css">
+<!-- Prueba: la landing de lista de espera con el formato de página de oferta (barra de anuncio, hero con prueba
+     y CTA con sello, carrusel, franja de revistas, números grandes, caja de oferta y barra fija abajo).
+     Mismo copy que landing-movil.html; si no gusta, se borra este archivo y listo. -->
+<style>
+@font-face{font-family:"Phosphor-Fill";src:url("vendor/phosphor/fill/Phosphor-Fill.woff2") format("woff2");font-display:block}
+@font-face{font-family:"Phosphor-Light";src:url("vendor/phosphor/light/Phosphor-Light.woff2") format("woff2");font-display:block}
+:root{
+  --navy:#0A2540; --navy-2:#010D15; --teal:#017FA7; --cyan:#23D3FF; --amarillo:#FFC300;
+  --texto:#0A2540; --suave:#3E5260; --borde:#D3E0EA; --celeste:#E2F2FB; --celeste-2:#F2F8FC; --crema:#FFF6D9;
+  --sombra:0 18px 40px -22px rgba(10,37,64,.45);
+  --duro:0 14px 30px -14px rgba(1,127,167,.6);
+  --suave-card:0 20px 44px -26px rgba(10,37,64,.4);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--navy-2);overscroll-behavior-y:none}
+body{margin:0;background:#fff;color:var(--texto);font:400 16px/1.65 "Poppins",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.025em;line-height:1.14}
+b,strong{font-weight:600}
+p{margin:0}
+.envase{width:100%;max-width:1160px;margin:0 auto;padding:0 16px}
+.angosto{max-width:760px}
+.sec{padding:64px 0}
+.centro{text-align:center}
+.titulo{font-size:clamp(24px,6.6vw,33px)}
+.titulo-sm{font-size:clamp(24px,6vw,31px)}
+.teal{color:var(--teal)}
+.bajada{margin-top:14px;font-size:17px;color:var(--suave)}
+.eyebrow{display:inline-block;font:600 11px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+/* resaltado: subrayado grueso amarillo sobre la mitad inferior de las letras */
+.hl{font-weight:600;color:var(--navy);text-decoration:none;background:linear-gradient(rgba(255,195,0,.55),rgba(255,195,0,.55)) no-repeat;background-size:calc(100% - .06em) .36em;background-position:.03em .595em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* ---------- barra de anuncio + header ---------- */
+.anuncio{background:var(--navy-2);color:#fff;text-align:center;padding:8px 16px 9px;border-bottom:1px solid rgba(255,255,255,.08)}
+.anuncio b{display:block;font:600 13px/1.2 "Poppins";letter-spacing:.08em;text-transform:uppercase}
+.anuncio b i{color:var(--amarillo)}
+.anuncio span{display:block;margin-top:2px;font-size:12px;color:#CFE3F0}
+.anuncio span em{font-style:normal;font-weight:600;color:var(--amarillo)}
+.cabecera{position:sticky;top:0;z-index:40;background:var(--navy);box-shadow:0 10px 24px -16px rgba(1,13,21,.7)}
+.cabecera .envase{height:74px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 16px/1.02 "Poppins";letter-spacing:.02em}
+.logo img{width:28px;height:28px}
+.logo-txt{display:flex;flex-direction:column;line-height:1.02;text-transform:uppercase}
+.logo span{color:#fff} .logo span+span{color:var(--cyan)}
+.cabecera .logo{font-size:14px;white-space:nowrap;gap:8px}
+.cabecera .logo img{width:30px;height:30px}
+@media (max-width:359px){.cabecera .logo{font-size:12px}.cabecera .btn-mini{padding:10px 12px;font-size:11.5px}}
+.cabecera .btn-mini{display:inline-flex;align-items:center;gap:7px;flex:none;padding:11px 16px;border-radius:999px;background:var(--teal);color:#fff;font:600 12.5px/1 "Poppins";letter-spacing:.05em;text-transform:uppercase;text-decoration:none}
+.cabecera .btn-mini i{font-size:15px}
+/* contador al lanzamiento (fecha fija, igual para todos) */
+/* como en escritorio: rótulo blanco a la izquierda; cada caja con el número arriba y una franja de 1/4 con la unidad en colores invertidos */
+.timer{display:flex;flex-direction:row;align-items:center;gap:7px;flex:none;margin-left:10px}
+.timer-tit{max-width:68px;text-align:right;font:700 9px/1.25 "Poppins";letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.timer-num{display:flex;align-items:flex-start;gap:3px}
+.timer-num > span{display:flex;flex-direction:column;align-items:stretch;min-width:39px;border-radius:8px;overflow:hidden;background:#fff;border:1.5px solid #fff;box-shadow:0 8px 18px -8px rgba(0,0,0,.7)}
+
+.timer-num b{display:block;padding:6px 4px 5px;text-align:center;font:800 19px/1 "Poppins";letter-spacing:-.02em;color:var(--navy);font-variant-numeric:tabular-nums}
+.timer-num small{display:block;padding:3px 2px;text-align:center;background:var(--navy);font:700 7.5px/1 "Poppins";letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.timer-num i{font:700 16px/36px "Poppins";font-style:normal;color:#fff}
+.cabecera .logo{font-size:12.5px;gap:7px}
+.cabecera .logo img{width:26px;height:26px}
+@media (max-width:359px){.timer-tit{display:none}.timer-num > span{min-width:32px}.timer-num b{font-size:15px}}
+
+/* ---------- botones ---------- */
+.cta-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;width:100%;max-width:440px;padding-top:12px}
+.sello{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;white-space:nowrap;background:var(--amarillo);color:var(--navy-2);font:700 clamp(9.5px,2.85vw,11.5px)/1 "Poppins";letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:16px 18px 14px;border:0;border-radius:999px;background:var(--teal);color:#fff;font:600 clamp(13.5px,4vw,15px)/1.2 "Poppins";letter-spacing:.01em;text-wrap:balance;text-align:center;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:var(--duro);transition:transform .12s ease,box-shadow .12s ease}
+.cta:hover{transform:translateY(-1px);box-shadow:0 18px 34px -14px rgba(1,127,167,.7)}
+.cta:active{transform:translateY(1px);box-shadow:0 8px 18px -10px rgba(1,127,167,.6)}
+.cta i{font-size:18px;flex:none}
+@media (max-width:359px){.cta{font-size:13.5px;padding-left:12px;padding-right:12px}}
+.micro{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:14px;color:var(--suave)}
+.micro i{color:var(--teal);font-size:18px}
+.micro i.candado{color:#FFC300;font-size:19px;filter:drop-shadow(0 0 4px rgba(255,195,0,.55))}
+
+/* ---------- hero ---------- */
+.hero{padding:18px 0 40px}
+.hero-grid{display:grid;gap:22px}
+.hero-grid > *{min-width:0}
+.hero-foto{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:var(--navy)}
+.hero-foto img,.hero-foto video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.vsl-play{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding-top:11%!important;border:0;background:linear-gradient(180deg,rgba(1,13,21,0) 40%,rgba(1,13,21,.18));cursor:pointer;padding:0}
+.vsl-play-ico{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.94);color:var(--teal);display:grid;place-items:center;box-shadow:0 0 0 5px rgba(255,255,255,.22),0 10px 24px -8px rgba(1,13,21,.7);transition:transform .2s ease}
+.vsl-play:hover .vsl-play-ico{transform:scale(1.06)}
+.vsl-play-txt{background:rgba(10,37,64,.9);color:#fff;font:600 13px/1 "Poppins";padding:8px 13px;border-radius:999px;white-space:nowrap}
+.vsl-play-txt[hidden]{display:none}
+.hero-foto.sonando .firma,.hero-foto.sonando .calco,.hero-foto.sonando .vsl-play,.hero-foto.sonando::after{display:none}
+.calco{position:absolute;left:12px;top:12px;z-index:4;display:flex;align-items:center;gap:9px;padding:7px 12px 7px 8px;border-radius:999px;background:rgba(1,13,21,.62);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 26px -12px rgba(1,13,21,.7)}
+.calco b{padding:5px 9px;border-radius:999px;background:var(--amarillo);color:var(--navy-2);font:700 13px/1 "Poppins";letter-spacing:.02em}
+.calco span{font:600 10px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.hero-foto::after{content:"";position:absolute;left:0;right:0;bottom:0;height:58%;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(1,13,21,0),rgba(1,13,21,.55) 45%,rgba(1,13,21,.88))}
+.firma{position:absolute;z-index:4;left:12px;bottom:12px;padding:8px 12px 8px 11px;border-left:4px solid var(--amarillo);border-radius:4px 10px 10px 4px;background:rgba(1,13,21,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 10px 24px -12px rgba(1,13,21,.7);color:#fff}
+.firma b{display:block;font:700 19px/1.1 "Poppins";letter-spacing:-.02em;color:#fff}
+.firma span{display:block;margin-top:4px;font:600 10px/1.2 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.confianza{display:flex;align-items:center;gap:12px}
+.caras{flex:none}
+.caras{display:flex}
+.caras img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(10,37,64,.2)}
+.caras img+img{margin-left:-12px}
+.confianza p{font-size:13.5px;line-height:1.35;color:var(--suave)}
+.confianza p b{color:var(--navy);font-weight:600}
+.hero h1{font-size:clamp(34px,9.2vw,54px);line-height:1.08;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--teal)}
+/* "12 Semanas" en caja para que sobresalga */
+.caja-12{display:inline-block;padding:.02em .28em .06em;margin:0 .02em;border-radius:.22em;background:var(--navy);color:#fff;line-height:1.05;box-shadow:0 .18em .4em -.18em rgba(10,37,64,.55);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font-size:15.5px;line-height:1.4;font-weight:500}
+.checks li i{font-size:22px;color:var(--teal);margin-top:-1px}
+.remate{font-weight:600;font-size:17px}
+.remate small{display:block;font:600 11.5px/1 "Poppins";letter-spacing:.16em;color:var(--teal);margin-bottom:6px}
+.hero-desc{font-size:15px;color:var(--suave)}
+.hero-col{display:flex;flex-direction:column;gap:18px}
+.hero-flecha{display:none}
+.desliza{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px auto -8px;color:var(--teal);text-decoration:none;font:600 10.5px/1 "Poppins";letter-spacing:.2em;text-transform:uppercase;transition:opacity .3s}
+.desliza span{margin-right:-.2em}
+.desliza svg{animation:baja 1.6s ease-in-out infinite}
+.desliza .f1{animation:parpadea 1.6s ease-in-out infinite}
+.desliza .f2{animation:parpadea 1.6s ease-in-out .25s infinite}
+@keyframes parpadea{0%,100%{opacity:.35}50%{opacity:1}}
+.desliza.fuera{opacity:0;pointer-events:none}
+@keyframes baja{50%{transform:translateY(5px)}}
+
+/* jerarquía del hero: la promesa grande; lo demás más chico */
+.promesa{padding:0}
+.promesa h1{margin:0}
+.promesa .checks{margin-top:14px;gap:6px}
+.promesa .checks li{font-size:13px;font-weight:500;color:var(--suave);grid-template-columns:18px 1fr;gap:8px}
+.promesa .checks li i{font-size:17px;margin-top:0}
+.confianza p,.confianza p b{font-size:12px;font-weight:600;color:var(--suave)}
+.hero .remate{text-align:center;font-size:15px;color:var(--navy)}
+.hero .remate small{font-size:10px;margin-bottom:4px}
+.hero .micro{font-size:12.5px}
+
+/* ---------- caja "qué incluye" (estilo regalos) ---------- */
+.regalos{margin-bottom:14px;margin-top:28px;border-radius:16px;overflow:hidden;background:var(--celeste-2);border:1px solid var(--borde);box-shadow:var(--sombra)}
+.regalos-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;background:var(--navy);color:#fff}
+.regalos-top b{font-size:15px;font-weight:600}
+.tag-off{background:var(--amarillo);color:var(--navy-2);font:700 12px/1 "Poppins";letter-spacing:.06em;padding:6px 10px;border-radius:6px}
+.regalos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px;align-items:stretch}
+.regalo{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+/* tarjeta de cada curso: foto limpia arriba y caja con el texto abajo */
+.regalo{container-type:inline-size;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:var(--navy);box-shadow:0 8px 18px -12px rgba(10,37,64,.55)}
+.regalo img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.regalo-txt{flex:1;display:flex;flex-direction:column;gap:4px;padding:5% 9% 9%;text-align:left}
+.regalo-txt small{display:flex;align-items:center;gap:5%;font:600 6cqw/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.regalo-txt small::after{content:"";width:16%;height:1px;background:var(--cyan)}
+.regalo-txt b{font:700 8.4cqw/1.15 "Poppins";letter-spacing:-.015em;color:#fff;overflow-wrap:anywhere}
+.regalo span{font-size:13px;line-height:1.25;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+@media (min-width:860px){.regalo span{font-size:14.5px}}
+
+/* ---------- carrusel de testimonios ---------- */
+.carrusel{position:relative;margin-top:30px}
+.pista{display:flex;align-items:flex-start;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 16px 14px;margin:0 -16px;scroll-padding:0 16px}
+.pista::-webkit-scrollbar{display:none}
+.testi{flex:0 0 84%;scroll-snap-align:start;background:#fff;border:1px solid var(--borde);border-radius:18px;box-shadow:var(--suave-card);overflow:hidden;display:flex;flex-direction:column}
+.testi-fotos{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--navy)}
+.testi-fotos figure{position:relative;margin:0;aspect-ratio:3/4.4;overflow:hidden;background:var(--celeste)}
+.testi-fotos img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.testi-fotos figcaption{position:absolute;left:8px;top:8px;background:rgba(10,37,64,.85);color:#fff;font:600 10px/1 "Poppins";letter-spacing:.12em;padding:5px 8px;border-radius:5px}
+.testi-fotos figure+figure figcaption{background:var(--amarillo);color:var(--navy-2)}
+.testi-plazo{position:absolute;right:8px;bottom:8px;background:#fff;color:var(--navy);font:700 10.5px/1 "Poppins";letter-spacing:.08em;padding:5px 8px;border-radius:5px}
+.testi-txt{padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.testi-txt h3{font-size:16px;color:var(--teal);letter-spacing:-.02em}
+.testi-txt p{font-size:13.5px;line-height:1.55;color:var(--suave);padding-top:2px}
+.testi-mas summary{list-style:none;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;padding:9px 12px;border-radius:999px;background:var(--celeste);border:1px solid #C9E1EF;font:600 12.5px/1 "Poppins";color:var(--teal);cursor:pointer;transition:background .2s}
+.testi-mas summary:hover{background:#D3EAF6}
+.testi-mas summary::-webkit-details-marker{display:none}
+.testi-mas summary i{transition:transform .2s}
+.testi-mas[open] summary{margin-bottom:6px}
+.testi-mas[open] summary i{transform:rotate(180deg)}
+.testi-quien{display:flex;flex-direction:column;gap:3px}
+.testi-quien b{font-size:13px}
+.testi-quien small{font:600 9.5px/1 "Poppins";letter-spacing:.14em;color:var(--teal)}
+/* flechas a los costados del carrusel, a media altura de las tarjetas */
+.lado{position:absolute;top:50%;z-index:5;width:46px;height:46px;margin-top:-23px;border-radius:50%;border:0;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:22px;cursor:pointer;box-shadow:0 12px 26px -10px rgba(1,127,167,.75);transition:opacity .2s,transform .2s}
+.lado.izq{left:-6px}.lado.der{right:-6px}
+.lado:hover{transform:scale(1.07)}
+.lado[disabled]{opacity:0;pointer-events:none}
+.pista{cursor:grab}
+.pista.arrastrando{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.pista img{-webkit-user-drag:none;user-select:none}
+/* tarjetas que no están del todo a la vista: desenfocadas, para que la del centro mande */
+.testi{transition:filter .35s ease,opacity .35s ease,transform .35s ease}
+.testi.lejos{filter:blur(2.5px) saturate(.8);opacity:.55;transform:scale(.97)}
+/* empujón para avisar que se desliza */
+.pista.empuja .testi{animation:empuja .95s cubic-bezier(.3,.7,.3,1)}
+@keyframes empuja{0%,100%{translate:0}40%{translate:-42px}70%{translate:6px}}
+@media (prefers-reduced-motion:reduce){.pista.empuja .testi{animation:none}}
+.aviso{margin-top:14px;font-size:12.5px;color:var(--suave);text-align:center}
+
+/* ---------- revistas (debajo del CTA del hero) ---------- */
+.revistas{margin-top:26px;padding:16px 0 20px;background:#fff;border:1px solid rgba(35,211,255,.25);border-radius:16px;box-shadow:0 1px 2px rgba(10,37,64,.05),0 14px 34px -16px rgba(10,50,90,.24);overflow:hidden}
+.revistas p{font:700 11px/1.65 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:var(--navy);text-align:center;padding:0 16px}
+.revistas-ventana{margin-top:10px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquesina{display:flex;width:max-content;animation:correr 60s linear infinite}
+.marquesina img{width:152px;height:44px;object-fit:contain;margin:0 10px;filter:brightness(0);opacity:.45}
+@keyframes correr{to{transform:translateX(-50%)}}
+
+/* flecha que une "Lo que nadie te explicó…" con el mecanismo */
+.fondo-celeste{position:relative}
+.conector{display:flex;justify-content:center;align-items:center;height:80px;color:var(--teal)}
+.conector path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+/* cascada hacia abajo: cada flecha se enciende después de la anterior, sin rebote */
+.conector path{opacity:.15;animation:cae 2.4s linear infinite}
+.conector .c2{animation-delay:.4s}
+.conector .c3{animation-delay:.8s}
+@keyframes cae{0%{opacity:.15;transform:translateY(-2px)}25%{opacity:1;transform:translateY(0)}55%,100%{opacity:.15;transform:translateY(2px)}}
+section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180deg,#fff 70%,var(--celeste-2))}
+
+/* separador entre secciones: línea que se desvanece con el isotipo al centro */
+.separador{position:relative;max-width:560px;height:44px;margin:18px auto 0;padding:0 16px}
+.separador::before{content:"";position:absolute;left:16px;right:16px;top:50%;height:1px;background:linear-gradient(90deg,rgba(1,127,167,0),rgba(1,127,167,.45) 30%,rgba(1,127,167,.45) 70%,rgba(1,127,167,0))}
+.separador span{position:relative;display:grid;place-items:center;width:44px;height:44px;margin:0 auto;border-radius:50%;background:#fff;border:1px solid var(--borde);box-shadow:0 8px 20px -10px rgba(1,127,167,.5)}
+.separador img{width:24px;height:24px}
+.separador.borde{height:44px;margin:-22px auto;z-index:3}
+
+/* ---------- por qué funciona ---------- */
+.texto-largo{display:grid;gap:16px;margin-top:22px;font-size:16.5px;line-height:1.65;color:var(--suave)}
+.texto-largo b{color:var(--navy)}
+.revela{position:relative;overflow:hidden;margin-top:10px;padding:30px 24px 28px;border-radius:22px;background:radial-gradient(120% 90% at 100% 0%,#1A4A78 0%,var(--navy) 55%,#071A2E 100%);color:#fff;text-align:center;box-shadow:0 30px 60px -30px rgba(10,37,64,.7)}
+.revela::before{content:"";position:absolute;width:220px;height:220px;right:-70px;top:-80px;border-radius:50%;background:radial-gradient(circle,rgba(35,211,255,.35),transparent 70%)}
+.revela-ico{position:relative;display:inline-grid;place-items:center;width:58px;height:58px;border-radius:50%;background:rgba(35,211,255,.14);border:1px solid rgba(35,211,255,.45);color:var(--cyan);font-size:30px;margin-bottom:14px}
+.revela p{position:relative;font-size:clamp(19px,5vw,24px);line-height:1.45;font-weight:500;letter-spacing:-.015em;color:#E6F1F8}
+.revela p b{color:#fff;font-weight:600}
+.revela p span{color:var(--cyan);font-weight:600}
+.pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
+.pilar{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.pilar span{width:58px;height:58px;border-radius:16px;background:var(--celeste);display:grid;place-items:center;color:var(--teal);font-size:30px}
+.pilar b{font:700 13px/1.25 "Poppins";letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.tachado{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+.tachado span{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;background:#F3F5F7;color:#5B6B77;font-size:14px;font-weight:500;text-decoration:line-through;text-decoration-color:#C9402B}
+.tachado span i{color:#C9402B;font-size:16px;text-decoration:none}
+
+/* ---------- mecanismo con números grandes ---------- */
+.fondo-celeste{background:var(--celeste-2)}
+.tarjeta{background:#fff;border-radius:22px;box-shadow:var(--sombra);overflow:hidden}
+.mec-cab{padding:28px 20px 6px;text-align:center}
+.pasos{list-style:none;margin:0;padding:18px 20px 6px;display:grid;gap:14px;counter-reset:p}
+.paso{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.paso-n{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 17px/1 "Poppins"}
+.paso-zona{display:inline-block;margin-bottom:5px;font:600 11px/1 "Poppins";letter-spacing:.14em;color:var(--teal);text-transform:uppercase}
+.paso p{font-size:15.5px;line-height:1.55;color:var(--suave)}
+.paso p em{font-style:italic;color:var(--navy)}
+.numerazo{padding:26px 20px 30px;text-align:center}
+.numerazo .grande{display:block;font:700 clamp(78px,22vw,120px)/.95 "Poppins";letter-spacing:-.05em;color:var(--teal)}
+.numerazo .grande small{font-size:.36em;letter-spacing:-.02em;margin-left:4px}
+.numerazo p b{color:var(--navy)}
+.numerazo p{max-width:30ch;margin:10px auto 0;font-size:16px;line-height:1.5}
+.numerazo cite{display:block;margin-top:8px;font-size:12.5px;font-style:normal;color:var(--suave)}
+.mec-pie{padding:0 16px 30px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px;text-align:center;font-size:16px;line-height:1.6;color:var(--suave)}
+.mec-pie b{color:var(--navy)}
+.mec-pie .cta-wrap{margin:8px auto 0}
+.crema{margin-top:26px;background:var(--crema);border-radius:22px;padding:30px 20px;text-align:center}
+.crema h3{font-size:clamp(19px,5.35vw,30px);color:var(--navy)}
+.crema h3 span{display:block}
+.cifras{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:22px}
+.cifras b{display:block;font:700 clamp(34px,9vw,54px)/1 "Poppins";letter-spacing:-.04em;color:var(--teal)}
+.cifras span{display:block;margin-top:6px;font-size:12.5px;line-height:1.3;font-weight:500}
+
+/* mapa del cerebro (como el producto al centro con beneficios alrededor) */
+.mapa{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"a a" "cer cer" "c d";gap:14px 34px;padding:22px 16px 8px}
+.mapa-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
+.mapa-cerebro{grid-area:cer;position:relative;width:min(78%,330px);margin:18px auto;aspect-ratio:900/918}
+.mapa-cerebro img{width:100%;height:100%;transform:scaleX(-1);filter:drop-shadow(0 18px 24px rgba(10,37,64,.22))}
+.foco{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--teal);border:3px solid #fff;color:#fff;font:700 12px/20px "Poppins";font-style:normal;text-align:center;box-shadow:0 0 0 0 rgba(1,127,167,.5);animation:latido 2.2s ease-out infinite;z-index:2}
+.foco[data-foco="gb"]{background:#FFC300;color:var(--navy-2);animation-name:latido-am}
+@keyframes latido-am{0%{box-shadow:0 0 0 0 rgba(255,195,0,.6)}70%{box-shadow:0 0 0 14px rgba(255,195,0,0)}100%{box-shadow:0 0 0 0 rgba(255,195,0,0)}}
+.zonas{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;-webkit-mask:url(assets/servier/cerebro-mascara.png) center/100% 100% no-repeat;mask:url(assets/servier/cerebro-mascara.png) center/100% 100% no-repeat}
+.zona-pf-borde{fill:none;stroke:#017FA7;stroke-width:3.6;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.zona-pf{fill:rgba(1,127,167,.38);stroke:#017FA7;stroke-width:2.2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.zona-gb{fill:rgba(255,195,0,.4);stroke:#B07F00;stroke-width:2.2;vector-effect:non-scaling-stroke}
+.zona-tag{position:absolute;z-index:2;padding:4px 8px;border-radius:6px;font:700 9.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(1,13,21,.5)}
+.zona-tag.pf{background:var(--teal);color:#fff}
+.zona-tag.gb{background:#FFC300;color:var(--navy-2)}
+.mapa-nota{grid-area:nota;margin:4px 0 4px;text-align:center;font-size:13px;line-height:1.5;color:var(--suave)}
+.mapa-nota b{color:var(--navy)}
+@keyframes latido{0%{box-shadow:0 0 0 0 rgba(1,127,167,.45)}70%{box-shadow:0 0 0 14px rgba(1,127,167,0)}100%{box-shadow:0 0 0 0 rgba(1,127,167,0)}}
+.caja-m{position:relative;z-index:2;background:#fff;border:1px solid var(--borde);border-radius:16px;padding:14px 14px 15px;box-shadow:0 14px 30px -20px rgba(10,37,64,.45);display:flex;flex-direction:column;gap:6px}
+.caja-m[data-area="a"]{grid-area:a}.caja-m[data-area="c"]{grid-area:c}.caja-m[data-area="d"]{grid-area:d}
+.paso-tag{display:inline-flex;align-items:center;gap:7px;font:600 10.5px/1 "Poppins";letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.paso-tag i{flex:none;width:24px;height:24px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font:700 12px/1 "Poppins";font-style:normal;letter-spacing:0}
+.caja-m[data-area="c"]{background:var(--crema);border-color:#F3E2A6}
+.caja-m[data-area="c"] .paso-tag i{background:#FFC300;color:var(--navy-2)}
+.caja-m[data-area="c"] .paso-tag{color:#8A6400}
+.caja-m.ok{background:#EAF7EF;border-color:#BFE3CC}
+.caja-m.ok .paso-tag{color:#1E7A45}.caja-m.ok .paso-tag i{background:#1E7A45}
+.caja-m.am{background:var(--crema);border-color:#F3E2A6}
+.caja-m.am .paso-tag{color:#8A6400}.caja-m.am .paso-tag i{background:#E0A800;color:var(--navy-2);font-family:"Phosphor-Fill"!important;font-size:14px}
+.caja-m b{font-size:14.5px;line-height:1.2}
+.caja-m p{font-size:13px;line-height:1.45;color:var(--suave)}
+.caja-m p em{color:var(--navy);font-weight:600}
+.caja-m p b{font:inherit;font-weight:700;color:var(--navy)}
+.mapa-svg path.halo{fill:none;stroke:rgba(255,255,255,.85);stroke-width:6;stroke-linecap:round}
+.mapa-svg path.linea-m{fill:none;stroke:#017FA7;stroke-width:2.2;stroke-dasharray:5 5;animation:fluye 1.2s linear infinite}
+.mapa-svg path.via{fill:none;stroke:#017FA7;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:5 5;animation:fluye 1.2s linear infinite}
+@keyframes fluye{to{stroke-dashoffset:-20}}
+.num-via text{font:700 11px "Poppins";fill:#010D15}
+
+.rotulo-firma{font:600 13px/1.6 "Poppins"!important;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)!important}
+.dia-uno{display:inline-block;margin:26px auto 0;padding:14px 22px;border-radius:14px;background:var(--navy);color:#fff;font:700 clamp(17px,4.8vw,22px)/1.3 "Poppins",sans-serif;letter-spacing:-.01em;box-shadow:0 14px 30px -18px rgba(10,37,64,.7)}
+.dia-uno span{color:var(--amarillo);white-space:nowrap}
+.oferta .cta,.mec-pie .cta{font-size:13.5px;padding-left:14px;padding-right:14px;white-space:nowrap;text-wrap:nowrap}
+.mec-pie .micro{margin-top:-12px}
+.metodo-ecc{display:flex;flex-direction:column;align-items:center;gap:10px;margin:0 auto;padding:20px 22px 22px;max-width:520px;text-align:center;border-radius:16px;background:#fff;border:1px solid var(--borde);border-top:3px solid var(--teal);color:var(--navy)!important;font-weight:600;font-size:17px;line-height:1.45;box-shadow:0 16px 34px -24px rgba(10,37,64,.55)}
+.metodo-ecc img{width:38px;height:38px}
+.metodo-ecc b{color:var(--teal)}
+.mec-dato{margin:18px 16px 22px;padding:18px 18px 20px;border-radius:16px;background:var(--celeste);border:1px solid #C9E1EF;text-align:center}
+.mec-dato p{font-size:15.5px;line-height:1.6;color:var(--navy)}
+.linea-sola{display:block}
+/* biografías plegables del equipo */
+.bio summary{list-style:none;display:flex;align-items:center;justify-content:center;gap:6px;margin:12px 18px 16px;padding:10px 14px;border-radius:999px;background:var(--navy);color:#fff;font:600 13px/1 "Poppins";cursor:pointer;transition:background .2s}
+.bio summary:hover{background:#12355A}
+.bio summary::-webkit-details-marker{display:none}
+.bio summary i{transition:transform .2s}
+.bio[open] summary i{transform:rotate(180deg)}
+.bio .persona-txt{padding-top:0}
+.historia-fotos figcaption b.am{background:var(--amarillo);color:var(--navy-2)}
+
+/* ---------- programa ---------- */
+.modulos{display:grid;gap:18px;margin-top:30px}
+.modulo{display:grid;background:#fff;border:1px solid var(--borde);border-radius:20px;overflow:hidden;box-shadow:var(--sombra)}
+.modulo img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 0}
+.modulo-txt{padding:20px 20px 22px;display:flex;flex-direction:column;gap:9px}
+.modulo-txt h3{font-size:19px}
+.modulo-txt p{font-size:15px;line-height:1.6;color:var(--suave)}
+.modulo:nth-child(1){border-color:#B9DCEC}
+
+.mod-mas summary{list-style:none;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;padding:9px 12px;border-radius:999px;background:var(--celeste);border:1px solid #C9E1EF;font:600 12.5px/1 "Poppins";color:var(--teal);cursor:pointer}
+.mod-mas summary::-webkit-details-marker{display:none}
+.mod-mas summary i{transition:transform .2s}
+.mod-mas[open] summary{margin-bottom:10px}
+.mod-mas[open] summary i{transform:rotate(180deg)}
+.mod-mas p+p{margin-top:8px}
+/* ---------- equipo ---------- */
+.equipo{display:grid;gap:18px;margin-top:30px}
+.persona{background:#fff;border:1px solid var(--borde);border-radius:20px;overflow:hidden;box-shadow:var(--sombra)}
+.persona-cab{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;padding:18px 18px 0}
+.persona-cab img{width:96px;height:96px;border-radius:16px;object-fit:cover;object-position:50% 50%}
+.persona-cab h3{font-size:19px;margin-top:6px}
+.persona-txt{padding:14px 18px 20px;display:grid;gap:10px;font-size:14.5px;line-height:1.6;color:var(--suave)}
+.historia{margin-top:26px;background:linear-gradient(135deg,#fff 0%,#fff 55%,var(--celeste) 100%);color:var(--navy);border:1px solid var(--borde);border-left:5px solid var(--teal);border-radius:22px;overflow:hidden;box-shadow:var(--sombra)}
+.historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.historia-fotos figure{position:relative;margin:0;aspect-ratio:3/4;overflow:hidden}
+.historia-fotos img{width:100%;height:100%;object-fit:cover}
+.historia-fotos figcaption{position:absolute;left:10px;bottom:10px;display:flex;flex-direction:column;gap:4px}
+.historia-fotos figcaption b{align-self:flex-start;padding:5px 10px;border-radius:7px;background:var(--navy);color:#fff;font:700 20px/1 "Poppins";letter-spacing:-.02em}
+.historia-fotos figcaption small{align-self:flex-start;background:var(--navy);color:#fff;font:600 10px/1 "Poppins";letter-spacing:.12em;padding:5px 8px;border-radius:5px}
+.historia-fotos figure+figure figcaption small{background:var(--amarillo);color:var(--navy-2)}
+.historia-txt{padding:22px 20px 26px;display:grid;gap:16px}
+.historia-txt .leyenda{font-size:12.5px;color:var(--suave)}
+.historia-txt h3{font-size:24px}
+.historia .eyebrow{color:var(--teal)}
+.linea{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.linea li{position:relative;padding-left:22px;font-size:15px;line-height:1.55;color:var(--suave)}
+.linea li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.linea li small{display:block;font:600 11px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:5px}
+.historia-txt .remate-blanco{font-weight:600;color:#fff;border-top:1px solid rgba(255,255,255,.16);padding-top:16px}
+
+/* ---------- caja de oferta ---------- */
+.oferta{border:1px solid var(--borde);border-radius:22px;background:#fff;box-shadow:0 30px 60px -30px rgba(10,37,64,.5);overflow:hidden;max-width:560px;margin:20px auto 0}
+.oferta-cinta{background:var(--navy);color:#fff;text-align:center;padding:10px 14px;font:600 13px/1.2 "Poppins";letter-spacing:.08em;text-transform:uppercase}
+.oferta-cinta i{color:var(--amarillo)}
+.oferta-cuerpo{padding:22px 20px 24px;display:flex;flex-direction:column;gap:16px}
+.oferta-cuerpo h3{font-size:24px}
+.oferta-cuerpo .bajada{margin:0;font-size:15.5px}
+.oferta-cuerpo .badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font:600 11.5px/1 "Poppins";letter-spacing:.1em;text-transform:uppercase;background:var(--celeste);color:var(--teal)}
+.badge.am{background:var(--amarillo);color:var(--navy-2)}
+.incluye{border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde);padding:16px}
+.incluye > b{display:block;font:600 12px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:12px}
+.incluye ul,.beneficios{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.incluye li,.beneficios li{display:grid;grid-template-columns:22px 1fr;gap:9px;font-size:14.5px;line-height:1.4;font-weight:500}
+.incluye li i,.beneficios li i{font-size:20px;color:var(--teal)}
+.beneficios li{font-size:15px}
+.nota-candado{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:#566C7A}
+.sellos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;padding-top:16px;border-top:1px solid #EAF1F6}
+.sellos div{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;font-size:11.5px;line-height:1.3;font-weight:600}
+.sellos i{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--teal);display:grid;place-items:center;color:var(--teal);font-size:22px}
+
+/* así funciona: el trato de la lista de espera en 3 pasos */
+.trato{max-width:560px;margin:20px auto 0;padding:20px 18px;border-radius:18px;background:#fff;border:1px solid var(--borde);box-shadow:var(--sombra)}
+.trato-tit{display:block;margin-bottom:14px;font:600 11px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.trato ol{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.trato li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start}
+.trato li > span{width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font:700 13px/1 "Poppins"}
+.trato li:last-child > span{background:var(--amarillo);color:var(--navy-2)}
+.trato li b{display:block;font-size:15.5px;color:var(--navy)}
+.trato li p{font-size:13.5px;line-height:1.45;color:var(--suave)}
+.trato-aviso{display:flex;align-items:center;gap:8px;margin-top:14px;padding:11px 12px;border-radius:12px;background:var(--celeste-2);border:1px solid #D3E4EF;font-weight:600;font-size:13.5px;color:var(--navy)}
+.trato-aviso i{color:var(--teal);font-size:18px;flex:none}
+
+/* ---------- preguntas ---------- */
+.faq{margin-top:28px;border-top:1px solid var(--borde)}
+.faq details{border-bottom:1px solid var(--borde)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:20px 4px;cursor:pointer;font-weight:600;font-size:17px;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--celeste);color:var(--teal);display:grid;place-items:center;font-size:16px;transition:transform .2s ease}
+.faq details[open] summary i{transform:rotate(45deg)}
+.faq details p{padding:0 4px 20px;color:var(--suave);font-size:15.5px;line-height:1.65}
+
+/* ---------- cierre ---------- */
+.cierre{background:var(--navy);color:#fff;text-align:center;padding:56px 0 60px}
+.cierre h2{font-size:clamp(26px,7vw,33px)}
+.cierre h2 span{display:block;color:var(--cyan)}
+.cierre p{margin:14px auto 0;max-width:34ch;color:#CFE3F0;font-size:16.5px}
+.cierre .cta-wrap{margin-top:28px}
+.cierre .cta{background:var(--amarillo);color:var(--navy-2);box-shadow:0 16px 34px -14px rgba(255,195,0,.55)}
+.cierre .sello{background:#fff;color:var(--navy)}
+.pie{background:var(--navy-2);color:#9FB6C6;font-size:12.5px;line-height:1.6;padding:28px 0 120px;text-align:left}
+.pie-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.pie .logo{margin:0}
+.redes{display:flex;align-items:center;gap:10px}
+.redes a{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);color:#fff;font-size:19px;text-decoration:none;transition:background .2s,border-color .2s}
+.redes a:hover{background:rgba(35,211,255,.15);border-color:var(--cyan)}
+.pie .logo span{color:#fff} .pie .logo span+span{color:var(--cyan)}
+.pie .logo-txt{text-align:left}
+.pie p+p{margin-top:8px}
+
+/* ---------- barra fija inferior ---------- */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--navy);padding:16px 16px calc(10px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 30px -12px rgba(1,13,21,.5)}
+.barra.on{transform:none}
+.barra .cta-wrap{max-width:440px;display:flex;margin:0 auto}
+.barra .cta{min-height:54px;background:var(--amarillo);color:var(--navy-2);box-shadow:none}
+.barra .sello{background:#fff;color:var(--navy)}
+.barra p{margin:0 0 8px;text-align:center;font-size:13.5px;color:#fff;font-weight:500}
+.barra p b{color:var(--amarillo);font-weight:700}
+.barra .cta-wrap{padding-top:0}
+.barra p i{color:var(--cyan)}
+
+/* ---------- popup lista de espera ---------- */
+.ecc-lista-modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.ecc-lista-modal[hidden]{display:none!important}
+.ecc-lista-fondo{position:absolute;inset:0;background:rgba(1,13,21,.62);opacity:0;transition:opacity .22s ease}
+.ecc-lista-caja{position:relative;width:100%;max-width:440px;max-height:calc(100svh - 32px);overflow:auto;background:#fff;border-radius:20px;padding:28px 24px 22px;box-shadow:0 30px 80px -20px rgba(1,13,21,.6);transform:translateY(16px) scale(.98);opacity:0;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .22s ease}
+.ecc-lista-modal.on .ecc-lista-fondo{opacity:1}
+.ecc-lista-modal.on .ecc-lista-caja{transform:none;opacity:1}
+.ecc-lista-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:#EEF4F8;color:#0A2540;display:grid;place-items:center;cursor:pointer}
+.ecc-lista-form{display:flex;flex-direction:column;gap:14px}
+.ecc-lista-badges{display:inline-flex;align-items:center;flex-wrap:wrap;gap:10px;padding-right:44px}
+.ecc-lista-eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 11px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:#017FA7}
+.ecc-lista-eyebrow i{font-size:16px;color:#FFC300}
+.ecc-lista-off{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:#FFC300;color:#010D15;font:700 12px/1 "Poppins";letter-spacing:.08em}
+.ecc-lista-caja h2{margin:2px 0 0;font:600 24px/1.2 "Poppins";letter-spacing:-.02em;color:#0A2540}
+.ecc-lista-intro{margin:-6px 0 4px;font-size:15px;line-height:1.5;color:#3E5260}
+.ecc-campo{display:flex;flex-direction:column;gap:6px}
+.ecc-campo > span,.ecc-campo > label{font:600 13px "Poppins";color:#0A2540}
+.ecc-campo em{font-style:normal;font-weight:500;color:#6B7F8C}
+.ecc-campo input,.ecc-cel select{height:48px;border:1px solid #C9DCE7;border-radius:12px;padding:0 14px;font:500 16px "Poppins";color:#0B1F2C;background:#fff;outline:none;width:100%;-webkit-appearance:none;appearance:none}
+.ecc-campo input:focus,.ecc-cel select:focus{border-color:#017FA7;box-shadow:0 0 0 3px rgba(1,127,167,.18)}
+.ecc-cel{display:grid;grid-template-columns:104px minmax(0,1fr);gap:8px}
+.ecc-cel select{padding:0 28px 0 10px;font-size:15px;text-overflow:clip;white-space:nowrap;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6' fill='none' stroke='%230A2540' stroke-width='2'/></svg>");background-repeat:no-repeat;background-position:right 8px center;background-size:16px}
+.ecc-campo.mal input,.ecc-campo.mal select{border-color:#C9402B;box-shadow:0 0 0 3px rgba(201,64,43,.12)}
+.ecc-check{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;font-size:13.5px;line-height:1.45;color:#3E5260;cursor:pointer}
+.ecc-check input{width:20px;height:20px;margin:1px 0 0;accent-color:#017FA7}
+.ecc-check a{color:#017FA7}
+.ecc-check.mal span{color:#C9402B}
+.ecc-lista-error{margin:0;font-size:13.5px;color:#C9402B;font-weight:500}
+.ecc-lista-caja .cta{box-shadow:none;min-height:56px;font-size:15px;text-transform:none;white-space:normal}
+.ecc-lista-nota{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:12.5px;line-height:1.4;color:#566C7A}
+.ecc-lista-ok{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:10px 0 4px}
+.ecc-lista-ok p{font-size:15px;line-height:1.55;color:#3E5260}
+.ecc-lista-ok-ico{width:64px;height:64px;border-radius:50%;background:#FFC300;color:#010D15;display:grid;place-items:center}
+.ecc-lista-form[hidden],.ecc-lista-ok[hidden],.ecc-lista-error[hidden]{display:none!important}
+
+/* ---------- escritorio ---------- */
+@media (min-width:860px){
+  .envase{padding:0 32px}
+  .sec{padding:96px 0}
+  .anuncio b,.anuncio span{display:inline}
+  .anuncio span{margin-left:10px}
+  .cabecera .envase{height:72px}
+  .cabecera .logo{font-size:16px;gap:9px}
+  .cabecera .logo img{width:34px;height:34px}
+  .cabecera .btn-mini{padding:13px 22px;font-size:13.5px}
+  .timer{gap:12px}
+  .timer-tit{max-width:none;font-size:11px}
+  .timer-num > span{min-width:50px}
+  .timer-num b{font-size:23px}
+  .timer-num small{font-size:8.5px;padding:4px 2px}
+  .timer-num i{line-height:42px}
+  /* el hero entra completo en la pantalla: los tamaños dependen también del alto de la ventana */
+  .anuncio{padding:6px 16px 7px}
+  .hero{padding:clamp(14px,3vh,36px) 0 clamp(18px,3.5vh,44px)}
+  .hero-grid{grid-template-columns:.82fr 1.3fr;gap:clamp(28px,4vw,60px);align-items:center}
+  .hero-col{gap:clamp(8px,1.6vh,18px)}
+  .hero h1{font-size:clamp(34px,min(4.2vw,6.2vh),54px);line-height:1.2}
+  .checks{gap:clamp(4px,.9vh,10px)}
+  .checks li{font-size:clamp(13.5px,1.9vh,15.5px)}
+  .remate{font-size:clamp(15px,2.1vh,17px)}
+  .hero-desc{font-size:clamp(13.5px,1.85vh,15px);max-width:60ch}
+  .hero .cta{min-height:clamp(48px,6.6vh,60px);padding-top:12px;padding-bottom:11px}
+  .hero .micro{margin-top:clamp(6px,1.2vh,14px);font-size:13.5px}
+  .confianza .caras img{width:clamp(30px,4.4vh,40px);height:clamp(30px,4.4vh,40px)}
+  .hero-der{order:2;display:flex;flex-direction:column;gap:14px;align-self:stretch;justify-content:center}
+  .hero-foto{width:100%}
+  /* remate centrado bajo el video, ocupando el espacio hasta la caja de revistas */
+  .hero-flecha{display:flex;align-items:center;justify-content:center;color:var(--teal);height:22px;margin:4px 0}
+  .hero-der{justify-content:flex-start!important;gap:0!important}
+  .hero-grid{align-items:start!important}
+  .hero .hero-der .remate{display:block;margin:0 auto;padding:12px 28px;text-align:center;font-size:18px;max-width:none;width:auto;border-radius:12px;background:#fff;color:var(--navy);border:1px solid var(--borde);box-shadow:0 14px 30px -18px rgba(10,37,64,.35)}
+  .hero .hero-der .remate small{color:var(--teal)}
+  .hero .hero-der .remate .hl{color:var(--navy)}
+  .hero .hero-der .remate small{display:block}
+  .hero .hero-der .remate small{font-size:10.5px;margin-bottom:5px}
+  .hero-col{order:1}
+  .calco{left:16px;top:16px;padding:8px 14px 8px 9px}.calco b{font-size:15px}.calco span{font-size:11px}
+  .firma{left:18px;bottom:18px;padding:10px 16px 10px 13px}.firma b{font-size:24px}.firma span{font-size:11.5px}
+  .cta-wrap{align-items:flex-start}
+  .hero .micro{justify-content:center;max-width:440px}
+  .hero .remate{text-align:left}
+  .regalos-grid{grid-template-columns:repeat(6,1fr)}
+  .regalos{margin-bottom:27px}
+  .testi{flex-basis:calc((100% - 40px)/2.6)}
+  .pista{padding-left:0;padding-right:0;margin:0}
+  .pilares{max-width:640px;margin-left:auto;margin-right:auto}
+  .mec{display:grid;grid-template-columns:1.15fr .85fr;align-items:center}
+  .mec-izq{padding:16px 10px 16px 20px}
+  .mec-pie{max-width:780px;margin:0 auto}
+  .mec-dato{max-width:760px;margin:18px auto 22px}
+  .desliza{display:none}
+  .equipo{align-items:start}
+  .numerazo{border-left:1px solid #EAF1F6;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+  .mapa{grid-template-columns:1fr 1.5fr 1fr;grid-template-areas:"a cer c" "a cer d";gap:22px 40px;padding:30px 36px 10px;align-items:center}
+  .mapa-cerebro{width:100%;max-width:400px;margin:0 auto}
+  .caja-m{padding:18px}
+  .caja-m b{font-size:16px}.caja-m p{font-size:14px}
+  .revistas-ventana{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .marquesina img{width:170px;height:48px;margin:0 18px}
+  /* 3 columnas; alturas mínimas para que etiqueta y título queden alineados, y abrir una tarjeta no estire las vecinas */
+  .modulos{grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+  .modulo-txt .eyebrow{min-height:1.4em}
+  .modulo-txt h3{min-height:2.4em}
+  .equipo{grid-template-columns:repeat(3,1fr)}
+  .historia{display:grid;grid-template-columns:1fr 1fr}
+  .historia-txt{padding:40px;align-content:center}
+  .historia-fotos figure{aspect-ratio:auto;min-height:100%}
+  .oferta-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px 56px;align-items:center}
+  .oferta-wrap .izq{grid-column:1;align-self:end}
+  .oferta-wrap .trato{grid-column:1;margin:0;align-self:start}
+  .oferta-wrap .oferta{grid-column:2;grid-row:1 / span 2}
+  .oferta-wrap .oferta{margin:0}
+  .oferta-wrap .izq{text-align:left}
+  .barra{padding-top:12px}
+  .barra .envase{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .barra .cta-wrap{margin:0;max-width:380px}
+  .barra p{margin:0;font-size:14px;text-align:left}
+}
+/* ventanas de escritorio bajas: se compacta para que el botón quede a la vista */
+@media (min-width:860px) and (max-height:820px){
+  .hero .confianza{display:none}
+  .checks{display:flex;flex-wrap:wrap;gap:6px 22px}
+  .checks li{grid-template-columns:20px auto;gap:7px}
+  .checks li i{font-size:19px}
+  .remate small{margin-bottom:3px}
+}
+/* programa en 2 columnas en el celular */
+@media (max-width:859px){
+  .modulos{grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+  /* altura fija para etiqueta y título: las tarjetas cerradas quedan parejas y abrir una no estira la del costado */
+  .modulo-txt .eyebrow{min-height:2.5em}
+  .modulo-txt h3{min-height:3.6em}
+  .modulo{border-radius:14px}
+  .modulo img{aspect-ratio:1/1}
+  .modulo-txt{padding:11px 11px 12px;gap:5px}
+  .modulo-txt .eyebrow{font-size:8.5px;letter-spacing:.1em;line-height:1.25}
+  .modulo-txt h3{font-size:13.5px;line-height:1.2}
+  .modulo-txt p{font-size:12.5px;line-height:1.5}
+  .mod-mas summary{padding:7px 8px;font-size:11px;gap:4px}
+}
+/* historia del Dr. León en el celular: caja azul, compacta, fotos completas; el Dr. León va tercero en el equipo para empalmar con su historia */
+@media (max-width:859px){
+  .equipo .persona:first-child{order:3}
+  .historia{margin-top:22px}
+  .historia-fotos{gap:4px;padding:8px 8px 0}
+  .historia-fotos figure{aspect-ratio:2/3;border-radius:12px}
+  .historia-fotos img{object-position:50% 50%}
+  .historia-fotos figcaption b{align-self:flex-start;padding:5px 9px;border-radius:7px;background:var(--navy);color:#fff;font:700 17px/1 "Poppins";letter-spacing:-.02em;text-shadow:none}
+  .historia-fotos figcaption b.am{background:var(--amarillo);color:var(--navy-2)}
+  .historia-fotos figcaption small{background:var(--navy);color:#fff}
+  .historia-fotos figure+figure figcaption small{background:var(--amarillo);color:var(--navy-2)}
+  .historia-txt{padding:16px 18px 18px;gap:10px}
+  .historia-txt h3{font-size:20px}
+  .linea{gap:9px}
+  .linea li{font-size:13.5px;line-height:1.5}
+  .linea li small{font-size:10px;margin-bottom:4px}
+}
+/* hero móvil compacto: botón, frase y "Desliza" dentro de la primera pantalla */
+@media (max-width:859px){
+  .hero{padding-top:14px}
+  .hero-grid{gap:20px}
+  .hero-col{gap:16px}
+  .checks{gap:8px}
+  .hero h1{font-size:clamp(24px,7.3vw,30px);line-height:1.14;letter-spacing:-.03em;text-wrap:balance}
+  .caja-12{padding:.02em .22em .06em}
+  .hero .micro{margin-top:10px;font-size:13.5px}
+  .hero .remate{display:none}
+  /* video de borde a borde en el celular */
+  .hero-foto{margin:-14px -16px 0;border-radius:0}
+  .hero{padding-top:14px}
+}
+@media (max-width:859px) and (max-height:700px){
+  .hero-grid{gap:10px}
+  .hero .cta{min-height:50px;padding-top:12px;padding-bottom:11px}
+  .checks{gap:3px}
+  .desliza{margin-top:0}
+  .confianza .caras img{width:30px;height:30px}
+}
+/* celulares bajos (o Safari con sus barras): el hero llega hasta "Desliza" */
+@media (max-width:859px) and (max-height:760px){
+  .hero{padding-top:12px}
+  .hero-grid{gap:14px}
+  .hero-col{gap:9px}
+  .hero .micro{margin-top:8px}
+  .confianza .caras img{width:32px;height:32px}
+  .confianza p{font-size:12.5px}
+  .checks{gap:5px}
+  .checks li{font-size:14.5px}
+  .anuncio{padding:6px 16px 7px}
+  .cabecera .envase{height:66px}
+}
+@media (prefers-reduced-motion:reduce){.marquesina{animation-duration:80s}}
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="envase">
+    <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></a>
+    <div class="timer" id="timer" aria-label="Tiempo para que termine la oferta">
+      <span class="timer-tit">La oferta termina en</span>
+      <span class="timer-num"><span><b data-t="d">--</b><small>días</small></span><i>:</i><span><b data-t="h">--</b><small>hrs</small></span><i>:</i><span><b data-t="m">--</b><small>min</small></span></span>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="01 Arriba del pliegue">
+  <div class="envase hero-grid">
+    <div class="hero-der">
+    <div class="hero-foto" id="vsl">
+      <!-- VSL horizontal (16:9) a todo el ancho. Mientras no haya video se ve la portada. -->
+      <img class="vsl-poster" src="assets/vsl-portada.jpg" alt="Dr. Gonzalo León" fetchpriority="high">
+      <div class="firma"><b>Dr. Gonzalo León</b><span>Especialista en Ciencia del Deporte</span></div>
+      
+    </div>
+      <span class="hero-flecha" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 4v14M6 12l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de volver a empezar.</p>
+    </div>
+    <div class="hero-col">
+      <div class="confianza">
+        <div class="caras">
+          <img src="assets/profesionales/dr-gonzalo-leon-avatar.jpg" alt="">
+          <img src="assets/profesionales/lic-rafaela-silva-avatar.jpg" alt="">
+          <img src="assets/profesionales/ps-ana-paula-ceballos-avatar.jpg" alt="">
+        </div>
+        <p><b>Desarrollado por un equipo médico multidisciplinario</b></p>
+      </div>
+      <div class="promesa">
+        <h1>Transforma tu Cuerpo en <span class="caja-12">12 Semanas</span> con <em>Neurociencia</em></h1>
+        <ul class="checks">
+          <li><i class="ph-fill ph-check-circle"></i>500+ estudios revisados</li>
+          <li><i class="ph-fill ph-check-circle"></i>Basado en la última neurociencia y ciencia del deporte</li>
+        </ul>
+      </div>
+      <div>
+        <div class="cta-wrap">
+          <span class="sello">Oferta de lanzamiento · 40% OFF</span>
+          <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
+        </div>
+        <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
+      </div>
+      <a class="desliza" href="#revistas" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="f1" d="M6 5.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path class="f2" d="M6 12.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+
+  <div class="envase" id="revistas"><div class="revistas" aria-label="Revistas científicas">
+    <p>Basado en los Últimos Estudios Publicados en</p>
+    <div class="revistas-ventana"><div class="marquesina">
+    <img src="assets/journals/bjsm-white.png" alt="British Journal of Sports Medicine"><img src="assets/journals/acsm-white.png" alt="ACSM"><img src="assets/journals/ajcn-white.png" alt="American Journal of Clinical Nutrition"><img src="assets/journals/ajsm-white.png" alt="American Journal of Sports Medicine"><img src="assets/journals/apnm-white.png" alt="Applied Physiology, Nutrition, and Metabolism"><img src="assets/journals/nsca-white.png" alt="NSCA">
+    <img src="assets/journals/bjsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/acsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajcn-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/apnm-white.png" alt="" aria-hidden="true"><img src="assets/journals/nsca-white.png" alt="" aria-hidden="true">
+  
+    <img src="assets/journals/bjsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/acsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajcn-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/apnm-white.png" alt="" aria-hidden="true"><img src="assets/journals/nsca-white.png" alt="" aria-hidden="true">
+    <img src="assets/journals/bjsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/acsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajcn-white.png" alt="" aria-hidden="true"><img src="assets/journals/ajsm-white.png" alt="" aria-hidden="true"><img src="assets/journals/apnm-white.png" alt="" aria-hidden="true"><img src="assets/journals/nsca-white.png" alt="" aria-hidden="true">
+  </div></div>
+  </div></div>
+
+  <div class="envase">
+    <div class="regalos">
+      <div class="regalos-top"><b>Qué incluye el programa</b><span class="tag-off">-40%</span></div>
+      <div class="regalos-grid">
+        <div class="regalo"><img src="assets/portadas/neurociencia-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 01</small><b>Neurociencia del cambio de hábitos</b></span></div>
+        <div class="regalo"><img src="assets/portadas/entrenamiento-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 02</small><b>Fundamentos de entrenamiento</b></span></div>
+        <div class="regalo"><img src="assets/portadas/nutricion-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 03</small><b>Fundamentos de nutrición</b></span></div>
+        <div class="regalo"><img src="assets/portadas/app-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 04</small><b>Rutinas y plan de nutrición en la app</b></span></div>
+        <div class="regalo"><img src="assets/portadas/protocolos-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 05</small><b>Protocolos para días difíciles</b></span></div>
+        <div class="regalo"><img src="assets/portadas/comunidad-tile.jpg" alt="" loading="lazy"><span class="regalo-txt"><small>Curso 06</small><b>Comunidad privada</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
+<!-- ============ TESTIMONIOS (carrusel) ============ -->
+<section class="sec" style="padding-top:54px;padding-bottom:14px" data-screen-label="04b Más prueba social">
+  <div class="envase">
+    <h2 class="titulo centro">Personas como tú, que <span class="teal">dejaron de volver a empezar</span></h2>
+    <div class="carrusel">
+      <div class="pista" id="pista">
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-1-antes.jpg" alt="Héctor V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-1-despues.jpg" alt="Héctor V, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«Me dijeron que era mi genética.»</h3><div class="testi-quien"><b>Héctor V, 27 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Me decían que por mi genética no iba a ganar músculo. En el programa aprendí a entrenar con base científica y a comer con un plan nutricional flexible, y <b>gané en menos de un año todo lo que no había ganado en 5.</b></p></details></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-2-antes.jpg" alt="Luis F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-2-despues.jpg" alt="Luis F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«Por fin pude ganar músculo.»</h3><div class="testi-quien"><b>Luis F, 31 · Nueva York, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Probé dietas, suplementos y rutinas, sin constancia. Con un entrenamiento basado en la última ciencia y entendiendo la psicología del cambio de hábitos, entrenar se volvió parte de mi vida: <b>en menos de 8 meses gané músculo como nunca antes.</b></p></details></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-6-antes.jpg" alt="Juan Manuel M, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-6-despues.jpg" alt="Juan Manuel M, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«Bajé de peso sin pasar hambre.»</h3><div class="testi-quien"><b>Juan Manuel M, 35 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Llevaba años subiendo y bajando de peso con dietas que no me duraban dos semanas. Entendí el balance energético y armé un plan que sostengo incluso comiendo fuera. Bajé sin pasar hambre y, <b>por primera vez, no lo he vuelto a recuperar.</b></p></details></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-7-antes.jpg" alt="Gerardo G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-7-despues.jpg" alt="Gerardo G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
+          <div class="testi-txt"><h3>«Dejé de entrenar a ciegas.»</h3><div class="testi-quien"><b>Gerardo G, 35 · Ciudad de México, México</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Iba al gym, copiaba rutinas de TikTok y cada semana cambiaba de plan. Me cansaba y no veía avance. En el programa entendí por fin cómo progresar con sobrecarga progresiva y a comer lo suficiente sin pasarme. Neta, <b>en 8 semanas gané músculo como no lo había logrado en años</b>, y ahora sé exactamente qué hacer cada día.</p></details></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-3-antes.jpg" alt="Rodolfo V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-3-despues.jpg" alt="Rodolfo V, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
+          <div class="testi-txt"><h3>«Estoy más fit que nunca.»</h3><div class="testi-quien"><b>Rodolfo V, 31 · Santiago, Chile</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Entrené pesas harto tiempo y solo ganaba fuerza: nunca lograba bajar mi porcentaje de grasa. Ordené mi entrenamiento y mi nutrición, y <b>en 8 semanas logré resultados sorprendentes</b> que mantengo hasta hoy. Lo mejor: ahora soy autónomo, ¿cachai?</p></details></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-8-antes.jpg" alt="Gabriel G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-8-despues.jpg" alt="Gabriel G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
+          <div class="testi-txt"><h3>«Bajé 5% de grasa en 8 semanas.»</h3><div class="testi-quien"><b>Gabriel G, 25 · Montevideo, Uruguay</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Entrenaba bien, pero me quedaba esa capa de grasa que no se iba con nada, aunque comiera "limpio". En el programa entendí que no era cuestión de comer menos todo el tiempo, sino de ordenar las calorías y la proteína. Y, <b>en 8 semanas bajé 5% de grasa corporal</b> sin dejar de salir con mis amigos, y por fin se me marca el abdomen.</p></details></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-4-antes.jpg" alt="Diego L, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-4-despues.jpg" alt="Diego L, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">4 MESES</span></figure></div>
+          <div class="testi-txt"><h3>«Dejé las dietas extremas y gané músculo.»</h3><div class="testi-quien"><b>Diego L, 34 · Buenos Aires, Argentina</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Antes de cada viaje dejaba de comer; volvía, engordaba y otra vez a cortar. Nadie me explicó que sin músculo no te ves definido. Entrenando 3 veces por semana <b>gané 5 kilos de músculo en 4 meses</b>, y con una nutrición flexible como y salgo sin culpa. Posta.</p></details></div></article>
+        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-5-antes.jpg" alt="Alejandro F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-5-despues.jpg" alt="Alejandro F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
+          <div class="testi-txt"><h3>«El problema no era yo, era el plan.»</h3><div class="testi-quien"><b>Alejandro F, 29 · Lima, Perú</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Siempre empezaba el lunes con todo y para el miércoles ya estaba full cansado. Pensaba que me faltaba disciplina. Con un plan y una estrategia claros, ahora entreno 3 veces por semana, como lo que me gusta y <b>en poco tiempo ya veía resultados.</b></p></details></div></article>
+      </div>
+      <button type="button" class="lado izq" id="car-izq" aria-label="Testimonio anterior"><i class="ph-light ph-caret-left"></i></button>
+      <button type="button" class="lado der" id="car-der" aria-label="Siguiente testimonio"><i class="ph-light ph-caret-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<div class="separador" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
+
+<!-- ============ POR QUÉ FUNCIONA ============ -->
+<section class="sec" style="padding-top:36px;padding-bottom:0" data-screen-label="02 Por qué funciona">
+  <div class="envase angosto">
+    <div class="centro"><span class="eyebrow">¿Por qué funciona este método?</span>
+      <h2 class="titulo" style="margin-top:12px">El problema nunca fue tu <span class="teal">plan de entrenamiento o nutrición</span></h2></div>
+    <div class="texto-largo">
+      <p>¿Cuántas veces has dicho <b>«hoy empiezo a cambiar mi cuerpo»</b>? Empiezas con ganas, los primeros días salen bien y luego aparece <span class="hl">algún imprevisto</span>: una salida, un antojo en la noche, una semana pesada en el trabajo. Y así dejas de comer bien y de ir al gimnasio, y <b>empieza el ciclo de nuevo</b>. Lo único que piensas es: <span class="hl">«me falta fuerza de voluntad»</span>.</p>
+      <p><b>No te pasa solo a ti. Es un problema muy común.</b></p>
+      <div class="revela">
+        <span class="revela-ico"><i class="ph-light ph-brain"></i></span>
+        <p>Lo que nadie te explicó es que <b>tu cerebro no está hecho</b> para cambiar radicalmente tus hábitos <span>solo a fuerza de voluntad.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MECANISMO + NÚMEROS GRANDES ============ -->
+<section class="sec fondo-celeste" style="padding-top:0">
+  <div class="envase">
+    <div class="conector" aria-hidden="true"><svg viewBox="0 0 24 30" width="30" height="38"><path class="c1" d="M6 4l6 6 6-6"/><path class="c2" d="M6 12l6 6 6-6"/><path class="c3" d="M6 20l6 6 6-6"/></svg></div>
+    <div class="tarjeta">
+      <div class="mec-cab"><h2 class="titulo-sm">Conoce el mecanismo por el cual <span class="teal">se crean los hábitos</span></h2></div>
+      <div class="mapa" id="mapa">
+        <svg class="mapa-svg" aria-hidden="true"><defs><marker id="punta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#017FA7"/></marker><marker id="punta-ok" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1E7A45"/></marker><marker id="punta-am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E0A800"/></marker></defs></svg>
+        <div class="mapa-cerebro" id="cerebro">
+          <img src="assets/servier/cerebro-lateral-900.png" alt="Ilustración del cerebro" loading="lazy">
+          <!-- zonas dibujadas sobre la ilustración (vista lateral, lóbulo frontal a la izquierda) -->
+          <svg class="zonas" viewBox="0 0 100 102" preserveAspectRatio="none" aria-hidden="true">
+            <path class="zona-pf" d="M36 -3.1 L30 -1.0 L24 0.7 L13 3.2 L7 6.5 L4 9.8 L1 14.0 L-2 22.6 L-3.3 26.5 L-4.1 28.6 L-4.6 30.6 L-4.8 34.7 L-4.8 40.8 L-4.4 42.8 L-3.0 44.9 L-1.4 49.0 L0.1 54.0 L2.1 56.0 L4.8 58.1 L7.4 60.1 L17 58.1 L25 44.9 L31 26.5 L36 -3Z"/>
+            <path class="zona-pf-borde" d="M36 1.9 L30 4.0 L24 5.7 L18 8.2 L12 11.5 L9 14.8 L6 19.0 L3 22.6 L1.7 26.5 L0.9 28.6 L0.4 30.6 L0.2 34.7 L0.2 40.8 L0.6 42.8 L2.0 44.9 L3.6 49.0 L5.1 51.0 L7.1 53.0 L9.8 55.1 L12.4 57.1 L17 58.1"/>
+            <ellipse class="zona-gb" id="zona-gb" cx="50" cy="44" rx="11" ry="8.5"/>
+          </svg>
+          <span class="zona-tag pf" style="left:3%;top:4%">Corteza prefrontal</span>
+          <span class="zona-tag gb" style="left:62%;top:39.5%">Ganglios basales</span>
+          <i class="foco" data-foco="pf" style="left:15%;top:33%">1</i>
+          <i class="foco" data-foco="gb" style="left:50%;top:43.1%">2</i>
+        </div>
+        <div class="caja-m" data-area="a"><span class="paso-tag"><i>1</i>Al empezar</span><b>Corteza prefrontal</b><p>Cada decisión que tomas pasa por aquí: <em>¿entreno hoy?</em>, <em>¿me como esto?</em>, <em>¿pido postre?</em> Te obliga a decidir qué hacer una y otra vez, <b>cansándote y frustrándote</b>.</p></div>
+        <div class="caja-m" data-area="c"><span class="paso-tag"><i>2</i>Conforme pasa el tiempo</span><b>Ganglios basales</b><p>Poco a poco la conducta pasa aquí y empiezas a actuar en automático.</p></div>
+        <div class="caja-m ok" data-area="d"><span class="paso-tag"><i>3</i>Resultado</span><b>En automático</b><p>Construiste un hábito. Nunca más tienes que pensar en ello.</p></div>
+      </div>
+      <div class="mec-dato">
+        <p>El problema es que pasar <b>nuevas conductas de entrenamiento y nutrición</b> a los ganglios basales <span class="hl">no es tan simple</span>.</p>
+      </div>
+      <div class="mec-pie">
+        <p>Por eso es que <b>no necesitas otra dieta</b> u <b>otro plan de ejercicios.</b></p>
+        <p>Necesitas un <span class="hl">método probado</span> basado en <b>neurociencia y psicología del cambio conductual</b> que te permita construir nuevos hábitos de entrenamiento y nutrición.</p>
+        <p class="metodo-ecc"><img src="assets/isotipo-ecc.png" alt=""><span>Ese es el método que hemos desarrollado en <b>Entrena con Ciencia</b>.</span></p>
+        <div class="cta-wrap"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
+        <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
+      </div>
+    </div>
+
+    <div class="crema">
+      <h3><span>El problema no es tu plan de entrenamiento o nutrición.</span><span class="teal">Te ayudamos a crear nuevos hábitos para siempre.</span></h3>
+      <div class="cifras">
+        <div><b>500+</b><span>estudios revisados</span></div>
+        <div><b>15+</b><span>videos que te explican la última ciencia para lograr tus objetivos</span></div>
+        <div><b>10+</b><span>rutinas para entrenar en tu casa o el gimnasio</span></div>
+      </div>
+      <p class="dia-uno">Que este sea tu <span>último Día 1.</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
+<!-- ============ PROGRAMA ============ -->
+<section class="sec" data-screen-label="03 Qué incluye">
+  <div class="envase">
+    <h2 class="titulo centro">Qué Incluye <span class="teal">Nuestro Programa</span></h2>
+    <div class="modulos">
+      <article class="modulo"><img src="assets/portadas/neurociencia-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">El núcleo</span><h3>Curso de Neurociencia del Cambio de Hábitos</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Lo más importante de nuestro programa. Te explicamos el proceso por el que se crean nuevos hábitos y <span class="hl">por qué la mayoría de las personas falla</span>. La verdad es que crear un nuevo hábito <b>no depende de tu fuerza de voluntad</b>, sino de entender cómo funciona tu cuerpo.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/entrenamiento-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Entrenamiento</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>El Dr. Gonzalo León te explica <b>la última ciencia del deporte</b> para que entiendas cuál es el mejor camino para ponerte en forma basado en ciencia. Deja de estar confundido con <span class="hl">las recomendaciones que se contradicen</span> en redes sociales.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/nutricion-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">La base científica</span><h3>Curso de Fundamentos de Nutrición</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>La Lic. Rafaela Silva te explica la última ciencia de la nutrición funcional. Hemos desarrollado un programa que te ayuda a entender <span class="hl">los mecanismos por los que tu cuerpo pierde peso</span> y cómo aplicarlos en tu día a día, <b>sin que tengas que hacer dietas muy restrictivas.</b></p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/app-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">App con IA</span><h3>Aplicación con Rutinas y Plan de Nutrición</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Te damos <b>acceso por un mes</b> a nuestra app con <span class="hl">inteligencia artificial</span>, que planifica tu entrenamiento, nutrición y recuperación. Incluye <b>rutinas basadas en evidencia con videos de cada ejercicio</b>, planes para casa y gimnasio, registro de calorías con IA y recetas de nuestro equipo.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/protocolos-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado <b>una biblioteca de protocolos</b> que atacan <span class="hl">problemas comunes</span> que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></details></div></article>
+      <article class="modulo"><img src="assets/portadas/comunidad-tile.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><details class="mod-mas"><summary>Ver qué incluye <i class="ph-light ph-caret-down"></i></summary><p>Accede a nuestra comunidad privada, donde tendrás a <b>otras personas igual de motivadas</b> para transformar tu cuerpo.</p></details></div></article>
+    </div>
+    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div><p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p></div>
+  </div>
+</section>
+
+<div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
+<!-- ============ EQUIPO ============ -->
+<section class="sec fondo-celeste" data-screen-label="04 Quién está detrás">
+  <div class="envase">
+    <h2 class="titulo centro">Nuestro <span class="teal">Equipo Médico</span></h2>
+    <div class="equipo">
+      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/dr-gonzalo-leon-avatar.jpg" alt="Dr. Gonzalo León" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Especialista en ciencia del deporte</span><h3>Dr. Gonzalo León</h3></div></div>
+        <details class="bio"><summary>Conoce más <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Médico cirujano, enfocado en entrenamiento basado en evidencia. Hoy cursa la Maestría en Longevidad y Antienvejecimiento en el IL3 de la Universidad de Barcelona.</p><p>Durante la carrera de medicina <span class="hl">llegó a pesar 120 kilos</span>. El cambio llegó cuando entendió la fisiología del cuerpo humano y cómo se cruza con el balance energético: así logró <b>su propia recomposición corporal</b>.</p><p>Desde entonces ha atendido a <b>decenas de pacientes</b> con su método y los ha ayudado a conseguir resultados: perder peso con la mayor flexibilidad posible. Construyó Entrena con Ciencia para llevar ese método a más personas de las que puede atender una por una.</p></div></details></article>
+      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/ps-ana-paula-ceballos-avatar.jpg" alt="Ps. Ana Paula Ceballos" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Psicóloga clínica · TCA y obesidad</span><h3>Ps. Ana Paula Ceballos</h3></div></div>
+        <details class="bio"><summary>Conoce más <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Psicóloga clínica especialista en trastornos de la conducta alimentaria (TCA) y obesidad, con formación en terapia cognitivo-conductual. Máster en Trastornos Alimenticios y Obesidad (Universidad Europea, Madrid) y licenciada en Psicología Clínica (University of South Florida). Hoy atiende en la Clínica San Felipe, en Lima.</p><p>En Entrena con Ciencia <b>diseñó el módulo de cambio de hábitos</b>, con la Teoría de la Autodeterminación como marco: por qué <span class="hl">la motivación no es suficiente</span> y cómo desarrollar autonomía, competencia y relación para que un hábito se sostenga en el tiempo.</p></div></details></article>
+      <article class="persona"><div class="persona-cab"><img src="assets/profesionales/lic-rafaela-silva-avatar.jpg" alt="Lic. Rafaela Silva" loading="lazy"><div><span class="eyebrow" style="font-size:10.5px">Nutricionista clínica</span><h3>Lic. Rafaela Silva</h3></div></div>
+        <details class="bio"><summary>Conoce más <i class="ph-light ph-caret-down"></i></summary><div class="persona-txt"><p>Licenciada en Nutrición y Dietética (UPC), con más de 5 años de experiencia. Cursos de especialización en microbiota y nutrición (Universidad Peruana Cayetano Heredia), nutrición hormonal (Nutrition Society) y nutrición renal (Colegio de Nutricionistas del Perú). Certificación antropométrica ISAK nivel 1.</p><p>Su experiencia en consulta le ha permitido desarrollar un enfoque de la nutrición <b>basado en evidencia</b>, pero también <span class="hl">práctico y aplicable a la vida real</span>, entendiendo que una buena alimentación debe adaptarse a las necesidades, objetivos y contexto de cada persona.</p></div></details></article>
+    </div>
+
+    <div class="historia">
+      <div class="historia-fotos">
+        <figure><img src="assets/leon-antes.jpg" alt="Dr. Gonzalo León, antes" loading="lazy"><figcaption><b>120 kg</b><small>ANTES</small></figcaption></figure>
+        <figure><img src="assets/leon-despues.jpg" alt="Dr. Gonzalo León, después" loading="lazy"><figcaption><b class="am">85 kg</b><small>DESPUÉS</small></figcaption></figure>
+      </div>
+      <div class="historia-txt">
+        <span class="eyebrow">Mi historia</span>
+        <h3>Soy el Dr. Gonzalo León</h3>
+        <ul class="linea">
+          <li><small>HACE 9 AÑOS</small>Empecé medicina y llegué a pesar 120 kilos.</li>
+          <li><small>DESPUÉS DE 12 MESES</small>Con poca energía y vergüenza cada vez que me veía al espejo, <b>decidí cambiar mi vida por completo.</b></li>
+          <li><small>HOY</small>Con un equipo de nutricionistas, especialistas en ciencia del deporte y neurociencia, ayudo a personas como tú a cambiar su vida.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
+<!-- ============ PREGUNTAS ============ -->
+<section class="sec fondo-celeste" data-screen-label="05 Preguntas y objeciones">
+  <div class="envase angosto">
+    <h2 class="titulo centro">Preguntas <span class="teal">Frecuentes</span></h2>
+    <div class="faq">
+      <details><summary>He tratado de transformar mi cuerpo antes. ¿Por qué esta vez sería distinto?<i class="ph-light ph-plus"></i></summary><p>Nuestro programa empieza por enseñarte <b>neurociencia del cambio</b> en vez de simplemente darte un plan de acción para el entrenamiento y tu nutrición; te ayudamos a diseñar un sistema que funcione con tu estilo de vida. Nadie te dice que será fácil, pero desarrollar <span class="hl">la habilidad de ser constante</span> es lo más importante para ver resultados.</p></details>
+      <details><summary>Quiero empezar con el programa, pero me preocupa no tener tiempo.<i class="ph-light ph-plus"></i></summary><p>No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que <b>entrenar incluso solo 2 veces a la semana</b> es suficiente para ver cambios. Adicionalmente, proveemos rutinas de entrenamiento en casa y en el gimnasio para adecuarse a lo que te funciona mejor.</p></details>
+      <details><summary>Soy principiante y no sé nada. ¿Voy a poder entender el material?<i class="ph-light ph-plus"></i></summary><p><b>El programa está diseñado con principiantes en mente.</b> Hemos creado los módulos de fundamentos de entrenamiento y nutrición para explicarte qué tienes que hacer al detalle. La idea es llevar tus conocimientos de principiante a intermedio con el curso para que tengas los fundamentos correctos para progresar por tu cuenta.</p></details>
+      <details><summary>¿Tengo que dejar de comer lo que me gusta?<i class="ph-light ph-plus"></i></summary><p><b>No.</b> Un plan que te saca de la comida familiar del domingo es <span class="hl">un plan que vas a abandonar</span>, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p></details>
+      <details><summary>¿Cuánto voy a bajar y en cuánto tiempo?<i class="ph-light ph-plus"></i></summary><p>Es difícil prometerte un número exacto, ya que varía entre persona y persona. Pero <b>perder entre 1 y 2% de tu peso corporal al mes</b> es un objetivo realizable.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.png" alt=""></span></div>
+<!-- ============ OFERTA ============ -->
+<section class="sec" id="oferta" data-screen-label="06 Cierre">
+  <div class="envase oferta-wrap">
+    <div class="izq centro">
+      <h2 class="titulo">Transforma <span class="teal">tu Cuerpo</span></h2>
+      <p class="bajada"><span class="linea-sola">Te ayudamos a <b style="color:var(--navy)">entender la ciencia para crear nuevos hábitos.</b></span></p>
+    </div>
+    <div class="trato" aria-label="Cómo funciona la lista de espera">
+      <b class="trato-tit">Así funciona</b>
+      <ol>
+        <li><span>1</span><div><b>Inscríbete gratis hoy</b><p>Solo nombre y correo. Sin pago ni tarjeta.</p></div></li>
+        <li><span>2</span><div><b>Te avisamos apenas lancemos</b><p>Te llega un correo cuando abran las inscripciones.</p></div></li>
+        <li><span>3</span><div><b>Recibes tu 40% OFF</b><p>Exclusivo para quienes están en la lista de espera.</p></div></li>
+      </ol>
+      <p class="trato-aviso"><i class="ph-fill ph-info"></i>Si no estás en la lista, te pierdes el descuento.</p>
+    </div>
+    <div class="oferta">
+      <div class="oferta-cinta"><i class="ph-fill ph-bell-ringing"></i> Lista de espera gratuita</div>
+      <div class="oferta-cuerpo">
+        <h3>Accede a nuestra oferta de lanzamiento</h3>
+        <div class="incluye"><b>QUÉ INCLUYE EL PROGRAMA</b>
+          <ul>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Neurociencia del Cambio de Hábitos</li>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Entrenamiento</li>
+            <li><i class="ph-fill ph-check-circle"></i>Curso de Fundamentos de Nutrición</li>
+            <li><i class="ph-fill ph-check-circle"></i>Aplicación con Rutinas y Plan de Nutrición</li>
+            <li><i class="ph-fill ph-check-circle"></i>Protocolos para Días Difíciles</li>
+            <li><i class="ph-fill ph-check-circle"></i>Comunidad Privada</li>
+          </ul>
+        </div>
+        <div class="cta-wrap" style="align-items:center;margin:4px auto 0"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
+        <p class="micro" style="margin-top:-4px"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
+        <div class="sellos">
+          <div><i class="ph-light ph-stethoscope"></i>Desarrollado por un equipo médico multidisciplinario</div>
+          <div><i class="ph-light ph-books"></i>Más de 500 estudios revisados</div>
+          <div><i class="ph-light ph-brain"></i>Basado en la última neurociencia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<footer class="pie">
+  <div class="envase">
+    <div class="pie-top">
+      <div class="logo"><img src="assets/isotipo-ecc.png" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></div>
+      <nav class="redes" aria-label="Redes de Entrena con Ciencia">
+        <a href="https://www.instagram.com/entrena.con.ciencia/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph-light ph-instagram-logo"></i></a>
+        <a href="https://www.tiktok.com/@entrenaciencia" target="_blank" rel="noopener" aria-label="TikTok"><i class="ph-light ph-tiktok-logo"></i></a>
+        <a href="mailto:contacto@entrenaciencia.com" aria-label="Correo"><i class="ph-light ph-envelope-simple"></i></a>
+      </nav>
+    </div>
+    <p>Este contenido es informativo y educativo y no reemplaza la consulta con tu médico. Los resultados varían entre personas. Si tienes una condición de salud o tomas medicación, consulta a tu especialista antes de cambiar tu alimentación o entrenamiento.</p>
+    <p>Ilustración del cerebro: <a href="https://smart.servier.com/" target="_blank" rel="noopener">Servier Medical Art</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p>
+    <p>© 2026 Entrena con Ciencia · <a href="legal.html?v=3">Términos</a> · <a href="legal.html?v=3#privacidad">Privacidad</a></p>
+  </div>
+</footer>
+
+<div class="barra" id="barra" aria-hidden="true">
+  <div class="envase">
+    <p><i class="ph-fill ph-tag"></i> Accede gratis al <b>40% de descuento</b></p>
+    <div class="cta-wrap"><a class="cta" href="#lista" data-ecc-lista tabindex="-1">Inscríbete en la lista de espera</a></div>
+  </div>
+</div>
+
+<div class="ecc-lista-modal" id="lista" role="dialog" aria-modal="true" aria-labelledby="ecc-lista-titulo" hidden>
+  <div class="ecc-lista-fondo" data-cerrar></div>
+  <div class="ecc-lista-caja" role="document">
+    <button type="button" class="ecc-lista-x" data-cerrar aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <form class="ecc-lista-form" novalidate>
+      <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera</span><span class="ecc-lista-off">40% OFF</span></span>
+      <h2 id="ecc-lista-titulo">Accede a nuestra oferta de lanzamiento</h2>
+      <label class="ecc-campo"><span>Nombre</span><input id="ecc-l-nombre" name="nombre" type="text" autocomplete="given-name" required maxlength="80" placeholder="Tu nombre"></label>
+      <label class="ecc-campo"><span>Correo</span><input id="ecc-l-correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="120" placeholder="tu@correo.com"></label>
+      <div class="ecc-campo" hidden style="display:none"><label for="ecc-l-cel">WhatsApp <em>(opcional)</em></label>
+        <div class="ecc-cel"><select id="ecc-l-pais" name="pais" aria-label="País"></select><input id="ecc-l-cel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="20" placeholder="Número"></div>
+      </div>
+      <label class="ecc-check"><input id="ecc-l-ok" name="consentimiento" type="checkbox" required><span>Acepto recibir información sobre el lanzamiento y la <a href="legal.html?v=3#privacidad" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
+      <p class="ecc-lista-error" role="alert" hidden></p>
+      <button type="submit" class="cta ecc-lista-enviar"><span>¡Inscríbeme!</span><i class="ph-light ph-arrow-right"></i></button>
+    </form>
+    <div class="ecc-lista-ok" hidden>
+      <span class="ecc-lista-ok-ico"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2>¡Ya estás en la lista!</h2>
+      <p>Te escribiremos a <strong class="ecc-lista-ok-correo"></strong> con tu 40% de descuento en cuanto abran las inscripciones.</p>
+      <button type="button" class="cta" data-cerrar><span>Seguir viendo el programa</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/ecc-analitica.js?v=8" defer></script>
+<script>
+/* La página siempre abre arriba (Safari restauraba la posición) */
+try{history.scrollRestoration='manual'}catch(e){}
+addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
+
+/* VSL: autoplay en silencio (los navegadores no permiten sonido sin un toque) + botón para activar el sonido,
+   que vuelve al inicio con audio. Para activarlo basta con poner la URL del MP4 en VSL_SRC. */
+(function(){
+  var VSL_SRC=''; /* p. ej. 'https://…/vsl-ecc.mp4' (MP4 o HLS .m3u8 en Safari) */
+  if(!VSL_SRC&&/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) VSL_SRC=new URLSearchParams(location.search).get('vsl')||''; /* prueba local: ?vsl=URL */
+  var box=document.getElementById('vsl'); if(!box||!VSL_SRC) return;
+  var poster=box.querySelector('.vsl-poster'), btn=box.querySelector('.vsl-play'), txt=box.querySelector('.vsl-play-txt');
+  var v=document.createElement('video'); v.src=VSL_SRC; v.poster=poster.src; v.muted=true; v.autoplay=true; v.loop=true; v.playsInline=true; v.preload='auto';
+  v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+  box.insertBefore(v,poster.nextSibling);
+  v.addEventListener('playing',function(){poster.style.display='none'; if(v.muted&&txt) txt.hidden=false;},{once:true});
+  var p=v.play(); if(p&&p.catch) p.catch(function(){});
+  if(btn) btn.addEventListener('click',function(){
+    v.muted=false; v.loop=false; v.currentTime=0; v.controls=true; v.play(); box.classList.add('sonando');
+    if(window.eccEvento) try{window.eccEvento('vsl_sonido','','!VSLSonido','vsl_sonido',null)}catch(x){}
+  });
+})();
+
+/* Contador en ciclos de 7 días: igual para todos, cada ciclo termina el lunes a las 00:00 de Lima
+   (pedido del Dr. León para la prueba; la regla de la landing es contar hasta una fecha fija).
+   El lanzamiento (FIN_OFERTA, lunes 7 dic) coincide con el cierre de un ciclo: ahí el contador se detiene. */
+(function(){
+  var FIN_OFERTA=Date.parse('2026-12-07T00:00:00-05:00'), ANCLA=Date.parse('2026-10-12T00:00:00-05:00'), SEMANA=7*864e5;
+  var T=document.getElementById('timer'); if(!T) return;
+  var el={}; ['d','h','m'].forEach(function(k){el[k]=T.querySelector('[data-t="'+k+'"]')});
+  function dos(n){return (n<10?'0':'')+n}
+  function pinta(){var ahora=Date.now(), fin=ahora>=FIN_OFERTA?FIN_OFERTA:Math.min(FIN_OFERTA,ANCLA+Math.ceil((ahora-ANCLA+1)/SEMANA)*SEMANA);
+    var r=Math.max(0,fin-ahora),t=Math.floor(r/1000);
+    el.d.textContent=dos(Math.floor(t/86400)); el.h.textContent=dos(Math.floor(t%86400/3600)); el.m.textContent=dos(Math.floor(t%3600/60)); 
+    if(ahora>=FIN_OFERTA){T.querySelector('.timer-tit').textContent='Ya lanzamos'; clearInterval(iv)}}
+  var iv=setInterval(pinta,1000); pinta();
+})();
+
+
+/* Carrusel de testimonios: flechas a los costados, arrastre con el mouse y scroll-snap */
+(function(){
+  var p=document.getElementById('pista'), iz=document.getElementById('car-izq'), de=document.getElementById('car-der');
+  var cards=[].slice.call(p.children);
+  /* posición de scroll en que queda cada tarjeta (respeta el scroll-padding del snap) */
+  function pos(){var pad=parseFloat(getComputedStyle(p).scrollPaddingLeft)||0,max=p.scrollWidth-p.clientWidth;return cards.map(function(c){return Math.max(0,Math.min(max,c.offsetLeft-p.offsetLeft-pad))})}
+  function idx(x){var P=pos(),b=0;P.forEach(function(v,i){if(Math.abs(v-x)<Math.abs(P[b]-x))b=i});return b}
+  function a(k){var P=pos(),max=p.scrollWidth-p.clientWidth;k=Math.max(0,Math.min(P.length-1,k));while(k>0&&P[k]===P[k-1])k--;p.scrollTo({left:P[k],behavior:'smooth'});iz.disabled=P[k]<=4;de.disabled=P[k]>=max-4}
+  function marcar(){iz.disabled=p.scrollLeft<=4; de.disabled=p.scrollLeft+p.clientWidth>=p.scrollWidth-4}
+  /* las flechas van a media altura de las fotos, para no tapar el texto */
+  function ubicar(){var f=cards[0].querySelector('.testi-fotos');if(!f)return;var y=f.getBoundingClientRect().top-p.getBoundingClientRect().top+f.offsetHeight/2;iz.style.top=de.style.top=y+'px'}
+  addEventListener('resize',ubicar); addEventListener('load',ubicar); ubicar();
+  function ir(dir){var P=pos(),k=idx(p.scrollLeft)+dir;while(k>0&&k<P.length&&P[k]===P[idx(p.scrollLeft)])k+=dir;a(k)}
+  iz.addEventListener('click',function(){ir(-1)}); de.addEventListener('click',function(){ir(1)});
+  p.addEventListener('scroll',marcar,{passive:true});
+  /* desenfoque de las tarjetas que asoman a los costados */
+  if(window.IntersectionObserver){var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('lejos',e.intersectionRatio<.9)})},{root:p,threshold:[0,.5,.9,1]});cards.forEach(function(c){io.observe(c)})}
+  /* empujón: al pasar el mouse (como mucho cada 2 s) y una vez al llegar a la sección en el celular */
+  var ultimo=0;function empujar(){var t=Date.now();if(t-ultimo<2000||p.scrollLeft+p.clientWidth>=p.scrollWidth-4)return;ultimo=t;p.classList.remove('empuja');void p.offsetWidth;p.classList.add('empuja')}
+  p.addEventListener('animationend',function(){p.classList.remove('empuja')});
+  p.closest('.carrusel').addEventListener('mouseenter',empujar);
+  if(window.IntersectionObserver){var vio=new IntersectionObserver(function(es){if(es[0].isIntersecting){setTimeout(empujar,350);vio.disconnect()}},{threshold:.6});vio.observe(p)}
+  addEventListener('resize',marcar); marcar();
+  /* arrastrar con el mouse (en touch ya desliza solo) */
+  var x0=0,s0=0,activo=false,movio=false;
+  p.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;activo=true;movio=false;x0=e.clientX;s0=p.scrollLeft;p.setPointerCapture(e.pointerId)});
+  p.addEventListener('pointermove',function(e){if(!activo)return;var dx=e.clientX-x0;if(Math.abs(dx)>4){movio=true;p.classList.add('arrastrando')}if(movio)p.scrollLeft=s0-dx});
+  function soltar(e){if(!activo)return;activo=false;if(!movio)return;var dx=e.clientX-x0;p.classList.remove('arrastrando');var k=idx(p.scrollLeft);if(Math.abs(dx)>40){var k0=idx(s0);k=dx<0?Math.max(k,k0+1):Math.min(k,k0-1)}a(k)}
+  p.addEventListener('pointerup',soltar); p.addEventListener('pointercancel',soltar);
+  p.addEventListener('click',function(e){if(movio){e.preventDefault();e.stopPropagation();movio=false}},true);
+})();
+
+/* Escritorio: video alineado con el título; flecha corta hacia la caja "Esta vez es distinto" */
+(function(){
+  var f=document.querySelector('.hero-flecha'), r=document.querySelector('.hero-der .remate'), c=document.getElementById('cta-hero'), v=document.getElementById('vsl'); if(!f||!r||!c||!v) return;
+  var col=document.querySelector('.hero-col');
+  var der=document.querySelector('.hero-der'), h1=document.querySelector('.hero h1'), ck=col.querySelector('.checks'), cw=c.closest('.cta-wrap');
+  function mid(e){var k=e.getBoundingClientRect();return k.top+k.height/2}
+  function base(e){return parseFloat(getComputedStyle(e).marginTop)||0}
+  /* escritorio: el video arranca a la altura del título; la flecha y la caja van pegadas debajo */
+  function ajustar(){ ck.style.marginTop=''; cw.style.marginTop=''; col.style.marginTop=''; der.style.marginTop=''; f.style.height=''; if(innerWidth<860) return;
+    f.style.height='22px';
+    var d=Math.round(h1.getBoundingClientRect().top-v.getBoundingClientRect().top);
+    if(d>0) der.style.marginTop=d+'px'; else col.style.marginTop=(-d)+'px';
+    /* el botón queda centrado con la caja: el espacio extra se reparte antes de los checks y antes del botón */
+    var e=Math.round(mid(r)-mid(c)); if(e>0){ ck.style.marginTop=(base(ck)+e/2)+'px'; cw.style.marginTop=(base(cw)+e/2)+'px'; } else if(e<0) f.style.height=(22-e)+'px';
+  }
+  addEventListener('resize',ajustar); addEventListener('load',ajustar); ajustar();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(ajustar);
+  if(window.ResizeObserver) new ResizeObserver(function(){requestAnimationFrame(ajustar)}).observe(h1);
+})();
+
+/* Mapa: flechas desde los puntos del cerebro hasta cada caja (se recalculan al cambiar el tamaño) */
+(function(){
+  var M=document.getElementById('mapa'); if(!M) return;
+  var svg=M.querySelector('svg'), NS='http://www.w3.org/2000/svg';
+  function pt(el){var r=el.getBoundingClientRect(),m=M.getBoundingClientRect();return {x:r.left+r.width/2-m.left,y:r.top+r.height/2-m.top}}
+  function borde(el,de){var r=el.getBoundingClientRect(),m=M.getBoundingClientRect();var x=Math.max(r.left-m.left,Math.min(de.x,r.right-m.left)),y=Math.max(r.top-m.top,Math.min(de.y,r.bottom-m.top));
+    if(de.x>r.left-m.left&&de.x<r.right-m.left) y=de.y<r.top-m.top?r.top-m.top:r.bottom-m.top; else x=de.x<r.left-m.left?r.left-m.left:r.right-m.left;
+    var dx=de.x-x,dy=de.y-y,d=Math.hypot(dx,dy)||1;return {x:x+dx/d*6,y:y+dy/d*6}}
+  function curva(a,b,k){var mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dx=b.x-a.x,dy=b.y-a.y;return 'M'+a.x.toFixed(1)+' '+a.y.toFixed(1)+' Q'+(mx-dy*k).toFixed(1)+' '+(my+dx*k).toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1)}
+  function dibujar(){
+    [].slice.call(svg.querySelectorAll('path,text,g.num-via')).forEach(function(n){n.remove()});
+    var pf=pt(M.querySelector('[data-foco="pf"]')), gb=pt(M.querySelector('[data-foco="gb"]'));
+    /* borde de la elipse de los ganglios basales, en coordenadas del mapa */
+    var ze=document.getElementById('zona-gb').getBoundingClientRect(), mr0=M.getBoundingClientRect();
+    var ec={x:ze.left-mr0.left+ze.width/2,y:ze.top-mr0.top+ze.height/2}, erx=ze.width/2, ery=ze.height/2;
+    function bordeGB(h,extra){var dx=h.x-ec.x,dy=h.y-ec.y,t=1/Math.sqrt((dx*dx)/(erx*erx)+(dy*dy)/(ery*ery));return {x:ec.x+dx*t+(dx/(Math.hypot(dx,dy)||1))*(extra||0),y:ec.y+dy*t+(dy/(Math.hypot(dx,dy)||1))*(extra||0)}}
+    var g2=bordeGB(pf,4), k=-.55, cx=(pf.x+g2.x)/2-(g2.y-pf.y)*k, cy=(pf.y+g2.y)/2+(g2.x-pf.x)*k;
+    var hv=document.createElementNS(NS,'path'); hv.setAttribute('class','halo'); hv.setAttribute('d',curva(pf,g2,k)); svg.appendChild(hv);
+    var via=document.createElementNS(NS,'path'); via.setAttribute('class','via'); via.setAttribute('d',curva(pf,g2,k)); via.setAttribute('marker-end','url(#punta)'); svg.appendChild(via);
+    var mid={x:.25*pf.x+.5*cx+.25*g2.x,y:.25*pf.y+.5*cy+.25*g2.y-16};
+    var n2=document.createElementNS(NS,'g'); n2.setAttribute('class','num-via'); n2.innerHTML='<rect x="-30" y="-12" width="60" height="24" rx="12" fill="#E0A800" stroke="#fff" stroke-width="3"/><text text-anchor="middle" dy="4.5">66 días</text>'; n2.setAttribute('transform','translate('+mid.x.toFixed(1)+' '+mid.y.toFixed(1)+')');
+    /* recorrido en orden: caja 1 → punto 1 → (66 días) → punto 2 → caja 2 → caja 3 */
+    function flecha(de,a,color,k){var h=document.createElementNS(NS,'path');h.setAttribute('class','halo');h.setAttribute('d',curva(de,a,k));svg.appendChild(h);
+      var l=document.createElementNS(NS,'path');l.setAttribute('class','linea-m');l.setAttribute('d',curva(de,a,k));l.style.stroke=color;l.setAttribute('marker-end','url(#'+(color==='#1E7A45'?'punta-ok':color==='#E0A800'?'punta-am':'punta')+')');svg.appendChild(l)}
+    var c1=M.querySelector('[data-area="a"]'),c2=M.querySelector('[data-area="c"]'),c3=M.querySelector('[data-area="d"]');
+    function cerca(c,hacia,r){var dx=hacia.x-c.x,dy=hacia.y-c.y,d=Math.hypot(dx,dy)||1;return {x:c.x+dx/d*r,y:c.y+dy/d*r}}
+    var p1=borde(c1,pf); flecha(p1,cerca(pf,p1,18),'#017FA7',.12);
+    /* destino de la flecha 2: centro del borde de la caja 2 que mira al cerebro */
+    var r2=c2.getBoundingClientRect(), mr=M.getBoundingClientRect(), p2;
+    if(r2.top-mr.top>gb.y) p2={x:r2.left-mr.left+r2.width/2,y:r2.top-mr.top-6};
+    else p2={x:(r2.left-mr.left>gb.x?r2.left-mr.left-6:r2.right-mr.left+6),y:r2.top-mr.top+r2.height/2};
+    flecha(bordeGB(p2,3),p2,'#E0A800',.18);
+    var a3=borde(c3,pt(c2)),d3=borde(c2,pt(c3)); flecha(d3,a3,'#1E7A45',0);
+  }
+  var t; function pedir(){cancelAnimationFrame(t);t=requestAnimationFrame(dibujar)}
+  addEventListener('resize',pedir); addEventListener('load',pedir); var im=M.querySelector('img'); if(im) im.addEventListener('load',pedir); pedir();
+  if(window.ResizeObserver) new ResizeObserver(pedir).observe(M);
+})();
+
+/* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando la caja de oferta o el cierre están en pantalla */
+(function(){
+  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('cta-oferta')];
+  function ver(){var pasoHero=hero.getBoundingClientRect().bottom<0;var tapa=tapan.some(function(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var on=pasoHero&&!tapa;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');b.querySelector('a').tabIndex=on?0:-1}
+  addEventListener('scroll',ver,{passive:true}); addEventListener('resize',ver); ver();
+})();
+
+/* Lista de espera: popup con nombre, correo, WhatsApp opcional y consentimiento. Se guarda en Supabase (tabla leads) por /api/subscribe. (igual que landing-movil.html) */
+(function(){
+  var M=document.getElementById('lista'); if(!M) return;
+  var form=M.querySelector('form'), ok=M.querySelector('.ecc-lista-ok'), err=M.querySelector('.ecc-lista-error'), btn=M.querySelector('.ecc-lista-enviar');
+  var P=[['PE','Perú','+51'],['MX','México','+52'],['CO','Colombia','+57'],['AR','Argentina','+54'],['CL','Chile','+56'],['EC','Ecuador','+593'],['BO','Bolivia','+591'],['UY','Uruguay','+598'],['PY','Paraguay','+595'],['VE','Venezuela','+58'],['US','Estados Unidos','+1'],['ES','España','+34'],['CR','Costa Rica','+506'],['PA','Panamá','+507'],['GT','Guatemala','+502'],['DO','Rep. Dominicana','+1'],['SV','El Salvador','+503'],['HN','Honduras','+504'],['NI','Nicaragua','+505'],['PR','Puerto Rico','+1'],['CA','Canadá','+1'],['XX','Otro país','+']];
+  var flag=function(c){return c==='XX'?'🌎':String.fromCodePoint.apply(null,c.split('').map(function(ch){return 127397+ch.charCodeAt(0)}))};
+  var sel=M.querySelector('#ecc-l-pais'); sel.innerHTML=P.map(function(p){return '<option value="'+p[0]+'">'+flag(p[0])+' '+p[2]+'  '+p[1]+'</option>'}).join('');
+  var TZ={'America/Lima':'PE','America/Mexico_City':'MX','America/Monterrey':'MX','America/Tijuana':'MX','America/Cancun':'MX','America/Bogota':'CO','America/Argentina/Buenos_Aires':'AR','America/Buenos_Aires':'AR','America/Santiago':'CL','America/Guayaquil':'EC','America/La_Paz':'BO','America/Montevideo':'UY','America/Asuncion':'PY','America/Caracas':'VE','Europe/Madrid':'ES','America/Costa_Rica':'CR','America/Panama':'PA','America/Guatemala':'GT','America/Santo_Domingo':'DO','America/El_Salvador':'SV','America/Tegucigalpa':'HN','America/Managua':'NI','America/Puerto_Rico':'PR'};
+  var pais='PE'; try{var tz=Intl.DateTimeFormat().resolvedOptions().timeZone; if(TZ[tz]) pais=TZ[tz]; else if(/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Detroit|Anchorage)/.test(tz)) pais='US'; else {var r=(navigator.language||'').split('-')[1]; if(r&&P.some(function(p){return p[0]===r.toUpperCase()})) pais=r.toUpperCase();}}catch(e){}
+  sel.value=pais;
+  var ultimo=null, guardadoY=0, bloqueado=false;
+  function bloquear(){ if(bloqueado) return; bloqueado=true; guardadoY=window.scrollY; var b=document.body.style; b.position='fixed'; b.top=(-guardadoY)+'px'; b.left='0'; b.right='0'; b.width='100%'; }
+  function liberar(){ if(!bloqueado) return; bloqueado=false; var b=document.body.style; b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; var de=document.documentElement, sb=de.style.scrollBehavior; de.style.scrollBehavior='auto'; window.scrollTo(0,guardadoY); de.style.scrollBehavior=sb; }
+  function abrir(e){ if(e) e.preventDefault(); ultimo=document.activeElement; M.hidden=false; bloquear(); requestAnimationFrame(function(){M.classList.add('on')});
+    var n=M.querySelector('#ecc-l-nombre'); setTimeout(function(){ (form.hidden?ok.querySelector('button'):n).focus({preventScroll:true}); },60);
+    if(window.eccEvento) try{window.eccEvento('lista_abrir',(e&&e.currentTarget&&e.currentTarget.textContent||'').trim().slice(0,60),'!AbrirListaEspera','lista_abrir',null)}catch(x){} }
+  function cerrar(){ M.classList.remove('on'); setTimeout(liberar,200); setTimeout(function(){M.hidden=true},220); if(ultimo&&ultimo.focus) ultimo.focus({preventScroll:true}); }
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-ecc-lista],a[href="#lista"]'); if(a){abrir(e);}},true);
+  [].forEach.call(M.querySelectorAll('[data-cerrar]'),function(b){b.addEventListener('click',cerrar)});
+  document.addEventListener('keydown',function(e){ if(M.hidden) return; if(e.key==='Escape') cerrar();
+    if(e.key==='Tab'){var f=[].filter.call(M.querySelectorAll('button,input,select,a[href]'),function(x){return x.offsetParent!==null}); if(!f.length) return; var a=f[0],z=f[f.length-1]; if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()} else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+  if(location.hash==='#lista') abrir();
+  function marca(el,mal){var c=el.closest('.ecc-campo,.ecc-check'); if(c) c.classList.toggle('mal',mal); el.setAttribute('aria-invalid',mal?'true':'false');}
+  function leer(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return {}}}
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); err.hidden=true;
+    var nombre=form.nombre.value.trim(), correo=form.correo.value.trim().toLowerCase(), cel=form.whatsapp.value.replace(/[^\d]/g,''), p=P.filter(function(x){return x[0]===sel.value})[0]||P[0], okc=form.consentimiento.checked;
+    var mal=[]; marca(form.nombre,!nombre); if(!nombre) mal.push('tu nombre');
+    var correoOk=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo); marca(form.correo,!correoOk); if(!correoOk) mal.push('un correo válido');
+    var celOk=!cel||(cel.length>=6&&cel.length<=15); marca(form.whatsapp,!celOk); if(!celOk) mal.push('un WhatsApp válido (o déjalo vacío)');
+    marca(form.consentimiento,!okc); if(!okc) mal.push('tu aceptación de la política de privacidad');
+    if(mal.length){err.textContent='Falta '+mal.join(', ')+'.'; err.hidden=false; var pri=form.querySelector('[aria-invalid="true"]'); if(pri) pri.focus(); return;}
+    btn.disabled=true; btn.querySelector('span').textContent='Enviando…';
+    var u=leer('_utm'), f=leer('_utm_first'), K=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    var datos={name:nombre,email:correo,whatsapp:cel?(p[2]+' '+cel):null,source:'Lista de espera ECC',survey:{pais:p[1],pais_codigo:p[0],consentimiento:true,pagina:location.pathname,fecha:new Date().toISOString()},anonymous_id:localStorage.getItem('_aid')||null,session_id:sessionStorage.getItem('_sid')||null};
+    K.forEach(function(k){datos[k]=u[k]||null;datos['first_touch_'+k]=f[k]||null;});
+    var local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    (local?Promise.resolve({ok:true}):fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)})).then(function(r){
+      if(!r.ok) throw new Error('http');
+      try{localStorage.setItem('ecc_lista',correo)}catch(x){}
+      if(window.eccEvento) try{window.eccEvento('lista_espera',p[1],'Lead','generate_lead','SubmitForm')}catch(x){}
+      M.querySelector('.ecc-lista-ok-correo').textContent=correo; form.hidden=true; ok.hidden=false; ok.querySelector('button').focus({preventScroll:true});
+    }).catch(function(){ err.textContent='No pudimos registrarte. Revisa tu conexión e inténtalo otra vez.'; err.hidden=false; })
+    .then(function(){ btn.disabled=false; btn.querySelector('span').textContent='¡Inscríbeme!'; });
+  });
+  [form.nombre,form.correo,form.whatsapp,form.consentimiento].forEach(function(el){el.addEventListener('input',function(){marca(el,false)});el.addEventListener('change',function(){marca(el,false)});});
+})();
+</script>
+</body>
+</html>
