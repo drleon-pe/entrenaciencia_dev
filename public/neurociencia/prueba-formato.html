@@ -501,7 +501,9 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .hero .cta{min-height:clamp(48px,6.6vh,60px);padding-top:12px;padding-bottom:11px}
   .hero .micro{margin-top:clamp(6px,1.2vh,14px);font-size:13.5px}
   .confianza .caras img{width:clamp(30px,4.4vh,40px);height:clamp(30px,4.4vh,40px)}
-  .hero-foto{order:2;width:100%}
+  .hero-der{order:2;display:flex;flex-direction:column;gap:18px}
+  .hero-foto{width:100%}
+  .hero .remate{text-align:left}
   .hero-col{order:1}
   .calco{left:16px;top:16px;padding:8px 14px 8px 9px}.calco b{font-size:15px}.calco span{font-size:11px}
   .firma{left:18px;bottom:18px;padding:10px 16px 10px 13px}.firma b{font-size:24px}.firma span{font-size:11.5px}
@@ -636,11 +638,14 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 <!-- ============ HERO ============ -->
 <section class="hero" data-screen-label="01 Arriba del pliegue">
   <div class="envase hero-grid">
+    <div class="hero-der">
     <div class="hero-foto" id="vsl">
       <!-- VSL horizontal (16:9) a todo el ancho. Mientras no haya video se ve la portada. -->
       <img class="vsl-poster" src="assets/vsl-portada.jpg" alt="Dr. Gonzalo León" fetchpriority="high">
       <div class="firma"><b>Dr. Gonzalo León</b><span>Especialista en Ciencia del Deporte</span></div>
       
+    </div>
+      <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de <span class="hl">volver a empezar</span>.</p>
     </div>
     <div class="hero-col">
       <div class="confianza">
@@ -665,7 +670,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         </div>
         <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
       </div>
-      <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de <span class="hl">volver a empezar</span>.</p>
       <a class="desliza" href="#revistas" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="f1" d="M6 5.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path class="f2" d="M6 12.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
