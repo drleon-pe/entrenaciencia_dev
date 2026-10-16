@@ -524,15 +524,10 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .caja-m b{font-size:16px}.caja-m p{font-size:14px}
   .revistas-ventana{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
   .marquesina img{width:170px;height:48px;margin:0 18px}
-  /* 3 columnas; con subgrid la etiqueta, el título y el texto de cada fila de tarjetas quedan a la misma altura */
-  .modulos{grid-template-columns:repeat(3,1fr);gap:22px}
-  .modulo{grid-row:span 4;grid-template-rows:subgrid;row-gap:0;align-content:start}
-  .modulo-txt{display:contents}
-  .modulo-txt > *{padding:0 22px}
-  .modulo-txt .eyebrow{padding-top:20px;padding-bottom:8px}
-  .modulo-txt h3{padding-bottom:10px;align-self:start}
-  .modulo-txt .mod-mas{padding:0 22px 22px;align-self:start}
-  .modulo-txt .mod-mas p{padding:0}
+  /* 3 columnas; alturas mínimas para que etiqueta y título queden alineados, y abrir una tarjeta no estire las vecinas */
+  .modulos{grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+  .modulo-txt .eyebrow{min-height:1.4em}
+  .modulo-txt h3{min-height:2.4em}
   .equipo{grid-template-columns:repeat(3,1fr)}
   .historia{display:grid;grid-template-columns:1fr 1fr}
   .historia-txt{padding:40px;align-content:center}
@@ -558,10 +553,10 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 }
 /* programa en 2 columnas en el celular */
 @media (max-width:859px){
-  .modulos{grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
-  .modulo{display:flex;flex-direction:column}
-  .modulo-txt{flex:1}
-  .mod-mas{margin-top:auto}
+  .modulos{grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+  /* altura fija para etiqueta y título: las tarjetas cerradas quedan parejas y abrir una no estira la del costado */
+  .modulo-txt .eyebrow{min-height:2.5em}
+  .modulo-txt h3{min-height:3.6em}
   .modulo{border-radius:14px}
   .modulo img{aspect-ratio:1/1}
   .modulo-txt{padding:11px 11px 12px;gap:5px}
