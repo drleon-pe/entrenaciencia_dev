@@ -9,7 +9,7 @@
 <link rel="icon" href="https://www.entrenaciencia.com/neurociencia/assets/isotipo-ecc.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap">
 <link rel="stylesheet" href="vendor/phosphor/fill/style.css">
 <link rel="stylesheet" href="vendor/phosphor/light/style.css">
 <!-- Prueba: la landing de lista de espera con el formato de página de oferta (barra de anuncio, hero con prueba
@@ -78,7 +78,7 @@ p{margin:0}
 
 /* ---------- botones ---------- */
 .cta-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;width:100%;max-width:440px;padding-top:12px}
-.sello{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;white-space:nowrap;background:var(--amarillo);color:var(--navy-2);font:700 11.5px/1 "Poppins";letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.sello{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;white-space:nowrap;background:var(--amarillo);color:var(--navy-2);font:700 clamp(9.5px,2.85vw,11.5px)/1 "Poppins";letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
 .cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;padding:16px 18px 14px;border:0;border-radius:999px;background:var(--teal);color:#fff;font:600 clamp(13.5px,4vw,15px)/1.2 "Poppins";letter-spacing:.01em;text-wrap:balance;text-align:center;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:var(--duro);transition:transform .12s ease,box-shadow .12s ease}
 .cta:hover{transform:translateY(-1px);box-shadow:0 18px 34px -14px rgba(1,127,167,.7)}
 .cta:active{transform:translateY(1px);box-shadow:0 8px 18px -10px rgba(1,127,167,.6)}
@@ -311,6 +311,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .num-via text{font:700 11px "Poppins";fill:#010D15}
 
 .rotulo-firma{font:600 13px/1.6 "Poppins"!important;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)!important}
+.dia-uno{margin-top:26px;font:800 clamp(28px,8vw,40px)/1.05 "Bricolage Grotesque","Poppins",sans-serif;letter-spacing:-.03em;color:var(--navy)}
+.dia-uno span{color:var(--teal);white-space:nowrap}
 .metodo-ecc{display:flex;flex-direction:column;align-items:center;gap:10px;margin:0 auto;padding:20px 22px 22px;max-width:520px;text-align:center;border-radius:16px;background:#fff;border:1px solid var(--borde);border-top:3px solid var(--teal);color:var(--navy)!important;font-weight:600;font-size:17px;line-height:1.45;box-shadow:0 16px 34px -24px rgba(10,37,64,.55)}
 .metodo-ecc img{width:38px;height:38px}
 .metodo-ecc b{color:var(--teal)}
@@ -624,7 +626,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       </div>
       <div>
         <div class="cta-wrap">
-          <span class="sello">40% OFF de lanzamiento</span>
+          <span class="sello">Oferta de lanzamiento gratuita · 40% OFF</span>
           <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
         </div>
         <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
@@ -740,7 +742,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         <p>Por eso es que <b>no necesitas otra dieta</b> u <b>otro plan de ejercicios.</b></p>
         <p>Necesitas un <span class="hl">método probado</span> basado en <b>neurociencia y psicología del cambio conductual</b> que te permita construir nuevos hábitos de entrenamiento y nutrición.</p>
         <p class="metodo-ecc"><img src="assets/isotipo-ecc.png" alt=""><span>Ese es el método que hemos desarrollado en <b>Entrena con Ciencia</b>.</span></p>
-        <div class="cta-wrap"><span class="sello">40% OFF de lanzamiento</span><a class="cta" href="#lista" data-ecc-lista>Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a></div>
+        <div class="cta-wrap"><span class="sello">Oferta de lanzamiento gratuita · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
       </div>
     </div>
 
@@ -751,7 +753,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         <div><b>15+</b><span>videos que te explican la última ciencia para lograr tus objetivos</span></div>
         <div><b>10+</b><span>rutinas para entrenar en tu casa o el gimnasio</span></div>
       </div>
-      <p style="margin-top:24px;font-weight:700;font-size:20px">Que este sea tu último Día 1.</p>
+      <p class="dia-uno">Que este sea tu <span>último Día 1.</span></p>
     </div>
   </div>
 </section>
@@ -769,7 +771,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       <article class="modulo"><img src="assets/portadas/protocolos-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Qué hacer cuando hay imprevistos</span><h3>Protocolos para Días Difíciles</h3><p>Todas las personas tienen imprevistos y días difíciles. Hemos creado <b>una biblioteca de protocolos</b> que atacan <span class="hl">problemas comunes</span> que impiden una transformación. Por ejemplo: ¿qué hacer si sales a comer a un restaurante?, ¿qué hago si me salto un entrenamiento?, y muchas otras situaciones comunes.</p></div></article>
       <article class="modulo"><img src="assets/portadas/comunidad-card.jpg" alt="" loading="lazy"><div class="modulo-txt"><span class="eyebrow">Soporte y información</span><h3>Comunidad Privada</h3><p>Accede a nuestra comunidad privada, donde tendrás a <b>otras personas igual de motivadas</b> para transformar tu cuerpo.</p></div></article>
     </div>
-    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">40% OFF de lanzamiento</span><a class="cta" href="#lista" data-ecc-lista>Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a></div><p class="micro">Lista de espera gratis: sin pago ni tarjeta.</p></div>
+    <div class="centro" style="margin-top:34px"><div class="cta-wrap" style="align-items:center"><span class="sello">Oferta de lanzamiento gratuita · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista>Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div><p class="micro">Lista de espera gratis: sin pago ni tarjeta.</p></div>
   </div>
 </section>
 
@@ -855,7 +857,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
           <li><i class="ph-fill ph-tag"></i><span><b>40% OFF de lanzamiento</b> para la lista de espera.</span></li>
           <li><i class="ph-fill ph-gift"></i><span><b>100% gratis:</b> sin pago ni tarjeta.</span></li>
         </ul>
-        <a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Reclama tu descuento <i class="ph-light ph-arrow-right"></i></a>
+        <a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
         <p class="nota-candado"><i class="ph-light ph-lock-simple"></i>Tus datos se usan solo para avisarte.</p>
         <div class="sellos">
           <div><i class="ph-light ph-stethoscope"></i>Desarrollado por un equipo médico multidisciplinario</div>
