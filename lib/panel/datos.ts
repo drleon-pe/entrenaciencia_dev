@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { readFileSync } from 'fs';
 
 // Lectura de datos para el panel privado. Solo se usa en el servidor (route handlers del panel),
 // con la clave service_role, porque las tablas solo permiten INSERT al público.
@@ -16,10 +17,19 @@ export const VERSIONES = [
 const EQUIPO_POR_DEFECTO = ['f8f31a93', '55d42401', '99e26533', 'a39bc8d4'];
 const DOMINIO_DEMO = 'vercel.app';
 
-function equipo(): string[] {
-  const extra = (process.env.PANEL_EQUIPO ?? '').split(',').map((s) => s.trim()).filter(Boolean);
-  return [...EQUIPO_POR_DEFECTO, ...extra];
+/**
+ * Países a los que apuntan los anuncios (código ISO). Un clic de anuncio desde otro país es el robot
+ * de revisión de Meta (entra desde EE.UU., Irlanda, Suecia… con navegadores simulados), no una persona.
+ * PANEL_PAISES_ANUNCIOS en Vercel reemplaza la lista, separados por coma.
+ */
+const PAISES_ANUNCIOS_POR_DEFECTO = ['PE'];
+
+function lista(env: string | undefined, porDefecto: string[]): string[] {
+  const extra = (env ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+  return extra.length ? extra : porDefecto;
 }
+const equipo = () => [...EQUIPO_POR_DEFECTO, ...lista(process.env.PANEL_EQUIPO, [])];
+const paisesAnuncios = () => lista(process.env.PANEL_PAISES_ANUNCIOS, PAISES_ANUNCIOS_POR_DEFECTO).map((p) => p.toUpperCase());
 
 let cliente: SupabaseClient | null = null;
 function db(): SupabaseClient {
@@ -51,26 +61,49 @@ async function todas(
 const LIMA = 'America/Lima';
 const diaLima = (iso: string) => new Date(iso).toLocaleDateString('en-CA', { timeZone: LIMA });
 const s = (v: unknown) => (typeof v === 'string' ? v : '');
+const pct = (a: number, b: number) => (b ? Math.round((a / b) * 1000) / 10 : 0);
+
+/** Meta a veces manda las etiquetas codificadas ("Playa+-+1", "%7C"). */
+export function limpiar(v: unknown): string {
+  const t = s(v);
+  if (!t) return '';
+  try {
+    return decodeURIComponent(t.replace(/\+/g, ' ')).replace(/\s+/g, ' ').trim();
+  } catch {
+    return t.replace(/\+/g, ' ').trim();
+  }
+}
 
 function dispositivo(ua: string, path: string): string {
   if (path.includes('movil')) return 'Celular';
   if (path.includes('escritorio')) return 'Computadora';
   return /iphone|android.*mobile|mobile/i.test(ua) ? 'Celular' : 'Computadora';
 }
-function app(ua: string): string {
-  if (/instagram/i.test(ua)) return 'Instagram (app)';
-  if (/FBAN|FBAV/i.test(ua)) return 'Facebook (app)';
-  if (/tiktok|musical_ly|bytedance/i.test(ua)) return 'TikTok (app)';
-  if (/whatsapp/i.test(ua)) return 'WhatsApp';
-  return 'Navegador';
+
+/**
+ * ¿La visita vino de un anuncio de Meta? Los anuncios llevan en utm_source la ubicación
+ * ({{placement}}: Instagram_Reels, Facebook_Mobile_Feed, Whatsapp_Status, Others…) y el nombre
+ * del anuncio en utm_content. El link de la bio ("ig" / link_in_bio) es orgánico.
+ */
+export function esAnuncio(v: Fila): boolean {
+  const src = limpiar(v.utm_source);
+  return /^(facebook|instagram|messenger|whatsapp|audience|threads|others?)(_|$)/i.test(src) && Boolean(limpiar(v.utm_content));
+}
+
+/** Nombre legible de la ubicación del anuncio. */
+function ubicacion(src: string): string {
+  const t = src.replace(/_/g, ' ').toLowerCase();
+  if (t === 'others' || t === 'other') return 'Otras ubicaciones';
+  return t.replace(/\bmobile\b/g, '').replace(/\s+/g, ' ').trim().replace(/^\w/, (c) => c.toUpperCase());
 }
 
 /**
- * Canal de llegada de una visita. Prioridad: etiqueta UTM del link → app desde la que se abrió
+ * Canal de llegada de una visita. Prioridad: anuncio de Meta → etiqueta UTM → app desde la que se abrió
  * (navegador interno de Instagram/TikTok/Facebook) → sitio de procedencia → link directo.
  */
-export function canal(v: Record<string, unknown>): string {
-  const t = (x: unknown) => (typeof x === 'string' ? x.toLowerCase() : '');
+export function canal(v: Fila): string {
+  if (esAnuncio(v)) return 'Anuncios Meta';
+  const t = (x: unknown) => limpiar(x).toLowerCase();
   const utm = t(v.utm_source) || t(v.first_touch_utm_source);
   const ua = t(v.user_agent);
   let host = '';
@@ -79,9 +112,9 @@ export function canal(v: Record<string, unknown>): string {
   } catch {}
   const es = (utms: string[], hosts: RegExp, uas?: RegExp) =>
     utms.some((u) => utm === u || utm.startsWith(u)) || hosts.test(host) || (uas ? uas.test(ua) : false);
-  if (es(['ig', 'instagram'], /(^|\.)instagram\.com$/, /instagram/)) return 'Instagram';
+  if (es(['ig', 'instagram'], /(^|\.)instagram\.com$/, /instagram/)) return 'Instagram orgánico';
   if (es(['tiktok', 'tt'], /(^|\.)tiktok\.com$/, /tiktok|musical_ly|bytedance/)) return 'TikTok';
-  if (es(['fb', 'facebook', 'meta'], /(^|\.)(facebook\.com|fb\.com|fb\.me)$/, /fban|fbav/)) return 'Facebook';
+  if (es(['fb', 'facebook', 'meta'], /(^|\.)(facebook\.com|fb\.com|fb\.me)$/, /fban|fbav/)) return 'Facebook orgánico';
   if (es(['wa', 'whatsapp'], /(^|\.)(whatsapp\.com|wa\.me)$/, /whatsapp/)) return 'WhatsApp';
   if (es(['yt', 'youtube'], /(^|\.)(youtube\.com|youtu\.be)$/)) return 'YouTube';
   if (es(['google'], /(^|\.)google\./)) return 'Google';
@@ -122,22 +155,43 @@ function mediana(xs: number[]): number | null {
 
 export type Filtros = { desde: string; hasta: string; incluirEquipo: boolean };
 
-export async function leerPanel({ desde, hasta, incluirEquipo }: Filtros) {
+async function leerRango(desde: string, hasta: string) {
+  // Solo en desarrollo: PANEL_FIXTURE apunta a un JSON con { visitas, eventos, inscritos } para probar sin Supabase.
+  if (process.env.NODE_ENV !== 'production' && process.env.PANEL_FIXTURE) {
+    const f = JSON.parse(readFileSync(process.env.PANEL_FIXTURE, 'utf8')) as Record<'visitas' | 'eventos' | 'inscritos', Fila[]>;
+    const en = (x: Fila) => s(x.created_at) >= desde && s(x.created_at) < hasta;
+    return { visitas: f.visitas.filter(en), eventos: f.eventos.filter(en), inscritos: f.inscritos.filter(en) };
+  }
   const rango = (q: any) => q.gte('created_at', desde).lt('created_at', hasta); // eslint-disable-line @typescript-eslint/no-explicit-any
-
   const [visitas, eventos, inscritos] = await Promise.all([
-    todas('page_views', 'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_campaign, first_touch_utm_source', (q) =>
-      rango(q.or('path.like./vsl%,path.like./neurociencia%')),
+    todas(
+      'page_views',
+      'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_medium, utm_campaign, utm_content, first_touch_utm_source',
+      (q) => rango(q.or('path.like./vsl%,path.like./neurociencia%')),
     ),
-    todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind', (q) =>
-      rango(q.eq('resource_title', RECURSO_LANDING)),
-    ),
-    todas('leads', 'id, created_at, name, email, whatsapp, whatsapp_country_code, survey, anonymous_id, utm_source, utm_campaign, first_touch_utm_source', (q) =>
+    todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind', (q) => rango(q.eq('resource_title', RECURSO_LANDING))),
+    todas('leads', 'id, created_at, name, email, whatsapp, whatsapp_country_code, survey, anonymous_id, utm_source, utm_campaign, utm_content, first_touch_utm_source', (q) =>
       rango(q.eq('source', FUENTE_LISTA)),
     ),
   ]);
+  return { visitas, eventos, inscritos };
+}
 
-  return calcularPanel({ visitas, eventos, inscritos, incluirEquipo });
+export async function leerPanel({ desde, hasta, incluirEquipo }: Filtros) {
+  // Periodo anterior para comparar: el mismo tramo corrido hacia atrás. Si el periodo sigue abierto
+  // ("Hoy", "Últimos 7 días"), se corre en días enteros y se corta a la misma hora (hoy hasta las 10:00 vs. ayer hasta las 10:00).
+  const DIA = 86_400_000;
+  const ini = Date.parse(desde);
+  const abierto = Date.parse(hasta) > Date.now();
+  const fin = abierto ? Date.now() : Date.parse(hasta);
+  const corrimiento = abierto ? Math.max(1, Math.ceil((fin - ini) / DIA)) * DIA : fin - ini;
+  const antesDesde = new Date(ini - corrimiento).toISOString();
+  const antesHasta = new Date(fin - corrimiento).toISOString();
+
+  const [actual, anterior] = await Promise.all([leerRango(desde, hasta), leerRango(antesDesde, antesHasta)]);
+  const datos = calcularPanel({ ...actual, incluirEquipo });
+  const previo = calcularPanel({ ...anterior, incluirEquipo });
+  return { ...datos, anterior: { desde: antesDesde, hasta: antesHasta, kpis: previo.kpis } };
 }
 
 /** Cálculo puro de las métricas (separado de la lectura para poder probarlo). */
@@ -152,87 +206,159 @@ export function calcularPanel({
   inscritos: Fila[];
   incluirEquipo: boolean;
 }) {
-  // Quién es equipo: prefijos conocidos o cualquiera que haya entrado por el link de demo.
+  // --- Limpieza: equipo y robots de revisión de Meta ---
   const prefijos = equipo();
+  const paises = paisesAnuncios();
   const internos = new Set<string>();
+  const robots = new Set<string>();
   for (const v of visitas) {
     const id = s(v.anonymous_id);
     if (prefijos.some((p) => id.startsWith(p)) || s(v.referrer).includes(DOMINIO_DEMO)) internos.add(id);
+    if (esAnuncio(v) && !paises.includes(s(v.country).toUpperCase())) robots.add(id);
   }
-  const vale = (id: unknown) => incluirEquipo || !internos.has(s(id));
+  const vale = (id: unknown) => !robots.has(s(id)) && (incluirEquipo || !internos.has(s(id)));
   const V = visitas.filter((v) => vale(v.anonymous_id));
   const E = eventos.filter((e) => vale(e.anonymous_id));
   const L = inscritos.filter((l) => vale(l.anonymous_id));
 
-  // Primera visita de cada visitante → país, dispositivo, app, fuente
+  // --- Personas: cada una con su primera visita (canal) y su primer clic de anuncio (anuncio) ---
   const primera = new Map<string, Fila>();
-  for (const v of V) if (!primera.has(s(v.anonymous_id))) primera.set(s(v.anonymous_id), v);
-  const visitantes = [...primera.keys()];
-  // Canal de cada persona = el de su primera visita
-  const canalDe = new Map<string, string>();
-  for (const [id, v] of primera) canalDe.set(id, canal(v));
+  const primerAnuncio = new Map<string, Fila>();
+  for (const v of V) {
+    const id = s(v.anonymous_id);
+    if (!primera.has(id)) primera.set(id, v);
+    if (!primerAnuncio.has(id) && esAnuncio(v)) primerAnuncio.set(id, v);
+  }
+  const personas = [...primera.keys()];
+  const n = personas.length;
+  const canalDe = new Map(personas.map((id) => [id, canal(primera.get(id)!)]));
+  const deAnuncio = (id: string) => primerAnuncio.has(id);
 
-  // Embudo por visitante
-  const porVisitante = (pred: (e: Fila) => boolean) => new Set(E.filter(pred).map((e) => s(e.anonymous_id)));
-  const scroll = (p: number) => porVisitante((e) => /^scroll_\d+$/.test(s(e.event_type)) && Number(s(e.event_type).slice(7)) >= p);
-  const inscritosIds = new Set([...porVisitante((e) => e.event_type === 'lista_espera'), ...L.map((l) => s(l.anonymous_id))]);
-  const n = visitantes.length;
-  const paso = (nombre: string, set: Set<string> | number) => {
-    const v = typeof set === 'number' ? set : [...set].filter((id) => primera.has(id)).length;
-    return { nombre, n: v, pct: n ? Math.round((v / n) * 1000) / 10 : 0 };
+  // --- Qué hizo cada persona ---
+  const hizo = (pred: (e: Fila) => boolean) => new Set(E.filter(pred).map((e) => s(e.anonymous_id)));
+  const leyo = (p: number) => hizo((e) => /^scroll_\d+$/.test(s(e.event_type)) && Number(s(e.event_type).slice(7)) >= p);
+  const mitad = leyo(50);
+  const final = leyo(100);
+  const sonido = hizo((e) => e.event_type === 'vsl_sonido' || e.event_type === 'video_play');
+  const testimonios = hizo((e) => e.event_type === 'testimonio_ver');
+  const registro = hizo((e) => ['lista_abrir', 'cta_click', 'checkout_click'].includes(s(e.event_type)));
+  const inscritosIds = new Set([...hizo((e) => e.event_type === 'lista_espera'), ...L.map((l) => s(l.anonymous_id))]);
+  // Si alguien se inscribió, también abrió el registro (por si el evento de apertura no llegó).
+  for (const id of inscritosIds) registro.add(id);
+
+  const tiempoDe = new Map<string, number>();
+  for (const e of E) {
+    if (e.event_type !== 'salida') continue;
+    const t = parseInt(s(e.resource_kind), 10);
+    if (t > 0 && t <= 1800) tiempoDe.set(s(e.anonymous_id), Math.max(tiempoDe.get(s(e.anonymous_id)) ?? 0, t));
+  }
+
+  // --- Embudo, separado en anuncios y orgánico ---
+  const grupos = {
+    todos: personas,
+    anuncios: personas.filter(deAnuncio),
+    organico: personas.filter((id) => !deAnuncio(id)),
   };
-  const embudo = [
-    paso('Entraron', n),
-    paso('Bajaron al 25%', scroll(25)),
-    paso('Bajaron al 50%', scroll(50)),
-    paso('Bajaron al 75%', scroll(75)),
-    paso('Llegaron al final', scroll(100)),
-    paso('Vieron el video', porVisitante((e) => e.event_type === 'video_play')),
-    paso('Abrieron testimonios', porVisitante((e) => e.event_type === 'testimonio_ver')),
-    paso('Abrieron el registro', porVisitante((e) => e.event_type === 'lista_abrir' || e.event_type === 'cta_click' || e.event_type === 'checkout_click')),
-    paso('Se inscribieron', inscritosIds),
+  const cuantos = (ids: string[], set: Set<string>) => ids.filter((id) => set.has(id)).length;
+  const pasos: [string, Set<string> | null][] = [
+    ['Entraron', null],
+    ['Leyeron la mitad', mitad],
+    ['Abrieron el registro', registro],
+    ['Se inscribieron', inscritosIds],
   ];
+  const embudo = pasos.map(([nombre, set]) => {
+    const fila = (ids: string[]) => {
+      const v = set ? cuantos(ids, set) : ids.length;
+      return { n: v, pct: pct(v, ids.length) };
+    };
+    return { nombre, todos: fila(grupos.todos), anuncios: fila(grupos.anuncios), organico: fila(grupos.organico) };
+  });
+  // Fuera del embudo: no hace falta llegar al final para inscribirse (los botones están en toda la página).
+  const interacciones = [
+    { nombre: 'Llegaron al final', n: cuantos(personas, final) },
+    { nombre: 'Activaron el video', n: cuantos(personas, sonido) },
+    { nombre: 'Abrieron un testimonio', n: cuantos(personas, testimonios) },
+  ].map((x) => ({ ...x, pct: pct(x.n, n) }));
 
-  // Tiempo en página (eventos "salida" = "123s"); se descartan pestañas olvidadas (> 30 min)
-  const tiempos = E.filter((e) => e.event_type === 'salida')
-    .map((e) => parseInt(s(e.resource_kind), 10))
-    .filter((t) => t > 0 && t <= 1800);
-
-  // Serie por día
-  const dias = new Map<string, { visitantes: Set<string>; inscritos: number }>();
-  const dia = (d: string) => dias.get(d) ?? dias.set(d, { visitantes: new Set(), inscritos: 0 }).get(d)!;
-  for (const v of V) dia(diaLima(s(v.created_at))).visitantes.add(s(v.anonymous_id));
+  // --- Flujo diario (hora de Lima) ---
+  const dias = new Map<string, { personas: Set<string>; anuncios: Set<string>; nuevas: number; inscritos: number }>();
+  const dia = (d: string) => dias.get(d) ?? dias.set(d, { personas: new Set(), anuncios: new Set(), nuevas: 0, inscritos: 0 }).get(d)!;
+  for (const v of V) {
+    const d = dia(diaLima(s(v.created_at)));
+    d.personas.add(s(v.anonymous_id));
+    if (esAnuncio(v)) d.anuncios.add(s(v.anonymous_id));
+  }
+  for (const [, v] of primera) dia(diaLima(s(v.created_at))).nuevas++;
   for (const l of L) dia(diaLima(s(l.created_at))).inscritos++;
   const porDia = [...dias.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
-    .map(([fecha, d]) => ({ fecha, visitantes: d.visitantes.size, inscritos: d.inscritos }));
+    .map(([fecha, d]) => ({
+      fecha,
+      personas: d.personas.size,
+      anuncios: d.anuncios.size,
+      organico: d.personas.size - d.anuncios.size,
+      nuevas: d.nuevas,
+      inscritos: d.inscritos,
+      tasa: pct(d.inscritos, d.personas.size),
+    }));
 
-  // Personas, visitas, lectura completa e inscritos por canal
-  const finales = scroll(100);
-  const porCanal = new Map<string, { personas: number; visitas: number; final: number; inscritos: number }>();
-  const fila = (c: string) => porCanal.get(c) ?? porCanal.set(c, { personas: 0, visitas: 0, final: 0, inscritos: 0 }).get(c)!;
+  // --- Anuncios: cada persona cuenta en el anuncio de su primer clic ---
+  type Agrupado = { personas: number; mitad: number; final: number; registro: number; inscritos: number; tiempos: number[] };
+  const agrupar = (clave: (v: Fila) => string) => {
+    const m = new Map<string, Agrupado>();
+    for (const [id, v] of primerAnuncio) {
+      const k = clave(v) || '(sin nombre)';
+      const f = m.get(k) ?? m.set(k, { personas: 0, mitad: 0, final: 0, registro: 0, inscritos: 0, tiempos: [] }).get(k)!;
+      f.personas++;
+      if (mitad.has(id)) f.mitad++;
+      if (final.has(id)) f.final++;
+      if (registro.has(id)) f.registro++;
+      if (inscritosIds.has(id)) f.inscritos++;
+      if (tiempoDe.has(id)) f.tiempos.push(tiempoDe.get(id)!);
+    }
+    return [...m.entries()]
+      .map(([nombre, f]) => ({
+        nombre,
+        personas: f.personas,
+        mitad: pct(f.mitad, f.personas),
+        final: pct(f.final, f.personas),
+        registro: f.registro,
+        inscritos: f.inscritos,
+        tasa: pct(f.inscritos, f.personas),
+        tiempo: mediana(f.tiempos),
+      }))
+      .sort((a, b) => b.inscritos - a.inscritos || b.personas - a.personas);
+  };
+  const anuncios = {
+    porAnuncio: agrupar((v) => limpiar(v.utm_content)),
+    porUbicacion: agrupar((v) => ubicacion(limpiar(v.utm_source))),
+    porConjunto: agrupar((v) => limpiar(v.utm_campaign)),
+    porCampana: agrupar((v) => limpiar(v.utm_medium)),
+  };
+
+  // --- Canales ---
+  const porCanal = new Map<string, { personas: number; final: number; registro: number; inscritos: number }>();
   for (const [id, c] of canalDe) {
-    const f = fila(c);
+    const f = porCanal.get(c) ?? porCanal.set(c, { personas: 0, final: 0, registro: 0, inscritos: 0 }).get(c)!;
     f.personas++;
-    if (finales.has(id)) f.final++;
+    if (final.has(id)) f.final++;
+    if (registro.has(id)) f.registro++;
     if (inscritosIds.has(id)) f.inscritos++;
   }
-  for (const v of V) fila(canalDe.get(s(v.anonymous_id)) ?? canal(v)).visitas++;
   const canales = [...porCanal.entries()]
-    .map(([nombre, f]) => ({ nombre, ...f, tasa: f.personas ? Math.round((f.inscritos / f.personas) * 1000) / 10 : 0 }))
+    .map(([nombre, f]) => ({ nombre, ...f, finalPct: pct(f.final, f.personas), tasa: pct(f.inscritos, f.personas) }))
     .sort((a, b) => b.personas - a.personas);
 
   const prim = [...primera.values()];
   const desglose = {
     pais: contar(prim.map((v) => s(v.country) || '?')),
     dispositivo: contar(prim.map((v) => dispositivo(s(v.user_agent), s(v.path)))),
-    app: contar(prim.map((v) => app(s(v.user_agent)))),
-    utm: contar(prim.map((v) => s(v.utm_source) || s(v.first_touch_utm_source) || '(sin etiqueta)')),
-    campana: contar(prim.map((v) => s(v.utm_campaign) || '(sin campaña)')),
   };
 
   const listaInscritos = [...L].reverse().map((l) => {
     const survey = (l.survey ?? {}) as Record<string, unknown>;
+    const id = s(l.anonymous_id);
+    const ad = primerAnuncio.get(id);
     return {
       id: s(l.id),
       fecha: s(l.created_at),
@@ -240,39 +366,54 @@ export function calcularPanel({
       correo: ocultarCorreo(s(l.email)),
       whatsapp: s(l.whatsapp) ? `${s(l.whatsapp_country_code)} ${ocultarTelefono(s(l.whatsapp))}`.trim() : '',
       pais: s(survey.pais),
-      fuente: canalDe.get(s(l.anonymous_id)) ?? canal(l),
-      campana: s(l.utm_campaign),
-      equipo: internos.has(s(l.anonymous_id)),
+      fuente: canalDe.get(id) ?? canal(l),
+      anuncio: ad ? limpiar(ad.utm_content) : esAnuncio(l) ? limpiar(l.utm_content) : '',
+      equipo: internos.has(id),
     };
   });
 
   const NOMBRES: Record<string, string> = {
-    scroll_25: 'Bajó al 25%', scroll_50: 'Bajó al 50%', scroll_75: 'Bajó al 75%', scroll_100: 'Llegó al final',
-    video_play: 'Dio play al video', testimonio_ver: 'Abrió un testimonio', faq_abrir: 'Abrió una pregunta',
-    cta_click: 'Clic en botón', checkout_click: 'Clic en reservar', lista_abrir: 'Abrió el registro',
+    scroll_25: 'Bajó al 25%', scroll_50: 'Bajó a la mitad', scroll_75: 'Bajó al 75%', scroll_100: 'Llegó al final',
+    video_play: 'Dio play al video', vsl_sonido: 'Activó el sonido del video', testimonio_ver: 'Abrió un testimonio',
+    faq_abrir: 'Abrió una pregunta', cta_click: 'Clic en botón', checkout_click: 'Clic en reservar', lista_abrir: 'Abrió el registro',
     lista_espera: 'Se inscribió', salida: 'Salió',
   };
   const actividad = [
-    ...V.slice(-40).map((v) => ({ t: s(v.created_at), quien: s(v.anonymous_id).slice(0, 6), que: 'Entró a la página', detalle: `${s(v.country)} · ${dispositivo(s(v.user_agent), s(v.path))} · ${canal(v)}` })),
+    ...V.slice(-40).map((v) => ({
+      t: s(v.created_at),
+      quien: s(v.anonymous_id).slice(0, 6),
+      que: 'Entró a la página',
+      detalle: [s(v.country), dispositivo(s(v.user_agent), s(v.path)), esAnuncio(v) ? `Anuncio: ${limpiar(v.utm_content)}` : canal(v)].join(' · '),
+    })),
     ...E.slice(-60).map((e) => ({ t: s(e.created_at), quien: s(e.anonymous_id).slice(0, 6), que: NOMBRES[s(e.event_type)] ?? s(e.event_type), detalle: s(e.resource_kind) })),
   ]
     .sort((a, b) => b.t.localeCompare(a.t))
     .slice(0, 40);
 
+  const tiempos = [...tiempoDe.entries()].map(([, t]) => t);
   return {
     generado: new Date().toISOString(),
     kpis: {
-      visitantes: n,
-      personasRecurrentes: [...contar(V.map((v) => s(v.anonymous_id)))].filter((x) => x.n > 1).length,
+      personas: n,
+      deAnuncios: grupos.anuncios.length,
+      inscritos: inscritosIds.size,
+      conversion: pct(inscritosIds.size, n),
+      conversionAnuncios: pct(cuantos(grupos.anuncios, inscritosIds), grupos.anuncios.length),
+      leyeronFinal: pct(cuantos(personas, final), n),
+      tiempoMediano: mediana(tiempos),
+    },
+    calidad: {
       visitas: V.length,
       sesiones: new Set(V.map((v) => s(v.session_id))).size,
-      inscritos: L.length,
-      tasaInscripcion: n ? Math.round((inscritosIds.size / n) * 1000) / 10 : 0,
-      tiempoMediano: mediana(tiempos),
-      excluidos: incluirEquipo ? 0 : internos.size,
+      volvieron: contar(V.map((v) => s(v.anonymous_id))).filter((x) => x.n > 1).length,
+      robots: robots.size,
+      equipo: incluirEquipo ? 0 : [...internos].filter((id) => !robots.has(id)).length,
+      sinEtiqueta: prim.filter((v) => !s(v.utm_source) && !s(v.first_touch_utm_source)).length,
     },
     embudo,
+    interacciones,
     porDia,
+    anuncios,
     canales,
     desglose,
     inscritos: listaInscritos,
@@ -280,7 +421,7 @@ export function calcularPanel({
   };
 }
 
-export type DatosPanel = ReturnType<typeof calcularPanel>;
+export type DatosPanel = Awaited<ReturnType<typeof leerPanel>>;
 
 /** Datos completos de un inscrito (solo al pedirlo explícitamente). */
 export async function contactoCompleto(id: string) {
