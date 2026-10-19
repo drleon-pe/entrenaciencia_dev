@@ -5,10 +5,7 @@ import { cookies } from 'next/headers';
 // La clave de firma es PANEL_PASSWORD, así que cambiar la contraseña cierra todas las sesiones.
 
 const COOKIE = 'ecc_panel';
-// La sesión dura 30 días y se renueva sola mientras el panel esté abierto (ver renovarSesion),
-// así no vuelve a pedir la clave al dejarlo abierto o al entrar desde un link.
-const DURACION_MS = 30 * 24 * 60 * 60 * 1000;
-const RENOVAR_CADA_MS = 60 * 60 * 1000; // como mucho una vez por hora
+const DURACION_MS = 24 * 60 * 60 * 1000; // 24 horas; después pide la clave otra vez
 
 // Correos autorizados (no son secretos). PANEL_EMAILS en Vercel reemplaza la lista si existe.
 const CORREOS_POR_DEFECTO = ['lfontenoy@subecontenido.com', 'gleon@subecontenido.com'];
@@ -63,12 +60,6 @@ export async function leerSesion(): Promise<string | null> {
   return (await sesion())?.correo ?? null;
 }
 
-/** Extiende la sesión (solo en route handlers, que pueden escribir cookies). */
-export async function renovarSesion() {
-  const actual = await sesion();
-  if (actual && actual.vence - Date.now() < DURACION_MS - RENOVAR_CADA_MS) await crearSesion(actual.correo);
-}
-
 async function sesion(): Promise<{ correo: string; vence: number } | null> {
   if (!process.env.PANEL_PASSWORD) return null;
   const valor = (await cookies()).get(COOKIE)?.value;
@@ -77,7 +68,8 @@ async function sesion(): Promise<{ correo: string; vence: number } | null> {
   if (!datos || !firma || !iguales(firma, firmar(datos))) return null;
   try {
     const { c, v } = JSON.parse(Buffer.from(datos, 'base64url').toString());
-    if (typeof v !== 'number' || v < Date.now()) return null;
+    // Rechaza sesiones vencidas y las que duran más de lo permitido (p. ej. emitidas con otra duración).
+    if (typeof v !== 'number' || v < Date.now() || v > Date.now() + DURACION_MS) return null;
     if (!correosAutorizados().includes(c)) return null;
     return { correo: c, vence: v };
   } catch {

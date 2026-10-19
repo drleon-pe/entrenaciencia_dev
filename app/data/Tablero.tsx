@@ -45,7 +45,8 @@ const fechaHora = (iso: string) =>
 const diaCorto = (ymd: string) =>
   new Date(`${ymd}T12:00:00-05:00`).toLocaleDateString('es-PE', { timeZone: 'America/Lima', weekday: 'short', day: 'numeric' });
 
-const C = { borde: 'border-[#e1e8ec]', suave: 'text-[#5b6b76]', tenue: 'text-[#7a8a95]' };
+// Marca Entrena con Ciencia: navy #0A2540, teal #017FA7, cian #23D3FF, amarillo #FFC300, fondo #F5FAFC (Poppins).
+const C = { borde: 'border-[#d9e8f0]', suave: 'text-[#3e5260]', tenue: 'text-[#627682]' };
 const AZUL = '#017FA7';
 const CELESTE = '#9fd3e3';
 const VERDE = '#0f9d58';
@@ -66,9 +67,12 @@ function Cambio({ ahora, antes, puntos }: { ahora: number; antes: number | undef
 
 function Tarjeta({ titulo, valor, ayuda, destacada, children }: { titulo: string; valor: string; ayuda: string; destacada?: boolean; children?: React.ReactNode }) {
   return (
-    <div className={`rounded-xl border px-4 py-4 ${destacada ? 'bg-[#e8f4f8] border-[#b8dce8]' : `bg-white ${C.borde}`}`}>
-      <p className={`text-[13px] ${C.suave}`}>{titulo}</p>
-      <p className="text-3xl font-medium mt-1 tabular-nums text-[#0b1f2c]">{valor}</p>
+    <div className={`rounded-2xl border bg-white px-4 py-4 shadow-[0_8px_24px_-12px_rgba(11,31,44,.10)] ${destacada ? 'border-[#FFC300] border-2' : C.borde}`}>
+      <p className={`text-[13px] ${C.suave} flex items-center gap-1.5`}>
+        {destacada && <i className="inline-block w-2 h-2 rounded-full bg-[#FFC300]" />}
+        {titulo}
+      </p>
+      <p className="text-3xl font-extrabold mt-1 tabular-nums text-[#0A2540] tracking-tight">{valor}</p>
       <p className={`text-xs mt-1 ${C.tenue}`}>{ayuda}</p>
       <div className="mt-1.5">{children}</div>
     </div>
@@ -77,22 +81,22 @@ function Tarjeta({ titulo, valor, ayuda, destacada, children }: { titulo: string
 
 function Bloque({ n, titulo, sub, children }: { n: number; titulo: string; sub: string; children: React.ReactNode }) {
   return (
-    <section className="space-y-3">
+    <div className="space-y-3">
       <div className="flex items-baseline gap-3">
-        <span className="shrink-0 w-7 h-7 rounded-full bg-[#e6f3f8] text-[#017FA7] text-sm font-medium flex items-center justify-center">{n}</span>
+        <span className="shrink-0 w-7 h-7 rounded-lg bg-[#0A2540] text-[#23D3FF] text-sm font-extrabold flex items-center justify-center">{n}</span>
         <div>
           <h2>{titulo}</h2>
           <p className={`text-sm ${C.suave}`}>{sub}</p>
         </div>
       </div>
       {children}
-    </section>
+    </div>
   );
 }
 
 function Caja({ titulo, children, className = '' }: { titulo?: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-white rounded-xl border ${C.borde} p-4 sm:p-5 min-w-0 ${className}`}>
+    <div className={`bg-white rounded-2xl border ${C.borde} p-4 sm:p-5 min-w-0 shadow-[0_8px_24px_-12px_rgba(11,31,44,.10)] ${className}`}>
       {titulo && <h3 className={`text-sm font-medium mb-3 ${C.suave}`}>{titulo}</h3>}
       {children}
     </div>
@@ -283,7 +287,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
     if (!k!.inscritos) ideas.push('Todavía no hay inscritos en este periodo.');
   }
 
-  const campo = 'rounded-lg border border-[#cbd6dd] bg-white px-3 py-2 text-sm';
+  const campo = 'rounded-lg border border-white/20 bg-white text-[#0A2540] px-3 py-2 text-sm';
   const VISTAS = [
     { id: 'porAnuncio', nombre: 'Anuncio' },
     { id: 'porUbicacion', nombre: 'Ubicación' },
@@ -293,11 +297,17 @@ export default function Tablero({ correo, versiones }: { correo: string; version
 
   return (
     <div>
-      <header className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-[#e1e8ec]">
+      <header className="sticky top-0 z-10 bg-[#0A2540] text-white shadow-[0_8px_24px_-16px_rgba(1,13,21,.6)]">
         <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <div className="mr-auto">
-            <p className="text-[11px] uppercase tracking-wider text-[#017FA7] font-medium">Entrena con Ciencia</p>
-            <h1 className="panel-titulo">Panel de la landing /neurociencia</h1>
+          <div className="mr-auto flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/isotipo-cyan.png" alt="" width={40} height={40} className="w-10 h-10" />
+            <div>
+              <p className="text-[11px] uppercase tracking-[.14em] font-extrabold leading-tight">
+                Entrena <span className="text-[#23D3FF]">con Ciencia</span>
+              </p>
+              <h1 className="panel-titulo text-white">Panel de la landing /neurociencia</h1>
+            </div>
           </div>
           <select value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
             {opciones.map((p) => (
@@ -306,18 +316,18 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               </option>
             ))}
           </select>
-          <span className="flex items-center gap-1.5 text-sm text-[#3b4b56]" title="Se actualiza sola cada 5 segundos">
-            <span className={`inline-block w-2 h-2 rounded-full ${error ? 'bg-[#d03b3b]' : 'bg-[#0ca30c]'} ${cargando ? 'animate-pulse' : ''}`} />
+          <span className="flex items-center gap-1.5 text-sm text-[#C9D8E4]" title="Se actualiza sola cada 5 segundos">
+            <span className={`inline-block w-2 h-2 rounded-full ${error ? 'bg-[#ff6b6b]' : 'bg-[#23D3FF]'} ${cargando ? 'animate-pulse' : ''}`} />
             {error ? 'Sin conexión' : datos ? `En vivo · ${hora(datos.generado)}` : 'Cargando…'}
           </span>
           {k && (
-            <span className="rounded-full bg-[#e9f7ef] text-[#0f7a45] px-3 py-1 text-sm font-medium tabular-nums" title="Personas con actividad en los últimos 5 minutos">
+            <span className="rounded-full bg-[#FFC300] text-[#0A2540] px-3 py-1 text-sm font-extrabold tabular-nums" title="Personas con actividad en los últimos 5 minutos">
               {k.enLinea} en la página ahora
             </span>
           )}
           <form action={salir} className="flex items-center gap-2">
-            <span className={`text-xs ${C.tenue} hidden md:inline`}>{correo}</span>
-            <button className="rounded-lg border border-[#cbd6dd] px-3 py-1.5 text-sm hover:bg-[#f4f7f9]">Salir</button>
+            <span className="text-xs text-[#C9D8E4] hidden md:inline">{correo}</span>
+            <button className="rounded-lg border border-white/30 px-3 py-1.5 text-sm text-white hover:bg-white/10">Salir</button>
           </form>
         </div>
       </header>
@@ -327,7 +337,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
 
         {/* Resumen + actividad en vivo */}
         <div className="grid lg:grid-cols-5 gap-4 items-start">
-        <section className="space-y-3 lg:col-span-3">
+        <div className="space-y-3 lg:col-span-3">
           <div className="grid grid-cols-2 gap-3">
             <Tarjeta titulo="Personas" valor={k ? String(k.personas) : '–'} ayuda="distintas que entraron a la página">
               {k && <Cambio ahora={k.personas} antes={a?.personas} />}
@@ -343,20 +353,20 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             </Tarjeta>
           </div>
           {ideas.length > 0 && (
-            <div className="rounded-xl bg-[#fff8e6] border border-[#f5dfa3] px-4 py-3">
-              <p className="text-[13px] font-medium text-[#7a5a00] mb-1">En resumen</p>
-              <ul className="text-sm text-[#4a3b0b] space-y-0.5 list-disc pl-5">
+            <div className="rounded-2xl bg-[#FFF6D6] border-l-4 border-[#FFC300] px-4 py-3">
+              <p className="text-[13px] font-extrabold text-[#0A2540] mb-1">En resumen</p>
+              <ul className="text-sm text-[#0A2540] space-y-0.5 list-disc pl-5">
                 {ideas.map((t) => (
                   <li key={t}>{t}</li>
                 ))}
               </ul>
             </div>
           )}
-        </section>
+        </div>
             <Caja titulo="Actividad en vivo" className="lg:col-span-2">
               <ul className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
                 {datos?.actividad.map((x, n) => (
-                  <li key={`${x.t}-${n}`} className={`text-sm flex gap-3 rounded-md px-1 -mx-1 transition-colors duration-[2000ms] ${movNuevos.has(`${x.t}|${x.quien}|${x.que}`) ? 'bg-[#fff4cc]' : ''}`}>
+                  <li key={`${x.t}-${n}`} className={`text-sm flex gap-3 rounded-md px-1 -mx-1 transition-colors duration-[2000ms] ${movNuevos.has(`${x.t}|${x.quien}|${x.que}`) ? 'bg-[#FFF0B8]' : ''}`}>
                     <span className={`tabular-nums ${C.tenue} w-11 shrink-0 whitespace-nowrap`}>{hora(x.t)}</span>
                     <span className="min-w-0">
                       <span className={x.que === 'Se inscribió' ? 'font-medium text-[#0f9d58]' : ''}>{x.que}</span>
@@ -428,7 +438,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                   role="tab"
                   aria-selected={vistaAnuncios === v.id}
                   onClick={() => setVistaAnuncios(v.id)}
-                  className={`rounded-full px-3 py-1 text-[13px] border ${vistaAnuncios === v.id ? 'bg-[#017FA7] border-[#017FA7] text-white' : 'border-[#cbd6dd] text-[#3b4b56] hover:bg-[#f4f7f9]'}`}
+                  className={`rounded-full px-3 py-1 text-[13px] border ${vistaAnuncios === v.id ? 'bg-[#0A2540] border-[#0A2540] text-white' : 'border-[#c3dae6] text-[#3e5260] hover:bg-[#eef6fa]'}`}
                 >
                   Por {v.nombre.toLowerCase()}
                 </button>

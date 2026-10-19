@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
-import { leerSesion, renovarSesion } from '@/lib/panel/sesion';
+import { leerSesion } from '@/lib/panel/sesion';
 import { leerPanel } from '@/lib/panel/datos';
 
 export async function GET(request: Request) {
   if (!(await leerSesion())) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
-  await renovarSesion();
   const url = new URL(request.url);
   const desde = url.searchParams.get('desde');
   const hasta = url.searchParams.get('hasta');
