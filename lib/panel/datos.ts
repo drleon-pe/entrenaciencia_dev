@@ -81,20 +81,58 @@ function dispositivo(ua: string, path: string): string {
 }
 
 /**
- * ¿La visita vino de un anuncio de Meta? Los anuncios llevan en utm_source la ubicación
- * ({{placement}}: Instagram_Reels, Facebook_Mobile_Feed, Whatsapp_Status, Others…) y el nombre
- * del anuncio en utm_content. El link de la bio ("ig" / link_in_bio) es orgánico.
+ * ¿De qué plataforma de anuncios vino la visita? ('' = no es anuncio)
+ * - Meta: utm_source es la ubicación ({{placement}}: Instagram_Reels, Facebook_Mobile_Feed, Whatsapp_Status,
+ *   Instagram_Stories, Others…) y utm_content el nombre del anuncio. WhatsApp Estados o Historias de Instagram son
+ *   ubicaciones PAGADAS de Meta, no publicaciones orgánicas. El link de la bio ("ig" / link_in_bio) es orgánico.
+ * - TikTok: utm_source=tiktok con campaña o utm_medium=paid (el link orgánico de la bio no lleva campaña).
  */
-export function esAnuncio(v: Fila): boolean {
+export function plataforma(v: Fila): '' | 'Meta' | 'TikTok' {
   const src = limpiar(v.utm_source);
-  return /^(facebook|instagram|messenger|whatsapp|audience|threads|others?)(_|$)/i.test(src) && Boolean(limpiar(v.utm_content));
+  if (/^(facebook|instagram|messenger|whatsapp|audience|threads|others?)(_|$)/i.test(src) && Boolean(limpiar(v.utm_content))) return 'Meta';
+  if (/^tiktok/i.test(src) && (/^(paid|cpc|ads?|pago)$/i.test(limpiar(v.utm_medium)) || Boolean(limpiar(v.utm_campaign)))) return 'TikTok';
+  return '';
+}
+export function esAnuncio(v: Fila): boolean {
+  return plataforma(v) !== '';
 }
 
-/** Nombre legible de la ubicación del anuncio. */
-function ubicacion(src: string): string {
-  const t = src.replace(/_/g, ' ').toLowerCase();
-  if (t === 'others' || t === 'other') return 'Otras ubicaciones';
-  return t.replace(/\bmobile\b/g, '').replace(/\s+/g, ' ').trim().replace(/^\w/, (c) => c.toUpperCase());
+/** Valor de una etiqueta de anuncio; las macros que la plataforma no reemplazó (__CAMPAIGN_NAME__, {{ad.name}}) quedan vacías. */
+function etiqueta(v: unknown): string {
+  const t = limpiar(v);
+  return /^__[A-Z_]+__$|^\{\{.*\}\}$/.test(t) ? '' : t;
+}
+
+const UBICACIONES: Record<string, string> = {
+  whatsapp_status: 'WhatsApp · Estados', instagram_stories: 'Instagram · Historias', instagram_reels: 'Instagram · Reels',
+  instagram_feed: 'Instagram · Feed', instagram_explore: 'Instagram · Explorar', instagram_explore_grid_home: 'Instagram · Explorar',
+  instagram_profile_feed: 'Instagram · Perfil', facebook_mobile_feed: 'Facebook · Feed', facebook_desktop_feed: 'Facebook · Feed (computadora)',
+  facebook_mobile_reels: 'Facebook · Reels', facebook_stories: 'Facebook · Historias', facebook_right_column: 'Facebook · Columna derecha',
+  facebook_marketplace: 'Facebook · Marketplace', facebook_instream_video: 'Facebook · Videos', facebook_search: 'Facebook · Búsqueda',
+  threads_feed: 'Threads · Feed', messenger_inbox: 'Messenger · Bandeja', messenger_stories: 'Messenger · Historias',
+  audience_network: 'Audience Network (apps de terceros)', others: 'Meta · Otras ubicaciones', other: 'Meta · Otras ubicaciones',
+};
+
+/** Nombre legible de dónde se mostró el anuncio. */
+function ubicacion(v: Fila): string {
+  if (plataforma(v) === 'TikTok') return 'TikTok';
+  const src = limpiar(v.utm_source).toLowerCase();
+  if (UBICACIONES[src]) return UBICACIONES[src];
+  const [red, ...resto] = src.split('_');
+  return `${red.replace(/^\w/, (c) => c.toUpperCase())} · ${resto.join(' ').replace(/\bmobile\b/g, '').trim() || 'otra'}`;
+}
+
+/** Nombre del anuncio, conjunto y campaña según la plataforma (TikTok: utm_content = anuncio, utm_term = grupo). */
+function nombreAnuncio(v: Fila): string {
+  const n = etiqueta(v.utm_content);
+  if (n) return n;
+  return plataforma(v) === 'TikTok' ? 'TikTok · sin nombre de anuncio' : '';
+}
+function nombreConjunto(v: Fila): string {
+  return plataforma(v) === 'TikTok' ? etiqueta(v.utm_term) || 'TikTok · sin nombre de grupo' : etiqueta(v.utm_campaign);
+}
+function nombreCampana(v: Fila): string {
+  return plataforma(v) === 'TikTok' ? etiqueta(v.utm_campaign) || 'TikTok · sin nombre de campaña' : etiqueta(v.utm_medium);
 }
 
 /**
@@ -102,7 +140,8 @@ function ubicacion(src: string): string {
  * (navegador interno de Instagram/TikTok/Facebook) → sitio de procedencia → link directo.
  */
 export function canal(v: Fila): string {
-  if (esAnuncio(v)) return 'Anuncios Meta';
+  const plat = plataforma(v);
+  if (plat) return `Anuncios ${plat}`;
   const t = (x: unknown) => limpiar(x).toLowerCase();
   const utm = t(v.utm_source) || t(v.first_touch_utm_source);
   const ua = t(v.user_agent);
@@ -166,11 +205,11 @@ async function leerRango(desde: string, hasta: string) {
   const [visitas, eventos, inscritos] = await Promise.all([
     todas(
       'page_views',
-      'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_medium, utm_campaign, utm_content, first_touch_utm_source',
+      'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source',
       (q) => rango(q.or('path.like./vsl%,path.like./neurociencia%')),
     ),
     todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind', (q) => rango(q.eq('resource_title', RECURSO_LANDING))),
-    todas('leads', 'id, created_at, name, email, whatsapp, whatsapp_country_code, survey, anonymous_id, utm_source, utm_campaign, utm_content, first_touch_utm_source', (q) =>
+    todas('leads', 'id, created_at, name, email, whatsapp, whatsapp_country_code, survey, anonymous_id, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source', (q) =>
       rango(q.eq('source', FUENTE_LISTA)),
     ),
   ]);
@@ -303,12 +342,20 @@ export function calcularPanel({
     }));
 
   // --- Anuncios: cada persona cuenta en el anuncio de su primer clic ---
-  type Agrupado = { personas: number; mitad: number; final: number; registro: number; inscritos: number; tiempos: number[] };
+  // También aparecen los anuncios publicados que en el periodo solo recibieron la visita de revisión de la plataforma
+  // (0 personas reales): así se ve que existen y que la plataforma casi no los está mostrando.
+  type Agrupado = { plataforma: string; nombre: string; personas: number; mitad: number; final: number; registro: number; inscritos: number; tiempos: number[] };
   const agrupar = (clave: (v: Fila) => string) => {
     const m = new Map<string, Agrupado>();
+    const fila = (v: Fila) => {
+      const plat = plataforma(v);
+      const nombre = clave(v) || '(sin nombre)';
+      const k = `${plat}|${nombre}`;
+      return m.get(k) ?? m.set(k, { plataforma: plat, nombre, personas: 0, mitad: 0, final: 0, registro: 0, inscritos: 0, tiempos: [] }).get(k)!;
+    };
+    for (const v of visitas) if (esAnuncio(v)) fila(v);
     for (const [id, v] of primerAnuncio) {
-      const k = clave(v) || '(sin nombre)';
-      const f = m.get(k) ?? m.set(k, { personas: 0, mitad: 0, final: 0, registro: 0, inscritos: 0, tiempos: [] }).get(k)!;
+      const f = fila(v);
       f.personas++;
       if (mitad.has(id)) f.mitad++;
       if (final.has(id)) f.final++;
@@ -316,9 +363,10 @@ export function calcularPanel({
       if (inscritosIds.has(id)) f.inscritos++;
       if (tiempoDe.has(id)) f.tiempos.push(tiempoDe.get(id)!);
     }
-    return [...m.entries()]
-      .map(([nombre, f]) => ({
-        nombre,
+    return [...m.values()]
+      .map((f) => ({
+        plataforma: f.plataforma,
+        nombre: f.nombre,
         personas: f.personas,
         mitad: pct(f.mitad, f.personas),
         final: pct(f.final, f.personas),
@@ -327,14 +375,18 @@ export function calcularPanel({
         tasa: pct(f.inscritos, f.personas),
         tiempo: mediana(f.tiempos),
       }))
-      .sort((a, b) => b.inscritos - a.inscritos || b.personas - a.personas);
+      .sort((a, b) => b.inscritos - a.inscritos || b.personas - a.personas || a.nombre.localeCompare(b.nombre));
   };
   const anuncios = {
-    porAnuncio: agrupar((v) => limpiar(v.utm_content)),
-    porUbicacion: agrupar((v) => ubicacion(limpiar(v.utm_source))),
-    porConjunto: agrupar((v) => limpiar(v.utm_campaign)),
-    porCampana: agrupar((v) => limpiar(v.utm_medium)),
+    porAnuncio: agrupar(nombreAnuncio),
+    porUbicacion: agrupar(ubicacion),
+    porConjunto: agrupar(nombreConjunto),
+    porCampana: agrupar(nombreCampana),
   };
+  const porPlataforma = (['Meta', 'TikTok'] as const).map((p) => {
+    const ids = [...primerAnuncio.entries()].filter(([, v]) => plataforma(v) === p).map(([id]) => id);
+    return { nombre: p, personas: ids.length, inscritos: cuantos(ids, inscritosIds), tasa: pct(cuantos(ids, inscritosIds), ids.length), anuncios: new Set(visitas.filter((v) => plataforma(v) === p).map(nombreAnuncio)).size };
+  });
 
   // --- Canales ---
   const porCanal = new Map<string, { personas: number; final: number; registro: number; inscritos: number }>();
@@ -367,7 +419,7 @@ export function calcularPanel({
       whatsapp: s(l.whatsapp) ? `${s(l.whatsapp_country_code)} ${ocultarTelefono(s(l.whatsapp))}`.trim() : '',
       pais: s(survey.pais),
       fuente: canalDe.get(id) ?? canal(l),
-      anuncio: ad ? limpiar(ad.utm_content) : esAnuncio(l) ? limpiar(l.utm_content) : '',
+      anuncio: ad ? `${plataforma(ad)} · ${nombreAnuncio(ad)}` : esAnuncio(l) ? `${plataforma(l)} · ${nombreAnuncio(l)}` : '',
       equipo: internos.has(id),
     };
   });
@@ -383,7 +435,7 @@ export function calcularPanel({
       t: s(v.created_at),
       quien: s(v.anonymous_id).slice(0, 6),
       que: 'Entró a la página',
-      detalle: [s(v.country), dispositivo(s(v.user_agent), s(v.path)), esAnuncio(v) ? `Anuncio: ${limpiar(v.utm_content)}` : canal(v)].join(' · '),
+      detalle: [s(v.country), dispositivo(s(v.user_agent), s(v.path)), esAnuncio(v) ? `Anuncio ${plataforma(v)}: ${nombreAnuncio(v)}` : canal(v)].join(' · '),
     })),
     ...E.slice(-60).map((e) => ({ t: s(e.created_at), quien: s(e.anonymous_id).slice(0, 6), que: NOMBRES[s(e.event_type)] ?? s(e.event_type), detalle: s(e.resource_kind) })),
   ]
@@ -424,6 +476,7 @@ export function calcularPanel({
     interacciones,
     porDia,
     anuncios,
+    porPlataforma,
     canales,
     desglose,
     inscritos: listaInscritos,

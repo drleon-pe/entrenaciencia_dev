@@ -138,7 +138,7 @@ function Tasa({ valor, base }: { valor: number; base: number }) {
 
 type FilaAnuncio = DatosPanel['anuncios']['porAnuncio'][number];
 
-function TablaAnuncios({ filas, etiqueta }: { filas: FilaAnuncio[]; etiqueta: string }) {
+function TablaAnuncios({ filas, etiqueta, verPlataforma }: { filas: FilaAnuncio[]; etiqueta: string; verPlataforma: boolean }) {
   const th = 'font-medium px-2 pb-2 text-right whitespace-nowrap';
   return (
     <div className="overflow-x-auto -mx-1">
@@ -158,7 +158,13 @@ function TablaAnuncios({ filas, etiqueta }: { filas: FilaAnuncio[]; etiqueta: st
         <tbody>
           {filas.map((f) => (
             <tr key={f.nombre} className="border-t border-[#eef3f6]">
-              <td className="px-1 py-2.5 font-medium">{f.nombre}</td>
+              <td className="px-1 py-2.5 font-medium">
+                {verPlataforma && f.plataforma && (
+                  <span className={`mr-1.5 inline-block rounded px-1.5 py-0.5 text-[11px] font-semibold align-middle ${f.plataforma === 'TikTok' ? 'bg-[#111] text-white' : 'bg-[#e7f0fe] text-[#1a56c4]'}`}>{f.plataforma}</span>
+                )}
+                <span className={f.personas ? '' : C.tenue}>{f.nombre}</span>
+                {!f.personas && <span className={`block text-[11px] font-normal ${C.tenue}`}>Publicado, sin clics reales todavía (solo la revisión de la plataforma)</span>}
+              </td>
               <td className="px-2 py-2.5 text-right tabular-nums">{f.personas}</td>
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.mitad} base={f.personas} /></td>
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.final} base={f.personas} /></td>
@@ -170,7 +176,7 @@ function TablaAnuncios({ filas, etiqueta }: { filas: FilaAnuncio[]; etiqueta: st
           ))}
         </tbody>
       </table>
-      {!filas.length && <p className={`text-sm ${C.tenue} px-1 py-3`}>Ninguna persona llegó desde anuncios en este periodo.</p>}
+      {!filas.length && <p className={`text-sm ${C.tenue} px-1 py-3`}>No hubo clics de anuncios en este periodo.</p>}
     </div>
   );
 }
@@ -180,6 +186,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const [periodoId, setPeriodoId] = useState('7d');
   const [incluirEquipo, setIncluirEquipo] = useState(false);
   const [vistaAnuncios, setVistaAnuncios] = useState<'porAnuncio' | 'porUbicacion' | 'porConjunto' | 'porCampana'>('porAnuncio');
+  const [plataformaAnuncios, setPlataformaAnuncios] = useState<'Todas' | 'Meta' | 'TikTok'>('Todas');
   const [datos, setDatos] = useState<DatosPanel | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
@@ -281,6 +288,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
       ideas.push(
         `Los anuncios trajeron ${k!.deAnuncios} de ${total} personas (${Math.round((k!.deAnuncios / total) * 100)}%) y convierten al ${k!.conversionAnuncios}%.`,
       );
+    for (const p of datos.porPlataforma) if (p.personas) ideas.push(`${p.nombre}: ${p.personas} personas, ${p.inscritos} inscritos (${p.tasa}%).`);
     const conBase = datos.anuncios.porAnuncio.filter((f) => f.personas >= 5);
     const mejor = [...conBase].sort((x, y) => y.tasa - x.tasa || y.final - x.final)[0];
     if (mejor) ideas.push(`Anuncio con mejor respuesta: "${mejor.nombre}" (${mejor.personas} personas, ${mejor.final}% leyó hasta el final, ${mejor.inscritos} inscritos).`);
@@ -289,11 +297,14 @@ export default function Tablero({ correo, versiones }: { correo: string; version
 
   const campo = 'rounded-lg border border-white/20 bg-white text-[#0A2540] px-3 py-2 text-sm';
   const VISTAS = [
-    { id: 'porAnuncio', nombre: 'Anuncio' },
-    { id: 'porUbicacion', nombre: 'Ubicación' },
-    { id: 'porConjunto', nombre: 'Conjunto' },
-    { id: 'porCampana', nombre: 'Campaña' },
+    { id: 'porAnuncio', nombre: 'Anuncio', boton: 'Por anuncio' },
+    { id: 'porUbicacion', nombre: 'Dónde se mostró', boton: 'Por ubicación' },
+    { id: 'porConjunto', nombre: 'Conjunto / grupo', boton: 'Por conjunto' },
+    { id: 'porCampana', nombre: 'Campaña', boton: 'Por campaña' },
   ] as const;
+  const filasAnuncios = (datos?.anuncios[vistaAnuncios] ?? []).filter((f) => plataformaAnuncios === 'Todas' || f.plataforma === plataformaAnuncios);
+  const boton = (activo: boolean) =>
+    `rounded-full px-3 py-1 text-[13px] border ${activo ? 'bg-[#0A2540] border-[#0A2540] text-white' : 'border-[#c3dae6] text-[#3e5260] hover:bg-[#eef6fa]'}`;
 
   return (
     <div>
@@ -429,26 +440,36 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={2} titulo="Anuncios de Meta" sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el anuncio de su primer clic">
+        <Bloque n={2} titulo="Anuncios (Meta y TikTok)" sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el anuncio de su primer clic">
           <Caja>
-            <div className="flex flex-wrap gap-1.5 mb-4" role="tablist">
+            <div className="flex flex-wrap items-center gap-1.5 mb-2" role="tablist" aria-label="Plataforma">
+              {(['Todas', 'Meta', 'TikTok'] as const).map((p) => {
+                const info = datos?.porPlataforma.find((x) => x.nombre === p);
+                return (
+                  <button key={p} role="tab" aria-selected={plataformaAnuncios === p} onClick={() => setPlataformaAnuncios(p)} className={boton(plataformaAnuncios === p)}>
+                    {p}
+                    {info && <span className="opacity-70"> · {info.personas}</span>}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="flex flex-wrap gap-1.5 mb-4" role="tablist" aria-label="Agrupar por">
               {VISTAS.map((v) => (
-                <button
-                  key={v.id}
-                  role="tab"
-                  aria-selected={vistaAnuncios === v.id}
-                  onClick={() => setVistaAnuncios(v.id)}
-                  className={`rounded-full px-3 py-1 text-[13px] border ${vistaAnuncios === v.id ? 'bg-[#0A2540] border-[#0A2540] text-white' : 'border-[#c3dae6] text-[#3e5260] hover:bg-[#eef6fa]'}`}
-                >
-                  Por {v.nombre.toLowerCase()}
+                <button key={v.id} role="tab" aria-selected={vistaAnuncios === v.id} onClick={() => setVistaAnuncios(v.id)} className={boton(vistaAnuncios === v.id)}>
+                  {v.boton}
                 </button>
               ))}
             </div>
-            <TablaAnuncios filas={datos?.anuncios[vistaAnuncios] ?? []} etiqueta={VISTAS.find((v) => v.id === vistaAnuncios)!.nombre} />
+            {vistaAnuncios === 'porUbicacion' && (
+              <p className={`text-xs ${C.suave} mb-3`}>
+                Dónde la plataforma mostró el anuncio. WhatsApp Estados, Historias de Instagram, Reels, etc. son espacios <b>pagados</b> de Meta: esas personas vieron un anuncio, no algo que compartimos.
+              </p>
+            )}
+            <TablaAnuncios filas={filasAnuncios} etiqueta={VISTAS.find((v) => v.id === vistaAnuncios)!.nombre} verPlataforma={plataformaAnuncios === 'Todas'} />
             <p className={`text-xs ${C.tenue} mt-3`}>
-              * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. El costo por clic y por inscrito se ve en el Administrador de
-              anuncios de Meta.
-              {datos && datos.calidad.robots > 0 && ` Se excluyeron ${datos.calidad.robots} visitas del robot de revisión de Meta (clics de anuncio desde fuera de Perú).`}
+              * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Costo, impresiones y clics totales se ven en el Administrador de anuncios
+              de Meta y en TikTok Ads Manager; aquí se mide lo que la gente hace en la página.
+              {datos && datos.calidad.robots > 0 && ` Se excluyeron ${datos.calidad.robots} visitas de robots de revisión (clics de anuncio desde fuera de Perú).`}
             </p>
           </Caja>
         </Bloque>
