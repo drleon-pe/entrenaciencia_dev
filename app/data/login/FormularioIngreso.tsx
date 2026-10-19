@@ -20,7 +20,7 @@ export default function FormularioIngreso() {
       <button
         type="submit"
         disabled={enviando}
-        className="w-full rounded-lg bg-[#017FA7] text-white py-2.5 font-medium hover:bg-[#016a8b] disabled:opacity-60"
+        className="w-full rounded-lg bg-[#FFC300] text-[#0A2540] py-2.5 font-extrabold hover:bg-[#FFD230] disabled:opacity-60"
       >
         {enviando ? 'Entrando…' : 'Entrar'}
       </button>

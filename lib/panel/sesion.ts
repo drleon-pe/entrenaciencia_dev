@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 // La clave de firma es PANEL_PASSWORD, así que cambiar la contraseña cierra todas las sesiones.
 
 const COOKIE = 'ecc_panel';
-const DURACION_MS = 12 * 60 * 60 * 1000; // 12 horas
+const DURACION_MS = 24 * 60 * 60 * 1000; // 24 horas; después pide la clave otra vez
 
 // Correos autorizados (no son secretos). PANEL_EMAILS en Vercel reemplaza la lista si existe.
 const CORREOS_POR_DEFECTO = ['lfontenoy@subecontenido.com', 'gleon@subecontenido.com'];
@@ -45,7 +45,7 @@ export async function crearSesion(correo: string) {
   (await cookies()).set(COOKIE, `${datos}.${firmar(datos)}`, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    sameSite: 'lax', // 'strict' no mandaba la cookie al abrir el panel desde un link (WhatsApp, correo…)
     path: '/',
     expires: new Date(vence),
   });
@@ -57,6 +57,10 @@ export async function cerrarSesion() {
 
 /** Devuelve el correo de la sesión válida, o null. */
 export async function leerSesion(): Promise<string | null> {
+  return (await sesion())?.correo ?? null;
+}
+
+async function sesion(): Promise<{ correo: string; vence: number } | null> {
   if (!process.env.PANEL_PASSWORD) return null;
   const valor = (await cookies()).get(COOKIE)?.value;
   if (!valor) return null;
@@ -64,9 +68,10 @@ export async function leerSesion(): Promise<string | null> {
   if (!datos || !firma || !iguales(firma, firmar(datos))) return null;
   try {
     const { c, v } = JSON.parse(Buffer.from(datos, 'base64url').toString());
-    if (typeof v !== 'number' || v < Date.now()) return null;
+    // Rechaza sesiones vencidas y las que duran más de lo permitido (p. ej. emitidas con otra duración).
+    if (typeof v !== 'number' || v < Date.now() || v > Date.now() + DURACION_MS) return null;
     if (!correosAutorizados().includes(c)) return null;
-    return c;
+    return { correo: c, vence: v };
   } catch {
     return null;
   }
