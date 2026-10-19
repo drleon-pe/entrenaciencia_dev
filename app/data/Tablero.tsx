@@ -7,7 +7,7 @@ import { salir } from './acciones';
 type Version = { id: string; nombre: string; desde: string };
 type Periodo = { id: string; nombre: string; desde: string; hasta: string };
 
-const CADA_MS = 15_000;
+const CADA_MS = 5_000; // en vivo: revisa cada 5 segundos mientras la pestaña está a la vista
 const FUTURO = '2100-01-01T00:00:00Z';
 /** Por debajo de esto, un porcentaje es poco confiable y se marca. */
 const MUESTRA_MINIMA = 30;
@@ -182,6 +182,9 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const [revelados, setRevelados] = useState<Record<string, { name: string; email: string; whatsapp: string; whatsapp_country_code: string }>>({});
   const [nuevos, setNuevos] = useState<Set<string>>(new Set());
   const vistos = useRef<Set<string> | null>(null);
+  // Cuándo apareció cada movimiento: los nuevos quedan resaltados 20 segundos
+  const movVistos = useRef<Map<string, number> | null>(null);
+  const [movNuevos, setMovNuevos] = useState<Set<string>>(new Set());
 
   const periodo = opciones.find((p) => p.id === periodoId)!;
 
@@ -206,6 +209,16 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         }
       }
       vistos.current = ids;
+      // Resaltar movimientos nuevos de la actividad en vivo
+      const ahora = Date.now();
+      const previos = movVistos.current;
+      const vistosAhora = new Map<string, number>();
+      for (const x of d.actividad) {
+        const c = `${x.t}|${x.quien}|${x.que}`;
+        vistosAhora.set(c, previos ? (previos.get(c) ?? ahora) : 0);
+      }
+      movVistos.current = vistosAhora;
+      setMovNuevos(new Set([...vistosAhora].filter(([, t]) => t && ahora - t < 20_000).map(([c]) => c)));
       setDatos(d);
       setError(null);
     } catch (e) {
@@ -217,6 +230,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
 
   useEffect(() => {
     vistos.current = null;
+    movVistos.current = null;
     cargar();
     const id = setInterval(() => {
       if (document.visibilityState === 'visible') cargar();
@@ -292,10 +306,15 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               </option>
             ))}
           </select>
-          <span className="flex items-center gap-1.5 text-sm text-[#3b4b56]" title="Se actualiza solo cada 15 segundos">
+          <span className="flex items-center gap-1.5 text-sm text-[#3b4b56]" title="Se actualiza sola cada 5 segundos">
             <span className={`inline-block w-2 h-2 rounded-full ${error ? 'bg-[#d03b3b]' : 'bg-[#0ca30c]'} ${cargando ? 'animate-pulse' : ''}`} />
             {error ? 'Sin conexión' : datos ? `En vivo · ${hora(datos.generado)}` : 'Cargando…'}
           </span>
+          {k && (
+            <span className="rounded-full bg-[#e9f7ef] text-[#0f7a45] px-3 py-1 text-sm font-medium tabular-nums" title="Personas con actividad en los últimos 5 minutos">
+              {k.enLinea} en la página ahora
+            </span>
+          )}
           <form action={salir} className="flex items-center gap-2">
             <span className={`text-xs ${C.tenue} hidden md:inline`}>{correo}</span>
             <button className="rounded-lg border border-[#cbd6dd] px-3 py-1.5 text-sm hover:bg-[#f4f7f9]">Salir</button>
@@ -306,9 +325,10 @@ export default function Tablero({ correo, versiones }: { correo: string; version
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-10">
         {error && <p className="text-sm text-[#b42318]">No se pudieron cargar los datos: {error}</p>}
 
-        {/* Resumen */}
-        <section className="space-y-3">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {/* Resumen + actividad en vivo */}
+        <div className="grid lg:grid-cols-5 gap-4 items-start">
+        <section className="space-y-3 lg:col-span-3">
+          <div className="grid grid-cols-2 gap-3">
             <Tarjeta titulo="Personas" valor={k ? String(k.personas) : '–'} ayuda="distintas que entraron a la página">
               {k && <Cambio ahora={k.personas} antes={a?.personas} />}
             </Tarjeta>
@@ -333,6 +353,21 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             </div>
           )}
         </section>
+            <Caja titulo="Actividad en vivo" className="lg:col-span-2">
+              <ul className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+                {datos?.actividad.map((x, n) => (
+                  <li key={`${x.t}-${n}`} className={`text-sm flex gap-3 rounded-md px-1 -mx-1 transition-colors duration-[2000ms] ${movNuevos.has(`${x.t}|${x.quien}|${x.que}`) ? 'bg-[#fff4cc]' : ''}`}>
+                    <span className={`tabular-nums ${C.tenue} w-11 shrink-0 whitespace-nowrap`}>{hora(x.t)}</span>
+                    <span className="min-w-0">
+                      <span className={x.que === 'Se inscribió' ? 'font-medium text-[#0f9d58]' : ''}>{x.que}</span>
+                      <span className={C.tenue}> · {x.quien}</span>
+                      {x.detalle && <span className={`block text-xs ${C.tenue} truncate`}>{x.detalle}</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Caja>
+        </div>
 
         <Bloque n={1} titulo="Flujo diario" sub="Personas distintas que entran cada día (hora de Lima), separadas por origen">
           <Caja>
@@ -555,8 +590,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         </Bloque>
 
         <Bloque n={6} titulo="Más detalle" sub="Quiénes son, qué está pasando ahora y calidad de los datos">
-          <div className="grid lg:grid-cols-5 gap-4">
-            <Caja className="lg:col-span-3">
+          <div>
+            <Caja>
               <div className="grid sm:grid-cols-2 gap-6">
                 <Lista titulo="País" filas={datos?.desglose.pais ?? []} total={total} />
                 <Lista titulo="Dispositivo" filas={datos?.desglose.dispositivo ?? []} total={total} />
@@ -577,20 +612,6 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                   <li>{datos?.calidad.sinEtiqueta ?? '–'} personas sin etiqueta UTM</li>
                 </ul>
               </div>
-            </Caja>
-            <Caja titulo="Actividad en vivo" className="lg:col-span-2">
-              <ul className="space-y-2 max-h-[360px] overflow-y-auto pr-1">
-                {datos?.actividad.map((x, n) => (
-                  <li key={`${x.t}-${n}`} className="text-sm flex gap-3">
-                    <span className={`tabular-nums ${C.tenue} w-11 shrink-0 whitespace-nowrap`}>{hora(x.t)}</span>
-                    <span className="min-w-0">
-                      <span className={x.que === 'Se inscribió' ? 'font-medium text-[#0f9d58]' : ''}>{x.que}</span>
-                      <span className={C.tenue}> · {x.quien}</span>
-                      {x.detalle && <span className={`block text-xs ${C.tenue} truncate`}>{x.detalle}</span>}
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </Caja>
           </div>
         </Bloque>

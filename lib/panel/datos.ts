@@ -390,6 +390,15 @@ export function calcularPanel({
     .sort((a, b) => b.t.localeCompare(a.t))
     .slice(0, 40);
 
+  // En la página ahora: personas con alguna visita o movimiento en los últimos 5 minutos (las que ya salieron no cuentan).
+  const hace5 = new Date(Date.now() - 5 * 60_000).toISOString();
+  const ultimo = new Map<string, { t: string; salio: boolean }>();
+  for (const x of [...V.map((v) => ({ id: s(v.anonymous_id), t: s(v.created_at), salio: false })), ...E.map((e) => ({ id: s(e.anonymous_id), t: s(e.created_at), salio: e.event_type === 'salida' }))]) {
+    const u = ultimo.get(x.id);
+    if (!u || x.t >= u.t) ultimo.set(x.id, { t: x.t, salio: x.salio });
+  }
+  const enLinea = [...ultimo.values()].filter((u) => u.t >= hace5 && !u.salio).length;
+
   const tiempos = [...tiempoDe.entries()].map(([, t]) => t);
   return {
     generado: new Date().toISOString(),
@@ -401,6 +410,7 @@ export function calcularPanel({
       conversionAnuncios: pct(cuantos(grupos.anuncios, inscritosIds), grupos.anuncios.length),
       leyeronFinal: pct(cuantos(personas, final), n),
       tiempoMediano: mediana(tiempos),
+      enLinea,
     },
     calidad: {
       visitas: V.length,
