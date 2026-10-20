@@ -84,6 +84,7 @@ export function limpiar(v: unknown): string {
 }
 
 function dispositivo(ua: string, path: string): string {
+  if (!ua && !path) return 'Sin dato';
   if (path.includes('movil')) return 'Celular';
   if (path.includes('escritorio')) return 'Computadora';
   return /iphone|android.*mobile|mobile/i.test(ua) ? 'Celular' : 'Computadora';
@@ -180,6 +181,8 @@ export function canal(v: Fila): string {
   if (host === 'entrenaciencia.com') return 'Web entrenaciencia.com';
   if (host.endsWith('vercel.app')) return 'Link de demo';
   if (host) return `Otro sitio (${host})`;
+  // Persona con actividad pero sin la visita registrada (el aviso de entrada no llegó): no se sabe por dónde vino.
+  if (v.path === undefined) return 'Sin origen registrado';
   return 'Link directo';
 }
 
@@ -281,7 +284,9 @@ export async function leerPanel({ desde, hasta, incluirEquipo, fuente = 'todo' }
   const [actual, anterior] = await Promise.all([leerRango(desde, hasta), leerRango(antesDesde, antesHasta)]);
   const datos = calcularPanel({ ...actual, incluirEquipo, fuente });
   const previo = calcularPanel({ ...anterior, incluirEquipo, fuente });
-  return { ...datos, anterior: { desde: antesDesde, hasta: antesHasta, kpis: previo.kpis } };
+  // Si el periodo anterior empieza antes de la lista de espera (11 oct), está incompleto: compararlo daría "▲ 5000%".
+  const completo = Date.parse(antesDesde) >= Date.parse(INICIO_DATOS);
+  return { ...datos, anterior: { desde: antesDesde, hasta: antesHasta, completo, kpis: completo ? previo.kpis : null } };
 }
 
 /** Cálculo puro de las métricas (separado de la lectura para poder probarlo). */
@@ -340,10 +345,11 @@ export function calcularPanel({
     if (!primera.has(id)) primera.set(id, v);
     if (!primerAnuncio.has(id) && esAnuncio(v)) primerAnuncio.set(id, v);
   }
-  // Inscritos sin visita registrada (el aviso de visita no llegó, p. ej. bloqueado por el navegador): igual son
-  // personas, para que los totales cuadren en todas las vistas. Sin etiquetas, caen en "Otros".
+  // Personas sin visita registrada (el aviso de entrada no llegó, p. ej. en el navegador interno de TikTok) pero con
+  // actividad: inscripción o cualquier evento (bajar, salir…). Igual entraron, así que cuentan; primero se usa la
+  // inscripción (trae etiquetas UTM) y si no, su primer evento. Sin origen conocido, caen en "Otros".
   if (fuente === 'todo') {
-    for (const x of [...L, ...E.filter((e) => e.event_type === 'lista_espera')]) {
+    for (const x of [...L, ...E.filter((e) => e.event_type === 'lista_espera'), ...E]) {
       const id = s(x.anonymous_id);
       if (id && !primera.has(id)) primera.set(id, x);
     }
@@ -410,8 +416,22 @@ export function calcularPanel({
     // Plataforma del día: la de su primera visita de ese día.
     if (!d.grupo.has(id)) d.grupo.set(id, grupoTrafico(v));
   }
+  // Quien no tiene visita registrada cuenta el día de su primera actividad, para que los días sumen lo mismo que el total.
+  for (const [id, v] of primera) {
+    if (v.path !== undefined) continue;
+    const d = dia(diaLima(s(v.created_at)));
+    d.personas.add(id);
+    if (!d.grupo.has(id)) d.grupo.set(id, grupoTrafico(v));
+  }
   for (const [, v] of primera) dia(diaLima(s(v.created_at))).nuevas++;
-  for (const l of L) dia(diaLima(s(l.created_at))).inscritos++;
+  // Inscritos por día: cada persona una sola vez, el día de su primera inscripción (hay quien se inscribe dos veces).
+  const primeraInscripcion = new Map<string, string>();
+  for (const x of [...L, ...E.filter((e) => e.event_type === 'lista_espera')]) {
+    const id = s(x.anonymous_id) || `lead:${s(x.id)}`;
+    const t = s(x.created_at);
+    if (!primeraInscripcion.has(id) || t < primeraInscripcion.get(id)!) primeraInscripcion.set(id, t);
+  }
+  for (const [, t] of primeraInscripcion) dia(diaLima(t)).inscritos++;
   const porDia = [...dias.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([fecha, d]) => ({
@@ -593,6 +613,8 @@ export function calcularPanel({
     dispositivo: contar(prim.map((v) => dispositivo(s(v.user_agent), s(v.path)))),
   };
 
+  // Hay quien se inscribe dos veces: la lista muestra cada registro, pero se marca cuántas veces lo hizo esa persona.
+  const vecesPorPersona = contar(L.map((l) => s(l.anonymous_id) || `lead:${s(l.id)}`));
   const listaInscritos = [...L].reverse().map((l) => {
     const survey = (l.survey ?? {}) as Record<string, unknown>;
     const id = s(l.anonymous_id);
@@ -607,6 +629,7 @@ export function calcularPanel({
       fuente: canalDe.get(id) ?? canal(l),
       anuncio: ad ? `${plataforma(ad)} · ${nombreAnuncio(ad)}` : esAnuncio(l) ? `${plataforma(l)} · ${nombreAnuncio(l)}` : '',
       equipo: internos.has(id),
+      veces: vecesPorPersona.find((x) => x.nombre === (id || `lead:${s(l.id)}`))?.n ?? 1,
     };
   });
 

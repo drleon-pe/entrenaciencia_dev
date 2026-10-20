@@ -1075,7 +1075,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={5} id="inscritos" titulo={`Personas inscritas${datos ? ` (${datos.inscritos.length})` : ''}`} sub="Quiénes se inscribieron. «Recorrido» muestra paso a paso qué hizo cada persona hasta inscribirse; «Ver», su contacto completo">
+        <Bloque n={5} id="inscritos" titulo={`Personas inscritas${k ? ` (${k.inscritos})` : ''}`} sub={`Quiénes se inscribieron. «Recorrido» muestra paso a paso qué hizo cada persona hasta inscribirse; «Ver», su contacto completo${datos && datos.inscritos.length !== k?.inscritos ? `. Hay ${datos.inscritos.length} registros porque alguien se inscribió más de una vez (en los totales cuenta una sola vez)` : ''}`}>
           <Caja>
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-sm">
@@ -1101,6 +1101,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                         <td className="px-1 py-2.5">
                           {c ? c.name : i.nombre}
                           {i.equipo && <span className={`ml-1 text-[11px] ${C.tenue}`}>(equipo)</span>}
+                          {i.veces > 1 && <span className="ml-1 text-[11px] rounded bg-[#FFF6D6] px-1.5 py-0.5 text-[#0A2540]" title="La misma persona se registró más de una vez; en los totales cuenta una sola vez">se inscribió {i.veces} veces</span>}
                         </td>
                         <td className="px-1 py-2.5">{c ? c.email : i.correo}</td>
                         <td className="px-1 py-2.5 whitespace-nowrap">{c ? `${c.whatsapp_country_code ?? ''} ${c.whatsapp ?? ''}` : i.whatsapp}</td>
@@ -1213,7 +1214,11 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         <div className={`text-xs ${C.tenue} border-t border-[#e1e8ec] pt-4 pb-8 flex flex-wrap gap-x-4 gap-y-1`}>
           <span>Datos de Supabase: visitas, eventos y lista de espera de entrenaciencia.com/neurociencia.</span>
           <span>Persona = un dispositivo o navegador.</span>
-          {datos && <span>Comparado con {fechaHora(datos.anterior.desde)} – {fechaHora(datos.anterior.hasta)}.</span>}
+          {datos && (datos.anterior.completo ? (
+            <span>«vs. periodo anterior» compara con {fechaHora(datos.anterior.desde)} – {fechaHora(datos.anterior.hasta)}.</span>
+          ) : (
+            <span>Sin comparación con el periodo anterior: empezaría antes de la lista de espera (11 oct) y saldría engañosa.</span>
+          ))}
         </div>
       </main>
     </div>
