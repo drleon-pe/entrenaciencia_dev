@@ -1286,7 +1286,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   if(window.eccTestiIr)window.eccTestiIr(k);
   var hd=document.querySelector('header');var off=Math.max(hd?hd.getBoundingClientRect().bottom:0,[].reduce.call(document.querySelectorAll('body *'),function(m,el){var cs=getComputedStyle(el);if((cs.position==='fixed'||cs.position==='sticky')&&el.getBoundingClientRect().top<=1&&el.offsetHeight<200)return Math.max(m,el.getBoundingClientRect().bottom);return m},0))+12;var top=0,el=c;while(el){top+=el.offsetTop;el=el.offsetParent}var y=top-(c.offsetHeight+off<innerHeight?(innerHeight-c.offsetHeight+off)/2:off);scrollTo({top:Math.max(0,y),behavior:'smooth'});});
 </script>
-<script src="assets/ecc-analitica.js?v=9" defer></script>
+<script src="assets/ecc-analitica.js?v=10" defer></script>
 <script>
 /* Escenario fijo: la cabeza se abre, sale el cerebro (Servier Medical Art, CC BY 4.0) y el scroll explica el cambio de hábito. */
 (function(){
@@ -1531,8 +1531,10 @@ document.addEventListener('click',function(e){
     if(mal.length){err.textContent='Falta '+mal.join(', ')+'.'; err.hidden=false; var pri=form.querySelector('[aria-invalid="true"]'); if(pri) pri.focus(); return;}
     btn.disabled=true; btn.classList.add('cargando'); btn.querySelector('span').textContent='Enviando…';
     var u=leer('_utm'), f=leer('_utm_first'), K=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-    var datos={name:nombre,email:correo,whatsapp:cel?(p[2]+' '+cel):null,source:'Lista de espera ECC',survey:{pais:p[1],pais_codigo:p[0],consentimiento:true,pagina:location.pathname,fecha:new Date().toISOString()},anonymous_id:localStorage.getItem('_aid')||null,session_id:sessionStorage.getItem('_sid')||null};
+    var datos={name:nombre,email:correo,whatsapp:cel?(p[2]+' '+cel):null,source:'Lista de espera ECC',survey:{pais:p[1],pais_codigo:p[0],consentimiento:true,pagina:location.pathname,fecha:new Date().toISOString()},anonymous_id:localStorage.getItem('_aid')||null,session_id:localStorage.getItem('_sid')||null};
     K.forEach(function(k){datos[k]=u[k]||null;datos['first_touch_'+k]=f[k]||null;});
+    /* las etiquetas de la visita viven en sessionStorage (las lee ecc-analitica.js); antes quedaban vacías */
+    try{ if(window.eccAtribucion){ var at=window.eccAtribucion(); for(var k in at) if(at[k]!=null && datos[k]==null) datos[k]=at[k]; } }catch(x){}
     var local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
     (local?Promise.resolve({ok:true}):fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)})).then(function(r){
       if(!r.ok) throw new Error('http');

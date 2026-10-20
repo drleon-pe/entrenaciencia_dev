@@ -54,13 +54,20 @@
   }
   function extend(a, b) { for (var k in b) if (Object.prototype.hasOwnProperty.call(b, k)) a[k] = b[k]; return a; }
 
-  function enviar(ruta, datos) {
+  /* Con la página abierta se usa fetch (algunos navegadores internos, como el de TikTok, descartan sendBeacon
+     sin avisar); al salir, sendBeacon, que es lo único que sobrevive al cierre. Si uno falla se intenta el otro. */
+  function beacon(ruta, body) {
+    try { return Boolean(navigator.sendBeacon && navigator.sendBeacon(ruta, new Blob([body], { type: 'application/json' }))); } catch (e) { return false; }
+  }
+  function enviar(ruta, datos, alCerrar) {
     if (LOCAL) return;
     var body = JSON.stringify(datos);
+    if (alCerrar && beacon(ruta, body)) return;
     try {
-      if (navigator.sendBeacon && navigator.sendBeacon(ruta, new Blob([body], { type: 'application/json' }))) return;
-    } catch (e) {}
-    try { fetch(ruta, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }); } catch (e) {}
+      fetch(ruta, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true })
+        .then(function (r) { if (!r.ok && !alCerrar) beacon(ruta, body); })
+        .catch(function () { if (!alCerrar) beacon(ruta, body); });
+    } catch (e) { if (!alCerrar) beacon(ruta, body); }
   }
 
   /* ---------- pixeles ---------- */
@@ -89,7 +96,7 @@
     enviar('/api/resource-events', extend(extend({
       event_type: tipo, resource_title: RECURSO, resource_kind: extra || null,
       anonymous_id: aid(), session_id: sid()
-    }, atribucion()), {}));
+    }, atribucion()), {}), tipo === 'salida');
     if (LOCAL) return;
     /* a Vercel solo los eventos que mueven el negocio (el plan incluye eventos con 2 propiedades) */
     if (/^(checkout_click|cta_click|video_play|scroll_75|lista_espera)$/.test(tipo) && window.va) {
@@ -108,6 +115,8 @@
     } catch (e) {}
   }
   window.eccEvento = evento;
+  /* Para el formulario de inscripción: así el inscrito guarda de dónde vino aunque se haya perdido el aviso de visita. */
+  window.eccAtribucion = function () { return extend({ anonymous_id: aid(), session_id: sid() }, atribucion()); };
 
   /* ---------- arranque ---------- */
   capturarUtm();
