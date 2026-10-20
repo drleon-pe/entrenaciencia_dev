@@ -192,7 +192,14 @@ function mediana(xs: number[]): number | null {
   return o.length % 2 ? o[m] : Math.round((o[m - 1] + o[m]) / 2);
 }
 
-export type Filtros = { desde: string; hasta: string; incluirEquipo: boolean };
+/** Pestañas del panel: todo, solo Instagram/Facebook (Meta: anuncios y orgánico) o solo TikTok (anuncios y orgánico). */
+export type Fuente = 'todo' | 'meta' | 'tiktok';
+const CANALES_FUENTE: Record<Exclude<Fuente, 'todo'>, string[]> = {
+  meta: ['Anuncios Meta', 'Instagram orgánico', 'Facebook orgánico'],
+  tiktok: ['Anuncios TikTok', 'TikTok'],
+};
+
+export type Filtros = { desde: string; hasta: string; incluirEquipo: boolean; fuente?: Fuente };
 
 async function leerRango(desde: string, hasta: string) {
   // Solo en desarrollo: PANEL_FIXTURE apunta a un JSON con { visitas, eventos, inscritos } para probar sin Supabase.
@@ -216,7 +223,7 @@ async function leerRango(desde: string, hasta: string) {
   return { visitas, eventos, inscritos };
 }
 
-export async function leerPanel({ desde, hasta, incluirEquipo }: Filtros) {
+export async function leerPanel({ desde, hasta, incluirEquipo, fuente = 'todo' }: Filtros) {
   // Periodo anterior para comparar: el mismo tramo corrido hacia atrás. Si el periodo sigue abierto
   // ("Hoy", "Últimos 7 días"), se corre en días enteros y se corta a la misma hora (hoy hasta las 10:00 vs. ayer hasta las 10:00).
   const DIA = 86_400_000;
@@ -228,8 +235,8 @@ export async function leerPanel({ desde, hasta, incluirEquipo }: Filtros) {
   const antesHasta = new Date(fin - corrimiento).toISOString();
 
   const [actual, anterior] = await Promise.all([leerRango(desde, hasta), leerRango(antesDesde, antesHasta)]);
-  const datos = calcularPanel({ ...actual, incluirEquipo });
-  const previo = calcularPanel({ ...anterior, incluirEquipo });
+  const datos = calcularPanel({ ...actual, incluirEquipo, fuente });
+  const previo = calcularPanel({ ...anterior, incluirEquipo, fuente });
   return { ...datos, anterior: { desde: antesDesde, hasta: antesHasta, kpis: previo.kpis } };
 }
 
@@ -239,11 +246,13 @@ export function calcularPanel({
   eventos,
   inscritos,
   incluirEquipo,
+  fuente = 'todo',
 }: {
   visitas: Fila[];
   eventos: Fila[];
   inscritos: Fila[];
   incluirEquipo: boolean;
+  fuente?: Fuente;
 }) {
   // --- Limpieza: equipo y robots de revisión de Meta ---
   const prefijos = equipo();
@@ -255,7 +264,20 @@ export function calcularPanel({
     if (prefijos.some((p) => id.startsWith(p)) || s(v.referrer).includes(DOMINIO_DEMO)) internos.add(id);
     if (esAnuncio(v) && !paises.includes(s(v.country).toUpperCase())) robots.add(id);
   }
-  const vale = (id: unknown) => !robots.has(s(id)) && (incluirEquipo || !internos.has(s(id)));
+  const limpio = (id: unknown) => !robots.has(s(id)) && (incluirEquipo || !internos.has(s(id)));
+  // Pestaña: cada persona pertenece a la plataforma por la que llegó la primera vez.
+  let deFuente: Set<string> | null = null;
+  if (fuente !== 'todo') {
+    const vistos = new Set<string>();
+    deFuente = new Set();
+    for (const v of visitas) {
+      const id = s(v.anonymous_id);
+      if (!limpio(id) || vistos.has(id)) continue;
+      vistos.add(id);
+      if (CANALES_FUENTE[fuente].includes(canal(v))) deFuente.add(id);
+    }
+  }
+  const vale = (id: unknown) => limpio(id) && (!deFuente || deFuente.has(s(id)));
   const V = visitas.filter((v) => vale(v.anonymous_id));
   const E = eventos.filter((e) => vale(e.anonymous_id));
   const L = inscritos.filter((l) => vale(l.anonymous_id));
@@ -353,7 +375,8 @@ export function calcularPanel({
       const k = `${plat}|${nombre}`;
       return m.get(k) ?? m.set(k, { plataforma: plat, nombre, personas: 0, mitad: 0, final: 0, registro: 0, inscritos: 0, tiempos: [] }).get(k)!;
     };
-    for (const v of visitas) if (esAnuncio(v)) fila(v);
+    const platPestana = fuente === 'meta' ? 'Meta' : fuente === 'tiktok' ? 'TikTok' : '';
+    for (const v of visitas) if (esAnuncio(v) && (!platPestana || plataforma(v) === platPestana)) fila(v);
     for (const [id, v] of primerAnuncio) {
       const f = fila(v);
       f.personas++;

@@ -185,6 +185,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const opciones = useMemo(() => periodos(versiones), [versiones]);
   const [periodoId, setPeriodoId] = useState('7d');
   const [incluirEquipo, setIncluirEquipo] = useState(false);
+  const [fuente, setFuente] = useState<'todo' | 'meta' | 'tiktok'>('todo');
   const [vistaAnuncios, setVistaAnuncios] = useState<'porAnuncio' | 'porUbicacion' | 'porConjunto' | 'porCampana'>('porAnuncio');
   const [plataformaAnuncios, setPlataformaAnuncios] = useState<'Todas' | 'Meta' | 'TikTok'>('Todas');
   const [datos, setDatos] = useState<DatosPanel | null>(null);
@@ -202,7 +203,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const cargar = useCallback(async () => {
     setCargando(true);
     try {
-      const q = new URLSearchParams({ desde: periodo.desde, hasta: periodo.hasta, equipo: incluirEquipo ? '1' : '0' });
+      const q = new URLSearchParams({ desde: periodo.desde, hasta: periodo.hasta, equipo: incluirEquipo ? '1' : '0', fuente });
       const r = await fetch(`/api/data/datos?${q}`, { cache: 'no-store' });
       if (r.status === 401) {
         window.location.href = '/data/login';
@@ -237,7 +238,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
     } finally {
       setCargando(false);
     }
-  }, [periodo.desde, periodo.hasta, incluirEquipo]);
+  }, [periodo.desde, periodo.hasta, incluirEquipo, fuente]);
 
   useEffect(() => {
     vistos.current = null;
@@ -341,6 +342,28 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             <button className="rounded-lg border border-white/30 px-3 py-1.5 text-sm text-white hover:bg-white/10">Salir</button>
           </form>
         </div>
+      <div className="bg-white border-b border-[#dfe9ef] text-[#0A2540]" aria-label="Plataforma">
+        <div className="max-w-6xl mx-auto px-4 flex gap-1 overflow-x-auto" role="tablist">
+          {([
+            { id: 'todo', nombre: 'Todo' },
+            { id: 'meta', nombre: 'Instagram y Facebook' },
+            { id: 'tiktok', nombre: 'TikTok' },
+          ] as const).map((t) => (
+            <button
+              key={t.id}
+              role="tab"
+              aria-selected={fuente === t.id}
+              onClick={() => {
+                setFuente(t.id);
+                setPlataformaAnuncios(t.id === 'meta' ? 'Meta' : t.id === 'tiktok' ? 'TikTok' : 'Todas');
+              }}
+              className={`px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-[3px] -mb-px ${fuente === t.id ? 'border-[#017FA7] text-[#0A2540]' : 'border-transparent text-[#5b6f7d] hover:text-[#0A2540]'}`}
+            >
+              {t.nombre}
+            </button>
+          ))}
+        </div>
+      </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-10">
@@ -440,9 +463,9 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={2} titulo="Anuncios (Meta y TikTok)" sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el anuncio de su primer clic">
+        <Bloque n={2} titulo={fuente === 'meta' ? 'Anuncios de Meta' : fuente === 'tiktok' ? 'Anuncios de TikTok' : 'Anuncios (Meta y TikTok)'} sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el anuncio de su primer clic">
           <Caja>
-            <div className="flex flex-wrap items-center gap-1.5 mb-2" role="tablist" aria-label="Plataforma">
+            {fuente === 'todo' && <div className="flex flex-wrap items-center gap-1.5 mb-2" role="tablist" aria-label="Plataforma">
               {(['Todas', 'Meta', 'TikTok'] as const).map((p) => {
                 const info = datos?.porPlataforma.find((x) => x.nombre === p);
                 return (
@@ -452,7 +475,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                   </button>
                 );
               })}
-            </div>
+            </div>}
             <div className="flex flex-wrap gap-1.5 mb-4" role="tablist" aria-label="Agrupar por">
               {VISTAS.map((v) => (
                 <button key={v.id} role="tab" aria-selected={vistaAnuncios === v.id} onClick={() => setVistaAnuncios(v.id)} className={boton(vistaAnuncios === v.id)}>
