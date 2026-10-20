@@ -86,9 +86,9 @@ function Tarjeta({ titulo, valor, ayuda, destacada, children }: { titulo: string
   );
 }
 
-function Bloque({ n, titulo, sub, children }: { n: number | string; titulo: string; sub: string; children: React.ReactNode }) {
+function Bloque({ n, id, titulo, sub, resumen, children }: { n: number | string; id?: string; titulo: string; sub: string; resumen?: string[]; children: React.ReactNode }) {
   return (
-    <div className="space-y-3">
+    <section id={id} className="space-y-3 scroll-mt-48">
       <div className="flex items-baseline gap-3">
         <span className="shrink-0 w-7 h-7 rounded-lg bg-[#0A2540] text-[#23D3FF] text-sm font-extrabold flex items-center justify-center">{n}</span>
         <div>
@@ -96,10 +96,65 @@ function Bloque({ n, titulo, sub, children }: { n: number | string; titulo: stri
           <p className={`text-sm ${C.suave}`}>{sub}</p>
         </div>
       </div>
+      {resumen && resumen.length > 0 && <EnPocasPalabras items={resumen} />}
       {children}
+    </section>
+  );
+}
+
+/** Lectura en lenguaje simple de lo que muestra cada bloque. */
+function EnPocasPalabras({ items, titulo = 'En pocas palabras' }: { items: string[]; titulo?: string }) {
+  return (
+    <div className="rounded-2xl bg-[#E9F6FB] border-l-4 border-[#017FA7] px-4 py-3">
+      <p className="text-[13px] font-extrabold text-[#0A2540] mb-1">{titulo}</p>
+      <ul className="text-sm text-[#0A2540] space-y-1 list-disc pl-5">
+        {items.map((t) => (
+          <li key={t}>{t}</li>
+        ))}
+      </ul>
     </div>
   );
 }
+
+/** Mini guía para leer el panel sin saber de analítica. */
+function Guia() {
+  const termino = (t: string, d: string) => (
+    <li>
+      <b className="text-[#0A2540]">{t}:</b> {d}
+    </li>
+  );
+  return (
+    <details className="rounded-2xl border border-[#d9e8f0] bg-white px-4 py-3 shadow-[0_8px_24px_-12px_rgba(11,31,44,.10)]">
+      <summary className="cursor-pointer text-sm font-semibold text-[#017FA7]">¿Cómo leer este panel? (1 minuto)</summary>
+      <div className={`mt-3 grid md:grid-cols-2 gap-x-8 gap-y-1 text-sm ${C.suave}`}>
+        <ul className="space-y-1.5">
+          {termino('Persona', 'cada celular o computadora distinto que entró a la página. Si alguien entra 3 veces, cuenta una sola vez.')}
+          {termino('Inscrito', 'persona que dejó sus datos en la lista de espera.')}
+          {termino('Tasa de inscripción', 'de cada 100 personas que entran, cuántas se inscriben. Es el número más importante.')}
+          {termino('Anuncio', 'la persona llegó haciendo clic en un anuncio pagado de Meta (Instagram/Facebook) o TikTok.')}
+          {termino('Orgánico', 'llegó sin anuncio: desde un post, la bio, un link compartido o la web.')}
+        </ul>
+        <ul className="space-y-1.5">
+          {termino('Se fue en menos de 5 s', 'entró y se fue casi de inmediato, sin bajar por la página.')}
+          {termino('Tiempo típico', 'la mitad de la gente estuvo menos que eso y la otra mitad, más.')}
+          {termino('Número con *', 'son menos de 30 personas: todavía puede cambiar mucho, no conviene sacar conclusiones.')}
+          {termino('▲ ▼ y «real»', 'la diferencia es grande y hay muy poca probabilidad (menos de 5%) de que sea casualidad.')}
+          {termino('«Puede ser azar»', 'hay diferencia, pero con tan pocas personas todavía podría ser coincidencia.')}
+        </ul>
+      </div>
+    </details>
+  );
+}
+
+const SECCIONES_PANEL = [
+  { id: 'resumen', nombre: 'Cómo vamos' },
+  { id: 'origen', nombre: 'De dónde viene la gente' },
+  { id: 'pagina', nombre: 'Qué hace en la página' },
+  { id: 'plataformas', nombre: 'Cada plataforma' },
+  { id: 'anuncios', nombre: 'Anuncios' },
+  { id: 'inscritos', nombre: 'Inscritos' },
+  { id: 'detalle', nombre: 'Más detalle' },
+];
 
 function Caja({ titulo, children, className = '' }: { titulo?: string; children: React.ReactNode; className?: string }) {
   return (
@@ -273,7 +328,7 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
         <Tarjeta titulo="Llegaron al final" valor={`${d.despues.kpis.leyeronFinal}%`} ayuda={`antes ${d.antes.kpis.leyeronFinal}%`} />
         <Tarjeta titulo="Tiempo en la página" valor={d.despues.navegacion.tiempoMediano != null ? `${d.despues.navegacion.tiempoMediano} s` : '–'} ayuda={`mediana · antes ${d.antes.navegacion.tiempoMediano ?? '–'} s`} />
         <Tarjeta titulo="Abrieron el registro" valor={`${d.despues.navegacion.acciones[3].pct}%`} ayuda={`antes ${d.antes.navegacion.acciones[3].pct}%`} />
-        <Tarjeta titulo="Conversión" valor={`${d.despues.kpis.conversion}%`} ayuda={`${d.despues.kpis.inscritos} inscritos · antes ${d.antes.kpis.conversion}%`} destacada />
+        <Tarjeta titulo="Se inscriben" valor={`${d.despues.kpis.conversion}%`} ayuda={`${d.despues.kpis.inscritos} inscritos · antes ${d.antes.kpis.conversion}%`} destacada />
       </div>
       <div className="grid lg:grid-cols-2 gap-4 items-start">
         <FilasComparadas titulo="¿Hasta dónde bajan?" antes={d.antes.navegacion.profundidad} despues={d.despues.navegacion.profundidad} nAntes={nA} nDespues={nD} />
@@ -290,7 +345,11 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
 }
 
 /** Comportamiento por plataforma: las mismas métricas para todos y por grupo de tráfico, con marca cuando un grupo es distinto al resto de verdad. */
-function Comportamiento({ c }: { c: DatosPanel['comportamiento'] }) {
+function Comportamiento({ c: todo }: { c: DatosPanel['comportamiento'] }) {
+  // Grupos con menos de 10 personas no dicen nada y solo agregan ruido: se ocultan (Todos siempre se muestra).
+  const ver = todo.columnas.map((col, i) => i === 0 || col.personas >= 10);
+  const ocultos = todo.columnas.filter((_, i) => !ver[i]).map((col) => `${col.nombre} (${col.personas})`);
+  const c = { columnas: todo.columnas.filter((_, i) => ver[i]), filas: todo.filas.map((f) => ({ ...f, valores: f.valores.filter((_, i) => ver[i]) })) };
   const grupos = [...new Set(c.filas.map((f) => f.grupo))];
   const colores: Record<string, string> = Object.fromEntries(GRUPOS.map((g) => [g.id, g.color]));
   return (
@@ -314,8 +373,8 @@ function Comportamiento({ c }: { c: DatosPanel['comportamiento'] }) {
               <tr>
                 <td colSpan={c.columnas.length + 1} className="pt-4 pb-1 px-1 text-[12px] font-extrabold uppercase tracking-wide text-[#017FA7]">
                   {g}
-                  {g === 'Secciones que ven' && <span className={`normal-case font-normal tracking-normal ${C.tenue}`}> · de quienes tienen secciones medidas (desde el 20 oct)</span>}
-                  {g === 'Permanencia' && <span className={`normal-case font-normal tracking-normal ${C.tenue}`}> · de quienes tienen el tiempo medido</span>}
+                  {g === '¿Qué partes de la página ven?' && <span className={`normal-case font-normal tracking-normal ${C.tenue}`}> · de quienes tienen secciones medidas (desde el 20 oct)</span>}
+                  {g === '¿Se quedan o se van?' && <span className={`normal-case font-normal tracking-normal ${C.tenue}`}> · de quienes tienen el tiempo medido</span>}
                 </td>
               </tr>
               {c.filas.filter((f) => f.grupo === g).map((f) => {
@@ -351,6 +410,7 @@ function Comportamiento({ c }: { c: DatosPanel['comportamiento'] }) {
           ))}
         </tbody>
       </table>
+      {ocultos.length > 0 && <p className={`text-xs ${C.tenue} mt-2 px-1`}>No se muestran por tener menos de 10 personas: {ocultos.join(', ')}.</p>}
     </div>
   );
 }
@@ -416,10 +476,10 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma }: { filas: FilaAnuncio[
             <th className={th}>Personas</th>
             <th className={th} title="De las personas que llegaron por este anuncio, cuántas bajaron hasta la mitad de la página">Leyeron la mitad</th>
             <th className={th}>Llegaron al final</th>
-            <th className={th} title="Mediana de segundos en la página">Tiempo</th>
-            <th className={th}>Abrieron registro</th>
+            <th className={th} title="La mitad estuvo menos que esto y la otra mitad, más">Tiempo típico</th>
+            <th className={th} title="Abrieron el formulario de la lista de espera">Abrieron el formulario</th>
             <th className={th}>Inscritos</th>
-            <th className={th}>Conversión</th>
+            <th className={th} title="De cada 100 personas, cuántas se inscribieron">Se inscriben</th>
           </tr>
         </thead>
         <tbody>
@@ -547,27 +607,71 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const caida = (i: number, g: 'todos' | 'anuncios' | 'organico') =>
     i > 0 && embudo[i - 1][g].n ? Math.round(((embudo[i - 1][g].n - embudo[i][g].n) / embudo[i - 1][g].n) * 100) : null;
 
-  // Lectura en 5 segundos
+  // Lecturas en lenguaje simple (solo con datos suficientes para que no engañen)
+  const BASE = MUESTRA_MINIMA;
+  const insc = (n: number) => (n === 1 ? '1 inscrito' : `${n} inscritos`);
+  const n100 = (x: number) => (x < 1 && x > 0 ? 'menos de 1' : String(Math.round(x * 10) / 10));
   const ideas: string[] = [];
+  const resOrigen: string[] = [];
+  const resPagina: string[] = [];
+  const resPlataformas: string[] = [];
+  const resAnuncios: string[] = [];
   if (datos && total > 0) {
+    // Cómo vamos
+    ideas.push(`Entraron ${total} personas y se inscribieron ${k!.inscritos}: de cada 100 personas, se inscriben ${n100(k!.conversion)}.`);
+    const traf = datos.trafico.filter((t) => t.personas > 0).sort((x, y) => y.personas - x.personas);
+    if (traf[0]) ideas.push(`La mayoría llega por ${traf[0].nombre} (${Math.round(traf[0].pctPersonas)}% de las personas).`);
+    const conBaseT = traf.filter((t) => t.personas >= BASE).sort((x, y) => y.tasa - x.tasa);
+    if (conBaseT.length > 1) ideas.push(`Donde mejor funciona: ${conBaseT[0].nombre} (se inscriben ${n100(conBaseT[0].tasa)} de cada 100). Donde peor: ${conBaseT[conBaseT.length - 1].nombre} (${n100(conBaseT[conBaseT.length - 1].tasa)} de cada 100).`);
+    if (!k!.inscritos) ideas.push('Todavía no hay inscritos en este periodo.');
+    // De dónde viene
+    if (traf[0]) resOrigen.push(`${traf[0].nombre} trae ${Math.round(traf[0].pctPersonas)}% de la gente.`);
+    for (const t of conBaseT) resOrigen.push(`${t.nombre}: ${t.personas} personas, ${insc(t.inscritos)} (${n100(t.tasa)} de cada 100).`);
+    const tiktokSinNombre = datos.anuncios.porAnuncio.find((f) => f.plataforma === 'TikTok' && f.nombre.includes('falta utm_content'));
+    if (tiktokSinNombre?.personas) resOrigen.push(`${tiktokSinNombre.personas} personas de TikTok no tienen el nombre de su anuncio (llegaron antes del 20 oct, 11:45, o por anuncios que faltan corregir).`);
+    // Qué hace en la página
     let peor = { i: 0, p: -1 };
     embudo.forEach((_, i) => {
       const p = caida(i, 'todos');
       if (p != null && p > peor.p) peor = { i, p };
     });
-    if (peor.p > 0) ideas.push(`La mayor fuga está antes de "${embudo[peor.i].nombre.toLowerCase()}": se va el ${peor.p}% del paso anterior.`);
-    const tiktokSinNombre = datos.anuncios.porAnuncio.find((f) => f.plataforma === 'TikTok' && f.nombre.includes('falta utm_content'));
-    if (tiktokSinNombre?.personas)
-      ideas.push(`${tiktokSinNombre.personas} personas de TikTok no tienen nombre de anuncio: llegaron antes de corregir los links (20 oct, 11:45) o por los anuncios que faltan corregir.`);
-    if (k!.deAnuncios)
-      ideas.push(
-        `Los anuncios trajeron ${k!.deAnuncios} de ${total} personas (${Math.round((k!.deAnuncios / total) * 100)}%) y convierten al ${k!.conversionAnuncios}%.`,
+    if (peor.p > 0) resPagina.push(`El paso donde más gente se pierde es «${embudo[peor.i].nombre.toLowerCase()}»: no llega ${peor.p}% de quienes estaban en el paso anterior.`);
+    resPagina.push(`${datos.interacciones[0].pct}% llega al final de la página y la mitad de la gente se queda ${k!.tiempoMediano ?? '–'} segundos o menos.`);
+    const nav = datos.navegacion;
+    if (nav.personasConSecciones >= 10) {
+      let peorS = { i: 0, c: -1 };
+      nav.secciones.forEach((x, i) => {
+        const ant = nav.secciones[i - 1];
+        if (i > 0 && ant.n) {
+          const c = Math.round(((ant.n - x.n) / ant.n) * 100);
+          if (c > peorS.c) peorS = { i, c };
+        }
+      });
+      if (peorS.c > 0) resPagina.push(`En la página, el salto que más gente pierde es de «${nav.secciones[peorS.i - 1].nombre}» a «${nav.secciones[peorS.i].nombre}» (se va ${peorS.c}%).`);
+    }
+    // Cada plataforma
+    const c = datos.comportamiento;
+    const fila = (nombre: string) => c.filas.find((f) => f.nombre === nombre)?.valores ?? [];
+    const pctDe = (v: (typeof c.filas)[number]['valores'][number] | undefined) => (v && 'base' in v && v.base ? Math.round((v.n / v.base) * 1000) / 10 : null);
+    c.columnas.forEach((col, i) => {
+      if (i === 0 || col.personas < BASE) return;
+      const reb = pctDe(fila('Se fueron en menos de 5 s')[i]);
+      const tiempo = fila('Tiempo típico en la página')[i];
+      const fin = pctDe(fila('Llegó al final')[i]);
+      const ins = pctDe(fila('Se inscribió')[i]);
+      resPlataformas.push(
+        `${col.nombre}: ${reb != null ? `${reb}% se va en menos de 5 s, ` : ''}${tiempo && 'valor' in tiempo && tiempo.valor != null ? `la mitad se queda ${tiempo.valor} s o menos, ` : ''}${fin ?? '–'}% llega al final y ${n100(ins ?? 0)} de cada 100 se inscriben.`,
       );
-    for (const p of datos.porPlataforma) if (p.personas) ideas.push(`${p.nombre}: ${p.personas} personas, ${p.inscritos} inscritos (${p.tasa}%).`);
-    const conBase = datos.anuncios.porAnuncio.filter((f) => f.personas >= 5);
-    const mejor = [...conBase].sort((x, y) => y.tasa - x.tasa || y.final - x.final)[0];
-    if (mejor) ideas.push(`Anuncio con mejor respuesta: "${mejor.nombre}" (${mejor.personas} personas, ${mejor.final}% leyó hasta el final, ${mejor.inscritos} inscritos).`);
-    if (!k!.inscritos) ideas.push('Todavía no hay inscritos en este periodo.');
+    });
+  }
+  if (datos) {
+    const lista = (plataformaAnuncios === 'Otros' ? datos.anuncios.otros : datos.anuncios.porAnuncio.filter((f) => f.plataforma === plataformaAnuncios)).filter((f) => !f.nombre.includes('falta utm_content'));
+    const conBaseA = lista.filter((f) => f.personas >= 10);
+    const mejor = [...conBaseA].sort((x, y) => y.tasa - x.tasa || y.final - x.final)[0];
+    const masGente = [...lista].sort((x, y) => y.personas - x.personas)[0];
+    if (mejor && mejor.inscritos) resAnuncios.push(`El que mejor convierte es «${mejor.nombre}»: de ${mejor.personas} personas, se inscribieron ${mejor.inscritos} (${n100(mejor.tasa)} de cada 100).`);
+    if (masGente && masGente.personas && masGente !== mejor) resAnuncios.push(`El que más gente trae es «${masGente.nombre}» (${masGente.personas} personas, ${insc(masGente.inscritos)}).`);
+    for (const f of lista.filter((x) => x.personas >= BASE && !x.inscritos).slice(0, 2)) resAnuncios.push(`«${f.nombre}» trajo ${f.personas} personas y ninguna se inscribió todavía.`);
   }
 
   const campo = 'rounded-lg border border-white/20 bg-white text-[#0A2540] px-3 py-2 text-sm';
@@ -650,32 +754,47 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             );
           })}
         </div>
+        <div role="navigation" aria-label="Ir a" className="max-w-6xl mx-auto px-4 pb-2 flex items-center gap-1.5 overflow-x-auto text-[12.5px]">
+          <span className={`${C.tenue} shrink-0`}>Ir a:</span>
+          {SECCIONES_PANEL.map((x) => (
+            <a key={x.id} href={`#${x.id}`} className="shrink-0 rounded-full border border-[#c3dae6] bg-white px-2.5 py-0.5 text-[#0A2540] hover:bg-[#eef6fa] whitespace-nowrap">
+              {x.nombre}
+            </a>
+          ))}
+        </div>
       </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-10">
         {error && <p className="text-sm text-[#b42318]">No se pudieron cargar los datos: {error}</p>}
 
-        {/* Resumen + actividad en vivo */}
+        <Guia />
+
+        {/* Cómo vamos + actividad en vivo */}
+        <section id="resumen" className="space-y-3 scroll-mt-48">
+        <div>
+          <h2>¿Cómo vamos?</h2>
+          <p className={`text-sm ${C.suave}`}>{verCambio ? 'Desde el cambio de la página' : periodo.nombre} · los números grandes y lo más importante en pocas palabras</p>
+        </div>
         <div className="grid lg:grid-cols-5 gap-4 items-start">
         <div className="space-y-3 lg:col-span-3">
           <div className="grid grid-cols-2 gap-3">
-            <Tarjeta titulo="Personas" valor={k ? String(k.personas) : '–'} ayuda="distintas que entraron a la página">
+            <Tarjeta titulo="Personas que entraron" valor={k ? String(k.personas) : '–'} ayuda="cada celular o computadora cuenta una vez">
               {k && <Cambio ahora={k.personas} antes={a?.personas} />}
             </Tarjeta>
-            <Tarjeta titulo="Desde anuncios" valor={k ? String(k.deAnuncios) : '–'} ayuda={k && total ? `${Math.round((k.deAnuncios / total) * 100)}% de las personas` : 'personas que hicieron clic'}>
+            <Tarjeta titulo="Llegaron por un anuncio" valor={k ? String(k.deAnuncios) : '–'} ayuda={k && total ? `${Math.round((k.deAnuncios / total) * 100)}% del total` : 'personas que hicieron clic'}>
               {k && <Cambio ahora={k.deAnuncios} antes={a?.deAnuncios} />}
             </Tarjeta>
-            <Tarjeta titulo="Inscritos" valor={k ? String(k.inscritos) : '–'} ayuda="en la lista de espera" destacada>
+            <Tarjeta titulo="Se inscribieron" valor={k ? String(k.inscritos) : '–'} ayuda="dejaron sus datos en la lista de espera" destacada>
               {k && <Cambio ahora={k.inscritos} antes={a?.inscritos} />}
             </Tarjeta>
-            <Tarjeta titulo="Conversión" valor={k ? `${k.conversion}%` : '–'} ayuda="personas que se inscriben">
+            <Tarjeta titulo="Tasa de inscripción" valor={k ? `${k.conversion}%` : '–'} ayuda={k ? `de cada 100 personas, se inscriben ${n100(k.conversion)}` : 'de cada 100 personas'}>
               {k && <Cambio ahora={k.conversion} antes={a?.conversion} puntos />}
             </Tarjeta>
           </div>
           {ideas.length > 0 && (
             <div className="rounded-2xl bg-[#FFF6D6] border-l-4 border-[#FFC300] px-4 py-3">
-              <p className="text-[13px] font-extrabold text-[#0A2540] mb-1">En resumen</p>
+              <p className="text-[13px] font-extrabold text-[#0A2540] mb-1">Lo más importante</p>
               <ul className="text-sm text-[#0A2540] space-y-0.5 list-disc pl-5">
                 {ideas.map((t) => (
                   <li key={t}>{t}</li>
@@ -684,7 +803,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             </div>
           )}
         </div>
-            <Caja titulo="Actividad en vivo" className="lg:col-span-2">
+            <Caja titulo="Qué está pasando ahora (cada fila es algo que hizo una persona)" className="lg:col-span-2">
               <ul className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
                 {datos?.actividad.map((x, n) => (
                   <li key={`${x.t}-${n}`} className={`text-sm flex gap-3 rounded-md px-1 -mx-1 transition-colors duration-[2000ms] ${movNuevos.has(`${x.t}|${x.quien}|${x.que}`) ? 'bg-[#FFF0B8]' : ''}`}>
@@ -699,10 +818,11 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               </ul>
             </Caja>
         </div>
+        </section>
 
         {verCambio && <VistaCambio incluirEquipo={incluirEquipo} />}
 
-        <Bloque n={1} titulo="Tráfico por plataforma" sub="Personas distintas que entran cada día (hora de Lima), separadas por la plataforma de donde vienen">
+        <Bloque n={1} id="origen" titulo="¿De dónde viene la gente?" sub="Cuántas personas entran cada día y por qué plataforma llegan" resumen={resOrigen}>
           <Caja>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5">
               {GRUPOS.map((g) => {
@@ -716,11 +836,11 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                     <dl className="mt-1 text-[11.5px] leading-snug grid grid-cols-[auto_1fr] gap-x-2 text-[#0A2540]">
                       {t && (
                         <>
-                          <dt className={C.tenue}>Del tráfico</dt>
+                          <dt className={C.tenue}>Del total</dt>
                           <dd className="text-right tabular-nums">{t.pctPersonas}%</dd>
                           <dt className={C.tenue}>Inscritos</dt>
                           <dd className="text-right tabular-nums">{t.inscritos}</dd>
-                          <dt className={C.tenue} title="Inscritos / personas">Conversión</dt>
+                          <dt className={C.tenue} title="De cada 100 personas, cuántas se inscriben">Se inscriben</dt>
                           <dd className="text-right tabular-nums">{t.personas > 0 ? <Tasa valor={t.tasa} base={t.personas} /> : '–'}</dd>
                         </>
                       )}
@@ -785,52 +905,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={2} titulo={fuente === 'meta' ? 'Anuncios de Meta' : fuente === 'tiktok' ? 'Anuncios de TikTok' : 'Anuncios por plataforma'} sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el anuncio de su primer clic; «Otros» es lo que no vino de un anuncio, por canal">
-          <Caja>
-            {fuente === 'todo' && <div className="flex flex-wrap items-center gap-1.5 mb-2" role="tablist" aria-label="Plataforma">
-              {(['Meta', 'TikTok', 'Otros'] as const).map((p) => {
-                const personas = p === 'Otros' ? datos?.embudo[0]?.organico.n : datos?.porPlataforma.find((x) => x.nombre === p)?.personas;
-                return (
-                  <button key={p} role="tab" aria-selected={plataformaAnuncios === p} onClick={() => setPlataformaAnuncios(p)} className={boton(plataformaAnuncios === p)}>
-                    {p}
-                    {personas != null && <span className="opacity-70"> · {personas}</span>}
-                  </button>
-                );
-              })}
-            </div>}
-            {!otros && <div className="flex flex-wrap gap-1.5 mb-4" role="tablist" aria-label="Agrupar por">
-              {VISTAS.map((v) => (
-                <button key={v.id} role="tab" aria-selected={vistaAnuncios === v.id} onClick={() => setVistaAnuncios(v.id)} className={boton(vistaAnuncios === v.id)}>
-                  {v.boton}
-                </button>
-              ))}
-            </div>}
-            {otros && <div className="mb-4" />}
-            {!otros && vistaAnuncios === 'porUbicacion' && (
-              <p className={`text-xs ${C.suave} mb-3`}>
-                Dónde la plataforma mostró el anuncio. WhatsApp Estados, Historias de Instagram, Reels, etc. son espacios <b>pagados</b> de Meta: esas personas vieron un anuncio, no algo que compartimos.
-              </p>
-            )}
-            <TablaAnuncios
-              filas={filasAnuncios}
-              etiqueta={otros ? 'Canal' : VISTAS.find((v) => v.id === vistaAnuncios)!.nombre}
-              verPlataforma={false}
-            />
-            {plataformaAnuncios === 'TikTok' && filasAnuncios.some((f) => f.nombre.includes('falta utm_content')) && (
-              <p className="text-xs text-[#b54708] mt-3">
-                «Sin nombre de anuncio»: personas que llegaron antes del 20 oct a las 11:45, cuando los links de TikTok aún no traían el nombre del anuncio
-                (no se puede recuperar), o por los anuncios cuyo link todavía no se pudo corregir (Delivery 1, Esconderte 2, Ropa Favorita 1, Playa 2 y Bikini 1:
-                TikTok no deja editarlos hasta reemplazar su música vencida). Desde la corrección, cada persona aparece con su anuncio.
-              </p>
-            )}
-            <p className={`text-xs ${C.tenue} mt-3`}>
-              * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Todo se mide en la página; el nombre de cada anuncio viene del utm_content de su link.
-              {datos && datos.calidad.robots > 0 && ` Se excluyeron ${datos.calidad.robots} visitas de robots de revisión de anuncios (clics desde fuera de Perú o con el link sin completar).`}
-            </p>
-          </Caja>
-        </Bloque>
-
-        <Bloque n={3} titulo="¿Dónde se pierde la gente?" sub="De cada 100 personas que entran, cuántas llegan a cada paso">
+        <Bloque n={2} id="pagina" titulo="¿Qué hace la gente en la página?" sub="De cada 100 personas que entran, cuántas avanzan en cada paso y hasta qué parte de la página llegan" resumen={resPagina}>
           <Caja>
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-sm">
@@ -838,8 +913,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                   <tr className={`${C.suave} text-[13px]`}>
                     <th className="font-medium px-1 pb-2 text-left">Paso</th>
                     <th className="font-medium px-2 pb-2 text-left w-[40%]">Todos</th>
-                    <th className="font-medium px-2 pb-2 text-right">Anuncios</th>
-                    <th className="font-medium px-2 pb-2 text-right">Orgánico</th>
+                    <th className="font-medium px-2 pb-2 text-right">Llegaron por anuncio</th>
+                    <th className="font-medium px-2 pb-2 text-right">Llegaron sin anuncio</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -915,7 +990,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={4} titulo="Comportamiento por plataforma" sub="Cómo navega la gente según de dónde viene. ▲▼ = distinto al resto de las personas, con menos de 5% de probabilidad de ser casualidad">
+        <Bloque n={3} id="plataformas" titulo="¿Cómo se comporta la gente de cada plataforma?" sub="Las mismas medidas, separadas según por dónde llegó cada persona. Así se ve qué plataforma trae gente que lee y cuál trae clics que se van" resumen={resPlataformas}>
           <Caja>
             {datos ? <Comportamiento c={datos.comportamiento} /> : <p className={`text-sm ${C.tenue}`}>Cargando…</p>}
             <p className={`text-xs ${C.tenue} mt-3`}>
@@ -925,49 +1000,52 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={5} titulo="Canales" sub="Por dónde llegó cada persona la primera vez y cuánto convierte">
+        <Bloque n={4} id="anuncios" titulo={fuente === 'meta' ? '¿Qué anuncios de Meta funcionan mejor?' : fuente === 'tiktok' ? '¿Qué anuncios de TikTok funcionan mejor?' : '¿Qué anuncios funcionan mejor?'} sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el primer anuncio en que hizo clic. «Otros» es la gente que llegó sin anuncio" resumen={resAnuncios}>
           <Caja>
-            <div className="overflow-x-auto -mx-1">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className={`${C.suave} text-[13px] text-right`}>
-                    <th className="font-medium px-1 pb-2 text-left">Canal</th>
-                    <th className="font-medium px-2 pb-2">Personas</th>
-                    <th className="font-medium px-2 pb-2">Llegaron al final</th>
-                    <th className="font-medium px-2 pb-2">Abrieron registro</th>
-                    <th className="font-medium px-2 pb-2">Inscritos</th>
-                    <th className="font-medium px-2 pb-2">Conversión</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {datos?.canales.map((c) => (
-                    <tr key={c.nombre} className="border-t border-[#eef3f6] text-right tabular-nums">
-                      <td className="px-1 py-2.5 text-left">
-                        <span className="font-medium">{c.nombre}</span>
-                        <div className="h-1.5 rounded bg-[#eef3f6] mt-1.5 max-w-44">
-                          <div className="h-1.5 rounded bg-[#017FA7]" style={{ width: `${total ? (c.personas / total) * 100 : 0}%` }} />
-                        </div>
-                      </td>
-                      <td className="px-2 py-2.5">
-                        <b className="font-medium">{c.personas}</b> <span className={`text-xs ${C.tenue}`}>{total ? Math.round((c.personas / total) * 100) : 0}%</span>
-                      </td>
-                      <td className="px-2 py-2.5"><Tasa valor={c.finalPct} base={c.personas} /></td>
-                      <td className="px-2 py-2.5">{c.registro}</td>
-                      <td className={`px-2 py-2.5 ${c.inscritos ? 'text-[#0f9d58] font-medium' : ''}`}>{c.inscritos}</td>
-                      <td className="px-2 py-2.5"><Tasa valor={c.tasa} base={c.personas} /></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {datos && !datos.canales.length && <p className={`text-sm ${C.tenue} px-1 py-3`}>Sin visitas en este periodo.</p>}
-            </div>
+            {fuente === 'todo' && <div className="flex flex-wrap items-center gap-1.5 mb-2" role="tablist" aria-label="Plataforma">
+              {(['Meta', 'TikTok', 'Otros'] as const).map((p) => {
+                const personas = p === 'Otros' ? datos?.embudo[0]?.organico.n : datos?.porPlataforma.find((x) => x.nombre === p)?.personas;
+                return (
+                  <button key={p} role="tab" aria-selected={plataformaAnuncios === p} onClick={() => setPlataformaAnuncios(p)} className={boton(plataformaAnuncios === p)}>
+                    {p}
+                    {personas != null && <span className="opacity-70"> · {personas}</span>}
+                  </button>
+                );
+              })}
+            </div>}
+            {!otros && <div className="flex flex-wrap gap-1.5 mb-4" role="tablist" aria-label="Agrupar por">
+              {VISTAS.map((v) => (
+                <button key={v.id} role="tab" aria-selected={vistaAnuncios === v.id} onClick={() => setVistaAnuncios(v.id)} className={boton(vistaAnuncios === v.id)}>
+                  {v.boton}
+                </button>
+              ))}
+            </div>}
+            {otros && <div className="mb-4" />}
+            {!otros && vistaAnuncios === 'porUbicacion' && (
+              <p className={`text-xs ${C.suave} mb-3`}>
+                Dónde la plataforma mostró el anuncio. WhatsApp Estados, Historias de Instagram, Reels, etc. son espacios <b>pagados</b> de Meta: esas personas vieron un anuncio, no algo que compartimos.
+              </p>
+            )}
+            <TablaAnuncios
+              filas={filasAnuncios}
+              etiqueta={otros ? 'Canal' : VISTAS.find((v) => v.id === vistaAnuncios)!.nombre}
+              verPlataforma={false}
+            />
+            {plataformaAnuncios === 'TikTok' && filasAnuncios.some((f) => f.nombre.includes('falta utm_content')) && (
+              <p className="text-xs text-[#b54708] mt-3">
+                «Sin nombre de anuncio»: personas que llegaron antes del 20 oct a las 11:45, cuando los links de TikTok aún no traían el nombre del anuncio
+                (no se puede recuperar), o por los anuncios cuyo link todavía no se pudo corregir (Delivery 1, Esconderte 2, Ropa Favorita 1, Playa 2 y Bikini 1:
+                TikTok no deja editarlos hasta reemplazar su música vencida). Desde la corrección, cada persona aparece con su anuncio.
+              </p>
+            )}
             <p className={`text-xs ${C.tenue} mt-3`}>
-              &quot;Link directo&quot; = escribió o pegó el link, o vino de una app que no avisa su origen (como WhatsApp).
+              * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Todo se mide en la página; el nombre de cada anuncio viene del utm_content de su link.
+              {datos && datos.calidad.robots > 0 && ` Se excluyeron ${datos.calidad.robots} visitas de robots de revisión de anuncios (clics desde fuera de Perú o con el link sin completar).`}
             </p>
           </Caja>
         </Bloque>
 
-        <Bloque n={6} titulo={`Inscritos${datos ? ` (${datos.inscritos.length})` : ''}`} sub="Datos ocultos en parte; «Recorrido» muestra qué hizo cada persona hasta inscribirse y «Ver», el contacto completo">
+        <Bloque n={5} id="inscritos" titulo={`Personas inscritas${datos ? ` (${datos.inscritos.length})` : ''}`} sub="Quiénes se inscribieron. «Recorrido» muestra paso a paso qué hizo cada persona hasta inscribirse; «Ver», su contacto completo">
           <Caja>
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-sm">
@@ -1030,7 +1108,50 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={7} titulo="Más detalle" sub="Quiénes son, qué está pasando ahora y calidad de los datos">
+        <Bloque n={6} id="detalle" titulo="Más detalle" sub="Para revisar a fondo: el canal exacto por el que llegó cada persona, países, dispositivos y la calidad de la medición">
+          <details className="group space-y-3">
+            <summary className="cursor-pointer text-sm font-semibold text-[#017FA7] mb-3">Mostrar más detalle</summary>
+            <div className="space-y-4">
+              <p className={`text-[13px] font-medium ${C.suave}`}>Canal exacto de llegada</p>
+          <Caja>
+            <div className="overflow-x-auto -mx-1">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className={`${C.suave} text-[13px] text-right`}>
+                    <th className="font-medium px-1 pb-2 text-left">Canal</th>
+                    <th className="font-medium px-2 pb-2">Personas</th>
+                    <th className="font-medium px-2 pb-2">Llegaron al final</th>
+                    <th className="font-medium px-2 pb-2">Abrieron el formulario</th>
+                    <th className="font-medium px-2 pb-2">Inscritos</th>
+                    <th className="font-medium px-2 pb-2">Se inscriben</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {datos?.canales.map((c) => (
+                    <tr key={c.nombre} className="border-t border-[#eef3f6] text-right tabular-nums">
+                      <td className="px-1 py-2.5 text-left">
+                        <span className="font-medium">{c.nombre}</span>
+                        <div className="h-1.5 rounded bg-[#eef3f6] mt-1.5 max-w-44">
+                          <div className="h-1.5 rounded bg-[#017FA7]" style={{ width: `${total ? (c.personas / total) * 100 : 0}%` }} />
+                        </div>
+                      </td>
+                      <td className="px-2 py-2.5">
+                        <b className="font-medium">{c.personas}</b> <span className={`text-xs ${C.tenue}`}>{total ? Math.round((c.personas / total) * 100) : 0}%</span>
+                      </td>
+                      <td className="px-2 py-2.5"><Tasa valor={c.finalPct} base={c.personas} /></td>
+                      <td className="px-2 py-2.5">{c.registro}</td>
+                      <td className={`px-2 py-2.5 ${c.inscritos ? 'text-[#0f9d58] font-medium' : ''}`}>{c.inscritos}</td>
+                      <td className="px-2 py-2.5"><Tasa valor={c.tasa} base={c.personas} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {datos && !datos.canales.length && <p className={`text-sm ${C.tenue} px-1 py-3`}>Sin visitas en este periodo.</p>}
+            </div>
+            <p className={`text-xs ${C.tenue} mt-3`}>
+              &quot;Link directo&quot; = escribió o pegó el link, o vino de una app que no avisa su origen (como WhatsApp).
+            </p>
+          </Caja>
           <div>
             <Caja>
               <div className="grid sm:grid-cols-2 gap-6">
@@ -1055,6 +1176,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               </div>
             </Caja>
           </div>
+            </div>
+          </details>
         </Bloque>
 
         <div className={`text-xs ${C.tenue} border-t border-[#e1e8ec] pt-4 pb-8 flex flex-wrap gap-x-4 gap-y-1`}>
