@@ -297,21 +297,65 @@ function FilasComparadas({ titulo, antes, despues, nAntes, nDespues }: { titulo:
   );
 }
 
-/** Pestaña "Desde el cambio": cómo navega la gente en la versión actual de la página frente a la anterior. */
+/** Una plataforma dentro de la pestaña del cambio: antes vs. después, solo con lo que se midió en los dos periodos. */
+function CambioPlataforma({ d, nombre, color }: { d: DatosCambio; nombre: string; color: string }) {
+  const nA = d.antes.kpis.personas;
+  const nD = d.despues.kpis.personas;
+  const acc = (nav: Nav, n: string) => nav.acciones.find((x) => x.nombre === n) ?? { nombre: n, n: 0, pct: 0 };
+  // Testimonios y preguntas se miden en el formato nuevo desde el 20 oct: antes no hay con qué comparar.
+  const comparables = (nav: Nav) => [...nav.profundidad, acc(nav, 'Activó el video'), acc(nav, 'Abrió el registro'), acc(nav, 'Se inscribió')];
+  const secc = d.despues.navegacion;
+  const vio = (n: string) => secc.secciones.find((x) => x.nombre === n);
+  return (
+    <div className="space-y-3 min-w-0">
+      <div className="flex items-baseline justify-between gap-2 pb-1 border-b-2" style={{ borderColor: color }}>
+        <h3 className="text-[15px] font-semibold text-[#0A2540]">{nombre}</h3>
+        <span className={`text-xs ${C.tenue}`}>{nD} personas desde el cambio · {nA} antes</span>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        <Tarjeta titulo="Llegaron a testimonios" valor={secc.personasConSecciones ? `${vio('Testimonios')?.pct ?? 0}%` : '–'} ayuda={secc.personasConSecciones ? `${vio('Testimonios')?.n ?? 0} de ${secc.personasConSecciones} con secciones medidas` : 'todavía sin datos'} />
+        <Tarjeta titulo="Abrieron un testimonio" valor={`${acc(secc, 'Abrió un testimonio').pct}%`} ayuda={`${acc(secc, 'Abrió un testimonio').n} personas`} />
+        <Tarjeta titulo="Llegaron al final" valor={`${d.despues.kpis.leyeronFinal}%`} ayuda={`antes ${d.antes.kpis.leyeronFinal}%`} />
+        <Tarjeta titulo="Se inscriben (CVR)" valor={`${d.despues.kpis.conversion}%`} ayuda={`${d.despues.kpis.inscritos} inscritos · antes ${d.antes.kpis.conversion}%`} destacada />
+      </div>
+      <FilasComparadas titulo="Antes vs. desde el cambio" antes={comparables(d.antes.navegacion)} despues={comparables(secc)} nAntes={nA} nDespues={nD} />
+      {secc.personasConSecciones > 0 && (
+        <Caja titulo={`¿Hasta qué parte llegan ahora? (${secc.personasConSecciones} con secciones medidas)`}>
+          <ul className="space-y-1.5">
+            {secc.secciones.map((x) => (
+              <li key={x.nombre} className="flex items-center gap-2 text-[13px]">
+                <span className={`w-36 shrink-0 truncate ${x.nombre === 'Testimonios' || x.nombre === 'Preguntas frecuentes' ? 'font-semibold text-[#0A2540]' : ''}`}>{x.nombre}</span>
+                <div className="flex-1 h-2.5 rounded bg-[#eef3f6] min-w-12">
+                  <div className="h-2.5 rounded" style={{ background: color, width: `${Math.max(x.pct, x.n ? 1 : 0)}%` }} />
+                </div>
+                <span className="tabular-nums w-20 text-right"><Tasa valor={x.pct} base={secc.personasConSecciones} /> <span className={`text-xs ${C.tenue}`}>({x.n})</span></span>
+              </li>
+            ))}
+          </ul>
+        </Caja>
+      )}
+    </div>
+  );
+}
+
+/** Pestaña del cambio de testimonios (antes de las preguntas): antes vs. después, separado en Meta y TikTok. */
 function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
-  const [plataforma, setPlataforma] = useState<'todo' | 'meta' | 'tiktok'>('todo');
-  const [d, setD] = useState<DatosCambio | null>(null);
+  const [d, setD] = useState<{ meta: DatosCambio; tiktok: DatosCambio } | null>(null);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
+    const uno = async (fuente: 'meta' | 'tiktok') => {
+      const r = await fetch(`/api/data/cambio?equipo=${incluirEquipo ? '1' : '0'}&fuente=${fuente}`, { cache: 'no-store' });
+      if (r.status === 401) {
+        window.location.href = '/data/login';
+        throw new Error('Sesión vencida');
+      }
+      if (!r.ok) throw new Error((await r.json()).error ?? 'Error');
+      return (await r.json()) as DatosCambio;
+    };
     const cargar = async () => {
       try {
-        const r = await fetch(`/api/data/cambio?equipo=${incluirEquipo ? '1' : '0'}&fuente=${plataforma}`, { cache: 'no-store' });
-        if (r.status === 401) {
-          window.location.href = '/data/login';
-          return;
-        }
-        if (!r.ok) throw new Error((await r.json()).error ?? 'Error');
-        setD(await r.json());
+        const [meta, tiktok] = await Promise.all([uno('meta'), uno('tiktok')]);
+        setD({ meta, tiktok });
         setError(null);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Error');
@@ -320,55 +364,35 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
     cargar();
     const id = setInterval(() => document.visibilityState === 'visible' && cargar(), 30_000);
     return () => clearInterval(id);
-  }, [incluirEquipo, plataforma]);
+  }, [incluirEquipo]);
 
   if (error) return <p className="text-sm text-[#b42318]">No se pudieron cargar los datos del cambio: {error}</p>;
   if (!d) return null;
-  const nA = d.antes.kpis.personas;
-  const nD = d.despues.kpis.personas;
-  const horas = Math.round((Date.parse(d.generado) - Date.parse(d.despues.desde)) / 3_600_000);
+  const v = d.meta;
+  const horas = Math.round((Date.parse(v.generado) - Date.parse(v.despues.desde)) / 3_600_000);
+  const resumen: string[] = [];
+  for (const [nombre, x] of [['Instagram y Facebook', d.meta], ['TikTok', d.tiktok]] as const) {
+    const a = x.antes.kpis, b = x.despues.kpis;
+    if (!b.personas) continue;
+    const t = x.despues.navegacion.secciones.find((s) => s.nombre === 'Testimonios');
+    resumen.push(
+      `${nombre}: ${b.personas} personas desde el cambio${t && x.despues.navegacion.personasConSecciones ? `; ${t.pct}% llega a los testimonios` : ''}; llegan al final ${b.leyeronFinal}% (antes ${a.leyeronFinal}%) y se inscriben ${b.conversion}% (antes ${a.conversion}%).`,
+    );
+  }
   return (
-    <Bloque n="Δ" titulo="Antes vs. después del cambio" sub="Cómo navega la gente en la versión actual frente a la versión anterior completa, en % de las personas que entraron">
+    <Bloque n="Δ" titulo={`Cambio: ${v.version.nombre}`} sub="Desde el 20 oct los testimonios van antes de las preguntas frecuentes. Aquí se compara cómo navega la gente antes y después, separado por plataforma" resumen={resumen}>
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Plataforma del cambio">
-        {([
-          { id: 'todo', nombre: 'Todos' },
-          { id: 'meta', nombre: 'Instagram y Facebook' },
-          { id: 'tiktok', nombre: 'TikTok' },
-        ] as const).map((x) => (
-          <button
-            key={x.id}
-            role="tab"
-            aria-selected={plataforma === x.id}
-            onClick={() => setPlataforma(x.id)}
-            className={`rounded-full px-3 py-1 text-[13px] border ${plataforma === x.id ? 'bg-[#0A2540] border-[#0A2540] text-white' : 'border-[#c3dae6] text-[#3e5260] hover:bg-[#eef6fa]'}`}
-          >
-            {x.nombre}
-          </button>
-        ))}
+      <p className={`text-[13px] ${C.suave}`}>
+        Publicado el {fechaHora(v.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}). <b>Antes</b> = versión &quot;{v.previa.nombre}&quot; ({fechaHora(v.antes.desde)} – {fechaHora(v.antes.hasta)}).
+        Instagram y Facebook incluye anuncios de Meta y orgánico; TikTok, anuncios y orgánico.
+      </p>
+      <div className="grid lg:grid-cols-2 gap-6 items-start">
+        <CambioPlataforma d={d.meta} nombre="Instagram y Facebook (Meta)" color="#2a78d6" />
+        <CambioPlataforma d={d.tiktok} nombre="TikTok" color="#6250d6" />
       </div>
-      <div className="rounded-2xl bg-[#FFF6D6] border-l-4 border-[#FFC300] px-4 py-3 text-sm text-[#0A2540]">
-        <p className="font-extrabold">Cambio: {d.version.nombre}{plataforma !== 'todo' && ` · solo ${plataforma === 'meta' ? 'Instagram y Facebook (anuncios y orgánico)' : 'TikTok (anuncios y orgánico)'}`}</p>
-        <p>
-          Publicado el {fechaHora(d.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}). Se compara cada indicador como % de las personas que entraron: <b>antes</b> = versión
-          &quot;{d.previa.nombre}&quot; ({fechaHora(d.antes.desde)} – {fechaHora(d.antes.hasta)}, {nA} personas) vs. <b>desde el cambio</b> ({nD} personas).
-        </p>
-        {nD < MUESTRA_MINIMA && <p className="mt-1">Todavía hay pocas personas desde el cambio: los porcentajes van a moverse mucho las primeras horas.</p>}
-      </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <Tarjeta titulo="Llegaron al final" valor={`${d.despues.kpis.leyeronFinal}%`} ayuda={`antes ${d.antes.kpis.leyeronFinal}%`} />
-        <Tarjeta titulo="Tiempo en la página" valor={d.despues.navegacion.tiempoMediano != null ? `${d.despues.navegacion.tiempoMediano} s` : '–'} ayuda={`mediana · antes ${d.antes.navegacion.tiempoMediano ?? '–'} s`} />
-        <Tarjeta titulo="Abrieron el registro" valor={`${d.despues.navegacion.acciones[3].pct}%`} ayuda={`antes ${d.antes.navegacion.acciones[3].pct}%`} />
-        <Tarjeta titulo="Se inscriben" valor={`${d.despues.kpis.conversion}%`} ayuda={`${d.despues.kpis.inscritos} inscritos · antes ${d.antes.kpis.conversion}%`} destacada />
-      </div>
-      <div className="grid lg:grid-cols-2 gap-4 items-start">
-        <FilasComparadas titulo="¿Hasta dónde bajan?" antes={d.antes.navegacion.profundidad} despues={d.despues.navegacion.profundidad} nAntes={nA} nDespues={nD} />
-        <FilasComparadas titulo="¿Qué tocan?" antes={d.antes.navegacion.acciones} despues={d.despues.navegacion.acciones} nAntes={nA} nDespues={nD} />
-      </div>
-      <FilasComparadas titulo="¿Desde qué sección hacen clic en «Inscríbete»?" antes={d.antes.navegacion.botones} despues={d.despues.navegacion.botones} nAntes={nA} nDespues={nD} />
       <p className={`text-xs ${C.tenue}`}>
-        * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. «Real» = hay menos de 5% de probabilidad de que la diferencia sea casualidad. Una persona puede contar en varias filas. La versión anterior tuvo otra mezcla de anuncios, así que conviene mirar
-        también los bloques de abajo, que en esta pestaña muestran solo el periodo desde el cambio.
+        * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. «Real» = menos de 5% de probabilidad de que la diferencia sea casualidad. Las secciones vistas, los testimonios abiertos y las
+        preguntas abiertas se miden desde el 20 oct (en la versión anterior no se registraban), por eso solo aparecen en «desde el cambio».
       </p>
     </div>
     </Bloque>
@@ -496,7 +520,45 @@ function Recorrido({ id }: { id: string }) {
   );
 }
 
-function TablaAnuncios({ filas, etiqueta, verPlataforma }: { filas: FilaAnuncio[]; etiqueta: string; verPlataforma: boolean }) {
+/**
+ * Miniatura de cada anuncio: public/data/anuncios/{meta|tiktok}/{nombre-del-anuncio}.jpg (p. ej. «Playa - 1» → playa-1.jpg).
+ * Van por plataforma porque el mismo nombre no siempre tiene la misma foto en Meta y en TikTok.
+ * Para un anuncio nuevo basta con agregar su imagen con ese nombre; si no existe, no se muestra nada.
+ */
+const fotoAnuncio = (plataforma: string, nombre: string) => {
+  const p = plataforma === 'Meta' ? 'meta' : plataforma === 'TikTok' ? 'tiktok' : '';
+  const slug = nombre.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return p && slug ? `/data/anuncios/${p}/${slug}.jpg` : null;
+};
+
+function Miniatura({ src, nombre }: { src: string; nombre: string }) {
+  const [ok, setOk] = useState(true);
+  // La vista grande va con posición fija: dentro de la tabla (que se desplaza de lado) quedaría recortada.
+  const [grande, setGrande] = useState<{ x: number; y: number } | null>(null);
+  // Si la imagen falló antes de que React se enganchara, onError no llega: se revisa al montar.
+  const ref = useCallback((img: HTMLImageElement | null) => {
+    if (img && img.complete && !img.naturalWidth) setOk(false);
+  }, []);
+  if (!ok) return <span className="w-9 h-14 shrink-0" aria-hidden="true" />;
+  const mostrar = (e: React.MouseEvent | React.FocusEvent) => {
+    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    setGrande({ x: r.right + 8, y: Math.min(Math.max(8, r.top + r.height / 2 - 160), window.innerHeight - 330) });
+  };
+  return (
+    <span className="shrink-0" tabIndex={0} onMouseEnter={mostrar} onMouseLeave={() => setGrande(null)} onFocus={mostrar} onBlur={() => setGrande(null)}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img ref={ref} src={src} alt={`Imagen del anuncio ${nombre}`} loading="lazy" onError={() => setOk(false)} className="w-9 h-14 rounded-md object-cover border border-[#e3ebf0] cursor-zoom-in" />
+      {grande && (
+        <span className="pointer-events-none fixed z-50 rounded-lg bg-white p-1 shadow-xl border border-[#e3ebf0]" style={{ left: grande.x, top: grande.y }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={src} alt="" className="w-44 rounded" />
+        </span>
+      )}
+    </span>
+  );
+}
+
+function TablaAnuncios({ filas, etiqueta, verPlataforma, fotos = false }: { filas: FilaAnuncio[]; etiqueta: string; verPlataforma: boolean; fotos?: boolean }) {
   const th = 'font-medium px-2 pb-2 text-right whitespace-nowrap';
   return (
     <div className="overflow-x-auto -mx-1">
@@ -518,11 +580,19 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma }: { filas: FilaAnuncio[
           {filas.map((f) => (
             <tr key={f.nombre} className="border-t border-[#eef3f6]">
               <td className="px-1 py-2.5 font-medium">
+                <div className="flex items-center gap-2.5">
+                {fotos && (() => {
+                  const src = fotoAnuncio(f.plataforma, f.nombre);
+                  return src ? <Miniatura key={src} src={src} nombre={f.nombre} /> : null;
+                })()}
+                <div className="min-w-0">
                 {verPlataforma && f.plataforma && (
                   <span className={`mr-1.5 inline-block rounded px-1.5 py-0.5 text-[11px] font-semibold align-middle ${f.plataforma === 'TikTok' ? 'bg-[#111] text-white' : 'bg-[#e7f0fe] text-[#1a56c4]'}`}>{f.plataforma}</span>
                 )}
                 <span className={f.personas ? '' : C.tenue}>{f.nombre}</span>
                 {!f.personas && <span className={`block text-[11px] font-normal ${C.tenue}`}>Publicado, sin clics reales todavía (solo la revisión de la plataforma)</span>}
+                </div>
+                </div>
               </td>
               <td className="px-2 py-2.5 text-right tabular-nums">{f.personas}</td>
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.mitad} base={f.personas} /></td>
@@ -738,7 +808,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               <h1 className="panel-titulo text-white">Panel de la landing /neurociencia</h1>
             </div>
           </div>
-          {verCambio && <span className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white">Desde el cambio · {fechaHora(periodo.desde)}</span>}
+          {verCambio && <span className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white">Desde el cambio de testimonios · {fechaHora(periodo.desde)}</span>}
           <select hidden={verCambio} value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
             {opciones.map((p) => (
               <option key={p.id} value={p.id}>
@@ -766,7 +836,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             { id: 'todo', nombre: 'Todo' },
             { id: 'meta', nombre: 'Instagram y Facebook' },
             { id: 'tiktok', nombre: 'TikTok' },
-            { id: 'cambio', nombre: `Desde el cambio (${versiones.length > 1 ? diaCorto(new Date(versiones[versiones.length - 1].desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' })) : '–'})` },
+            { id: 'cambio', nombre: `Cambio de testimonios (${versiones.length > 1 ? diaCorto(new Date(versiones[versiones.length - 1].desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' })) : '–'})` },
           ] as const).map((t) => {
             const activa = t.id === 'cambio' ? verCambio : !verCambio && fuente === t.id;
             return (
@@ -1109,6 +1179,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               filas={filasAnuncios}
               etiqueta={otros ? 'Canal' : VISTAS.find((v) => v.id === vistaAnuncios)!.nombre}
               verPlataforma={false}
+              fotos={!otros && vistaAnuncios === 'porAnuncio'}
             />
             {plataformaAnuncios === 'TikTok' && filasAnuncios.some((f) => f.nombre.includes('falta utm_content')) && (
               <p className="text-xs text-[#b54708] mt-3">
