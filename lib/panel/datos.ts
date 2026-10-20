@@ -199,6 +199,18 @@ const CANALES_FUENTE: Record<Exclude<Fuente, 'todo'>, string[]> = {
   tiktok: ['Anuncios TikTok', 'TikTok'],
 };
 
+/** Grupos de tráfico por plataforma, en el orden en que se muestran. */
+export const GRUPOS_TRAFICO = ['Anuncios Meta', 'Instagram y Facebook orgánico', 'Anuncios TikTok', 'TikTok orgánico', 'Otros'] as const;
+export type GrupoTrafico = (typeof GRUPOS_TRAFICO)[number];
+export function grupoTrafico(v: Fila): GrupoTrafico {
+  const c = canal(v);
+  if (c === 'Anuncios Meta') return 'Anuncios Meta';
+  if (c === 'Instagram orgánico' || c === 'Facebook orgánico') return 'Instagram y Facebook orgánico';
+  if (c === 'Anuncios TikTok') return 'Anuncios TikTok';
+  if (c === 'TikTok') return 'TikTok orgánico';
+  return 'Otros';
+}
+
 export type Filtros = { desde: string; hasta: string; incluirEquipo: boolean; fuente?: Fuente };
 
 async function leerRango(desde: string, hasta: string) {
@@ -342,12 +354,15 @@ export function calcularPanel({
   ].map((x) => ({ ...x, pct: pct(x.n, n) }));
 
   // --- Flujo diario (hora de Lima) ---
-  const dias = new Map<string, { personas: Set<string>; anuncios: Set<string>; nuevas: number; inscritos: number }>();
-  const dia = (d: string) => dias.get(d) ?? dias.set(d, { personas: new Set(), anuncios: new Set(), nuevas: 0, inscritos: 0 }).get(d)!;
+  const dias = new Map<string, { personas: Set<string>; anuncios: Set<string>; grupo: Map<string, GrupoTrafico>; nuevas: number; inscritos: number }>();
+  const dia = (d: string) => dias.get(d) ?? dias.set(d, { personas: new Set(), anuncios: new Set(), grupo: new Map(), nuevas: 0, inscritos: 0 }).get(d)!;
   for (const v of V) {
     const d = dia(diaLima(s(v.created_at)));
-    d.personas.add(s(v.anonymous_id));
-    if (esAnuncio(v)) d.anuncios.add(s(v.anonymous_id));
+    const id = s(v.anonymous_id);
+    d.personas.add(id);
+    if (esAnuncio(v)) d.anuncios.add(id);
+    // Plataforma del día: la de su primera visita de ese día.
+    if (!d.grupo.has(id)) d.grupo.set(id, grupoTrafico(v));
   }
   for (const [, v] of primera) dia(diaLima(s(v.created_at))).nuevas++;
   for (const l of L) dia(diaLima(s(l.created_at))).inscritos++;
@@ -359,6 +374,7 @@ export function calcularPanel({
       anuncios: d.anuncios.size,
       organico: d.personas.size - d.anuncios.size,
       nuevas: d.nuevas,
+      plataformas: Object.fromEntries(GRUPOS_TRAFICO.map((g) => [g, [...d.grupo.values()].filter((x) => x === g).length])) as Record<GrupoTrafico, number>,
       inscritos: d.inscritos,
       tasa: pct(d.inscritos, d.personas.size),
     }));
@@ -423,6 +439,12 @@ export function calcularPanel({
   const canales = [...porCanal.entries()]
     .map(([nombre, f]) => ({ nombre, ...f, finalPct: pct(f.final, f.personas), tasa: pct(f.inscritos, f.personas) }))
     .sort((a, b) => b.personas - a.personas);
+
+  const trafico = GRUPOS_TRAFICO.map((g) => {
+    const ids = personas.filter((id) => grupoTrafico(primera.get(id)!) === g);
+    const ins = cuantos(ids, inscritosIds);
+    return { nombre: g, personas: ids.length, pctPersonas: pct(ids.length, n), mitad: pct(cuantos(ids, mitad), ids.length), inscritos: ins, tasa: pct(ins, ids.length) };
+  });
 
   const prim = [...primera.values()];
   const desglose = {
@@ -500,6 +522,7 @@ export function calcularPanel({
     porDia,
     anuncios,
     porPlataforma,
+    trafico,
     canales,
     desglose,
     inscritos: listaInscritos,

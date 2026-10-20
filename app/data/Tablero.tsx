@@ -48,7 +48,14 @@ const diaCorto = (ymd: string) =>
 // Marca Entrena con Ciencia: navy #0A2540, teal #017FA7, cian #23D3FF, amarillo #FFC300, fondo #F5FAFC (Poppins).
 const C = { borde: 'border-[#d9e8f0]', suave: 'text-[#3e5260]', tenue: 'text-[#627682]' };
 const AZUL = '#017FA7';
-const CELESTE = '#9fd3e3';
+/** Colores del tráfico por plataforma (mismo orden que GRUPOS_TRAFICO). */
+const GRUPOS = [
+  { id: 'Anuncios Meta', corto: 'Anuncios Meta', color: '#1a56c4' },
+  { id: 'Instagram y Facebook orgánico', corto: 'IG/FB orgánico', color: '#d6489b' },
+  { id: 'Anuncios TikTok', corto: 'Anuncios TikTok', color: '#111111' },
+  { id: 'TikTok orgánico', corto: 'TikTok orgánico', color: '#25c6d3' },
+  { id: 'Otros', corto: 'Otros', color: '#b9c9d3' },
+] as const;
 const VERDE = '#0f9d58';
 
 /** Cambio frente al periodo anterior. `puntos` = diferencia en puntos porcentuales (para tasas). */
@@ -413,24 +420,44 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             </Caja>
         </div>
 
-        <Bloque n={1} titulo="Flujo diario" sub="Personas distintas que entran cada día (hora de Lima), separadas por origen">
+        <Bloque n={1} titulo="Tráfico por plataforma" sub="Personas distintas que entran cada día (hora de Lima), separadas por la plataforma de donde vienen">
           <Caja>
-            <div className="flex items-end gap-1.5 sm:gap-2 h-48">
-              {datos?.porDia.map((d) => (
-                <div key={d.fecha} className="flex-1 flex flex-col items-center justify-end h-full min-w-0" title={`${d.personas} personas: ${d.anuncios} de anuncios, ${d.organico} orgánicas · ${d.inscritos} inscritos`}>
-                  <span className="text-xs tabular-nums text-[#3b4b56]">{d.personas}</span>
-                  <div className="w-full max-w-9 flex flex-col justify-end" style={{ height: `${(d.personas / maxDia) * 100}%` }}>
-                    <div className="w-full rounded-t" style={{ background: AZUL, height: `${d.personas ? (d.anuncios / d.personas) * 100 : 0}%` }} />
-                    <div className={`w-full ${d.anuncios ? '' : 'rounded-t'}`} style={{ background: CELESTE, height: `${d.personas ? (d.organico / d.personas) * 100 : 0}%` }} />
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5">
+              {GRUPOS.map((g) => {
+                const t = datos?.trafico.find((x) => x.nombre === g.id);
+                return (
+                  <div key={g.id} className="rounded-xl border border-[#e3edf2] px-3 py-2.5" style={{ borderTop: `4px solid ${g.color}` }}>
+                    <p className={`text-[12px] font-medium ${C.suave}`}>{g.id}</p>
+                    <p className="text-xl font-extrabold tabular-nums text-[#0A2540]">{t?.personas ?? '–'}</p>
+                    <p className={`text-[11.5px] ${C.tenue}`}>
+                      {t ? `${t.pctPersonas}% del tráfico · ${t.inscritos} inscritos` : ''}
+                      {t && t.personas > 0 && <> · <Tasa valor={t.tasa} base={t.personas} /></>}
+                    </p>
                   </div>
-                  <span className={`text-[11px] ${C.tenue} mt-1 truncate w-full text-center`}>{diaCorto(d.fecha)}</span>
-                </div>
-              ))}
+                );
+              })}
+            </div>
+            <div className="flex items-end gap-1.5 sm:gap-2 h-48">
+              {datos?.porDia.map((d) => {
+                const visibles = GRUPOS.filter((g) => d.plataformas[g.id]);
+                return (
+                  <div key={d.fecha} className="flex-1 flex flex-col items-center justify-end h-full min-w-0" title={`${d.personas} personas: ${GRUPOS.map((g) => `${d.plataformas[g.id]} ${g.corto}`).join(', ')} · ${d.inscritos} inscritos`}>
+                    <span className="text-xs tabular-nums text-[#3b4b56]">{d.personas}</span>
+                    <div className="w-full max-w-9 flex flex-col-reverse justify-start rounded-t overflow-hidden" style={{ height: `${(d.personas / maxDia) * 100}%` }}>
+                      {visibles.map((g) => (
+                        <div key={g.id} className="w-full" style={{ background: g.color, height: `${d.personas ? (d.plataformas[g.id] / d.personas) * 100 : 0}%` }} />
+                      ))}
+                    </div>
+                    <span className={`text-[11px] ${C.tenue} mt-1 truncate w-full text-center`}>{diaCorto(d.fecha)}</span>
+                  </div>
+                );
+              })}
               {datos && !datos.porDia.length && <p className={`text-sm ${C.tenue}`}>Sin visitas en este periodo</p>}
             </div>
             <div className={`flex flex-wrap gap-x-4 gap-y-1 text-xs ${C.suave} mt-3`}>
-              <span className="flex items-center gap-1.5"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: AZUL }} /> Desde anuncios</span>
-              <span className="flex items-center gap-1.5"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: CELESTE }} /> Orgánico (bio, directo, web…)</span>
+              {GRUPOS.map((g) => (
+                <span key={g.id} className="flex items-center gap-1.5"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: g.color }} /> {g.id === 'Otros' ? 'Otros (directo, web, WhatsApp, Google…)' : g.id}</span>
+              ))}
             </div>
             <div className="overflow-x-auto -mx-1 mt-4">
               <table className="w-full text-sm">
@@ -438,9 +465,12 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                   <tr className={`${C.suave} text-[13px] text-right`}>
                     <th className="font-medium px-1 pb-2 text-left">Día</th>
                     <th className="font-medium px-2 pb-2">Personas</th>
-                    <th className="font-medium px-2 pb-2" title="Entraron por primera vez ese día">Nuevas</th>
-                    <th className="font-medium px-2 pb-2">De anuncios</th>
-                    <th className="font-medium px-2 pb-2">Orgánicas</th>
+                    {GRUPOS.map((g) => (
+                      <th key={g.id} className="font-medium px-2 pb-2 whitespace-nowrap">
+                        <i className="w-2 h-2 rounded-sm inline-block mr-1 align-middle" style={{ background: g.color }} />
+                        {g.corto}
+                      </th>
+                    ))}
                     <th className="font-medium px-2 pb-2">Inscritos</th>
                     <th className="font-medium px-2 pb-2">Conversión</th>
                   </tr>
@@ -450,9 +480,9 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                     <tr key={d.fecha} className="border-t border-[#eef3f6] text-right tabular-nums">
                       <td className="px-1 py-2 text-left whitespace-nowrap">{diaCorto(d.fecha)}</td>
                       <td className="px-2 py-2 font-medium">{d.personas}</td>
-                      <td className="px-2 py-2">{d.nuevas}</td>
-                      <td className="px-2 py-2">{d.anuncios}</td>
-                      <td className="px-2 py-2">{d.organico}</td>
+                      {GRUPOS.map((g) => (
+                        <td key={g.id} className={`px-2 py-2 ${d.plataformas[g.id] ? '' : C.tenue}`}>{d.plataformas[g.id]}</td>
+                      ))}
                       <td className={`px-2 py-2 ${d.inscritos ? 'text-[#0f9d58] font-medium' : ''}`}>{d.inscritos}</td>
                       <td className="px-2 py-2"><Tasa valor={d.tasa} base={d.personas} /></td>
                     </tr>
