@@ -769,21 +769,24 @@ export async function recorridoInscrito(id: string) {
     }),
   ].sort((a, b) => a.t.localeCompare(b.t));
   const primera = pasos[0]?.t ?? inscripcion;
-  const antes = pasos.filter((p) => p.t <= inscripcion);
+  // El aviso "se inscribió" llega milisegundos después del registro: 1 minuto de margen.
+  const corte = new Date(Date.parse(inscripcion) + 60_000).toISOString();
+  // Visitas = sesiones con actividad antes de inscribirse (algunas visitas no registraron la entrada pero sí sus eventos).
+  const sesionesAntes = new Set([...visitas, ...eventos].filter((x) => s(x.created_at) <= corte).map((x) => s(x.session_id)).filter(Boolean));
   const maxScroll = Math.max(0, ...eventos.map((e) => (/^scroll_\d+$/.test(s(e.event_type)) ? Number(s(e.event_type).slice(7)) : 0)));
   const vistas = new Set(eventos.filter((e) => e.event_type === 'seccion_ver').map((e) => s(e.resource_kind).split(' ')[0]));
   return {
     inscripcion,
     primeraVisita: primera,
     minutosHastaInscribirse: Math.max(0, Math.round((Date.parse(inscripcion) - Date.parse(primera)) / 60000)),
-    visitasAntes: antes.filter((p) => p.tipo === 'visita').length,
+    visitasAntes: sesionesAntes.size,
     sesiones: new Set(visitas.map((v) => s(v.session_id))).size,
     llegoPrimeraVez: visitas[0] ? (esAnuncio(visitas[0]) ? `Anuncio ${plataforma(visitas[0])}: ${nombreAnuncio(visitas[0]) || '(sin nombre)'}` : canal(visitas[0])) : 'Sin visita registrada',
     hastaDondeBajo: maxScroll,
     secciones: SECCIONES.map(([c, nombre]) => ({ nombre, vio: vistas.has(c) })),
     seccionesMedidas: vistas.size > 0,
     // Máximo 120 pasos para que la vista no se haga eterna.
-    pasos: pasos.slice(0, 120).map(({ t, que, detalle }) => ({ t, que, detalle, despues: t > inscripcion })),
+    pasos: pasos.slice(0, 120).map(({ t, que, detalle, tipo }) => ({ t, que, detalle, despues: tipo !== 'lista_espera' && t > corte })),
   };
 }
 export type RecorridoInscrito = NonNullable<Awaited<ReturnType<typeof recorridoInscrito>>>;
