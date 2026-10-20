@@ -107,6 +107,14 @@ export function esAnuncio(v: Fila): boolean {
   return plataforma(v) !== '';
 }
 
+const MACRO_SIN_REEMPLAZAR = /__[A-Z_]+__|\{\{[^}]*\}\}/;
+
+/** Nombre corto de cada sección de la landing (data-screen-label), en el orden en que aparecen. */
+const SECCIONES: [string, string][] = [
+  ['01', 'Inicio (video)'], ['02', 'Por qué funciona'], ['03', 'Qué incluye'], ['04', 'Quién está detrás'],
+  ['04b', 'Testimonios'], ['05', 'Preguntas frecuentes'], ['06', 'Cierre (oferta)'],
+];
+
 /** Valor de una etiqueta de anuncio; las macros que la plataforma no reemplazó (__CAMPAIGN_NAME__, {{ad.name}}) quedan vacías. */
 function etiqueta(v: unknown): string {
   const t = limpiar(v);
@@ -307,7 +315,7 @@ export function calcularPanel({
   fuente?: Fuente;
   equipoHistorico?: string[];
 }) {
-  // --- Limpieza: equipo y robots de revisión de Meta ---
+  // --- Limpieza: equipo y robots de revisión de Meta y TikTok ---
   const prefijos = equipo();
   const paises = paisesAnuncios();
   const internos = new Set<string>(equipoHistorico);
@@ -316,7 +324,11 @@ export function calcularPanel({
     const id = s(v.anonymous_id);
     if (prefijos.some((p) => id.startsWith(p)) || s(v.referrer).includes(DOMINIO_DEMO)) internos.add(id);
     if (esAnuncio(v) && !paises.includes(s(v.country).toUpperCase())) robots.add(id);
+    // El revisor de anuncios abre el link sin reemplazar sus macros (__CID_NAME__, {{ad.name}}), aunque entre desde Perú.
+    if (MACRO_SIN_REEMPLAZAR.test([v.utm_source, v.utm_medium, v.utm_campaign, v.utm_content, v.utm_term].map(s).join('|'))) robots.add(id);
   }
+  // Nunca se descarta a quien se inscribió.
+  for (const x of [...inscritos, ...eventos.filter((e) => e.event_type === 'lista_espera')]) robots.delete(s(x.anonymous_id));
   const limpio = (id: unknown) => !robots.has(s(id)) && (incluirEquipo || !internos.has(s(id)));
   // Pestaña: cada persona pertenece a la plataforma por la que llegó la primera vez.
   let deFuente: Set<string> | null = null;
@@ -498,7 +510,21 @@ export function calcularPanel({
     (conBoton.get(nombre) ?? conBoton.set(nombre, new Set()).get(nombre)!).add(s(e.anonymous_id));
   }
   const cuenta = (nombre: string, set: Set<string>) => ({ nombre, n: cuantos(personas, set), pct: pct(cuantos(personas, set), n) });
+  // Secciones vistas (evento seccion_ver, se mide desde el 20 oct): de las personas con al menos una, cuántas vieron cada sección.
+  const vioSeccion = new Map<string, Set<string>>();
+  for (const e of E) {
+    if (e.event_type !== 'seccion_ver') continue;
+    const cod = s(e.resource_kind).split(' ')[0];
+    (vioSeccion.get(cod) ?? vioSeccion.set(cod, new Set()).get(cod)!).add(s(e.anonymous_id));
+  }
+  const conSecciones = new Set([...vioSeccion.values()].flatMap((x) => [...x]));
+  const baseSecciones = personas.filter((id) => conSecciones.has(id));
   const navegacion = {
+    secciones: SECCIONES.map(([cod, nombre]) => {
+      const n = cuantos(baseSecciones, vioSeccion.get(cod) ?? new Set());
+      return { nombre, n, pct: pct(n, baseSecciones.length) };
+    }),
+    personasConSecciones: baseSecciones.length,
     profundidad: [cuenta('Bajó al 25%', leyo(25)), cuenta('Bajó a la mitad', mitad), cuenta('Bajó al 75%', leyo(75)), cuenta('Llegó al final', final)],
     acciones: [
       cuenta('Activó el video', sonido),
@@ -571,7 +597,8 @@ export function calcularPanel({
       que: 'Entró a la página',
       detalle: [s(v.country), dispositivo(s(v.user_agent), s(v.path)), esAnuncio(v) ? `Anuncio ${plataforma(v)}: ${nombreAnuncio(v)}` : canal(v)].join(' · '),
     })),
-    ...E.slice(-60).map((e) => ({ t: s(e.created_at), quien: s(e.anonymous_id).slice(0, 6), que: NOMBRES[s(e.event_type)] ?? s(e.event_type), detalle: s(e.resource_kind) })),
+    // Las secciones vistas no van al feed: serían 7 por persona y taparían lo demás.
+    ...E.filter((e) => e.event_type !== 'seccion_ver').slice(-60).map((e) => ({ t: s(e.created_at), quien: s(e.anonymous_id).slice(0, 6), que: NOMBRES[s(e.event_type)] ?? s(e.event_type), detalle: s(e.resource_kind) })),
   ]
     .sort((a, b) => b.t.localeCompare(a.t))
     .slice(0, 40);

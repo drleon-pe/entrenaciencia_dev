@@ -133,6 +133,23 @@
     hitos.forEach(function (m) { if (p >= m - 1 && !hechos[m]) { hechos[m] = 1; evento('scroll_' + m, null, m === 75 ? '!Scroll75' : null, 'scroll_' + m); } });
   }, { passive: true });
 
+  /* Secciones vistas: una vez por sección, cuando ocupa al menos un tercio de la pantalla (o se ve un tercio de ella).
+     Solo va a Supabase (no a los pixeles): sirve para saber hasta qué sección llega cada persona. */
+  if (window.IntersectionObserver) {
+    var vistas = {};
+    var obs = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        var s = en.target.getAttribute('data-screen-label');
+        if (!en.isIntersecting || vistas[s]) return;
+        if (en.intersectionRatio >= 0.33 || en.intersectionRect.height >= innerHeight / 3) {
+          vistas[s] = 1; obs.unobserve(en.target); evento('seccion_ver', s);
+        }
+      });
+    }, { threshold: [0, 0.1, 0.2, 0.33, 0.5] });
+    var observar = function () { document.querySelectorAll('section[data-screen-label]').forEach(function (s) { obs.observe(s); }); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', observar); else observar();
+  }
+
   /* Clics: video, botones de compra/reserva, testimonios y preguntas. */
   var vioVideo = false;
   document.addEventListener('click', function (e) {

@@ -700,7 +700,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             <p className={`text-xs ${C.tenue} mt-3`}>
               * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Impresiones, clics y gasto vienen de las APIs de Meta y TikTok (se actualizan cada 10 minutos; los nombres se cruzan con el utm_content del
               anuncio); personas, lectura e inscritos se miden en la página.
-              {datos && datos.calidad.robots > 0 && ` Se excluyeron ${datos.calidad.robots} visitas de robots de revisión (clics de anuncio desde fuera de Perú).`}
+              {datos && datos.calidad.robots > 0 && ` Se excluyeron ${datos.calidad.robots} visitas de robots de revisión de anuncios (clics desde fuera de Perú o con el link sin completar).`}
             </p>
           </Caja>
         </Bloque>
@@ -760,6 +760,33 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               )}
             </div>
             <p className={`text-xs ${C.tenue} mt-2`}>En naranja: cuánta gente se pierde respecto al paso anterior.</p>
+            <div className="mt-5 pt-4 border-t border-[#eef3f6]">
+              <p className={`text-[13px] font-medium ${C.suave}`}>¿Hasta qué sección llegan?</p>
+              <p className={`text-xs ${C.tenue} mb-3`}>
+                De las {datos?.navegacion.personasConSecciones ?? '–'} personas con secciones medidas (se mide desde el 20 oct), cuántas vieron cada parte de la página, en el orden en que aparecen.
+              </p>
+              {datos && datos.navegacion.personasConSecciones > 0 ? (
+                <ul className="space-y-2">
+                  {datos.navegacion.secciones.map((x, i, l) => {
+                    const c = i > 0 && l[i - 1].n ? Math.round(((l[i - 1].n - x.n) / l[i - 1].n) * 100) : null;
+                    return (
+                      <li key={x.nombre} className="flex items-center gap-2 text-sm">
+                        <span className="w-40 shrink-0 truncate">{x.nombre}</span>
+                        <div className="flex-1 h-3 rounded bg-[#eef3f6] min-w-16">
+                          <div className="h-3 rounded" style={{ background: AZUL, width: `${Math.max(x.pct, x.n ? 1 : 0)}%` }} />
+                        </div>
+                        <span className="tabular-nums whitespace-nowrap w-24 text-right">
+                          <b className="font-medium">{x.n}</b> <span className={C.tenue}>· <Tasa valor={x.pct} base={datos.navegacion.personasConSecciones} /></span>
+                        </span>
+                        <span className="text-xs text-[#b54708] tabular-nums w-11 text-right">{c != null && c > 0 ? `−${c}%` : ''}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <p className={`text-sm ${C.tenue}`}>Todavía no hay visitas con secciones medidas en este periodo.</p>
+              )}
+            </div>
           </Caja>
         </Bloque>
 
@@ -863,7 +890,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                 <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
                   <li>{datos?.calidad.visitas ?? '–'} visitas en total ({datos?.calidad.sesiones ?? '–'} sesiones)</li>
                   <li>{datos?.calidad.volvieron ?? '–'} personas entraron más de una vez</li>
-                  <li>{datos?.calidad.robots ?? '–'} robots de Meta excluidos</li>
+                  <li>{datos?.calidad.robots ?? '–'} robots de revisión de Meta y TikTok excluidos</li>
                   <li className="flex items-center gap-2">
                     <span>{incluirEquipo ? 'Equipo incluido' : `${datos?.calidad.equipo ?? '–'} del equipo excluidos`}</span>
                     <label className="flex items-center gap-1 cursor-pointer text-xs">
