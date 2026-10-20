@@ -211,6 +211,15 @@ function mediana(xs: number[]): number | null {
   return o.length % 2 ? o[m] : Math.round((o[m - 1] + o[m]) / 2);
 }
 
+/** Nombre legible de cada evento de la landing (feed en vivo y recorrido de cada inscrito). */
+const NOMBRES: Record<string, string> = {
+  scroll_25: 'Bajó al 25%', scroll_50: 'Bajó a la mitad', scroll_75: 'Bajó al 75%', scroll_100: 'Llegó al final',
+  video_play: 'Dio play al video', vsl_sonido: 'Activó el sonido del video', testimonio_ver: 'Abrió un testimonio',
+  faq_abrir: 'Abrió una pregunta', cta_click: 'Clic en botón', checkout_click: 'Clic en reservar', lista_abrir: 'Abrió el registro',
+  lista_espera: 'Se inscribió', salida: 'Salió', seccion_ver: 'Vio la sección',
+  video_25: 'Vio el 25% del video', video_50: 'Vio la mitad del video', video_75: 'Vio el 75% del video', video_100: 'Vio el video completo',
+};
+
 /** Pestañas del panel: todo, solo Instagram/Facebook (Meta: anuncios y orgánico) o solo TikTok (anuncios y orgánico). */
 export type Fuente = 'todo' | 'meta' | 'tiktok';
 const CANALES_FUENTE: Record<Exclude<Fuente, 'todo'>, string[]> = {
@@ -532,9 +541,50 @@ export function calcularPanel({
       cuenta('Abrió una pregunta', hizo((e) => e.event_type === 'faq_abrir')),
       cuenta('Abrió el registro', registro),
       cuenta('Se inscribió', inscritosIds),
+      cuenta('Vio la mitad del video (con sonido)', hizo((e) => e.event_type === 'video_50')),
+      cuenta('Se fue en menos de 5 s', new Set([...tiempoDe.entries()].filter(([id, t]) => t < 5 && !leyo(25).has(id)).map(([id]) => id))),
     ],
     botones: [...conBoton.entries()].map(([nombre, set]) => cuenta(nombre, set)).sort((a, b) => b.n - a.n),
     tiempoMediano: mediana([...tiempoDe.values()]),
+  };
+
+  // --- Comportamiento por plataforma: las mismas métricas para todos y para cada grupo de tráfico ---
+  // Rebote = se fue en menos de 5 s sin llegar al 25 %. Solo cuenta a quien tiene el tiempo medido (aviso de salida).
+  const rebote = new Set([...tiempoDe.entries()].filter(([id, t]) => t < 5 && !leyo(25).has(id)).map(([id]) => id));
+  const videoPct = (m: number) => hizo((e) => e.event_type === `video_${m}`);
+  const grupoDe = new Map(personas.map((id) => [id, grupoTrafico(primera.get(id)!)]));
+  const columnas: { nombre: string; ids: string[] }[] = [
+    { nombre: 'Todos', ids: personas },
+    ...GRUPOS_TRAFICO.map((g) => ({ nombre: g as string, ids: personas.filter((id) => grupoDe.get(id) === g) })),
+  ];
+  type Celda = { n: number; base: number } | { valor: number | null };
+  const fila = (nombre: string, grupo: string, set: Set<string>, base?: (ids: string[]) => string[]) => ({
+    nombre, grupo,
+    valores: columnas.map((c) => {
+      const b = base ? base(c.ids) : c.ids;
+      return { n: cuantos(b, set), base: b.length } as Celda;
+    }),
+  });
+  const conTiempo = (ids: string[]) => ids.filter((id) => tiempoDe.has(id));
+  const conSec = (ids: string[]) => ids.filter((id) => conSecciones.has(id));
+  const comportamiento = {
+    columnas: columnas.map((c) => ({ nombre: c.nombre, personas: c.ids.length })),
+    filas: [
+      fila('Se fueron en menos de 5 s', 'Permanencia', rebote, conTiempo),
+      { nombre: 'Tiempo en la página (mediana)', grupo: 'Permanencia', valores: columnas.map((c) => ({ valor: mediana(c.ids.filter((id) => tiempoDe.has(id)).map((id) => tiempoDe.get(id)!)) }) as Celda) },
+      fila('Bajó al 25%', 'Hasta dónde bajan', leyo(25)),
+      fila('Bajó a la mitad', 'Hasta dónde bajan', mitad),
+      fila('Bajó al 75%', 'Hasta dónde bajan', leyo(75)),
+      fila('Llegó al final', 'Hasta dónde bajan', final),
+      ...SECCIONES.map(([cod, nombre]) => fila(nombre, 'Secciones que ven', vioSeccion.get(cod) ?? new Set(), conSec)),
+      fila('Activó el sonido del video', 'Qué hacen', sonido),
+      fila('Vio la mitad del video', 'Qué hacen', videoPct(50)),
+      fila('Vio el video completo', 'Qué hacen', videoPct(100)),
+      fila('Abrió un testimonio', 'Qué hacen', testimonios),
+      fila('Abrió una pregunta', 'Qué hacen', hizo((e) => e.event_type === 'faq_abrir')),
+      fila('Abrió el registro', 'Qué hacen', registro),
+      fila('Se inscribió', 'Qué hacen', inscritosIds),
+    ],
   };
 
   const porPlataforma = (['Meta', 'TikTok'] as const).map((p) => {
@@ -584,12 +634,6 @@ export function calcularPanel({
     };
   });
 
-  const NOMBRES: Record<string, string> = {
-    scroll_25: 'Bajó al 25%', scroll_50: 'Bajó a la mitad', scroll_75: 'Bajó al 75%', scroll_100: 'Llegó al final',
-    video_play: 'Dio play al video', vsl_sonido: 'Activó el sonido del video', testimonio_ver: 'Abrió un testimonio',
-    faq_abrir: 'Abrió una pregunta', cta_click: 'Clic en botón', checkout_click: 'Clic en reservar', lista_abrir: 'Abrió el registro',
-    lista_espera: 'Se inscribió', salida: 'Salió',
-  };
   const actividad = [
     ...V.slice(-40).map((v) => ({
       t: s(v.created_at),
@@ -638,6 +682,7 @@ export function calcularPanel({
     porDia,
     anuncios: { ...anuncios, otros },
     navegacion,
+    comportamiento,
     porPlataforma,
     trafico,
     canales,
@@ -677,3 +722,68 @@ export async function contactoCompleto(id: string) {
   if (error) throw new Error(error.message);
   return data;
 }
+
+/**
+ * Recorrido de un inscrito: todas sus visitas y eventos desde el inicio de la lista de espera (no solo el periodo elegido),
+ * hasta dónde bajó, qué tocó y cuánto tardó desde la primera visita hasta inscribirse.
+ */
+export async function recorridoInscrito(id: string) {
+  let lead: Fila | null;
+  let visitas: Fila[];
+  let eventos: Fila[];
+  if (process.env.NODE_ENV !== 'production' && process.env.PANEL_FIXTURE) {
+    const f = JSON.parse(readFileSync(process.env.PANEL_FIXTURE, 'utf8')) as Record<'visitas' | 'eventos' | 'inscritos', Fila[]>;
+    lead = f.inscritos.find((l) => s(l.id) === id) ?? null;
+    const aid = s(lead?.anonymous_id);
+    visitas = f.visitas.filter((v) => aid && s(v.anonymous_id) === aid);
+    eventos = f.eventos.filter((e) => aid && s(e.anonymous_id) === aid);
+  } else {
+    const { data, error } = await db().from('leads').select('id, created_at, anonymous_id').eq('id', id).eq('source', FUENTE_LISTA).maybeSingle();
+    if (error) throw new Error(error.message);
+    lead = data as Fila | null;
+    const aid = s(lead?.anonymous_id);
+    const desde = (q: any) => q.eq('anonymous_id', aid).gte('created_at', INICIO_DATOS); // eslint-disable-line @typescript-eslint/no-explicit-any
+    [visitas, eventos] = aid
+      ? await Promise.all([
+          todas('page_views', 'created_at, session_id, path, referrer, user_agent, country, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source', (q) =>
+            desde(q.or('path.like./vsl%,path.like./neurociencia%').not('path', 'like', '%pago%')),
+          ),
+          todas('resource_events', 'created_at, session_id, event_type, resource_kind', (q) => desde(q.eq('resource_title', RECURSO_LANDING))),
+        ])
+      : [[], []];
+  }
+  if (!lead) return null;
+  const inscripcion = s(lead.created_at);
+  const pasos = [
+    ...visitas.map((v) => ({
+      t: s(v.created_at),
+      que: 'Entró a la página',
+      detalle: [s(v.country), dispositivo(s(v.user_agent), s(v.path)), esAnuncio(v) ? `Anuncio ${plataforma(v)}: ${nombreAnuncio(v) || '(sin nombre)'}` : canal(v)].join(' · '),
+      tipo: 'visita',
+    })),
+    ...eventos.map((e) => {
+      const tipo = s(e.event_type);
+      let detalle = s(e.resource_kind);
+      if (tipo === 'seccion_ver') detalle = SECCIONES.find(([c]) => c === detalle.split(' ')[0])?.[1] ?? detalle;
+      return { t: s(e.created_at), que: NOMBRES[tipo] ?? tipo, detalle, tipo };
+    }),
+  ].sort((a, b) => a.t.localeCompare(b.t));
+  const primera = pasos[0]?.t ?? inscripcion;
+  const antes = pasos.filter((p) => p.t <= inscripcion);
+  const maxScroll = Math.max(0, ...eventos.map((e) => (/^scroll_\d+$/.test(s(e.event_type)) ? Number(s(e.event_type).slice(7)) : 0)));
+  const vistas = new Set(eventos.filter((e) => e.event_type === 'seccion_ver').map((e) => s(e.resource_kind).split(' ')[0]));
+  return {
+    inscripcion,
+    primeraVisita: primera,
+    minutosHastaInscribirse: Math.max(0, Math.round((Date.parse(inscripcion) - Date.parse(primera)) / 60000)),
+    visitasAntes: antes.filter((p) => p.tipo === 'visita').length,
+    sesiones: new Set(visitas.map((v) => s(v.session_id))).size,
+    llegoPrimeraVez: visitas[0] ? (esAnuncio(visitas[0]) ? `Anuncio ${plataforma(visitas[0])}: ${nombreAnuncio(visitas[0]) || '(sin nombre)'}` : canal(visitas[0])) : 'Sin visita registrada',
+    hastaDondeBajo: maxScroll,
+    secciones: SECCIONES.map(([c, nombre]) => ({ nombre, vio: vistas.has(c) })),
+    seccionesMedidas: vistas.size > 0,
+    // Máximo 120 pasos para que la vista no se haga eterna.
+    pasos: pasos.slice(0, 120).map(({ t, que, detalle }) => ({ t, que, detalle, despues: t > inscripcion })),
+  };
+}
+export type RecorridoInscrito = NonNullable<Awaited<ReturnType<typeof recorridoInscrito>>>;

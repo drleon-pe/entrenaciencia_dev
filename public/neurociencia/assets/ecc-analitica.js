@@ -150,6 +150,24 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', observar); else observar();
   }
 
+  /* Cuánto del video ven: 25, 50, 75 y 100 %, una vez cada uno. Solo cuenta con sonido (en silencio corre solo en bucle
+     y no dice nada); al activar el sonido el video vuelve al inicio, así que el avance es real. */
+  (function () {
+    var hechosV = {}, intentos = 0;
+    function enganchar() {
+      var v = document.querySelector('#vsl video, section[data-screen-label^="01"] video');
+      if (!v) { if (intentos++ < 20) setTimeout(enganchar, 500); return; }
+      v.addEventListener('timeupdate', function () {
+        if (v.muted || !v.duration || !isFinite(v.duration)) return;
+        var p = v.currentTime / v.duration * 100;
+        [25, 50, 75, 100].forEach(function (m) {
+          if (p >= (m === 100 ? 97 : m) && !hechosV[m]) { hechosV[m] = 1; evento('video_' + m, 'VSL'); }
+        });
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enganchar); else enganchar();
+  })();
+
   /* Clics: video, botones de compra/reserva, testimonios y preguntas. */
   var vioVideo = false;
   document.addEventListener('click', function (e) {

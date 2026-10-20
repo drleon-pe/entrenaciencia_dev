@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { DatosCambio, DatosPanel } from '@/lib/panel/datos';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { DatosCambio, DatosPanel, RecorridoInscrito } from '@/lib/panel/datos';
 import { salir } from './acciones';
 
 type Version = { id: string; nombre: string; desde: string };
@@ -145,6 +145,27 @@ function Tasa({ valor, base }: { valor: number; base: number }) {
   );
 }
 
+/** Probabilidad de ver una diferencia así solo por azar (prueba de dos proporciones). Menos de 0,05 = diferencia real. */
+function pValor(k1: number, n1: number, k2: number, n2: number): number {
+  if (!n1 || !n2) return 1;
+  const p = (k1 + k2) / (n1 + n2);
+  const se = Math.sqrt(p * (1 - p) * (1 / n1 + 1 / n2));
+  if (!se) return 1;
+  const z = Math.abs(k1 / n1 - k2 / n2) / se;
+  // Aproximación de la normal acumulada (Abramowitz-Stegun 7.1.26)
+  const t = 1 / (1 + 0.3275911 * (z / Math.SQRT2));
+  const erf = 1 - (((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t) * Math.exp(-(z * z) / 2);
+  return 1 - erf;
+}
+/** En estas filas, que el número baje es bueno. */
+const MENOS_ES_MEJOR = /se fue|se fueron/i;
+
+function Real({ k1, n1, k2, n2 }: { k1: number; n1: number; k2: number; n2: number }) {
+  const p = pValor(k1, n1, k2, n2);
+  if (p < 0.05) return <span className="text-[11px] font-semibold text-[#0A2540] bg-[#e6f4ea] rounded px-1.5 py-0.5" title={`Probabilidad de que sea azar: ${(p * 100).toFixed(1)}%`}>real</span>;
+  return <span className={`text-[11px] ${C.tenue}`} title={`Probabilidad de que sea azar: ${(p * 100).toFixed(0)}%`}>puede ser azar</span>;
+}
+
 type FilaAnuncio = DatosPanel['anuncios']['porAnuncio'][number];
 type Nav = DatosCambio['antes']['navegacion'];
 
@@ -160,6 +181,7 @@ function FilasComparadas({ titulo, antes, despues, nAntes, nDespues }: { titulo:
             <th className="font-medium px-2 pb-2">Antes</th>
             <th className="font-medium px-2 pb-2">Desde el cambio</th>
             <th className="font-medium px-2 pb-2">Diferencia</th>
+            <th className="font-medium px-2 pb-2" title="Prueba estadística: con pocas personas, una diferencia grande todavía puede ser casualidad">¿Es real?</th>
           </tr>
         </thead>
         <tbody>
@@ -167,6 +189,7 @@ function FilasComparadas({ titulo, antes, despues, nAntes, nDespues }: { titulo:
             const a = antes.find((x) => x.nombre === nombre) ?? { n: 0, pct: 0 };
             const d = despues.find((x) => x.nombre === nombre) ?? { n: 0, pct: 0 };
             const dif = Math.round((d.pct - a.pct) * 10) / 10;
+            const bueno = MENOS_ES_MEJOR.test(nombre) ? dif < 0 : dif > 0;
             return (
               <tr key={nombre} className="border-t border-[#eef3f6] text-right tabular-nums">
                 <td className="px-1 py-2.5 text-left">{nombre}</td>
@@ -176,9 +199,10 @@ function FilasComparadas({ titulo, antes, despues, nAntes, nDespues }: { titulo:
                 <td className="px-2 py-2.5 font-medium">
                   <Tasa valor={d.pct} base={nDespues} /> <span className={`text-xs font-normal ${C.tenue}`}>({d.n})</span>
                 </td>
-                <td className={`px-2 py-2.5 text-xs font-medium ${dif > 0 ? 'text-[#0f7a45]' : dif < 0 ? 'text-[#b54708]' : C.tenue}`}>
+                <td className={`px-2 py-2.5 text-xs font-medium ${!dif ? C.tenue : bueno ? 'text-[#0f7a45]' : 'text-[#b54708]'}`}>
                   {dif > 0 ? '▲' : dif < 0 ? '▼' : ''} {dif ? `${Math.abs(dif)} pts` : 'igual'}
                 </td>
+                <td className="px-2 py-2.5">{dif ? <Real k1={a.n} n1={nAntes} k2={d.n} n2={nDespues} /> : null}</td>
               </tr>
             );
           })}
@@ -191,12 +215,13 @@ function FilasComparadas({ titulo, antes, despues, nAntes, nDespues }: { titulo:
 
 /** Pestaña "Desde el cambio": cómo navega la gente en la versión actual de la página frente a la anterior. */
 function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
+  const [plataforma, setPlataforma] = useState<'todo' | 'meta' | 'tiktok'>('todo');
   const [d, setD] = useState<DatosCambio | null>(null);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const cargar = async () => {
       try {
-        const r = await fetch(`/api/data/cambio?equipo=${incluirEquipo ? '1' : '0'}`, { cache: 'no-store' });
+        const r = await fetch(`/api/data/cambio?equipo=${incluirEquipo ? '1' : '0'}&fuente=${plataforma}`, { cache: 'no-store' });
         if (r.status === 401) {
           window.location.href = '/data/login';
           return;
@@ -211,7 +236,7 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
     cargar();
     const id = setInterval(() => document.visibilityState === 'visible' && cargar(), 30_000);
     return () => clearInterval(id);
-  }, [incluirEquipo]);
+  }, [incluirEquipo, plataforma]);
 
   if (error) return <p className="text-sm text-[#b42318]">No se pudieron cargar los datos del cambio: {error}</p>;
   if (!d) return null;
@@ -221,8 +246,25 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
   return (
     <Bloque n="Δ" titulo="Antes vs. después del cambio" sub="Cómo navega la gente en la versión actual frente a la versión anterior completa, en % de las personas que entraron">
     <div className="space-y-4">
+      <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Plataforma del cambio">
+        {([
+          { id: 'todo', nombre: 'Todos' },
+          { id: 'meta', nombre: 'Instagram y Facebook' },
+          { id: 'tiktok', nombre: 'TikTok' },
+        ] as const).map((x) => (
+          <button
+            key={x.id}
+            role="tab"
+            aria-selected={plataforma === x.id}
+            onClick={() => setPlataforma(x.id)}
+            className={`rounded-full px-3 py-1 text-[13px] border ${plataforma === x.id ? 'bg-[#0A2540] border-[#0A2540] text-white' : 'border-[#c3dae6] text-[#3e5260] hover:bg-[#eef6fa]'}`}
+          >
+            {x.nombre}
+          </button>
+        ))}
+      </div>
       <div className="rounded-2xl bg-[#FFF6D6] border-l-4 border-[#FFC300] px-4 py-3 text-sm text-[#0A2540]">
-        <p className="font-extrabold">Cambio: {d.version.nombre}</p>
+        <p className="font-extrabold">Cambio: {d.version.nombre}{plataforma !== 'todo' && ` · solo ${plataforma === 'meta' ? 'Instagram y Facebook (anuncios y orgánico)' : 'TikTok (anuncios y orgánico)'}`}</p>
         <p>
           Publicado el {fechaHora(d.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}). Se compara cada indicador como % de las personas que entraron: <b>antes</b> = versión
           &quot;{d.previa.nombre}&quot; ({fechaHora(d.antes.desde)} – {fechaHora(d.antes.hasta)}, {nA} personas) vs. <b>desde el cambio</b> ({nD} personas).
@@ -241,11 +283,127 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
       </div>
       <FilasComparadas titulo="¿Desde qué sección hacen clic en «Inscríbete»?" antes={d.antes.navegacion.botones} despues={d.despues.navegacion.botones} nAntes={nA} nDespues={nD} />
       <p className={`text-xs ${C.tenue}`}>
-        * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Una persona puede contar en varias filas. La versión anterior tuvo otra mezcla de anuncios, así que conviene mirar
+        * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. «Real» = hay menos de 5% de probabilidad de que la diferencia sea casualidad. Una persona puede contar en varias filas. La versión anterior tuvo otra mezcla de anuncios, así que conviene mirar
         también los bloques de abajo, que en esta pestaña muestran solo el periodo desde el cambio.
       </p>
     </div>
     </Bloque>
+  );
+}
+
+/** Comportamiento por plataforma: las mismas métricas para todos y por grupo de tráfico, con marca cuando un grupo es distinto al resto de verdad. */
+function Comportamiento({ c }: { c: DatosPanel['comportamiento'] }) {
+  const grupos = [...new Set(c.filas.map((f) => f.grupo))];
+  const colores: Record<string, string> = Object.fromEntries(GRUPOS.map((g) => [g.id, g.color]));
+  return (
+    <div className="overflow-x-auto -mx-1">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className={`${C.suave} text-[12.5px] text-right align-bottom`}>
+            <th className="font-medium px-1 pb-2 text-left" />
+            {c.columnas.map((col) => (
+              <th key={col.nombre} className={`font-medium px-2 pb-2 whitespace-nowrap ${col.nombre === 'Todos' ? 'text-[#0A2540]' : ''}`}>
+                {col.nombre !== 'Todos' && <i className="w-2 h-2 rounded-sm inline-block mr-1 align-middle" style={{ background: colores[col.nombre] }} />}
+                {col.nombre === 'Instagram y Facebook orgánico' ? 'IG/FB orgánico' : col.nombre}
+                <span className={`block text-[11px] font-normal ${C.tenue}`}>{col.personas} personas</span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {grupos.map((g) => (
+            <Fragment key={g}>
+              <tr>
+                <td colSpan={c.columnas.length + 1} className="pt-4 pb-1 px-1 text-[12px] font-extrabold uppercase tracking-wide text-[#017FA7]">
+                  {g}
+                  {g === 'Secciones que ven' && <span className={`normal-case font-normal tracking-normal ${C.tenue}`}> · de quienes tienen secciones medidas (desde el 20 oct)</span>}
+                  {g === 'Permanencia' && <span className={`normal-case font-normal tracking-normal ${C.tenue}`}> · de quienes tienen el tiempo medido</span>}
+                </td>
+              </tr>
+              {c.filas.filter((f) => f.grupo === g).map((f) => {
+                const todos = f.valores[0];
+                return (
+                  <tr key={f.nombre} className="border-t border-[#eef3f6] text-right tabular-nums">
+                    <td className="px-1 py-2 text-left whitespace-nowrap">{f.nombre}</td>
+                    {f.valores.map((v, i) => {
+                      if ('valor' in v) return <td key={i} className={`px-2 py-2 ${i === 0 ? 'font-medium' : ''}`}>{v.valor != null ? `${v.valor} s` : '–'}</td>;
+                      if (!v.base) return <td key={i} className={`px-2 py-2 ${C.tenue}`}>–</td>;
+                      const p = Math.round((v.n / v.base) * 1000) / 10;
+                      let marca = null;
+                      if (i > 0 && 'base' in todos) {
+                        const restoK = todos.n - v.n, restoN = todos.base - v.base;
+                        if (restoN > 0 && pValor(v.n, v.base, restoK, restoN) < 0.05) {
+                          const mas = v.n / v.base > restoK / restoN;
+                          const bueno = MENOS_ES_MEJOR.test(f.nombre) ? !mas : mas;
+                          marca = <span className={`ml-1 text-[10px] ${bueno ? 'text-[#0f7a45]' : 'text-[#b54708]'}`} title="Distinto al resto de las personas, con menos de 5% de probabilidad de ser casualidad">{mas ? '▲' : '▼'}</span>;
+                        }
+                      }
+                      return (
+                        <td key={i} className={`px-2 py-2 whitespace-nowrap ${i === 0 ? 'font-medium' : ''}`}>
+                          <Tasa valor={p} base={v.base} />
+                          {marca}
+                          <span className={`block text-[10.5px] font-normal ${C.tenue}`}>{v.n} de {v.base}</span>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/** Recorrido de un inscrito, cargado al pedirlo. */
+function Recorrido({ id }: { id: string }) {
+  const [r, setR] = useState<RecorridoInscrito | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    fetch(`/api/data/recorrido?id=${id}`, { cache: 'no-store' })
+      .then(async (x) => (x.ok ? setR(await x.json()) : setError((await x.json()).error ?? 'Error')))
+      .catch(() => setError('Error de conexión'));
+  }, [id]);
+  if (error) return <p className="text-sm text-[#b42318]">No se pudo cargar el recorrido: {error}</p>;
+  if (!r) return <p className={`text-sm ${C.tenue}`}>Cargando recorrido…</p>;
+  const dur = (m: number) => (m < 1 ? 'menos de 1 min' : m < 60 ? `${m} min` : m < 1440 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${Math.floor(m / 1440)} días ${Math.floor((m % 1440) / 60)} h`);
+  const dato = (t: string, v: React.ReactNode) => (
+    <div className="rounded-lg bg-white border border-[#e3edf2] px-3 py-2">
+      <p className={`text-[11px] ${C.tenue}`}>{t}</p>
+      <p className="text-sm font-semibold text-[#0A2540]">{v}</p>
+    </div>
+  );
+  return (
+    <div className="space-y-3">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+        {dato('Tardó en inscribirse', dur(r.minutosHastaInscribirse))}
+        {dato('Visitas antes de inscribirse', r.visitasAntes)}
+        {dato('Llegó la primera vez por', r.llegoPrimeraVez)}
+        {dato('Hasta dónde bajó', r.hastaDondeBajo ? `${r.hastaDondeBajo}% de la página` : 'menos del 25%')}
+        {dato('Primera visita', fechaHora(r.primeraVisita))}
+      </div>
+      {r.seccionesMedidas && (
+        <div className="flex flex-wrap gap-1.5 items-center text-[12px]">
+          <span className={C.tenue}>Secciones que vio:</span>
+          {r.secciones.map((x) => (
+            <span key={x.nombre} className={`rounded-full px-2 py-0.5 border ${x.vio ? 'bg-[#e7f6fb] border-[#9fd6e8] text-[#0A2540]' : 'border-[#e3edf2] text-[#9aa9b3] line-through'}`}>{x.nombre}</span>
+          ))}
+        </div>
+      )}
+      <ol className="border-l-2 border-[#d9e8f0] ml-1 space-y-1.5 max-h-80 overflow-y-auto pr-2">
+        {r.pasos.map((x, n) => (
+          <li key={n} className={`pl-3 text-[13px] relative ${x.despues ? 'opacity-60' : ''}`}>
+            <i className={`absolute -left-[5px] top-1.5 w-2 h-2 rounded-full ${x.que === 'Se inscribió' ? 'bg-[#0f9d58]' : x.que === 'Entró a la página' ? 'bg-[#017FA7]' : 'bg-[#b9c9d3]'}`} />
+            <span className={`tabular-nums ${C.tenue} mr-2`}>{fechaHora(x.t)}</span>
+            <span className={x.que === 'Se inscribió' ? 'font-semibold text-[#0f9d58]' : x.que === 'Entró a la página' ? 'font-medium' : ''}>{x.que}</span>
+            {x.detalle && <span className={C.tenue}> · {x.detalle}</span>}
+            {x.despues && <span className={`text-[11px] ${C.tenue}`}> (después de inscribirse)</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
@@ -313,6 +471,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const [datos, setDatos] = useState<DatosPanel | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
+  const [abiertos, setAbiertos] = useState<Set<string>>(new Set());
   const [revelados, setRevelados] = useState<Record<string, { name: string; email: string; whatsapp: string; whatsapp_country_code: string }>>({});
   const [nuevos, setNuevos] = useState<Set<string>>(new Set());
   const vistos = useRef<Set<string> | null>(null);
@@ -790,7 +949,17 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={4} titulo="Canales" sub="Por dónde llegó cada persona la primera vez y cuánto convierte">
+        <Bloque n={4} titulo="Comportamiento por plataforma" sub="Cómo navega la gente según de dónde viene. ▲▼ = distinto al resto de las personas, con menos de 5% de probabilidad de ser casualidad">
+          <Caja>
+            {datos ? <Comportamiento c={datos.comportamiento} /> : <p className={`text-sm ${C.tenue}`}>Cargando…</p>}
+            <p className={`text-xs ${C.tenue} mt-3`}>
+              * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. «Se fueron en menos de 5 s» = salieron sin llegar al 25% de la página. El avance del video se mide desde el 20 oct y solo
+              con el sonido activado.
+            </p>
+          </Caja>
+        </Bloque>
+
+        <Bloque n={5} titulo="Canales" sub="Por dónde llegó cada persona la primera vez y cuánto convierte">
           <Caja>
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-sm">
@@ -832,7 +1001,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={5} titulo={`Inscritos${datos ? ` (${datos.inscritos.length})` : ''}`} sub="Datos ocultos en parte; toca «Ver» para mostrar el contacto completo">
+        <Bloque n={6} titulo={`Inscritos${datos ? ` (${datos.inscritos.length})` : ''}`} sub="Datos ocultos en parte; «Recorrido» muestra qué hizo cada persona hasta inscribirse y «Ver», el contacto completo">
           <Caja>
             <div className="overflow-x-auto -mx-1">
               <table className="w-full text-sm">
@@ -850,8 +1019,10 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                 <tbody>
                   {datos?.inscritos.map((i) => {
                     const c = revelados[i.id];
+                    const abierto = abiertos.has(i.id);
                     return (
-                      <tr key={i.id} className={`border-t border-[#eef3f6] ${nuevos.has(i.id) ? 'bg-[#e9f7ef]' : ''}`}>
+                      <Fragment key={i.id}>
+                      <tr className={`border-t border-[#eef3f6] ${nuevos.has(i.id) ? 'bg-[#e9f7ef]' : ''}`}>
                         <td className="px-1 py-2.5 whitespace-nowrap">{fechaHora(i.fecha)}</td>
                         <td className="px-1 py-2.5">
                           {c ? c.name : i.nombre}
@@ -861,7 +1032,14 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                         <td className="px-1 py-2.5 whitespace-nowrap">{c ? `${c.whatsapp_country_code ?? ''} ${c.whatsapp ?? ''}` : i.whatsapp}</td>
                         <td className="px-1 py-2.5">{i.pais}</td>
                         <td className="px-1 py-2.5">{i.anuncio ? `Anuncio: ${i.anuncio}` : i.fuente}</td>
-                        <td className="px-1 py-2.5 text-right">
+                        <td className="px-1 py-2.5 text-right whitespace-nowrap">
+                          <button
+                            onClick={() => setAbiertos((x) => { const n = new Set(x); if (n.has(i.id)) n.delete(i.id); else n.add(i.id); return n; })}
+                            aria-expanded={abierto}
+                            className={`rounded-md border px-2 py-0.5 text-[13px] mr-1 ${abierto ? 'bg-[#0A2540] border-[#0A2540] text-white' : 'border-[#cbd6dd] text-[#017FA7] hover:bg-[#f4f7f9]'}`}
+                          >
+                            Recorrido
+                          </button>
                           {!c && (
                             <button onClick={() => revelar(i.id)} className="rounded-md border border-[#cbd6dd] px-2 py-0.5 text-[13px] text-[#017FA7] hover:bg-[#f4f7f9]">
                               Ver
@@ -869,6 +1047,14 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                           )}
                         </td>
                       </tr>
+                      {abierto && (
+                        <tr className="bg-[#F5FAFC]">
+                          <td colSpan={7} className="px-3 py-3">
+                            <Recorrido id={i.id} />
+                          </td>
+                        </tr>
+                      )}
+                      </Fragment>
                     );
                   })}
                 </tbody>
@@ -878,7 +1064,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={6} titulo="Más detalle" sub="Quiénes son, qué está pasando ahora y calidad de los datos">
+        <Bloque n={7} titulo="Más detalle" sub="Quiénes son, qué está pasando ahora y calidad de los datos">
           <div>
             <Caja>
               <div className="grid sm:grid-cols-2 gap-6">
