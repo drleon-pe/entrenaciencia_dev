@@ -340,6 +340,14 @@ export function calcularPanel({
     if (!primera.has(id)) primera.set(id, v);
     if (!primerAnuncio.has(id) && esAnuncio(v)) primerAnuncio.set(id, v);
   }
+  // Inscritos sin visita registrada (el aviso de visita no llegó, p. ej. bloqueado por el navegador): igual son
+  // personas, para que los totales cuadren en todas las vistas. Sin etiquetas, caen en "Otros".
+  if (fuente === 'todo') {
+    for (const x of [...L, ...E.filter((e) => e.event_type === 'lista_espera')]) {
+      const id = s(x.anonymous_id);
+      if (id && !primera.has(id)) primera.set(id, x);
+    }
+  }
   const personas = [...primera.keys()];
   const n = personas.length;
   const canalDe = new Map(personas.map((id) => [id, canal(primera.get(id)!)]));
