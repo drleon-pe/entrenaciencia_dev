@@ -1387,11 +1387,12 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     try{ if(window.eccAtribucion){ var at=window.eccAtribucion(); for(var k in at) if(at[k]!=null && datos[k]==null) datos[k]=at[k]; } }catch(x){}
     var local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
     (local?Promise.resolve({ok:true}):fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)})).then(function(r){
+      if(r.status===409){ var d=new Error('ya_registrado'); d.ya=true; throw d; } /* el correo ya está en la lista */
       if(!r.ok) throw new Error('http');
       try{localStorage.setItem('ecc_lista',correo)}catch(x){}
       if(window.eccEvento) try{window.eccEvento('lista_espera',p[1],'Lead','generate_lead','SubmitForm')}catch(x){}
       M.querySelector('.ecc-lista-ok-correo').textContent=correo; form.hidden=true; ok.hidden=false; ok.querySelector('button').focus({preventScroll:true});
-    }).catch(function(){ err.textContent='No pudimos registrarte. Revisa tu conexión e inténtalo otra vez.'; err.hidden=false; })
+    }).catch(function(x){ if(x&&x.ya){ err.textContent='Este correo ya está registrado en la lista de espera. No necesitas inscribirte otra vez.'; marca(form.correo,true); form.correo.focus(); try{localStorage.setItem('ecc_lista',correo)}catch(y){} } else err.textContent='No pudimos registrarte. Revisa tu conexión e inténtalo otra vez.'; err.hidden=false; })
     .then(function(){ btn.disabled=false; btn.querySelector('span').textContent='¡Inscríbeme!'; });
   });
   [form.nombre,form.correo,form.whatsapp,form.consentimiento].forEach(function(el){el.addEventListener('input',function(){marca(el,false)});el.addEventListener('change',function(){marca(el,false)});});

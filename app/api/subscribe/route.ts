@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+
+// Listas donde cada correo puede inscribirse una sola vez.
+const UNA_VEZ = new Set(['Lista de espera ECC']);
 
 const PDF_DOWNLOAD_URLS: Record<string, string> = {
   'Pierde Grasa con Ciencia': `${process.env.SUPABASE_URL}/storage/v1/object/public/guides/Entrena%20con%20Ciencia%20-%20Guia%20Perdida%20de%20Peso.pdf`,
@@ -19,6 +23,24 @@ export async function POST(req: NextRequest) {
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: 'Email inválido' }, { status: 400 });
+  }
+
+  // La clave anónima no puede leer leads; la verificación usa la de servicio (solo en el servidor).
+  if (source && UNA_VEZ.has(source) && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    const admin = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+      auth: { persistSession: false },
+    });
+    const correo = String(email).trim().replace(/[\\%_]/g, (c) => `\\${c}`);
+    const { data, error: errBusca } = await admin
+      .from('leads')
+      .select('id')
+      .eq('source', source)
+      .ilike('email', correo)
+      .limit(1);
+    if (errBusca) console.error('Supabase duplicate check error:', errBusca.message);
+    else if (data && data.length) {
+      return NextResponse.json({ error: 'ya_registrado' }, { status: 409 });
+    }
   }
 
   const { error } = await supabase.from('leads').insert({
