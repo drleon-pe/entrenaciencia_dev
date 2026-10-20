@@ -14,6 +14,13 @@ export const VERSIONES = [
   { id: 'v2', nombre: 'Lista de espera gratis', desde: '2026-10-11T19:06:00-05:00' },
 ];
 
+/**
+ * El panel solo cuenta el tráfico desde que la landing es lista de espera gratis: lo anterior era la reserva pagada
+ * de US$5 y mezclarlo distorsiona la conversión (pedido del Dr. León). Ninguna consulta lee antes de esta fecha.
+ */
+export const INICIO_DATOS = new Date(VERSIONES.find((v) => v.id === 'v2')!.desde).toISOString();
+export const VERSIONES_PANEL = VERSIONES.filter((v) => Date.parse(v.desde) >= Date.parse(INICIO_DATOS));
+
 /** Navegadores del equipo (prefijo del anonymous_id). PANEL_EQUIPO en Vercel agrega más, separados por coma. */
 const EQUIPO_POR_DEFECTO = ['f8f31a93', '55d42401', '99e26533', 'a39bc8d4'];
 const DOMINIO_DEMO = 'vercel.app';
@@ -214,7 +221,9 @@ export function grupoTrafico(v: Fila): GrupoTrafico {
 
 export type Filtros = { desde: string; hasta: string; incluirEquipo: boolean; fuente?: Fuente };
 
-async function leerRango(desde: string, hasta: string) {
+async function leerRango(desdePedido: string, hasta: string) {
+  const desde = Date.parse(desdePedido) < Date.parse(INICIO_DATOS) ? INICIO_DATOS : desdePedido;
+  if (Date.parse(hasta) <= Date.parse(desde)) return { visitas: [], eventos: [], inscritos: [] };
   // Solo en desarrollo: PANEL_FIXTURE apunta a un JSON con { visitas, eventos, inscritos } para probar sin Supabase.
   if (process.env.NODE_ENV !== 'production' && process.env.PANEL_FIXTURE) {
     const f = JSON.parse(readFileSync(process.env.PANEL_FIXTURE, 'utf8')) as Record<'visitas' | 'eventos' | 'inscritos', Fila[]>;
@@ -226,7 +235,7 @@ async function leerRango(desde: string, hasta: string) {
     todas(
       'page_views',
       'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source',
-      (q) => rango(q.or('path.like./vsl%,path.like./neurociencia%')),
+      (q) => rango(q.or('path.like./vsl%,path.like./neurociencia%').not('path', 'like', '%pago%')),
     ),
     todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind', (q) => rango(q.eq('resource_title', RECURSO_LANDING))),
     todas('leads', 'id, created_at, name, email, whatsapp, whatsapp_country_code, survey, anonymous_id, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source', (q) =>

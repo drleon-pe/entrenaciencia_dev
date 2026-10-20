@@ -33,8 +33,8 @@ function periodos(versiones: Version[]): Periodo[] {
     { id: 'ayer', nombre: 'Ayer', desde: inicioDiaLima(1), hasta: inicioDiaLima(0) },
     { id: '7d', nombre: 'Últimos 7 días', desde: inicioDiaLima(6), hasta: FUTURO },
     { id: '14d', nombre: 'Últimos 14 días', desde: inicioDiaLima(13), hasta: FUTURO },
-    ...lista,
-    { id: 'todo', nombre: 'Todo', desde: new Date(versiones[0].desde).toISOString(), hasta: FUTURO },
+    ...(lista.length > 1 ? lista : []),
+    { id: 'todo', nombre: 'Todo desde la lista de espera (11 oct)', desde: new Date(versiones[0].desde).toISOString(), hasta: FUTURO },
   ];
 }
 
