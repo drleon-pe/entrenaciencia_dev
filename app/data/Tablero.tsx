@@ -46,15 +46,19 @@ const diaCorto = (ymd: string) =>
   new Date(`${ymd}T12:00:00-05:00`).toLocaleDateString('es-PE', { timeZone: 'America/Lima', weekday: 'short', day: 'numeric' });
 
 // Marca Entrena con Ciencia: navy #0A2540, teal #017FA7, cian #23D3FF, amarillo #FFC300, fondo #F5FAFC (Poppins).
-const C = { borde: 'border-[#d9e8f0]', suave: 'text-[#3e5260]', tenue: 'text-[#627682]' };
+const C = { borde: 'border-[#e3ebf0]', suave: 'text-[#3e5260]', tenue: 'text-[#627682]' };
+const SOMBRA = 'shadow-[0_1px_2px_rgba(16,24,40,.04),0_2px_8px_-2px_rgba(16,24,40,.06)]';
 const AZUL = '#017FA7';
-/** Colores del tráfico por plataforma (mismo orden que GRUPOS_TRAFICO). */
+/**
+ * Colores del tráfico por plataforma (mismo orden que GRUPOS_TRAFICO). Paleta validada con el validador de la skill de
+ * visualización: se distinguen entre sí también con daltonismo. Siempre van con su nombre al lado (leyenda y tablas).
+ */
 const GRUPOS = [
-  { id: 'Anuncios Meta', corto: 'Anuncios Meta', color: '#1a56c4' },
-  { id: 'Instagram y Facebook orgánico', corto: 'IG/FB orgánico', color: '#d6489b' },
-  { id: 'Anuncios TikTok', corto: 'Anuncios TikTok', color: '#111111' },
-  { id: 'TikTok orgánico', corto: 'TikTok orgánico', color: '#25c6d3' },
-  { id: 'Otros', corto: 'Otros', color: '#b9c9d3' },
+  { id: 'Anuncios Meta', corto: 'Anuncios Meta', color: '#2a78d6' },
+  { id: 'Instagram y Facebook orgánico', corto: 'IG/FB orgánico', color: '#d55181' },
+  { id: 'Anuncios TikTok', corto: 'Anuncios TikTok', color: '#6250d6' },
+  { id: 'TikTok orgánico', corto: 'TikTok orgánico', color: '#1baf7a' },
+  { id: 'Otros', corto: 'Otros', color: '#eb6834' },
 ] as const;
 const VERDE = '#0f9d58';
 
@@ -72,44 +76,65 @@ function Cambio({ ahora, antes, puntos }: { ahora: number; antes: number | undef
   );
 }
 
-function Tarjeta({ titulo, valor, ayuda, destacada, children }: { titulo: string; valor: string; ayuda: string; destacada?: boolean; children?: React.ReactNode }) {
+/** Mini tendencia por día (sin ejes: solo la forma). */
+function Tendencia({ serie }: { serie: number[] }) {
+  if (serie.length < 2) return null;
+  const max = Math.max(...serie, 1);
+  const w = 96, h = 28;
+  const pts = serie.map((v, i) => [(i / (serie.length - 1)) * w, h - 2 - (v / max) * (h - 4)]);
+  const linea = pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
   return (
-    <div className={`rounded-2xl border bg-white px-4 py-4 shadow-[0_8px_24px_-12px_rgba(11,31,44,.10)] ${destacada ? 'border-[#FFC300] border-2' : C.borde}`}>
-      <p className={`text-[13px] ${C.suave} flex items-center gap-1.5`}>
-        {destacada && <i className="inline-block w-2 h-2 rounded-full bg-[#FFC300]" />}
-        {titulo}
-      </p>
-      <p className="text-3xl font-extrabold mt-1 tabular-nums text-[#0A2540] tracking-tight">{valor}</p>
-      <p className={`text-xs mt-1 ${C.tenue}`}>{ayuda}</p>
-      <div className="mt-1.5">{children}</div>
+    <svg viewBox={`0 0 ${w} ${h}`} width={w} height={h} className="shrink-0" aria-hidden="true">
+      <polygon points={`0,${h} ${linea} ${w},${h}`} fill="#017FA7" opacity=".08" />
+      <polyline points={linea} fill="none" stroke="#017FA7" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx={pts[pts.length - 1][0]} cy={pts[pts.length - 1][1]} r="2.5" fill="#017FA7" />
+    </svg>
+  );
+}
+
+function Tarjeta({ titulo, valor, ayuda, destacada, serie, children }: { titulo: string; valor: string; ayuda: string; destacada?: boolean; serie?: number[]; children?: React.ReactNode }) {
+  return (
+    <div className={`relative overflow-hidden rounded-xl border bg-white px-4 py-3.5 ${SOMBRA} ${C.borde}`}>
+      {destacada && <i className="absolute inset-x-0 top-0 h-[3px] bg-[#FFC300]" aria-hidden="true" />}
+      <p className={`text-[11.5px] font-semibold uppercase tracking-[.06em] ${C.tenue}`}>{titulo}</p>
+      <div className="mt-1 flex items-end justify-between gap-2">
+        <p className="text-[28px] leading-none font-bold tabular-nums text-[#0A2540] tracking-tight">{valor}</p>
+        {serie && <Tendencia serie={serie} />}
+      </div>
+      <p className={`text-xs mt-2 ${C.tenue}`}>{ayuda}</p>
+      <div className="mt-1">{children}</div>
     </div>
   );
 }
 
 function Bloque({ n, id, titulo, sub, resumen, children }: { n: number | string; id?: string; titulo: string; sub: string; resumen?: string[]; children: React.ReactNode }) {
   return (
-    <section id={id} className="space-y-3 scroll-mt-48">
-      <div className="flex items-baseline gap-3">
-        <span className="shrink-0 w-7 h-7 rounded-lg bg-[#0A2540] text-[#23D3FF] text-sm font-extrabold flex items-center justify-center">{n}</span>
-        <div>
-          <h2>{titulo}</h2>
-          <p className={`text-sm ${C.suave}`}>{sub}</p>
-        </div>
+    <div id={id} role="region" aria-labelledby={id ? `${id}-titulo` : undefined} className="space-y-3 scroll-mt-48">
+      <div className="pb-2 border-b border-[#e3ebf0]">
+        <p className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#017FA7]">{typeof n === 'number' ? `Sección ${n}` : 'Comparación'}</p>
+        <h2 id={id ? `${id}-titulo` : undefined} style={{ fontSize: '1.2rem', fontWeight: 600 }} className="text-[#0A2540]">{titulo}</h2>
+        <p className={`text-sm ${C.suave} mt-0.5`}>{sub}</p>
       </div>
       {resumen && resumen.length > 0 && <EnPocasPalabras items={resumen} />}
       {children}
-    </section>
+    </div>
   );
 }
 
 /** Lectura en lenguaje simple de lo que muestra cada bloque. */
-function EnPocasPalabras({ items, titulo = 'En pocas palabras' }: { items: string[]; titulo?: string }) {
+function EnPocasPalabras({ items, titulo = 'En pocas palabras', acento = '#017FA7' }: { items: string[]; titulo?: string; acento?: string }) {
   return (
-    <div className="rounded-2xl bg-[#E9F6FB] border-l-4 border-[#017FA7] px-4 py-3">
-      <p className="text-[13px] font-extrabold text-[#0A2540] mb-1">{titulo}</p>
-      <ul className="text-sm text-[#0A2540] space-y-1 list-disc pl-5">
+    <div className={`rounded-xl border bg-white px-4 py-3 ${SOMBRA} ${C.borde}`} style={{ borderLeft: `3px solid ${acento}` }}>
+      <p className="flex items-center gap-1.5 text-[11.5px] font-semibold uppercase tracking-[.06em] mb-1.5" style={{ color: acento === '#FFC300' ? '#8a6500' : acento }}>
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        {titulo}
+      </p>
+      <ul className="text-sm text-[#0A2540] space-y-1">
         {items.map((t) => (
-          <li key={t}>{t}</li>
+          <li key={t} className="flex gap-2">
+            <span className="mt-[7px] w-1 h-1 rounded-full bg-[#9fb3c0] shrink-0" aria-hidden="true" />
+            <span>{t}</span>
+          </li>
         ))}
       </ul>
     </div>
@@ -124,7 +149,7 @@ function Guia() {
     </li>
   );
   return (
-    <details className="rounded-2xl border border-[#d9e8f0] bg-white px-4 py-3 shadow-[0_8px_24px_-12px_rgba(11,31,44,.10)]">
+    <details className={`rounded-xl border bg-white px-4 py-3 ${SOMBRA} ${C.borde}`}>
       <summary className="cursor-pointer text-sm font-semibold text-[#017FA7]">¿Cómo leer este panel? (1 minuto)</summary>
       <div className={`mt-3 grid md:grid-cols-2 gap-x-8 gap-y-1 text-sm ${C.suave}`}>
         <ul className="space-y-1.5">
@@ -161,7 +186,7 @@ const SECCIONES_PANEL = [
 
 function Caja({ titulo, children, className = '' }: { titulo?: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className={`bg-white rounded-2xl border ${C.borde} p-4 sm:p-5 min-w-0 shadow-[0_8px_24px_-12px_rgba(11,31,44,.10)] ${className}`}>
+    <div className={`bg-white rounded-xl border ${C.borde} p-4 sm:p-5 min-w-0 ${SOMBRA} ${className}`}>
       {titulo && <h3 className={`text-sm font-medium mb-3 ${C.suave}`}>{titulo}</h3>}
       {children}
     </div>
@@ -611,6 +636,11 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const a = datos?.anterior.kpis;
   const total = k?.personas ?? 0;
   const maxDia = Math.max(1, ...(datos?.porDia.map((d) => d.personas) ?? [1]));
+  // Escala del gráfico diario redondeada (10, 20, 50, 100, 200, 500…) para que las líneas guía tengan números limpios.
+  const escalaDia = (() => {
+    const p = 10 ** Math.floor(Math.log10(maxDia));
+    return [1, 2, 5, 10].map((m) => m * p).find((x) => x >= maxDia) ?? maxDia;
+  })();
   const embudo = datos?.embudo ?? [];
   const caida = (i: number, g: 'todos' | 'anuncios' | 'organico') =>
     i > 0 && embudo[i - 1][g].n ? Math.round(((embudo[i - 1][g].n - embudo[i][g].n) / embudo[i - 1][g].n) * 100) : null;
@@ -779,39 +809,31 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         <Guia />
 
         {/* Cómo vamos + actividad en vivo */}
-        <section id="resumen" className="space-y-3 scroll-mt-48">
-        <div>
-          <h2>¿Cómo vamos?</h2>
-          <p className={`text-sm ${C.suave}`}>{verCambio ? 'Desde el cambio de la página' : periodo.nombre} · los números grandes y lo más importante en pocas palabras</p>
+        <div id="resumen" role="region" aria-labelledby="resumen-titulo" className="space-y-3 scroll-mt-48">
+        <div className="pb-2 border-b border-[#e3ebf0]">
+          <p className="text-[11px] font-semibold uppercase tracking-[.12em] text-[#017FA7]">Resumen · {verCambio ? 'desde el cambio de la página' : periodo.nombre}</p>
+          <h2 id="resumen-titulo" style={{ fontSize: '1.2rem', fontWeight: 600 }} className="text-[#0A2540]">¿Cómo vamos?</h2>
+          <p className={`text-sm ${C.suave} mt-0.5`}>Los números principales y lo más importante en pocas palabras. La línea de cada tarjeta muestra cómo fue día a día.</p>
         </div>
         <div className="grid lg:grid-cols-5 gap-4 items-start">
         <div className="space-y-3 lg:col-span-3">
           <div className="grid grid-cols-2 gap-3">
-            <Tarjeta titulo="Personas que entraron" valor={k ? String(k.personas) : '–'} ayuda="cada celular o computadora cuenta una vez">
+            <Tarjeta titulo="Personas que entraron" valor={k ? String(k.personas) : '–'} ayuda="cada celular o computadora cuenta una vez" serie={datos?.porDia.map((d) => d.personas)}>
               {k && <Cambio ahora={k.personas} antes={a?.personas} />}
             </Tarjeta>
-            <Tarjeta titulo="Llegaron por un anuncio" valor={k ? String(k.deAnuncios) : '–'} ayuda={k && total ? `${Math.round((k.deAnuncios / total) * 100)}% del total` : 'personas que hicieron clic'}>
+            <Tarjeta titulo="Llegaron por un anuncio" serie={datos?.porDia.map((d) => d.anuncios)} valor={k ? String(k.deAnuncios) : '–'} ayuda={k && total ? `${Math.round((k.deAnuncios / total) * 100)}% del total` : 'personas que hicieron clic'}>
               {k && <Cambio ahora={k.deAnuncios} antes={a?.deAnuncios} />}
             </Tarjeta>
-            <Tarjeta titulo="Se inscribieron" valor={k ? String(k.inscritos) : '–'} ayuda="dejaron sus datos en la lista de espera" destacada>
+            <Tarjeta titulo="Se inscribieron" valor={k ? String(k.inscritos) : '–'} ayuda="dejaron sus datos en la lista de espera" destacada serie={datos?.porDia.map((d) => d.inscritos)}>
               {k && <Cambio ahora={k.inscritos} antes={a?.inscritos} />}
             </Tarjeta>
-            <Tarjeta titulo="Tasa de inscripción (CVR)" valor={k ? `${k.conversion}%` : '–'} ayuda={k ? `de cada 100 personas, se inscriben ${n100(k.conversion)}` : 'de cada 100 personas'}>
+            <Tarjeta titulo="Tasa de inscripción (CVR)" serie={datos?.porDia.map((d) => d.tasa)} valor={k ? `${k.conversion}%` : '–'} ayuda={k ? `de cada 100 personas, se inscriben ${n100(k.conversion)}` : 'de cada 100 personas'}>
               {k && <Cambio ahora={k.conversion} antes={a?.conversion} puntos />}
             </Tarjeta>
           </div>
-          {ideas.length > 0 && (
-            <div className="rounded-2xl bg-[#FFF6D6] border-l-4 border-[#FFC300] px-4 py-3">
-              <p className="text-[13px] font-extrabold text-[#0A2540] mb-1">Lo más importante</p>
-              <ul className="text-sm text-[#0A2540] space-y-0.5 list-disc pl-5">
-                {ideas.map((t) => (
-                  <li key={t}>{t}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {ideas.length > 0 && <EnPocasPalabras items={ideas} titulo="Lo más importante" acento="#FFC300" />}
         </div>
-            <Caja titulo="Qué está pasando ahora (cada fila es algo que hizo una persona)" className="lg:col-span-2">
+            <Caja titulo="Actividad en vivo · cada fila es algo que hizo una persona" className="lg:col-span-2">
               <ul className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
                 {datos?.actividad.map((x, n) => (
                   <li key={`${x.t}-${n}`} className={`text-sm flex gap-3 rounded-md px-1 -mx-1 transition-colors duration-[2000ms] ${movNuevos.has(`${x.t}|${x.quien}|${x.que}`) ? 'bg-[#FFF0B8]' : ''}`}>
@@ -826,7 +848,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               </ul>
             </Caja>
         </div>
-        </section>
+        </div>
 
         {verCambio && <VistaCambio incluirEquipo={incluirEquipo} />}
 
@@ -857,22 +879,49 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                 );
               })}
             </div>
-            <div className="flex items-end gap-1.5 sm:gap-2 h-48">
-              {datos?.porDia.map((d) => {
-                const visibles = GRUPOS.filter((g) => d.plataformas[g.id]);
-                return (
-                  <div key={d.fecha} className="flex-1 flex flex-col items-center justify-end h-full min-w-0" title={`${d.personas} personas: ${GRUPOS.map((g) => `${d.plataformas[g.id]} ${g.corto}`).join(', ')} · ${d.inscritos} inscritos`}>
-                    <span className="text-xs tabular-nums text-[#3b4b56]">{d.personas}</span>
-                    <div className="w-full max-w-9 flex flex-col-reverse justify-start rounded-t overflow-hidden" style={{ height: `${(d.personas / maxDia) * 100}%` }}>
-                      {visibles.map((g) => (
-                        <div key={g.id} className="w-full" style={{ background: g.color, height: `${d.personas ? (d.plataformas[g.id] / d.personas) * 100 : 0}%` }} />
-                      ))}
-                    </div>
-                    <span className={`text-[11px] ${C.tenue} mt-1 truncate w-full text-center`}>{diaCorto(d.fecha)}</span>
+            <p className={`text-[12px] font-medium ${C.suave} mb-2`}>Personas por día, según por dónde llegaron</p>
+            <div className="relative pl-9">
+              {/* líneas guía con su valor */}
+              <div className="absolute left-0 right-0 top-0 h-44" aria-hidden="true">
+                {[1, 0.5, 0].map((f) => (
+                  <div key={f} className="absolute left-0 right-0 flex items-center -translate-y-1/2" style={{ top: `${(1 - f) * 100}%` }}>
+                    <span className={`w-8 text-right pr-1.5 text-[10.5px] tabular-nums ${C.tenue}`}>{Math.round(escalaDia * f)}</span>
+                    <span className={`flex-1 border-t ${f === 0 ? 'border-[#c9d6de]' : 'border-dashed border-[#e3ebf0]'}`} />
                   </div>
-                );
-              })}
-              {datos && !datos.porDia.length && <p className={`text-sm ${C.tenue}`}>Sin visitas en este periodo</p>}
+                ))}
+              </div>
+              <div className="relative flex items-end gap-1.5 sm:gap-2 h-44">
+                {datos?.porDia.map((d) => {
+                  const visibles = GRUPOS.filter((g) => d.plataformas[g.id]);
+                  return (
+                    <div key={d.fecha} className="group relative flex-1 flex flex-col items-center justify-end h-full min-w-0">
+                      <div className="relative w-full max-w-10 flex flex-col-reverse gap-[2px] rounded-t-[4px] transition-opacity group-hover:opacity-80" style={{ height: `${(d.personas / escalaDia) * 100}%` }}>
+                        <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-[11px] font-medium tabular-nums text-[#3b4b56]">{d.personas}</span>
+                        {visibles.map((g) => (
+                          <div key={g.id} className="w-full shrink-0 first:rounded-none last:rounded-t-[4px]" style={{ background: g.color, height: `${d.personas ? (d.plataformas[g.id] / d.personas) * 100 : 0}%` }} />
+                        ))}
+                      </div>
+                      {/* tooltip */}
+                      <div role="tooltip" className="pointer-events-none absolute bottom-full mb-1 left-1/2 -translate-x-1/2 z-10 hidden group-hover:block w-48 rounded-lg bg-[#0A2540] text-white text-[11.5px] px-3 py-2 shadow-lg">
+                        <p className="font-semibold mb-1">{diaCorto(d.fecha)} · {d.personas} personas</p>
+                        {GRUPOS.filter((g) => d.plataformas[g.id]).map((g) => (
+                          <p key={g.id} className="flex items-center justify-between gap-2">
+                            <span className="flex items-center gap-1.5"><i className="w-2 h-2 rounded-sm inline-block" style={{ background: g.color }} />{g.corto}</span>
+                            <span className="tabular-nums">{d.plataformas[g.id]}</span>
+                          </p>
+                        ))}
+                        <p className="mt-1 pt-1 border-t border-white/20 flex justify-between"><span>Inscritos</span><span className="tabular-nums">{d.inscritos}</span></p>
+                      </div>
+                    </div>
+                  );
+                })}
+                {datos && !datos.porDia.length && <p className={`text-sm ${C.tenue}`}>Sin visitas en este periodo</p>}
+              </div>
+              <div className="flex gap-1.5 sm:gap-2 mt-1">
+                {datos?.porDia.map((d) => (
+                  <span key={d.fecha} className={`flex-1 min-w-0 text-[11px] ${C.tenue} truncate text-center`}>{diaCorto(d.fecha)}</span>
+                ))}
+              </div>
             </div>
             <div className={`flex flex-wrap gap-x-4 gap-y-1 text-xs ${C.suave} mt-3`}>
               {GRUPOS.map((g) => (
@@ -892,7 +941,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                       </th>
                     ))}
                     <th className="font-medium px-2 pb-2">Inscritos</th>
-                    <th className="font-medium px-2 pb-2">Conversión</th>
+                    <th className="font-medium px-2 pb-2">Se inscriben (CVR)</th>
                   </tr>
                 </thead>
                 <tbody>
