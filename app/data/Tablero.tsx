@@ -46,8 +46,6 @@ const diaCorto = (ymd: string) =>
   new Date(`${ymd}T12:00:00-05:00`).toLocaleDateString('es-PE', { timeZone: 'America/Lima', weekday: 'short', day: 'numeric' });
 
 // Marca Entrena con Ciencia: navy #0A2540, teal #017FA7, cian #23D3FF, amarillo #FFC300, fondo #F5FAFC (Poppins).
-const miles = (n: number) => n.toLocaleString('es-PE');
-const dinero = (n: number, moneda: string) => `${moneda === 'PEN' ? 'S/' : moneda === 'USD' ? 'US$' : moneda ? moneda + ' ' : ''}${n.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const C = { borde: 'border-[#d9e8f0]', suave: 'text-[#3e5260]', tenue: 'text-[#627682]' };
 const AZUL = '#017FA7';
 /** Colores del tráfico por plataforma (mismo orden que GRUPOS_TRAFICO). */
@@ -407,7 +405,7 @@ function Recorrido({ id }: { id: string }) {
   );
 }
 
-function TablaAnuncios({ filas, etiqueta, verPlataforma, conApi, moneda }: { filas: FilaAnuncio[]; etiqueta: string; verPlataforma: boolean; conApi: boolean; moneda: string }) {
+function TablaAnuncios({ filas, etiqueta, verPlataforma }: { filas: FilaAnuncio[]; etiqueta: string; verPlataforma: boolean }) {
   const th = 'font-medium px-2 pb-2 text-right whitespace-nowrap';
   return (
     <div className="overflow-x-auto -mx-1">
@@ -415,9 +413,6 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma, conApi, moneda }: { fil
         <thead>
           <tr className={`${C.suave} text-[13px]`}>
             <th className="font-medium px-1 pb-2 text-left">{etiqueta}</th>
-            {conApi && <th className={th} title="Veces que se mostró el anuncio (dato de la plataforma)">Impresiones</th>}
-            {conApi && <th className={th} title="Clics en el enlace según la plataforma">Clics</th>}
-            {conApi && <th className={th} title="Clics / impresiones">CTR</th>}
             <th className={th}>Personas</th>
             <th className={th} title="De las personas que llegaron por este anuncio, cuántas bajaron hasta la mitad de la página">Leyeron la mitad</th>
             <th className={th}>Llegaron al final</th>
@@ -425,8 +420,6 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma, conApi, moneda }: { fil
             <th className={th}>Abrieron registro</th>
             <th className={th}>Inscritos</th>
             <th className={th}>Conversión</th>
-            {conApi && <th className={th}>Gasto</th>}
-            {conApi && <th className={th}>Costo por inscrito</th>}
           </tr>
         </thead>
         <tbody>
@@ -437,11 +430,8 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma, conApi, moneda }: { fil
                   <span className={`mr-1.5 inline-block rounded px-1.5 py-0.5 text-[11px] font-semibold align-middle ${f.plataforma === 'TikTok' ? 'bg-[#111] text-white' : 'bg-[#e7f0fe] text-[#1a56c4]'}`}>{f.plataforma}</span>
                 )}
                 <span className={f.personas ? '' : C.tenue}>{f.nombre}</span>
-                {!f.personas && <span className={`block text-[11px] font-normal ${C.tenue}`}>{f.api?.impresiones ? 'Se mostró, pero nadie entró todavía' : 'Publicado, sin clics reales todavía (solo la revisión de la plataforma)'}</span>}
+                {!f.personas && <span className={`block text-[11px] font-normal ${C.tenue}`}>Publicado, sin clics reales todavía (solo la revisión de la plataforma)</span>}
               </td>
-              {conApi && <td className="px-2 py-2.5 text-right tabular-nums">{f.api ? miles(f.api.impresiones) : '–'}</td>}
-              {conApi && <td className="px-2 py-2.5 text-right tabular-nums">{f.api ? miles(f.api.clics) : '–'}</td>}
-              {conApi && <td className="px-2 py-2.5 text-right tabular-nums">{f.api && f.api.impresiones ? `${Math.round((f.api.clics / f.api.impresiones) * 1000) / 10}%` : '–'}</td>}
               <td className="px-2 py-2.5 text-right tabular-nums">{f.personas}</td>
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.mitad} base={f.personas} /></td>
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.final} base={f.personas} /></td>
@@ -449,8 +439,6 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma, conApi, moneda }: { fil
               <td className="px-2 py-2.5 text-right tabular-nums">{f.registro}</td>
               <td className={`px-2 py-2.5 text-right tabular-nums ${f.inscritos ? 'text-[#0f9d58] font-medium' : ''}`}>{f.inscritos}</td>
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.tasa} base={f.personas} /></td>
-              {conApi && <td className="px-2 py-2.5 text-right tabular-nums">{f.api ? dinero(f.api.gasto, moneda) : '–'}</td>}
-              {conApi && <td className="px-2 py-2.5 text-right tabular-nums">{f.api?.costoInscrito != null ? dinero(f.api.costoInscrito, moneda) : '–'}</td>}
             </tr>
           ))}
         </tbody>
@@ -736,25 +724,6 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                           <dd className="text-right tabular-nums">{t.personas > 0 ? <Tasa valor={t.tasa} base={t.personas} /> : '–'}</dd>
                         </>
                       )}
-                      {(g.id === 'Anuncios Meta' || g.id === 'Anuncios TikTok') && datos && (() => {
-                        const p = g.id === 'Anuncios Meta' ? 'Meta' : 'TikTok';
-                        const a = datos.api[p];
-                        const linea = 'mt-1 pt-1 border-t border-[#eef3f6]';
-                        if (!a.conectado) return <dd className={`col-span-2 ${linea} ${C.tenue}`}>Impresiones y gasto: falta conectar la API de {p}</dd>;
-                        if (a.error) return <dd className={`col-span-2 ${linea} text-[#b42318]`} title={a.error}>Impresiones y gasto: error al leer la API de {p}</dd>;
-                        return (
-                          <>
-                            <dt className={`${C.tenue} ${linea}`}>Impresiones</dt>
-                            <dd className={`text-right tabular-nums ${linea}`}>{miles(a.impresiones)}</dd>
-                            <dt className={C.tenue} title="Clics en el anuncio / impresiones">CTR</dt>
-                            <dd className="text-right tabular-nums">{a.impresiones ? `${Math.round((a.clics / a.impresiones) * 1000) / 10}%` : '–'}</dd>
-                            <dt className={C.tenue}>Gasto</dt>
-                            <dd className="text-right tabular-nums">{dinero(a.gasto, a.moneda)}</dd>
-                            <dt className={C.tenue}>Costo por inscrito</dt>
-                            <dd className="text-right tabular-nums">{a.costoInscrito != null ? dinero(a.costoInscrito, a.moneda) : '–'}</dd>
-                          </>
-                        );
-                      })()}
                     </dl>
                   </div>
                 );
@@ -846,8 +815,6 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               filas={filasAnuncios}
               etiqueta={otros ? 'Canal' : VISTAS.find((v) => v.id === vistaAnuncios)!.nombre}
               verPlataforma={false}
-              conApi={!otros && vistaAnuncios === 'porAnuncio' && Boolean(datos?.api[plataformaAnuncios as 'Meta' | 'TikTok'].conectado)}
-              moneda={datos && !otros ? datos.api[plataformaAnuncios as 'Meta' | 'TikTok'].moneda : ''}
             />
             {plataformaAnuncios === 'TikTok' && filasAnuncios.some((f) => f.nombre.includes('falta utm_content')) && (
               <p className="text-xs text-[#b54708] mt-3">
@@ -857,8 +824,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               </p>
             )}
             <p className={`text-xs ${C.tenue} mt-3`}>
-              * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Impresiones, clics y gasto vienen de las APIs de Meta y TikTok (se actualizan cada 10 minutos; los nombres se cruzan con el utm_content del
-              anuncio); personas, lectura e inscritos se miden en la página.
+              * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Todo se mide en la página; el nombre de cada anuncio viene del utm_content de su link.
               {datos && datos.calidad.robots > 0 && ` Se excluyeron ${datos.calidad.robots} visitas de robots de revisión de anuncios (clics desde fuera de Perú o con el link sin completar).`}
             </p>
           </Caja>

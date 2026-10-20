@@ -1,6 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
-import { metricasPlataformas, type MetricasAnuncio } from './anunciosApi';
 
 // Lectura de datos para el panel privado. Solo se usa en el servidor (route handlers del panel),
 // con la clave service_role, porque las tablas solo permiten INSERT al público.
@@ -279,33 +278,10 @@ export async function leerPanel({ desde, hasta, incluirEquipo, fuente = 'todo' }
   const antesDesde = new Date(ini - corrimiento).toISOString();
   const antesHasta = new Date(fin - corrimiento).toISOString();
 
-  const [actual, anterior, api] = await Promise.all([leerRango(desde, hasta), leerRango(antesDesde, antesHasta), metricasPlataformas(desde, hasta)]);
+  const [actual, anterior] = await Promise.all([leerRango(desde, hasta), leerRango(antesDesde, antesHasta)]);
   const datos = calcularPanel({ ...actual, incluirEquipo, fuente });
   const previo = calcularPanel({ ...anterior, incluirEquipo, fuente });
-
-  // Impresiones, clics y gasto de las APIs, cruzados por nombre de anuncio (utm_content = nombre del anuncio).
-  const plat = fuente === 'meta' ? ['Meta'] : fuente === 'tiktok' ? ['TikTok'] : ['Meta', 'TikTok'];
-  type ConApi = (typeof datos.anuncios.porAnuncio)[number] & { api?: (MetricasAnuncio & { costoInscrito: number | null }) | null };
-  const porAnuncio: ConApi[] = datos.anuncios.porAnuncio.map((f) => {
-    const m = api[f.plataforma as 'Meta' | 'TikTok']?.porAnuncio[f.nombre.replace(/\s+/g, ' ').trim()];
-    return { ...f, api: m ? { ...m, costoInscrito: f.inscritos ? Math.round((m.gasto / f.inscritos) * 100) / 100 : null } : null };
-  });
-  // Anuncios que la plataforma mostró pero que nadie tocó todavía (sin visitas en nuestra base).
-  for (const p of plat as ('Meta' | 'TikTok')[]) {
-    for (const [nombre, m] of Object.entries(api[p].porAnuncio)) {
-      if (!m.impresiones || porAnuncio.some((f) => f.plataforma === p && f.nombre === nombre)) continue;
-      porAnuncio.push({ plataforma: p, nombre, personas: 0, mitad: 0, final: 0, registro: 0, inscritos: 0, tasa: 0, tiempo: null, api: { ...m, costoInscrito: null } });
-    }
-  }
-  const resumenApi = Object.fromEntries(
-    (['Meta', 'TikTok'] as const).map((p) => {
-      const a = api[p];
-      const deLaPlataforma = datos.porPlataforma.find((x) => x.nombre === p);
-      return [p, { conectado: a.conectado, error: a.error ?? null, moneda: a.moneda ?? '', ...a.total, personas: deLaPlataforma?.personas ?? 0, inscritos: deLaPlataforma?.inscritos ?? 0, costoInscrito: deLaPlataforma?.inscritos ? Math.round((a.total.gasto / deLaPlataforma.inscritos) * 100) / 100 : null }];
-    }),
-  ) as Record<'Meta' | 'TikTok', { conectado: boolean; error: string | null; moneda: string; personas: number; inscritos: number; costoInscrito: number | null } & MetricasAnuncio>;
-
-  return { ...datos, anuncios: { ...datos.anuncios, porAnuncio }, api: resumenApi, anterior: { desde: antesDesde, hasta: antesHasta, kpis: previo.kpis } };
+  return { ...datos, anterior: { desde: antesDesde, hasta: antesHasta, kpis: previo.kpis } };
 }
 
 /** Cálculo puro de las métricas (separado de la lectura para poder probarlo). */
