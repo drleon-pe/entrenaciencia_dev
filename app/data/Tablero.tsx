@@ -380,7 +380,7 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
     );
   }
   return (
-    <Bloque n="Δ" titulo={`Cambio: ${v.version.nombre}`} sub="Desde el 20 oct los testimonios van antes de las preguntas frecuentes. Aquí se compara cómo navega la gente antes y después, separado por plataforma" resumen={resumen}>
+    <Bloque n="Δ" titulo="Post modificaciones web (testimonios y qué incluye)" sub="Desde el 20 oct los testimonios van antes de las preguntas frecuentes y ya no está el recuadro de arriba de «Qué incluye». Aquí se compara cómo navega la gente antes y después, separado por plataforma" resumen={resumen}>
     <div className="space-y-4">
       <p className={`text-[13px] ${C.suave}`}>
         Publicado el {fechaHora(v.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}). <b>Antes</b> = versión &quot;{v.previa.nombre}&quot; ({fechaHora(v.antes.desde)} – {fechaHora(v.antes.hasta)}).
@@ -862,7 +862,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               <h1 className="panel-titulo text-white">Panel de la landing /neurociencia</h1>
             </div>
           </div>
-          {verCambio && <span className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white">Desde el cambio de testimonios · {fechaHora(periodo.desde)}</span>}
+          {verCambio && <span className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white">Post modificaciones web (testimonios y qué incluye) · {fechaHora(periodo.desde)}</span>}
           <select hidden={verCambio} value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
             {opciones.map((p) => (
               <option key={p.id} value={p.id}>
@@ -890,7 +890,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             { id: 'todo', nombre: 'Todo' },
             { id: 'meta', nombre: 'Instagram y Facebook' },
             { id: 'tiktok', nombre: 'TikTok' },
-            { id: 'cambio', nombre: `Cambio de testimonios (${versiones.length > 1 ? diaCorto(new Date(versiones[versiones.length - 1].desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' })) : '–'})` },
+            { id: 'cambio', nombre: `Post modificaciones web (testimonios y qué incluye)${versiones.length > 1 ? ` · ${diaCorto(new Date(versiones[versiones.length - 1].desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' }))}` : ''}` },
           ] as const).map((t) => {
             const activa = t.id === 'cambio' ? verCambio : !verCambio && fuente === t.id;
             return (

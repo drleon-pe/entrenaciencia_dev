@@ -12,7 +12,7 @@ export const VERSIONES = [
   { id: 'v1', nombre: 'Reserva por US$5', desde: '2026-10-07T00:00:00-05:00' },
   { id: 'v2', nombre: 'Lista de espera gratis', desde: '2026-10-11T19:06:00-05:00' },
   // Testimonios antes de las preguntas y sin el recuadro "Qué incluye" de arriba (publicado en producción 10:44).
-  { id: 'v3', nombre: 'Testimonios antes de las preguntas', desde: '2026-10-20T10:45:00-05:00' },
+  { id: 'v3', nombre: 'Post modificaciones web (testimonios y qué incluye)', desde: '2026-10-20T10:45:00-05:00' },
 ];
 
 /**
