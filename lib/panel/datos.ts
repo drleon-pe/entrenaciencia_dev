@@ -223,15 +223,16 @@ export type Filtros = { desde: string; hasta: string; incluirEquipo: boolean; fu
 
 async function leerRango(desdePedido: string, hasta: string) {
   const desde = Date.parse(desdePedido) < Date.parse(INICIO_DATOS) ? INICIO_DATOS : desdePedido;
-  if (Date.parse(hasta) <= Date.parse(desde)) return { visitas: [], eventos: [], inscritos: [] };
+  if (Date.parse(hasta) <= Date.parse(desde)) return { visitas: [], eventos: [], inscritos: [], equipoHistorico: [] as string[] };
   // Solo en desarrollo: PANEL_FIXTURE apunta a un JSON con { visitas, eventos, inscritos } para probar sin Supabase.
   if (process.env.NODE_ENV !== 'production' && process.env.PANEL_FIXTURE) {
     const f = JSON.parse(readFileSync(process.env.PANEL_FIXTURE, 'utf8')) as Record<'visitas' | 'eventos' | 'inscritos', Fila[]>;
     const en = (x: Fila) => s(x.created_at) >= desde && s(x.created_at) < hasta;
-    return { visitas: f.visitas.filter(en), eventos: f.eventos.filter(en), inscritos: f.inscritos.filter(en) };
+    const equipoHistorico = [...new Set(f.visitas.filter((v) => s(v.referrer).includes(DOMINIO_DEMO)).map((v) => s(v.anonymous_id)))];
+    return { visitas: f.visitas.filter(en), eventos: f.eventos.filter(en), inscritos: f.inscritos.filter(en), equipoHistorico };
   }
   const rango = (q: any) => q.gte('created_at', desde).lt('created_at', hasta); // eslint-disable-line @typescript-eslint/no-explicit-any
-  const [visitas, eventos, inscritos] = await Promise.all([
+  const [visitas, eventos, inscritos, equipoHistorico] = await Promise.all([
     todas(
       'page_views',
       'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source',
@@ -241,8 +242,10 @@ async function leerRango(desdePedido: string, hasta: string) {
     todas('leads', 'id, created_at, name, email, whatsapp, whatsapp_country_code, survey, anonymous_id, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source', (q) =>
       rango(q.eq('source', FUENTE_LISTA)),
     ),
+    // Quien alguna vez entró desde el link del demo es del equipo, aunque esa visita quede fuera del periodo elegido.
+    todas('page_views', 'created_at, anonymous_id', (q) => q.like('referrer', `%${DOMINIO_DEMO}%`)),
   ]);
-  return { visitas, eventos, inscritos };
+  return { visitas, eventos, inscritos, equipoHistorico: [...new Set(equipoHistorico.map((v) => s(v.anonymous_id)))] };
 }
 
 export async function leerPanel({ desde, hasta, incluirEquipo, fuente = 'todo' }: Filtros) {
@@ -292,17 +295,19 @@ export function calcularPanel({
   inscritos,
   incluirEquipo,
   fuente = 'todo',
+  equipoHistorico = [],
 }: {
   visitas: Fila[];
   eventos: Fila[];
   inscritos: Fila[];
   incluirEquipo: boolean;
   fuente?: Fuente;
+  equipoHistorico?: string[];
 }) {
   // --- Limpieza: equipo y robots de revisión de Meta ---
   const prefijos = equipo();
   const paises = paisesAnuncios();
-  const internos = new Set<string>();
+  const internos = new Set<string>(equipoHistorico);
   const robots = new Set<string>();
   for (const v of visitas) {
     const id = s(v.anonymous_id);
@@ -547,7 +552,7 @@ export function calcularPanel({
       sesiones: new Set(V.map((v) => s(v.session_id))).size,
       volvieron: contar(V.map((v) => s(v.anonymous_id))).filter((x) => x.n > 1).length,
       robots: robots.size,
-      equipo: incluirEquipo ? 0 : [...internos].filter((id) => !robots.has(id)).length,
+      equipo: incluirEquipo ? 0 : new Set(visitas.map((v) => s(v.anonymous_id)).filter((id) => internos.has(id) && !robots.has(id))).size,
       sinEtiqueta: prim.filter((v) => !s(v.utm_source) && !s(v.first_touch_utm_source)).length,
     },
     embudo,
