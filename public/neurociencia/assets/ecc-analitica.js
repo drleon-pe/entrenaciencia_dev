@@ -99,6 +99,12 @@
       if (meta && window.fbq) window.fbq(meta[0] === '!' ? 'trackCustom' : 'track', meta.replace('!', ''), { content_name: 'Curso Entrena con Ciencia', detalle: extra || '' });
       if (ga && window.gtag) window.gtag('event', ga, { detalle: extra || '' });
       if (tt && window.ttq) window.ttq.track(tt, { content_name: 'Curso Entrena con Ciencia' });
+      /* La inscripción también va como CompleteRegistration: es el evento por el que optimizan las campañas
+         ("Per Complete Registration" en Meta). Sin esto Meta ve 0 resultados aunque haya inscritos. */
+      if (tipo === 'lista_espera') {
+        if (window.fbq) window.fbq('track', 'CompleteRegistration', { content_name: 'Curso Entrena con Ciencia', status: 'lista_espera' });
+        if (window.ttq) window.ttq.track('CompleteRegistration', { content_name: 'Curso Entrena con Ciencia' });
+      }
     } catch (e) {}
   }
   window.eccEvento = evento;
