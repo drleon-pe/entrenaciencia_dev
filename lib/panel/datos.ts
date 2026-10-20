@@ -12,6 +12,8 @@ export const FUENTE_LISTA = 'Lista de espera ECC';
 export const VERSIONES = [
   { id: 'v1', nombre: 'Reserva por US$5', desde: '2026-10-07T00:00:00-05:00' },
   { id: 'v2', nombre: 'Lista de espera gratis', desde: '2026-10-11T19:06:00-05:00' },
+  // Testimonios antes de las preguntas y sin el recuadro "Qué incluye" de arriba (publicado en producción 10:44).
+  { id: 'v3', nombre: 'Testimonios antes de las preguntas', desde: '2026-10-20T10:45:00-05:00' },
 ];
 
 /**
@@ -134,7 +136,8 @@ function ubicacion(v: Fila): string {
 function nombreAnuncio(v: Fila): string {
   const n = etiqueta(v.utm_content);
   if (n) return n;
-  return plataforma(v) === 'TikTok' ? 'TikTok · sin nombre de anuncio' : '';
+  // Los links de TikTok necesitan utm_content=__CID_NAME__ para saber de qué anuncio vino cada persona.
+  return plataforma(v) === 'TikTok' ? 'TikTok · sin nombre de anuncio (falta utm_content en el link)' : '';
 }
 function nombreConjunto(v: Fila): string {
   return plataforma(v) === 'TikTok' ? etiqueta(v.utm_term) || 'TikTok · sin nombre de grupo' : etiqueta(v.utm_campaign);
@@ -468,6 +471,46 @@ export function calcularPanel({
     porConjunto: agrupar(nombreConjunto),
     porCampana: agrupar(nombreCampana),
   };
+  // Lo que no vino de un anuncio, por canal, con las mismas columnas que los anuncios.
+  const otros = (() => {
+    const m = new Map<string, Agrupado>();
+    for (const id of grupos.organico) {
+      const nombre = canalDe.get(id)!;
+      const f = m.get(nombre) ?? m.set(nombre, { plataforma: 'Otros', nombre, personas: 0, mitad: 0, final: 0, registro: 0, inscritos: 0, tiempos: [] }).get(nombre)!;
+      f.personas++;
+      if (mitad.has(id)) f.mitad++;
+      if (final.has(id)) f.final++;
+      if (registro.has(id)) f.registro++;
+      if (inscritosIds.has(id)) f.inscritos++;
+      if (tiempoDe.has(id)) f.tiempos.push(tiempoDe.get(id)!);
+    }
+    return [...m.values()]
+      .map((f) => ({ plataforma: f.plataforma, nombre: f.nombre, personas: f.personas, mitad: pct(f.mitad, f.personas), final: pct(f.final, f.personas), registro: f.registro, inscritos: f.inscritos, tasa: pct(f.inscritos, f.personas), tiempo: mediana(f.tiempos) }))
+      .sort((a, b) => b.personas - a.personas);
+  })();
+
+  // --- Navegación: hasta dónde baja cada persona, qué toca y desde qué sección abre el registro ---
+  const conBoton = new Map<string, Set<string>>();
+  for (const e of E) {
+    if (e.event_type !== 'cta_click' && e.event_type !== 'checkout_click') continue;
+    const seccion = s(e.resource_kind).split(' · ')[0] || 'otro';
+    const nombre = seccion === 'otro' ? 'Barra fija / otro botón' : seccion.replace(/^\d+\w?\s+/, '');
+    (conBoton.get(nombre) ?? conBoton.set(nombre, new Set()).get(nombre)!).add(s(e.anonymous_id));
+  }
+  const cuenta = (nombre: string, set: Set<string>) => ({ nombre, n: cuantos(personas, set), pct: pct(cuantos(personas, set), n) });
+  const navegacion = {
+    profundidad: [cuenta('Bajó al 25%', leyo(25)), cuenta('Bajó a la mitad', mitad), cuenta('Bajó al 75%', leyo(75)), cuenta('Llegó al final', final)],
+    acciones: [
+      cuenta('Activó el video', sonido),
+      cuenta('Abrió un testimonio', testimonios),
+      cuenta('Abrió una pregunta', hizo((e) => e.event_type === 'faq_abrir')),
+      cuenta('Abrió el registro', registro),
+      cuenta('Se inscribió', inscritosIds),
+    ],
+    botones: [...conBoton.entries()].map(([nombre, set]) => cuenta(nombre, set)).sort((a, b) => b.n - a.n),
+    tiempoMediano: mediana([...tiempoDe.values()]),
+  };
+
   const porPlataforma = (['Meta', 'TikTok'] as const).map((p) => {
     const ids = [...primerAnuncio.entries()].filter(([, v]) => plataforma(v) === p).map(([id]) => id);
     return { nombre: p, personas: ids.length, inscritos: cuantos(ids, inscritosIds), tasa: pct(cuantos(ids, inscritosIds), ids.length), anuncios: new Set(visitas.filter((v) => plataforma(v) === p).map(nombreAnuncio)).size };
@@ -566,7 +609,8 @@ export function calcularPanel({
     embudo,
     interacciones,
     porDia,
-    anuncios,
+    anuncios: { ...anuncios, otros },
+    navegacion,
     porPlataforma,
     trafico,
     canales,
@@ -577,6 +621,23 @@ export function calcularPanel({
 }
 
 export type DatosPanel = Awaited<ReturnType<typeof leerPanel>>;
+
+/**
+ * Pestaña "Desde el cambio": cómo navega la gente en la versión actual frente a la anterior completa.
+ * Sin APIs de anuncios (solo lo que se mide en la página).
+ */
+export async function leerCambio({ incluirEquipo, fuente = 'todo' }: { incluirEquipo: boolean; fuente?: Fuente }) {
+  const actual = VERSIONES_PANEL[VERSIONES_PANEL.length - 1];
+  const previa = VERSIONES_PANEL[VERSIONES_PANEL.length - 2] ?? actual;
+  const cambio = new Date(actual.desde).toISOString();
+  const tramo = async (desde: string, hasta: string) => {
+    const d = calcularPanel({ ...(await leerRango(desde, hasta)), incluirEquipo, fuente });
+    return { desde, hasta, kpis: d.kpis, navegacion: d.navegacion, embudo: d.embudo };
+  };
+  const [antes, despues] = await Promise.all([tramo(new Date(previa.desde).toISOString(), cambio), tramo(cambio, new Date().toISOString())]);
+  return { generado: new Date().toISOString(), version: actual, previa, antes, despues };
+}
+export type DatosCambio = Awaited<ReturnType<typeof leerCambio>>;
 
 /** Datos completos de un inscrito (solo al pedirlo explícitamente). */
 export async function contactoCompleto(id: string) {

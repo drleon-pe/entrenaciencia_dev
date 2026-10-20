@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { DatosPanel } from '@/lib/panel/datos';
+import type { DatosCambio, DatosPanel } from '@/lib/panel/datos';
 import { salir } from './acciones';
 
 type Version = { id: string; nombre: string; desde: string };
@@ -146,6 +146,106 @@ function Tasa({ valor, base }: { valor: number; base: number }) {
 }
 
 type FilaAnuncio = DatosPanel['anuncios']['porAnuncio'][number];
+type Nav = DatosCambio['antes']['navegacion'];
+
+/** Antes / después de un mismo indicador, en % de personas. */
+function FilasComparadas({ titulo, antes, despues, nAntes, nDespues }: { titulo: string; antes: Nav['acciones']; despues: Nav['acciones']; nAntes: number; nDespues: number }) {
+  const nombres = [...new Set([...despues.map((x) => x.nombre), ...antes.map((x) => x.nombre)])];
+  return (
+    <Caja titulo={titulo}>
+      <table className="w-full text-sm">
+        <thead>
+          <tr className={`${C.suave} text-[13px] text-right`}>
+            <th className="font-medium px-1 pb-2 text-left" />
+            <th className="font-medium px-2 pb-2">Antes</th>
+            <th className="font-medium px-2 pb-2">Desde el cambio</th>
+            <th className="font-medium px-2 pb-2">Diferencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          {nombres.map((nombre) => {
+            const a = antes.find((x) => x.nombre === nombre) ?? { n: 0, pct: 0 };
+            const d = despues.find((x) => x.nombre === nombre) ?? { n: 0, pct: 0 };
+            const dif = Math.round((d.pct - a.pct) * 10) / 10;
+            return (
+              <tr key={nombre} className="border-t border-[#eef3f6] text-right tabular-nums">
+                <td className="px-1 py-2.5 text-left">{nombre}</td>
+                <td className="px-2 py-2.5">
+                  <Tasa valor={a.pct} base={nAntes} /> <span className={`text-xs ${C.tenue}`}>({a.n})</span>
+                </td>
+                <td className="px-2 py-2.5 font-medium">
+                  <Tasa valor={d.pct} base={nDespues} /> <span className={`text-xs font-normal ${C.tenue}`}>({d.n})</span>
+                </td>
+                <td className={`px-2 py-2.5 text-xs font-medium ${dif > 0 ? 'text-[#0f7a45]' : dif < 0 ? 'text-[#b54708]' : C.tenue}`}>
+                  {dif > 0 ? '▲' : dif < 0 ? '▼' : ''} {dif ? `${Math.abs(dif)} pts` : 'igual'}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      {!nombres.length && <p className={`text-sm ${C.tenue} py-2`}>Sin datos todavía.</p>}
+    </Caja>
+  );
+}
+
+/** Pestaña "Desde el cambio": cómo navega la gente en la versión actual de la página frente a la anterior. */
+function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
+  const [d, setD] = useState<DatosCambio | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const r = await fetch(`/api/data/cambio?equipo=${incluirEquipo ? '1' : '0'}`, { cache: 'no-store' });
+        if (r.status === 401) {
+          window.location.href = '/data/login';
+          return;
+        }
+        if (!r.ok) throw new Error((await r.json()).error ?? 'Error');
+        setD(await r.json());
+        setError(null);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Error');
+      }
+    };
+    cargar();
+    const id = setInterval(() => document.visibilityState === 'visible' && cargar(), 30_000);
+    return () => clearInterval(id);
+  }, [incluirEquipo]);
+
+  if (error) return <p className="text-sm text-[#b42318]">No se pudieron cargar los datos: {error}</p>;
+  if (!d) return <p className={`text-sm ${C.tenue}`}>Cargando…</p>;
+  const nA = d.antes.kpis.personas;
+  const nD = d.despues.kpis.personas;
+  const horas = Math.round((Date.parse(d.generado) - Date.parse(d.despues.desde)) / 3_600_000);
+  return (
+    <div className="space-y-6">
+      <div className="rounded-2xl bg-[#FFF6D6] border-l-4 border-[#FFC300] px-4 py-3 text-sm text-[#0A2540]">
+        <p className="font-extrabold">Cambio: {d.version.nombre}</p>
+        <p>
+          Publicado el {fechaHora(d.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}). Se compara cada indicador como % de las personas que entraron: <b>antes</b> = versión
+          &quot;{d.previa.nombre}&quot; ({fechaHora(d.antes.desde)} – {fechaHora(d.antes.hasta)}, {nA} personas) vs. <b>desde el cambio</b> ({nD} personas).
+        </p>
+        {nD < MUESTRA_MINIMA && <p className="mt-1">Todavía hay pocas personas desde el cambio: los porcentajes van a moverse mucho las primeras horas.</p>}
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <Tarjeta titulo="Personas desde el cambio" valor={String(nD)} ayuda={`${nA} en la versión anterior`} />
+        <Tarjeta titulo="Llegaron al final" valor={`${d.despues.kpis.leyeronFinal}%`} ayuda={`antes ${d.antes.kpis.leyeronFinal}%`} />
+        <Tarjeta titulo="Tiempo en la página" valor={d.despues.navegacion.tiempoMediano != null ? `${d.despues.navegacion.tiempoMediano} s` : '–'} ayuda={`mediana · antes ${d.antes.navegacion.tiempoMediano ?? '–'} s`} />
+        <Tarjeta titulo="Conversión" valor={`${d.despues.kpis.conversion}%`} ayuda={`${d.despues.kpis.inscritos} inscritos · antes ${d.antes.kpis.conversion}%`} destacada />
+      </div>
+      <div className="grid lg:grid-cols-2 gap-4 items-start">
+        <FilasComparadas titulo="¿Hasta dónde bajan?" antes={d.antes.navegacion.profundidad} despues={d.despues.navegacion.profundidad} nAntes={nA} nDespues={nD} />
+        <FilasComparadas titulo="¿Qué tocan?" antes={d.antes.navegacion.acciones} despues={d.despues.navegacion.acciones} nAntes={nA} nDespues={nD} />
+      </div>
+      <FilasComparadas titulo="¿Desde qué sección hacen clic en «Inscríbete»?" antes={d.antes.navegacion.botones} despues={d.despues.navegacion.botones} nAntes={nA} nDespues={nD} />
+      <p className={`text-xs ${C.tenue}`}>
+        * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Una persona puede contar en varias filas. La versión anterior tuvo otra mezcla de anuncios, así que conviene mirar
+        también la pestaña de cada plataforma con el periodo &quot;Versión actual&quot;.
+      </p>
+    </div>
+  );
+}
 
 function TablaAnuncios({ filas, etiqueta, verPlataforma, conApi, moneda }: { filas: FilaAnuncio[]; etiqueta: string; verPlataforma: boolean; conApi: boolean; moneda: string }) {
   const th = 'font-medium px-2 pb-2 text-right whitespace-nowrap';
@@ -205,8 +305,9 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const [periodoId, setPeriodoId] = useState('7d');
   const [incluirEquipo, setIncluirEquipo] = useState(false);
   const [fuente, setFuente] = useState<'todo' | 'meta' | 'tiktok'>('todo');
+  const [verCambio, setVerCambio] = useState(false);
   const [vistaAnuncios, setVistaAnuncios] = useState<'porAnuncio' | 'porUbicacion' | 'porConjunto' | 'porCampana'>('porAnuncio');
-  const [plataformaAnuncios, setPlataformaAnuncios] = useState<'Todas' | 'Meta' | 'TikTok'>('Todas');
+  const [plataformaAnuncios, setPlataformaAnuncios] = useState<'Meta' | 'TikTok' | 'Otros'>('Meta');
   const [datos, setDatos] = useState<DatosPanel | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
@@ -304,6 +405,9 @@ export default function Tablero({ correo, versiones }: { correo: string; version
       if (p != null && p > peor.p) peor = { i, p };
     });
     if (peor.p > 0) ideas.push(`La mayor fuga está antes de "${embudo[peor.i].nombre.toLowerCase()}": se va el ${peor.p}% del paso anterior.`);
+    const tiktokSinNombre = datos.anuncios.porAnuncio.find((f) => f.plataforma === 'TikTok' && f.nombre.includes('falta utm_content'));
+    if (tiktokSinNombre?.personas)
+      ideas.push(`${tiktokSinNombre.personas} personas de TikTok llegaron sin el nombre del anuncio en el link: agrega utm_content=__CID_NAME__ en TikTok para separarlas por anuncio.`);
     if (k!.deAnuncios)
       ideas.push(
         `Los anuncios trajeron ${k!.deAnuncios} de ${total} personas (${Math.round((k!.deAnuncios / total) * 100)}%) y convierten al ${k!.conversionAnuncios}%.`,
@@ -322,7 +426,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
     { id: 'porConjunto', nombre: 'Conjunto / grupo', boton: 'Por conjunto' },
     { id: 'porCampana', nombre: 'Campaña', boton: 'Por campaña' },
   ] as const;
-  const filasAnuncios = (datos?.anuncios[vistaAnuncios] ?? []).filter((f) => plataformaAnuncios === 'Todas' || f.plataforma === plataformaAnuncios);
+  const otros = plataformaAnuncios === 'Otros';
+  const filasAnuncios = otros ? (datos?.anuncios.otros ?? []) : (datos?.anuncios[vistaAnuncios] ?? []).filter((f) => f.plataforma === plataformaAnuncios);
   const boton = (activo: boolean) =>
     `rounded-full px-3 py-1 text-[13px] border ${activo ? 'bg-[#0A2540] border-[#0A2540] text-white' : 'border-[#c3dae6] text-[#3e5260] hover:bg-[#eef6fa]'}`;
 
@@ -340,7 +445,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               <h1 className="panel-titulo text-white">Panel de la landing /neurociencia</h1>
             </div>
           </div>
-          <select value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
+          <select hidden={verCambio} value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
             {opciones.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.nombre}
@@ -367,25 +472,36 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             { id: 'todo', nombre: 'Todo' },
             { id: 'meta', nombre: 'Instagram y Facebook' },
             { id: 'tiktok', nombre: 'TikTok' },
-          ] as const).map((t) => (
+            { id: 'cambio', nombre: `Desde el cambio (${versiones.length > 1 ? diaCorto(new Date(versiones[versiones.length - 1].desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' })) : '–'})` },
+          ] as const).map((t) => {
+            const activa = t.id === 'cambio' ? verCambio : !verCambio && fuente === t.id;
+            return (
             <button
               key={t.id}
               role="tab"
-              aria-selected={fuente === t.id}
+              aria-selected={activa}
               onClick={() => {
+                if (t.id === 'cambio') {
+                  setVerCambio(true);
+                  return;
+                }
+                setVerCambio(false);
                 setFuente(t.id);
-                setPlataformaAnuncios(t.id === 'meta' ? 'Meta' : t.id === 'tiktok' ? 'TikTok' : 'Todas');
+                setPlataformaAnuncios(t.id === 'tiktok' ? 'TikTok' : 'Meta');
               }}
-              className={`px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-[3px] -mb-px ${fuente === t.id ? 'border-[#017FA7] text-[#0A2540]' : 'border-transparent text-[#5b6f7d] hover:text-[#0A2540]'}`}
+              className={`px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-[3px] -mb-px ${activa ? 'border-[#017FA7] text-[#0A2540]' : 'border-transparent text-[#5b6f7d] hover:text-[#0A2540]'}`}
             >
               {t.nombre}
             </button>
-          ))}
+            );
+          })}
         </div>
       </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-10">
+        {verCambio && <VistaCambio incluirEquipo={incluirEquipo} />}
+        {!verCambio && <>
         {error && <p className="text-sm text-[#b42318]">No se pudieron cargar los datos: {error}</p>}
 
         {/* Resumen + actividad en vivo */}
@@ -518,38 +634,45 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           </Caja>
         </Bloque>
 
-        <Bloque n={2} titulo={fuente === 'meta' ? 'Anuncios de Meta' : fuente === 'tiktok' ? 'Anuncios de TikTok' : 'Anuncios (Meta y TikTok)'} sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el anuncio de su primer clic">
+        <Bloque n={2} titulo={fuente === 'meta' ? 'Anuncios de Meta' : fuente === 'tiktok' ? 'Anuncios de TikTok' : 'Anuncios por plataforma'} sub="Qué hace la gente que llega por cada anuncio. Cada persona cuenta en el anuncio de su primer clic; «Otros» es lo que no vino de un anuncio, por canal">
           <Caja>
             {fuente === 'todo' && <div className="flex flex-wrap items-center gap-1.5 mb-2" role="tablist" aria-label="Plataforma">
-              {(['Todas', 'Meta', 'TikTok'] as const).map((p) => {
-                const info = datos?.porPlataforma.find((x) => x.nombre === p);
+              {(['Meta', 'TikTok', 'Otros'] as const).map((p) => {
+                const personas = p === 'Otros' ? datos?.embudo[0]?.organico.n : datos?.porPlataforma.find((x) => x.nombre === p)?.personas;
                 return (
                   <button key={p} role="tab" aria-selected={plataformaAnuncios === p} onClick={() => setPlataformaAnuncios(p)} className={boton(plataformaAnuncios === p)}>
                     {p}
-                    {info && <span className="opacity-70"> · {info.personas}</span>}
+                    {personas != null && <span className="opacity-70"> · {personas}</span>}
                   </button>
                 );
               })}
             </div>}
-            <div className="flex flex-wrap gap-1.5 mb-4" role="tablist" aria-label="Agrupar por">
+            {!otros && <div className="flex flex-wrap gap-1.5 mb-4" role="tablist" aria-label="Agrupar por">
               {VISTAS.map((v) => (
                 <button key={v.id} role="tab" aria-selected={vistaAnuncios === v.id} onClick={() => setVistaAnuncios(v.id)} className={boton(vistaAnuncios === v.id)}>
                   {v.boton}
                 </button>
               ))}
-            </div>
-            {vistaAnuncios === 'porUbicacion' && (
+            </div>}
+            {otros && <div className="mb-4" />}
+            {!otros && vistaAnuncios === 'porUbicacion' && (
               <p className={`text-xs ${C.suave} mb-3`}>
                 Dónde la plataforma mostró el anuncio. WhatsApp Estados, Historias de Instagram, Reels, etc. son espacios <b>pagados</b> de Meta: esas personas vieron un anuncio, no algo que compartimos.
               </p>
             )}
             <TablaAnuncios
               filas={filasAnuncios}
-              etiqueta={VISTAS.find((v) => v.id === vistaAnuncios)!.nombre}
-              verPlataforma={plataformaAnuncios === 'Todas'}
-              conApi={vistaAnuncios === 'porAnuncio' && Boolean(datos && (plataformaAnuncios === 'Todas' ? datos.api.Meta.conectado || datos.api.TikTok.conectado : datos.api[plataformaAnuncios].conectado))}
-              moneda={datos ? (plataformaAnuncios === 'TikTok' ? datos.api.TikTok.moneda : datos.api.Meta.moneda || datos.api.TikTok.moneda) : ''}
+              etiqueta={otros ? 'Canal' : VISTAS.find((v) => v.id === vistaAnuncios)!.nombre}
+              verPlataforma={false}
+              conApi={!otros && vistaAnuncios === 'porAnuncio' && Boolean(datos?.api[plataformaAnuncios as 'Meta' | 'TikTok'].conectado)}
+              moneda={datos && !otros ? datos.api[plataformaAnuncios as 'Meta' | 'TikTok'].moneda : ''}
             />
+            {plataformaAnuncios === 'TikTok' && filasAnuncios.some((f) => f.nombre.includes('falta utm_content')) && (
+              <p className="text-xs text-[#b54708] mt-3">
+                Los links de TikTok no traen el nombre del anuncio. En TikTok Ads Manager, en la URL de cada anuncio, agrega <code>&amp;utm_content=__CID_NAME__&amp;utm_term=__AID_NAME__</code>: desde ahí cada persona
+                queda con su anuncio y su grupo. Las visitas anteriores no se pueden recuperar.
+              </p>
+            )}
             <p className={`text-xs ${C.tenue} mt-3`}>
               * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Impresiones, clics y gasto vienen de las APIs de Meta y TikTok (se actualizan cada 10 minutos; los nombres se cruzan con el utm_content del
               anuncio); personas, lectura e inscritos se miden en la página.
@@ -736,6 +859,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           <span>Persona = un dispositivo o navegador.</span>
           {datos && <span>Comparado con {fechaHora(datos.anterior.desde)} – {fechaHora(datos.anterior.hasta)}.</span>}
         </div>
+        </>}
       </main>
     </div>
   );
