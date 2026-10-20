@@ -488,6 +488,55 @@ export function calcularPanel({
     porConjunto: agrupar(nombreConjunto),
     porCampana: agrupar(nombreCampana),
   };
+  // --- Campañas: nivel universal (todas), por campaña y, dentro de cada una, sus anuncios ---
+  // Cada persona cuenta en la campaña y el anuncio de su primer clic. Meta: campaña = utm_medium; TikTok: utm_campaign.
+  const resumen = (ids: string[]) => {
+    const n = ids.length;
+    const t = ids.filter((id) => tiempoDe.has(id)).map((id) => tiempoDe.get(id)!);
+    const ins = cuantos(ids, inscritosIds);
+    return { personas: n, mitad: pct(cuantos(ids, mitad), n), final: pct(cuantos(ids, final), n), registro: cuantos(ids, registro), inscritos: ins, tasa: pct(ins, n), tiempo: mediana(t) };
+  };
+  const campanas = (() => {
+    const platPestana = fuente === 'meta' ? 'Meta' : fuente === 'tiktok' ? 'TikTok' : '';
+    type Grupo = { plataforma: string; nombre: string; ids: string[]; anuncios: Map<string, string[]> };
+    const m = new Map<string, Grupo>();
+    const grupo = (v: Fila) => {
+      const plat = plataforma(v);
+      const nombre = nombreCampana(v) || '(sin nombre de campaña)';
+      const k = `${plat}|${nombre}`;
+      return m.get(k) ?? m.set(k, { plataforma: plat, nombre, ids: [], anuncios: new Map() }).get(k)!;
+    };
+    // Anuncios publicados que solo vio la revisión de la plataforma: aparecen en su campaña con 0 personas.
+    for (const v of visitas) {
+      if (!esAnuncio(v) || (platPestana && plataforma(v) !== platPestana)) continue;
+      const g = grupo(v);
+      const a = nombreAnuncio(v) || '(sin nombre)';
+      if (!g.anuncios.has(a)) g.anuncios.set(a, []);
+    }
+    for (const [id, v] of primerAnuncio) {
+      if (platPestana && plataforma(v) !== platPestana) continue;
+      const g = grupo(v);
+      g.ids.push(id);
+      const a = nombreAnuncio(v) || '(sin nombre)';
+      (g.anuncios.get(a) ?? g.anuncios.set(a, []).get(a)!).push(id);
+    }
+    const lista = [...m.values()]
+      .map((g) => ({
+        plataforma: g.plataforma,
+        nombre: g.nombre,
+        ...resumen(g.ids),
+        anuncios: [...g.anuncios.entries()]
+          .map(([nombre, ids]) => ({ plataforma: g.plataforma, nombre, ...resumen(ids) }))
+          .sort((a, b) => b.inscritos - a.inscritos || b.personas - a.personas || a.nombre.localeCompare(b.nombre)),
+      }))
+      .sort((a, b) => b.inscritos - a.inscritos || b.personas - a.personas || a.nombre.localeCompare(b.nombre));
+    const universal = (['Meta', 'TikTok'] as const).map((p) => {
+      const de = lista.filter((c) => c.plataforma === p);
+      return { plataforma: p, campanas: de.length, anuncios: de.reduce((x, c) => x + c.anuncios.length, 0), ...resumen(de.flatMap((c) => m.get(`${p}|${c.nombre}`)!.ids)) };
+    });
+    return { universal, lista };
+  })();
+
   // Lo que no vino de un anuncio, por canal, con las mismas columnas que los anuncios.
   const otros = (() => {
     const m = new Map<string, Agrupado>();
@@ -683,6 +732,7 @@ export function calcularPanel({
     navegacion,
     comportamiento,
     porPlataforma,
+    campanas,
     trafico,
     canales,
     desglose,

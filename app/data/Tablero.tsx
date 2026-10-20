@@ -579,7 +579,7 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma, fotos = false }: { fila
         <tbody>
           {filas.map((f) => (
             <tr key={f.nombre} className="border-t border-[#eef3f6]">
-              <td className="px-1 py-2.5 font-medium">
+              <td className="px-1 py-2.5 font-medium min-w-[170px]">
                 <div className="flex items-center gap-2.5">
                 {fotos && (() => {
                   const src = fotoAnuncio(f.plataforma, f.nombre);
@@ -611,13 +611,67 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma, fotos = false }: { fila
   );
 }
 
+type Campanas = DatosPanel['campanas'];
+
+/** Campañas: arriba el total de todas (nivel universal); debajo cada campaña, que se abre para ver sus anuncios con foto. */
+function VistaCampanas({ campanas, plataforma }: { campanas: Campanas; plataforma: string }) {
+  const u = campanas.universal.find((x) => x.plataforma === plataforma);
+  const lista = campanas.lista.filter((c) => c.plataforma === plataforma);
+  const ctr = (registro: number, personas: number) => (personas ? Math.round((registro / personas) * 1000) / 10 : 0);
+  const dato = (titulo: string, valor: React.ReactNode, ayuda?: string) => (
+    <div className="min-w-0" title={ayuda}>
+      <p className={`text-[11.5px] ${C.tenue}`}>{titulo}</p>
+      <p className="text-[17px] font-bold tabular-nums text-[#0A2540]">{valor}</p>
+    </div>
+  );
+  if (!u) return null;
+  return (
+    <div>
+      <div className="rounded-xl border border-[#d9e8f0] bg-[#f6fafc] px-4 py-3 mb-4">
+        <p className="text-[12px] font-semibold uppercase tracking-[.08em] text-[#017FA7] mb-2">Todas las campañas de {plataforma}</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-4 gap-y-2">
+          {dato('Campañas', u.campanas)}
+          {dato('Anuncios', u.anuncios)}
+          {dato('Personas', u.personas)}
+          {dato('Leyeron la mitad', u.personas ? <Tasa valor={u.mitad} base={u.personas} /> : '–')}
+          {dato('CTR del botón', u.personas ? <Tasa valor={ctr(u.registro, u.personas)} base={u.personas} /> : '–', 'De cada 100 personas, cuántas hicieron clic en «Inscríbete»')}
+          {dato('Inscritos', u.inscritos)}
+          {dato('Se inscriben (CVR)', u.personas ? <Tasa valor={u.tasa} base={u.personas} /> : '–', 'De cada 100 personas, cuántas se inscribieron')}
+          {dato('Tiempo típico', u.tiempo != null ? `${u.tiempo} s` : '–')}
+        </div>
+      </div>
+      {!lista.length && <p className={`text-sm ${C.tenue} px-1 py-3`}>No hubo clics de campañas de {plataforma} en este periodo.</p>}
+      <div className="space-y-2">
+        {lista.map((c, i) => (
+          <details key={c.nombre} className="group rounded-xl border border-[#e3ebf0] bg-white" open={i === 0}>
+            <summary className="list-none cursor-pointer px-3 py-2.5 flex flex-wrap items-center gap-x-5 gap-y-1">
+              <span className="flex items-center gap-2 min-w-0 mr-auto">
+                <span className="text-[#017FA7] transition-transform group-open:rotate-90" aria-hidden="true">▸</span>
+                <b className="text-[14px] text-[#0A2540] truncate">{c.nombre}</b>
+                <span className={`text-[12px] ${C.tenue}`}>· {c.anuncios.length} anuncio{c.anuncios.length === 1 ? '' : 's'}</span>
+              </span>
+              <span className="text-[13px] tabular-nums"><span className={C.tenue}>Personas </span><b>{c.personas}</b></span>
+              <span className="text-[13px] tabular-nums"><span className={C.tenue}>CTR botón </span>{c.personas ? <Tasa valor={ctr(c.registro, c.personas)} base={c.personas} /> : '–'}</span>
+              <span className="text-[13px] tabular-nums"><span className={C.tenue}>Inscritos </span><b className={c.inscritos ? 'text-[#0f9d58]' : ''}>{c.inscritos}</b></span>
+              <span className="text-[13px] tabular-nums"><span className={C.tenue}>CVR </span>{c.personas ? <Tasa valor={c.tasa} base={c.personas} /> : '–'}</span>
+            </summary>
+            <div className="px-2 pb-2 border-t border-[#eef3f6] pt-2">
+              <TablaAnuncios filas={c.anuncios} etiqueta="Anuncio" verPlataforma={false} fotos />
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Tablero({ correo, versiones }: { correo: string; versiones: Version[] }) {
   const opciones = useMemo(() => periodos(versiones), [versiones]);
   const [periodoId, setPeriodoId] = useState('7d');
   const [incluirEquipo, setIncluirEquipo] = useState(false);
   const [fuente, setFuente] = useState<'todo' | 'meta' | 'tiktok'>('todo');
   const [verCambio, setVerCambio] = useState(false);
-  const [vistaAnuncios, setVistaAnuncios] = useState<'porAnuncio' | 'porUbicacion' | 'porConjunto' | 'porCampana'>('porAnuncio');
+  const [vistaAnuncios, setVistaAnuncios] = useState<'porAnuncio' | 'porUbicacion' | 'porConjunto' | 'porCampana'>('porCampana');
   const [plataformaAnuncios, setPlataformaAnuncios] = useState<'Meta' | 'TikTok' | 'Otros'>('Meta');
   const [datos, setDatos] = useState<DatosPanel | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -784,10 +838,10 @@ export default function Tablero({ correo, versiones }: { correo: string; version
 
   const campo = 'rounded-lg border border-white/20 bg-white text-[#0A2540] px-3 py-2 text-sm';
   const VISTAS = [
-    { id: 'porAnuncio', nombre: 'Anuncio', boton: 'Por anuncio' },
-    { id: 'porUbicacion', nombre: 'Dónde se mostró', boton: 'Por ubicación' },
-    { id: 'porConjunto', nombre: 'Conjunto / grupo', boton: 'Por conjunto' },
     { id: 'porCampana', nombre: 'Campaña', boton: 'Por campaña' },
+    { id: 'porAnuncio', nombre: 'Anuncio', boton: 'Por anuncio' },
+    { id: 'porConjunto', nombre: 'Conjunto / grupo', boton: 'Por conjunto' },
+    { id: 'porUbicacion', nombre: 'Dónde se mostró', boton: 'Por ubicación' },
   ] as const;
   const otros = plataformaAnuncios === 'Otros';
   const filasAnuncios = otros ? (datos?.anuncios.otros ?? []) : (datos?.anuncios[vistaAnuncios] ?? []).filter((f) => f.plataforma === plataformaAnuncios);
@@ -1175,12 +1229,16 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                 Dónde la plataforma mostró el anuncio. WhatsApp Estados, Historias de Instagram, Reels, etc. son espacios <b>pagados</b> de Meta: esas personas vieron un anuncio, no algo que compartimos.
               </p>
             )}
+            {!otros && vistaAnuncios === 'porCampana' && datos ? (
+              <VistaCampanas campanas={datos.campanas} plataforma={plataformaAnuncios} />
+            ) : (
             <TablaAnuncios
               filas={filasAnuncios}
               etiqueta={otros ? 'Canal' : VISTAS.find((v) => v.id === vistaAnuncios)!.nombre}
               verPlataforma={false}
               fotos={!otros && vistaAnuncios === 'porAnuncio'}
             />
+            )}
             {plataformaAnuncios === 'TikTok' && filasAnuncios.some((f) => f.nombre.includes('falta utm_content')) && (
               <p className="text-xs text-[#b54708] mt-3">
                 «Sin nombre de anuncio»: personas que llegaron antes del 20 oct a las 11:45, cuando los links de TikTok aún no traían el nombre del anuncio
