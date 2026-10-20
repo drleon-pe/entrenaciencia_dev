@@ -130,7 +130,9 @@ function Guia() {
         <ul className="space-y-1.5">
           {termino('Persona', 'cada celular o computadora distinto que entró a la página. Si alguien entra 3 veces, cuenta una sola vez.')}
           {termino('Inscrito', 'persona que dejó sus datos en la lista de espera.')}
-          {termino('Tasa de inscripción', 'de cada 100 personas que entran, cuántas se inscriben. Es el número más importante.')}
+          {termino('Tasa de inscripción (CVR)', 'de cada 100 personas que entran, cuántas se inscriben. Es el número más importante.')}
+          {termino('CTR del botón', 'de cada 100 personas que entran, cuántas hacen clic en «Inscríbete» y abren el formulario.')}
+          {termino('CVR del formulario', 'de cada 100 que abren el formulario, cuántas terminan de inscribirse.')}
           {termino('Anuncio', 'la persona llegó haciendo clic en un anuncio pagado de Meta (Instagram/Facebook) o TikTok.')}
           {termino('Orgánico', 'llegó sin anuncio: desde un post, la bio, un link compartido o la web.')}
         </ul>
@@ -140,6 +142,7 @@ function Guia() {
           {termino('Número con *', 'son menos de 30 personas: todavía puede cambiar mucho, no conviene sacar conclusiones.')}
           {termino('▲ ▼ y «real»', 'la diferencia es grande y hay muy poca probabilidad (menos de 5%) de que sea casualidad.')}
           {termino('«Puede ser azar»', 'hay diferencia, pero con tan pocas personas todavía podría ser coincidencia.')}
+          {termino('CTR de los anuncios', 'clics ÷ veces que se mostró el anuncio. Ese dato lo tiene Meta o TikTok, no la página: se ve en su Ads Manager.')}
         </ul>
       </div>
     </details>
@@ -210,6 +213,9 @@ function pValor(k1: number, n1: number, k2: number, n2: number): number {
   const erf = 1 - (((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t) * Math.exp(-(z * z) / 2);
   return 1 - erf;
 }
+/** Nombres con su sigla para las filas que la tienen. */
+const ETIQUETA_FILA: Record<string, string> = { 'Abrió el registro': 'Abrió el formulario (CTR del botón)', 'Se inscribió': 'Se inscribió (CVR)' };
+
 /** En estas filas, que el número baje es bueno. */
 const MENOS_ES_MEJOR = /se fue|se fueron/i;
 
@@ -381,7 +387,7 @@ function Comportamiento({ c: todo }: { c: DatosPanel['comportamiento'] }) {
                 const todos = f.valores[0];
                 return (
                   <tr key={f.nombre} className="border-t border-[#eef3f6] text-right tabular-nums">
-                    <td className="px-1 py-2 text-left whitespace-nowrap">{f.nombre}</td>
+                    <td className="px-1 py-2 text-left whitespace-nowrap">{ETIQUETA_FILA[f.nombre] ?? f.nombre}</td>
                     {f.valores.map((v, i) => {
                       if ('valor' in v) return <td key={i} className={`px-2 py-2 ${i === 0 ? 'font-medium' : ''}`}>{v.valor != null ? `${v.valor} s` : '–'}</td>;
                       if (!v.base) return <td key={i} className={`px-2 py-2 ${C.tenue}`}>–</td>;
@@ -478,8 +484,9 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma }: { filas: FilaAnuncio[
             <th className={th}>Llegaron al final</th>
             <th className={th} title="La mitad estuvo menos que esto y la otra mitad, más">Tiempo típico</th>
             <th className={th} title="Abrieron el formulario de la lista de espera">Abrieron el formulario</th>
+            <th className={th} title="De cada 100 personas, cuántas hicieron clic en «Inscríbete»">CTR del botón</th>
             <th className={th}>Inscritos</th>
-            <th className={th} title="De cada 100 personas, cuántas se inscribieron">Se inscriben</th>
+            <th className={th} title="De cada 100 personas, cuántas se inscribieron">Se inscriben (CVR)</th>
           </tr>
         </thead>
         <tbody>
@@ -497,6 +504,7 @@ function TablaAnuncios({ filas, etiqueta, verPlataforma }: { filas: FilaAnuncio[
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.final} base={f.personas} /></td>
               <td className="px-2 py-2.5 text-right tabular-nums">{f.tiempo != null ? `${f.tiempo} s` : '–'}</td>
               <td className="px-2 py-2.5 text-right tabular-nums">{f.registro}</td>
+              <td className="px-2 py-2.5 text-right tabular-nums">{f.personas ? <Tasa valor={Math.round((f.registro / f.personas) * 1000) / 10} base={f.personas} /> : '–'}</td>
               <td className={`px-2 py-2.5 text-right tabular-nums ${f.inscritos ? 'text-[#0f9d58] font-medium' : ''}`}>{f.inscritos}</td>
               <td className="px-2 py-2.5 text-right tabular-nums"><Tasa valor={f.tasa} base={f.personas} /></td>
             </tr>
@@ -788,7 +796,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             <Tarjeta titulo="Se inscribieron" valor={k ? String(k.inscritos) : '–'} ayuda="dejaron sus datos en la lista de espera" destacada>
               {k && <Cambio ahora={k.inscritos} antes={a?.inscritos} />}
             </Tarjeta>
-            <Tarjeta titulo="Tasa de inscripción" valor={k ? `${k.conversion}%` : '–'} ayuda={k ? `de cada 100 personas, se inscriben ${n100(k.conversion)}` : 'de cada 100 personas'}>
+            <Tarjeta titulo="Tasa de inscripción (CVR)" valor={k ? `${k.conversion}%` : '–'} ayuda={k ? `de cada 100 personas, se inscriben ${n100(k.conversion)}` : 'de cada 100 personas'}>
               {k && <Cambio ahora={k.conversion} antes={a?.conversion} puntos />}
             </Tarjeta>
           </div>
@@ -840,7 +848,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                           <dd className="text-right tabular-nums">{t.pctPersonas}%</dd>
                           <dt className={C.tenue}>Inscritos</dt>
                           <dd className="text-right tabular-nums">{t.inscritos}</dd>
-                          <dt className={C.tenue} title="De cada 100 personas, cuántas se inscriben">Se inscriben</dt>
+                          <dt className={C.tenue} title="De cada 100 personas, cuántas se inscriben">Se inscriben (CVR)</dt>
                           <dd className="text-right tabular-nums">{t.personas > 0 ? <Tasa valor={t.tasa} base={t.personas} /> : '–'}</dd>
                         </>
                       )}
@@ -960,6 +968,28 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               )}
             </div>
             <p className={`text-xs ${C.tenue} mt-2`}>En naranja: cuánta gente se pierde respecto al paso anterior.</p>
+            {embudo.length === 4 && (
+              <div className="grid sm:grid-cols-3 gap-2 mt-4">
+                {[
+                  { t: 'CTR del botón «Inscríbete»', d: 'abrieron el formulario ÷ entraron', k: embudo[2], b: embudo[0] },
+                  { t: 'CVR del formulario', d: 'se inscribieron ÷ abrieron el formulario', k: embudo[3], b: embudo[2] },
+                  { t: 'CVR total (tasa de inscripción)', d: 'se inscribieron ÷ entraron', k: embudo[3], b: embudo[0] },
+                ].map((x) => (
+                  <div key={x.t} className="rounded-xl border border-[#e3edf2] px-3 py-2.5">
+                    <p className={`text-[12px] font-medium ${C.suave}`}>{x.t}</p>
+                    <p className="text-xl font-extrabold tabular-nums text-[#0A2540]">
+                      {x.b.todos.n ? <Tasa valor={Math.round((x.k.todos.n / x.b.todos.n) * 1000) / 10} base={x.b.todos.n} /> : '–'}
+                    </p>
+                    <p className={`text-[11.5px] ${C.tenue}`}>
+                      {x.d} · {x.k.todos.n} de {x.b.todos.n}
+                    </p>
+                    <p className={`text-[11.5px] ${C.tenue}`}>
+                      Por anuncio: {x.b.anuncios.n ? `${Math.round((x.k.anuncios.n / x.b.anuncios.n) * 1000) / 10}%` : '–'} · Sin anuncio: {x.b.organico.n ? `${Math.round((x.k.organico.n / x.b.organico.n) * 1000) / 10}%` : '–'}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="mt-5 pt-4 border-t border-[#eef3f6]">
               <p className={`text-[13px] font-medium ${C.suave}`}>¿Hasta qué sección llegan?</p>
               <p className={`text-xs ${C.tenue} mb-3`}>
@@ -1123,7 +1153,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                     <th className="font-medium px-2 pb-2">Llegaron al final</th>
                     <th className="font-medium px-2 pb-2">Abrieron el formulario</th>
                     <th className="font-medium px-2 pb-2">Inscritos</th>
-                    <th className="font-medium px-2 pb-2">Se inscriben</th>
+                    <th className="font-medium px-2 pb-2">Se inscriben (CVR)</th>
                   </tr>
                 </thead>
                 <tbody>
