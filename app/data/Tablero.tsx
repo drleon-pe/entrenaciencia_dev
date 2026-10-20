@@ -88,7 +88,7 @@ function Tarjeta({ titulo, valor, ayuda, destacada, children }: { titulo: string
   );
 }
 
-function Bloque({ n, titulo, sub, children }: { n: number; titulo: string; sub: string; children: React.ReactNode }) {
+function Bloque({ n, titulo, sub, children }: { n: number | string; titulo: string; sub: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
       <div className="flex items-baseline gap-3">
@@ -213,13 +213,14 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
     return () => clearInterval(id);
   }, [incluirEquipo]);
 
-  if (error) return <p className="text-sm text-[#b42318]">No se pudieron cargar los datos: {error}</p>;
-  if (!d) return <p className={`text-sm ${C.tenue}`}>Cargando…</p>;
+  if (error) return <p className="text-sm text-[#b42318]">No se pudieron cargar los datos del cambio: {error}</p>;
+  if (!d) return null;
   const nA = d.antes.kpis.personas;
   const nD = d.despues.kpis.personas;
   const horas = Math.round((Date.parse(d.generado) - Date.parse(d.despues.desde)) / 3_600_000);
   return (
-    <div className="space-y-6">
+    <Bloque n="Δ" titulo="Antes vs. después del cambio" sub="Cómo navega la gente en la versión actual frente a la versión anterior completa, en % de las personas que entraron">
+    <div className="space-y-4">
       <div className="rounded-2xl bg-[#FFF6D6] border-l-4 border-[#FFC300] px-4 py-3 text-sm text-[#0A2540]">
         <p className="font-extrabold">Cambio: {d.version.nombre}</p>
         <p>
@@ -229,9 +230,9 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
         {nD < MUESTRA_MINIMA && <p className="mt-1">Todavía hay pocas personas desde el cambio: los porcentajes van a moverse mucho las primeras horas.</p>}
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <Tarjeta titulo="Personas desde el cambio" valor={String(nD)} ayuda={`${nA} en la versión anterior`} />
         <Tarjeta titulo="Llegaron al final" valor={`${d.despues.kpis.leyeronFinal}%`} ayuda={`antes ${d.antes.kpis.leyeronFinal}%`} />
         <Tarjeta titulo="Tiempo en la página" valor={d.despues.navegacion.tiempoMediano != null ? `${d.despues.navegacion.tiempoMediano} s` : '–'} ayuda={`mediana · antes ${d.antes.navegacion.tiempoMediano ?? '–'} s`} />
+        <Tarjeta titulo="Abrieron el registro" valor={`${d.despues.navegacion.acciones[3].pct}%`} ayuda={`antes ${d.antes.navegacion.acciones[3].pct}%`} />
         <Tarjeta titulo="Conversión" valor={`${d.despues.kpis.conversion}%`} ayuda={`${d.despues.kpis.inscritos} inscritos · antes ${d.antes.kpis.conversion}%`} destacada />
       </div>
       <div className="grid lg:grid-cols-2 gap-4 items-start">
@@ -241,9 +242,10 @@ function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
       <FilasComparadas titulo="¿Desde qué sección hacen clic en «Inscríbete»?" antes={d.antes.navegacion.botones} despues={d.despues.navegacion.botones} nAntes={nA} nDespues={nD} />
       <p className={`text-xs ${C.tenue}`}>
         * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. Una persona puede contar en varias filas. La versión anterior tuvo otra mezcla de anuncios, así que conviene mirar
-        también la pestaña de cada plataforma con el periodo &quot;Versión actual&quot;.
+        también los bloques de abajo, que en esta pestaña muestran solo el periodo desde el cambio.
       </p>
     </div>
+    </Bloque>
   );
 }
 
@@ -318,7 +320,9 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const movVistos = useRef<Map<string, number> | null>(null);
   const [movNuevos, setMovNuevos] = useState<Set<string>>(new Set());
 
-  const periodo = opciones.find((p) => p.id === periodoId)!;
+  // En "Desde el cambio" todo el tablero muestra el periodo de la versión actual.
+  const idCambio = versiones[versiones.length - 1].id;
+  const periodo = opciones.find((p) => p.id === (verCambio ? idCambio : periodoId)) ?? opciones.find((p) => p.id === periodoId)!;
 
   const cargar = useCallback(async () => {
     setCargando(true);
@@ -407,7 +411,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
     if (peor.p > 0) ideas.push(`La mayor fuga está antes de "${embudo[peor.i].nombre.toLowerCase()}": se va el ${peor.p}% del paso anterior.`);
     const tiktokSinNombre = datos.anuncios.porAnuncio.find((f) => f.plataforma === 'TikTok' && f.nombre.includes('falta utm_content'));
     if (tiktokSinNombre?.personas)
-      ideas.push(`${tiktokSinNombre.personas} personas de TikTok llegaron sin el nombre del anuncio en el link: agrega utm_content=__CID_NAME__ en TikTok para separarlas por anuncio.`);
+      ideas.push(`${tiktokSinNombre.personas} personas de TikTok no tienen nombre de anuncio: llegaron antes de corregir los links (20 oct, 11:45) o por los anuncios que faltan corregir.`);
     if (k!.deAnuncios)
       ideas.push(
         `Los anuncios trajeron ${k!.deAnuncios} de ${total} personas (${Math.round((k!.deAnuncios / total) * 100)}%) y convierten al ${k!.conversionAnuncios}%.`,
@@ -445,6 +449,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               <h1 className="panel-titulo text-white">Panel de la landing /neurociencia</h1>
             </div>
           </div>
+          {verCambio && <span className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white">Desde el cambio · {fechaHora(periodo.desde)}</span>}
           <select hidden={verCambio} value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
             {opciones.map((p) => (
               <option key={p.id} value={p.id}>
@@ -483,6 +488,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               onClick={() => {
                 if (t.id === 'cambio') {
                   setVerCambio(true);
+                  setFuente('todo');
+                  setPlataformaAnuncios('Meta');
                   return;
                 }
                 setVerCambio(false);
@@ -500,8 +507,6 @@ export default function Tablero({ correo, versiones }: { correo: string; version
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-10">
-        {verCambio && <VistaCambio incluirEquipo={incluirEquipo} />}
-        {!verCambio && <>
         {error && <p className="text-sm text-[#b42318]">No se pudieron cargar los datos: {error}</p>}
 
         {/* Resumen + actividad en vivo */}
@@ -548,6 +553,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             </Caja>
         </div>
 
+        {verCambio && <VistaCambio incluirEquipo={incluirEquipo} />}
+
         <Bloque n={1} titulo="Tráfico por plataforma" sub="Personas distintas que entran cada día (hora de Lima), separadas por la plataforma de donde vienen">
           <Caja>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5">
@@ -556,24 +563,40 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                 return (
                   <div key={g.id} className="rounded-xl border border-[#e3edf2] px-3 py-2.5" style={{ borderTop: `4px solid ${g.color}` }}>
                     <p className={`text-[12px] font-medium ${C.suave}`}>{g.id}</p>
-                    <p className="text-xl font-extrabold tabular-nums text-[#0A2540]">{t?.personas ?? '–'}</p>
-                    {(g.id === 'Anuncios Meta' || g.id === 'Anuncios TikTok') && datos && (() => {
-                      const a = datos.api[g.id === 'Anuncios Meta' ? 'Meta' : 'TikTok'];
-                      if (!a.conectado) return <p className={`text-[11.5px] ${C.tenue}`}>Impresiones: falta conectar la API</p>;
-                      if (a.error) return <p className="text-[11.5px] text-[#b42318]" title={a.error}>Impresiones: error al leer la API</p>;
-                      return (
-                        <p className="text-[12px] text-[#0A2540]">
-                          <b className="tabular-nums">{miles(a.impresiones)}</b> impresiones · {a.impresiones ? `${Math.round((a.clics / a.impresiones) * 1000) / 10}% CTR` : '–'}
-                          <span className={`block ${C.tenue}`}>
-                            Gasto {dinero(a.gasto, a.moneda)}{a.costoInscrito != null ? ` · ${dinero(a.costoInscrito, a.moneda)} por inscrito` : ''}
-                          </span>
-                        </p>
-                      );
-                    })()}
-                    <p className={`text-[11.5px] ${C.tenue}`}>
-                      {t ? `${t.pctPersonas}% del tráfico · ${t.inscritos} inscritos` : ''}
-                      {t && t.personas > 0 && <> · <Tasa valor={t.tasa} base={t.personas} /></>}
+                    <p className="text-xl font-extrabold tabular-nums text-[#0A2540]">
+                      {t?.personas ?? '–'} <span className={`text-[11.5px] font-medium ${C.tenue}`}>personas</span>
                     </p>
+                    <dl className="mt-1 text-[11.5px] leading-snug grid grid-cols-[auto_1fr] gap-x-2 text-[#0A2540]">
+                      {t && (
+                        <>
+                          <dt className={C.tenue}>Del tráfico</dt>
+                          <dd className="text-right tabular-nums">{t.pctPersonas}%</dd>
+                          <dt className={C.tenue}>Inscritos</dt>
+                          <dd className="text-right tabular-nums">{t.inscritos}</dd>
+                          <dt className={C.tenue} title="Inscritos / personas">Conversión</dt>
+                          <dd className="text-right tabular-nums">{t.personas > 0 ? <Tasa valor={t.tasa} base={t.personas} /> : '–'}</dd>
+                        </>
+                      )}
+                      {(g.id === 'Anuncios Meta' || g.id === 'Anuncios TikTok') && datos && (() => {
+                        const p = g.id === 'Anuncios Meta' ? 'Meta' : 'TikTok';
+                        const a = datos.api[p];
+                        const linea = 'mt-1 pt-1 border-t border-[#eef3f6]';
+                        if (!a.conectado) return <dd className={`col-span-2 ${linea} ${C.tenue}`}>Impresiones y gasto: falta conectar la API de {p}</dd>;
+                        if (a.error) return <dd className={`col-span-2 ${linea} text-[#b42318]`} title={a.error}>Impresiones y gasto: error al leer la API de {p}</dd>;
+                        return (
+                          <>
+                            <dt className={`${C.tenue} ${linea}`}>Impresiones</dt>
+                            <dd className={`text-right tabular-nums ${linea}`}>{miles(a.impresiones)}</dd>
+                            <dt className={C.tenue} title="Clics en el anuncio / impresiones">CTR</dt>
+                            <dd className="text-right tabular-nums">{a.impresiones ? `${Math.round((a.clics / a.impresiones) * 1000) / 10}%` : '–'}</dd>
+                            <dt className={C.tenue}>Gasto</dt>
+                            <dd className="text-right tabular-nums">{dinero(a.gasto, a.moneda)}</dd>
+                            <dt className={C.tenue}>Costo por inscrito</dt>
+                            <dd className="text-right tabular-nums">{a.costoInscrito != null ? dinero(a.costoInscrito, a.moneda) : '–'}</dd>
+                          </>
+                        );
+                      })()}
+                    </dl>
                   </div>
                 );
               })}
@@ -669,8 +692,9 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             />
             {plataformaAnuncios === 'TikTok' && filasAnuncios.some((f) => f.nombre.includes('falta utm_content')) && (
               <p className="text-xs text-[#b54708] mt-3">
-                Los links de TikTok no traen el nombre del anuncio. En TikTok Ads Manager, en la URL de cada anuncio, agrega <code>&amp;utm_content=__CID_NAME__&amp;utm_term=__AID_NAME__</code>: desde ahí cada persona
-                queda con su anuncio y su grupo. Las visitas anteriores no se pueden recuperar.
+                «Sin nombre de anuncio»: personas que llegaron antes del 20 oct a las 11:45, cuando los links de TikTok aún no traían el nombre del anuncio
+                (no se puede recuperar), o por los anuncios cuyo link todavía no se pudo corregir (Delivery 1, Esconderte 2, Ropa Favorita 1, Playa 2 y Bikini 1:
+                TikTok no deja editarlos hasta reemplazar su música vencida). Desde la corrección, cada persona aparece con su anuncio.
               </p>
             )}
             <p className={`text-xs ${C.tenue} mt-3`}>
@@ -859,7 +883,6 @@ export default function Tablero({ correo, versiones }: { correo: string; version
           <span>Persona = un dispositivo o navegador.</span>
           {datos && <span>Comparado con {fechaHora(datos.anterior.desde)} – {fechaHora(datos.anterior.hasta)}.</span>}
         </div>
-        </>}
       </main>
     </div>
   );

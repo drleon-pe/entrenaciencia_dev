@@ -167,6 +167,18 @@
       vioVideo = true; evento('video_play', 'VSL', '!VideoPlay', 'video_start', 'ClickButton'); return;
     }
     if (t.closest('.ecc-testi-btn, .ecc-hero-testi')) { evento('testimonio_ver', t.closest('.ecc-hero-testi') ? 'franja inicio' : 'catálogo', null, 'testimonial_view'); return; }
+    /* Formato nuevo (landing.html): testimonios y preguntas son <details>. El clic llega antes de que se abra,
+       así que solo cuenta al abrir (no al cerrar). */
+    var sum = t.closest('details > summary'), det = sum && sum.parentNode;
+    if (det && !det.open) {
+      if (det.closest('.testi-mas')) {
+        var quien = (det.closest('.testi') || det).querySelector('.testi-quien b');
+        evento('testimonio_ver', 'carrusel · ' + ((quien && quien.textContent) || '').trim().slice(0, 60), null, 'testimonial_view'); return;
+      }
+      if (det.closest('.faq, section[data-screen-label^="05"]')) {
+        evento('faq_abrir', (sum.textContent || '').trim().slice(0, 80), null, 'faq_open'); return;
+      }
+    }
     var faq = t.closest('section[data-screen-label^="05"] [onclick], section[data-screen-label^="05"] div[style*="cursor:pointer"]');
     if (faq) { evento('faq_abrir', (faq.textContent || '').trim().slice(0, 80), null, 'faq_open'); }
   }, true);
