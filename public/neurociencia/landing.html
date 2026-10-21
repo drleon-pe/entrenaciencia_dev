@@ -376,7 +376,9 @@ p{margin:0}
 .video-play svg{margin-left:3px}
 .video-play:hover{transform:scale(1.07)}
 .video-vistas{position:absolute;left:8px;bottom:8px;background:rgba(10,37,64,.85);color:#fff;font:600 11px/1 "Poppins";letter-spacing:.04em;padding:6px 8px;border-radius:6px}
-.video-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.video-media iframe{display:block;width:100%;border:0;background:#fff}
+.video-media.jugando{aspect-ratio:auto;background:#fff}
+.video-media.jugando img{display:none}
 .video .testi-txt{gap:8px}
 .video-ig{display:inline-flex;align-items:center;gap:6px;font:600 12.5px/1 "Poppins";color:var(--teal);text-decoration:none}
 .video-ig:hover{text-decoration:underline}
@@ -1257,7 +1259,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
     b.addEventListener('click',function(){
       var card=b.closest('.testi'), id=card.getAttribute('data-reel'), m=card.querySelector('.video-media');
       var f=document.createElement('iframe'); f.src='https://www.instagram.com/reel/'+id+'/embed/'; f.title=b.getAttribute('aria-label'); f.allow='autoplay; encrypted-media; picture-in-picture'; f.setAttribute('allowfullscreen','');
-      m.appendChild(f); b.remove(); var v=m.querySelector('.video-vistas'); if(v) v.remove();
+      f.style.height=Math.round(m.clientWidth*16/9+200)+'px'; m.classList.add('jugando'); m.appendChild(f); b.remove(); var v=m.querySelector('.video-vistas'); if(v) v.remove();
       if(window.eccEvento) try{window.eccEvento('contenido_play',id+' · '+card.querySelector('h3').textContent.trim().slice(0,60),null,'contenido_play',null)}catch(x){}
     });
   });
