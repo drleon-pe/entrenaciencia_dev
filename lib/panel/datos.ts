@@ -156,7 +156,8 @@ function ubicacion(v: Fila): string {
 
 /** Nombre del anuncio, conjunto y campaña según la plataforma (TikTok: utm_content = anuncio, utm_term = grupo). */
 function nombreAnuncio(v: Fila): string {
-  const n = etiqueta(v.utm_content);
+  // TikTok manda en __CID_NAME__ el archivo del creativo antes del nombre ("L8-a_MyxXjBz3.png_L8-A"): queda solo "L8-A".
+  const n = etiqueta(v.utm_content).replace(/^.*\.(png|jpe?g|webp|gif|mp4|mov)_/i, '');
   if (n) return n;
   if (!limpiar(v.utm_source) && plataforma(v)) return `${plataforma(v)} · clic sin etiquetas`;
   // Los links de TikTok necesitan utm_content=__CID_NAME__ para saber de qué anuncio vino cada persona.
