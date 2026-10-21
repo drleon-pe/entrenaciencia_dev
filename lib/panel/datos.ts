@@ -99,7 +99,7 @@ function dispositivo(ua: string, path: string): string {
  */
 export function plataforma(v: Fila): '' | 'Meta' | 'TikTok' {
   const src = limpiar(v.utm_source);
-  if (/^(facebook|instagram|messenger|whatsapp|audience|threads|others?)(_|$)/i.test(src) && Boolean(limpiar(v.utm_content))) return 'Meta';
+  if (/^(facebook|instagram|messenger|whatsapp|audience|an|threads|others?)(_|$)/i.test(src) && Boolean(limpiar(v.utm_content))) return 'Meta';
   if (/^tiktok/i.test(src) && (/^(paid|cpc|ads?|pago)$/i.test(limpiar(v.utm_medium)) || Boolean(limpiar(v.utm_campaign)))) return 'TikTok';
   return '';
 }
@@ -108,6 +108,7 @@ export function esAnuncio(v: Fila): boolean {
 }
 
 const MACRO_SIN_REEMPLAZAR = /__[A-Z_]+__|\{\{[^}]*\}\}/;
+const ROBOT_UA = /meta-externalads|facebookexternalhit|facebookcatalog|bytespider|tiktokspider|bot\b|crawler|spider|headless/i;
 
 /** Nombre corto de cada sección de la landing (data-screen-label), en el orden en que aparecen. */
 const SECCIONES: [string, string][] = [
@@ -128,7 +129,7 @@ const UBICACIONES: Record<string, string> = {
   facebook_mobile_reels: 'Facebook · Reels', facebook_stories: 'Facebook · Historias', facebook_right_column: 'Facebook · Columna derecha',
   facebook_marketplace: 'Facebook · Marketplace', facebook_instream_video: 'Facebook · Videos', facebook_search: 'Facebook · Búsqueda',
   threads_feed: 'Threads · Feed', messenger_inbox: 'Messenger · Bandeja', messenger_stories: 'Messenger · Historias',
-  audience_network: 'Audience Network (apps de terceros)', others: 'Meta · Otras ubicaciones', other: 'Meta · Otras ubicaciones',
+  audience_network: 'Audience Network (apps de terceros)', an: 'Audience Network (apps de terceros)', others: 'Meta · Otras ubicaciones', other: 'Meta · Otras ubicaciones',
 };
 
 /** Nombre legible de dónde se mostró el anuncio. */
@@ -260,7 +261,7 @@ async function leerRango(desdePedido: string, hasta: string) {
       'created_at, anonymous_id, session_id, path, referrer, user_agent, country, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source',
       (q) => rango(q.or('path.like./vsl%,path.like./neurociencia%').not('path', 'like', '%pago%')),
     ),
-    todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind', (q) => rango(q.eq('resource_title', RECURSO_LANDING))),
+    todas('resource_events', 'created_at, anonymous_id, session_id, event_type, resource_kind, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source', (q) => rango(q.eq('resource_title', RECURSO_LANDING))),
     todas('leads', 'id, created_at, name, email, whatsapp, whatsapp_country_code, survey, anonymous_id, utm_source, utm_medium, utm_campaign, utm_content, utm_term, first_touch_utm_source', (q) =>
       rango(q.eq('source', FUENTE_LISTA)),
     ),
@@ -316,6 +317,10 @@ export function calcularPanel({
     if (esAnuncio(v) && !paises.includes(s(v.country).toUpperCase())) robots.add(id);
     // El revisor de anuncios abre el link sin reemplazar sus macros (__CID_NAME__, {{ad.name}}), aunque entre desde Perú.
     if (MACRO_SIN_REEMPLAZAR.test([v.utm_source, v.utm_medium, v.utm_campaign, v.utm_content, v.utm_term].map(s).join('|'))) robots.add(id);
+    // Rastreadores (meta-externalads, facebookexternalhit, bots) y revisores que abren el link sin etiquetas desde fuera
+    // de los países de los anuncios (EE. UU., Brasil, Alemania…): llegan como "Web entrenaciencia.com" o "Link directo".
+    if (ROBOT_UA.test(s(v.user_agent))) robots.add(id);
+    else if (!s(v.utm_source) && !paises.includes(s(v.country).toUpperCase()) && /entrenaciencia\.com\/neurociencia(\?fbclid=|$|\?)/.test(s(v.referrer))) robots.add(id);
   }
   // Nunca se descarta a quien se inscribió.
   for (const x of [...inscritos, ...eventos.filter((e) => e.event_type === 'lista_espera')]) robots.delete(s(x.anonymous_id));
@@ -330,6 +335,13 @@ export function calcularPanel({
       if (!limpio(id) || vistos.has(id)) continue;
       vistos.add(id);
       if (CANALES_FUENTE[fuente].includes(canal(v))) deFuente.add(id);
+    }
+    // Quien no tiene la visita registrada pertenece a la plataforma de las etiquetas de su inscripción o sus eventos.
+    for (const x of [...inscritos, ...eventos]) {
+      const id = s(x.anonymous_id);
+      if (!id || !limpio(id) || vistos.has(id)) continue;
+      vistos.add(id);
+      if (CANALES_FUENTE[fuente].includes(canal(x))) deFuente.add(id);
     }
   }
   const vale = (id: unknown) => limpio(id) && (!deFuente || deFuente.has(s(id)));
@@ -348,10 +360,12 @@ export function calcularPanel({
   // Personas sin visita registrada (el aviso de entrada no llegó, p. ej. en el navegador interno de TikTok) pero con
   // actividad: inscripción o cualquier evento (bajar, salir…). Igual entraron, así que cuentan; primero se usa la
   // inscripción (trae etiquetas UTM) y si no, su primer evento. Sin origen conocido, caen en "Otros".
-  if (fuente === 'todo') {
+  {
     for (const x of [...L, ...E.filter((e) => e.event_type === 'lista_espera'), ...E]) {
       const id = s(x.anonymous_id);
       if (id && !primera.has(id)) primera.set(id, x);
+      // Sus eventos traen las etiquetas del anuncio: así cuentan en su plataforma y anuncio, no en "Otros".
+      if (id && !primerAnuncio.has(id) && esAnuncio(x)) primerAnuncio.set(id, x);
     }
   }
   const personas = [...primera.keys()];
@@ -520,16 +534,26 @@ export function calcularPanel({
       const a = nombreAnuncio(v) || '(sin nombre)';
       (g.anuncios.get(a) ?? g.anuncios.set(a, []).get(a)!).push(id);
     }
+    // Activa = tuvo clics reales en las últimas 24 horas (sin las APIs no se sabe si está pausada; esto la delata).
+    const ultimaClic = new Map<string, string>();
+    for (const v of V) {
+      if (!esAnuncio(v) || robots.has(s(v.anonymous_id))) continue;
+      const k = `${plataforma(v)}|${nombreCampana(v) || '(sin nombre de campaña)'}`;
+      if ((ultimaClic.get(k) ?? '') < s(v.created_at)) ultimaClic.set(k, s(v.created_at));
+    }
+    const hace24 = new Date(Date.now() - 24 * 3600_000).toISOString();
     const lista = [...m.values()]
       .map((g) => ({
         plataforma: g.plataforma,
         nombre: g.nombre,
+        ultimoClic: ultimaClic.get(`${g.plataforma}|${g.nombre}`) ?? null,
+        activa: (ultimaClic.get(`${g.plataforma}|${g.nombre}`) ?? '') >= hace24,
         ...resumen(g.ids),
         anuncios: [...g.anuncios.entries()]
           .map(([nombre, ids]) => ({ plataforma: g.plataforma, nombre, ...resumen(ids) }))
           .sort((a, b) => b.inscritos - a.inscritos || b.personas - a.personas || a.nombre.localeCompare(b.nombre)),
       }))
-      .sort((a, b) => b.inscritos - a.inscritos || b.personas - a.personas || a.nombre.localeCompare(b.nombre));
+      .sort((a, b) => Number(b.activa) - Number(a.activa) || b.inscritos - a.inscritos || b.personas - a.personas || a.nombre.localeCompare(b.nombre));
     const universal = (['Meta', 'TikTok'] as const).map((p) => {
       const de = lista.filter((c) => c.plataforma === p);
       return { plataforma: p, campanas: de.length, anuncios: de.reduce((x, c) => x + c.anuncios.length, 0), ...resumen(de.flatMap((c) => m.get(`${p}|${c.nombre}`)!.ids)) };

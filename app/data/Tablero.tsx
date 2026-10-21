@@ -642,13 +642,20 @@ function VistaCampanas({ campanas, plataforma }: { campanas: Campanas; plataform
       </div>
       {!lista.length && <p className={`text-sm ${C.tenue} px-1 py-3`}>No hubo clics de campañas de {plataforma} en este periodo.</p>}
       <div className="space-y-2">
-        {lista.map((c, i) => (
-          <details key={c.nombre} className="group rounded-xl border border-[#e3ebf0] bg-white" open={i === 0}>
+        {lista.map((c) => (
+          <details key={`${c.nombre}|${c.activa}`} className={`group rounded-xl border bg-white ${c.activa ? 'border-[#9fd3e3]' : 'border-[#e3ebf0]'}`} open={c.activa}>
             <summary className="list-none cursor-pointer px-3 py-2.5 flex flex-wrap items-center gap-x-5 gap-y-1">
               <span className="flex items-center gap-2 min-w-0 mr-auto">
                 <span className="text-[#017FA7] transition-transform group-open:rotate-90" aria-hidden="true">▸</span>
                 <b className="text-[14px] text-[#0A2540] truncate">{c.nombre}</b>
                 <span className={`text-[12px] ${C.tenue}`}>· {c.anuncios.length} anuncio{c.anuncios.length === 1 ? '' : 's'}</span>
+                {c.activa ? (
+                  <span className="shrink-0 rounded-full bg-[#e6f6ee] text-[#0f7a45] px-2 py-0.5 text-[11px] font-semibold">● Activa</span>
+                ) : (
+                  <span className={`shrink-0 rounded-full bg-[#f1f4f6] px-2 py-0.5 text-[11px] ${C.tenue}`} title={c.ultimoClic ? `Último clic real: ${new Date(c.ultimoClic).toLocaleString('es-PE', { timeZone: 'America/Lima', dateStyle: 'short', timeStyle: 'short' })}` : 'Sin clics reales'}>
+                    Pausada (sin clics en 24 h)
+                  </span>
+                )}
               </span>
               <span className="text-[13px] tabular-nums"><span className={C.tenue}>Personas </span><b>{c.personas}</b></span>
               <span className="text-[13px] tabular-nums"><span className={C.tenue}>CTR botón </span>{c.personas ? <Tasa valor={ctr(c.registro, c.personas)} base={c.personas} /> : '–'}</span>
