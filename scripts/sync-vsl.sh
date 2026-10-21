@@ -30,7 +30,7 @@ done
 # Desde el 15 oct 2026 la página publicada es la del formato nuevo (prueba-formato.html, una sola página para celular y escritorio).
 # Se publica como landing.html (indexable) y index.html redirige ahí; las versiones anteriores siguen en landing-movil/escritorio.html.
 sed "s|<meta name=\"robots\" content=\"noindex, nofollow\">||; s|<title>[^<]*</title>|<title>Transforma tu Cuerpo en 12 Semanas con Neurociencia \| Entrena con Ciencia</title>|" "$ORIGEN/prueba-formato.html" > "$DESTINO/landing.html"
-sed -i.bak "s|location.replace((m?'landing-movil.html':'landing-escritorio.html')+location.search)|location.replace('/neurociencia/landing.html'+location.search)|; s|href=\"landing-escritorio.html\"|href=\"/neurociencia/landing.html\"|" "$DESTINO/index.html"
+sed -i.bak "s|location.replace((m?'landing-movil.html':'landing-escritorio.html')+location.search+location.hash)|location.replace('/neurociencia/landing.html'+location.search+location.hash)|; s|href=\"landing-escritorio.html\"|href=\"/neurociencia/landing.html\"|" "$DESTINO/index.html"
 rm -f "$DESTINO/index.html.bak"
 # La versión pagada guardada (pago.html) usa la misma corrección de rutas.
 if [ -f "$DESTINO/pago.html" ]; then

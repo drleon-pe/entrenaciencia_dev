@@ -38,7 +38,11 @@
   /* ---------- UTM (igual que lib/utm.ts) ---------- */
   var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
   function capturarUtm() {
-    var p = new URLSearchParams(location.search), u = {};
+    /* Si un nombre trae "#" (p. ej. el conjunto "Batch #2"), el navegador corta ahí el link y el resto queda en
+       location.hash; se vuelve a unir para no perder el nombre del anuncio ni del conjunto. */
+    var q = location.search, h = location.hash;
+    if (h && /utm_/.test(h)) q = q ? q + '%23' + h.slice(1) : '?' + h.slice(1);
+    var p = new URLSearchParams(q), u = {};
     KEYS.forEach(function (k) { var v = p.get(k); if (v) u[k] = v; });
     if (!Object.keys(u).length) return;
     try {
