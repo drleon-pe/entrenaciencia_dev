@@ -617,6 +617,9 @@ type Campanas = DatosPanel['campanas'];
 function VistaCampanas({ campanas, plataforma }: { campanas: Campanas; plataforma: string }) {
   const u = campanas.universal.find((x) => x.plataforma === plataforma);
   const lista = campanas.lista.filter((c) => c.plataforma === plataforma);
+  const activas = lista.filter((c) => c.activa);
+  const pausadas = lista.length - activas.length;
+  const [verPausadas, setVerPausadas] = useState(false);
   const ctr = (registro: number, personas: number) => (personas ? Math.round((registro / personas) * 1000) / 10 : 0);
   const dato = (titulo: string, valor: React.ReactNode, ayuda?: string) => (
     <div className="min-w-0" title={ayuda}>
@@ -641,8 +644,9 @@ function VistaCampanas({ campanas, plataforma }: { campanas: Campanas; plataform
         </div>
       </div>
       {!lista.length && <p className={`text-sm ${C.tenue} px-1 py-3`}>No hubo clics de campañas de {plataforma} en este periodo.</p>}
+      {lista.length > 0 && !activas.length && <p className={`text-sm ${C.tenue} px-1 py-2`}>Ninguna campaña de {plataforma} tuvo clics en las últimas 6 horas.</p>}
       <div className="space-y-2">
-        {lista.map((c) => (
+        {(verPausadas ? lista : activas).map((c) => (
           <details key={`${c.nombre}|${c.activa}`} className={`group rounded-xl border bg-white ${c.activa ? 'border-[#9fd3e3]' : 'border-[#e3ebf0]'}`} open={c.activa}>
             <summary className="list-none cursor-pointer px-3 py-2.5 flex flex-wrap items-center gap-x-5 gap-y-1">
               <span className="flex items-center gap-2 min-w-0 mr-auto">
@@ -653,7 +657,7 @@ function VistaCampanas({ campanas, plataforma }: { campanas: Campanas; plataform
                   <span className="shrink-0 rounded-full bg-[#e6f6ee] text-[#0f7a45] px-2 py-0.5 text-[11px] font-semibold">● Activa</span>
                 ) : (
                   <span className={`shrink-0 rounded-full bg-[#f1f4f6] px-2 py-0.5 text-[11px] ${C.tenue}`} title={c.ultimoClic ? `Último clic real: ${new Date(c.ultimoClic).toLocaleString('es-PE', { timeZone: 'America/Lima', dateStyle: 'short', timeStyle: 'short' })}` : 'Sin clics reales'}>
-                    Pausada (sin clics en 24 h)
+                    Pausada (sin clics en 6 h)
                   </span>
                 )}
               </span>
@@ -668,6 +672,11 @@ function VistaCampanas({ campanas, plataforma }: { campanas: Campanas; plataform
           </details>
         ))}
       </div>
+      {pausadas > 0 && (
+        <button type="button" onClick={() => setVerPausadas((x) => !x)} className="mt-2 text-[13px] text-[#017FA7] hover:underline">
+          {verPausadas ? 'Ocultar campañas pausadas' : `Ver campañas pausadas (${pausadas})`}
+        </button>
+      )}
     </div>
   );
 }

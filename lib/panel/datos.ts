@@ -108,6 +108,8 @@ export function esAnuncio(v: Fila): boolean {
 }
 
 const MACRO_SIN_REEMPLAZAR = /__[A-Z_]+__|\{\{[^}]*\}\}/;
+/** Una campaña cuenta como activa si tuvo clics reales en estas últimas horas (una pausada deja de recibirlos al instante). */
+export const HORAS_ACTIVA = 6;
 const ROBOT_UA = /meta-externalads|facebookexternalhit|facebookcatalog|bytespider|tiktokspider|bot\b|crawler|spider|headless/i;
 
 /** Nombre corto de cada sección de la landing (data-screen-label), en el orden en que aparecen. */
@@ -295,8 +297,8 @@ export async function leerPanel({ desde, hasta, incluirEquipo, fuente = 'todo' }
   const antesDesde = new Date(ini - corrimiento).toISOString();
   const antesHasta = new Date(fin - corrimiento).toISOString();
 
-  // Últimas 24 horas, sea cual sea el periodo elegido: dice qué campañas están activas ahora.
-  const hace24 = new Date(Date.now() - 24 * 3600_000).toISOString();
+  // Últimas horas, sea cual sea el periodo elegido: dice qué campañas están activas ahora.
+  const hace24 = new Date(Date.now() - HORAS_ACTIVA * 3600_000).toISOString();
   const [actual, anterior, reciente] = await Promise.all([
     leerRango(desde, hasta),
     leerRango(antesDesde, antesHasta),
@@ -325,7 +327,7 @@ export function calcularPanel({
   incluirEquipo: boolean;
   fuente?: Fuente;
   equipoHistorico?: string[];
-  /** Último clic real por campaña en las últimas 24 h (para marcarla activa aunque el periodo elegido sea otro). */
+  /** Último clic real por campaña en las últimas horas (para marcarla activa aunque el periodo elegido sea otro). */
   ultimosClics?: Record<string, string>;
 }) {
   // --- Limpieza: equipo y robots de revisión de Meta y TikTok ---
@@ -556,14 +558,14 @@ export function calcularPanel({
       const a = nombreAnuncio(v) || '(sin nombre)';
       (g.anuncios.get(a) ?? g.anuncios.set(a, []).get(a)!).push(id);
     }
-    // Activa = tuvo clics reales en las últimas 24 horas (sin las APIs no se sabe si está pausada; esto la delata).
+    // Activa = tuvo clics reales en las últimas HORAS_ACTIVA horas (sin las APIs no se sabe si está pausada; esto la delata).
     const ultimaClic = new Map<string, string>(Object.entries(ultimosClics ?? {}));
     if (!ultimosClics) for (const v of V) {
       if (!esAnuncio(v) || robots.has(s(v.anonymous_id))) continue;
       const k = `${plataforma(v)}|${nombreCampana(v) || '(sin nombre de campaña)'}`;
       if ((ultimaClic.get(k) ?? '') < s(v.created_at)) ultimaClic.set(k, s(v.created_at));
     }
-    const hace24 = new Date(Date.now() - 24 * 3600_000).toISOString();
+    const hace24 = new Date(Date.now() - HORAS_ACTIVA * 3600_000).toISOString();
     const lista = [...m.values()]
       .map((g) => ({
         plataforma: g.plataforma,
