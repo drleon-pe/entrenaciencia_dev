@@ -376,16 +376,19 @@ p{margin:0}
 .video-play svg{margin-left:3px}
 .video-play:hover{transform:scale(1.07)}
 .video-vistas{position:absolute;left:8px;bottom:8px;background:rgba(10,37,64,.85);color:#fff;font:600 11px/1 "Poppins";letter-spacing:.04em;padding:6px 8px;border-radius:6px}
-.video-media iframe{display:block;width:100%;border:0;background:#fff}
-.video-media.jugando{aspect-ratio:auto;background:#fff}
-.video-media.jugando img{display:none}
+.video-modal{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px 16px;background:rgba(1,13,21,.82)}
+.video-modal[hidden]{display:none}
+.video-modal-caja{position:relative;width:min(400px,100%);max-height:calc(100svh - 80px);overflow:auto;border-radius:16px;background:#fff}
+.video-modal iframe{display:block;width:100%;border:0}
+.video-modal-x{align-self:center;flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#0A2540;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
 .video .testi-txt{gap:8px}
 .video-ig{display:inline-flex;align-items:center;gap:6px;font:600 12.5px/1 "Poppins";color:var(--teal);text-decoration:none}
 .video-ig:hover{text-decoration:underline}
 .ig-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 24px;border-radius:999px;background:#fff;border:1.5px solid var(--teal);color:var(--navy);font:600 14.5px/1 "Poppins";text-decoration:none;box-shadow:var(--suave-card)}
 .ig-btn i{font-size:21px;color:var(--teal)}
 .ig-btn:hover{background:var(--celeste-2)}
-.testi.video{flex-basis:68%}
+.testi.video{flex-basis:46%}
+@media (max-width:767px){.video-play{width:48px;height:48px;margin:-24px 0 0 -24px}.video-play svg{width:20px;height:20px}.video .testi-txt{padding:10px 12px 12px}.video .testi-txt h3{font-size:14px}.video-ig{font-size:11.5px}.video-vistas{font-size:10px;padding:5px 6px}}
 @media (min-width:768px){.testi.video{flex-basis:calc((100% - 32px)/3)}}
 @media (min-width:1024px){.testi.video{flex-basis:calc((100% - 48px)/4)}}
 .aviso{margin-top:14px;font-size:12.5px;color:var(--suave);text-align:center}
@@ -574,7 +577,9 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .badge.am{background:var(--amarillo);color:var(--navy-2)}
 .incluye{border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde);padding:16px}
 .incluye > b{display:block;font:600 12px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:12px}
-.sello-antes{font-weight:500;text-decoration-thickness:1.5px}
+.cta-wrap.cta-dos{padding-top:24px}
+.sello.sello-dos{display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:12px;padding:6px 14px;line-height:1}
+.sello-extra{font-weight:800;letter-spacing:.05em}
 .precio{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .precio-rotulo{font:600 12px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
 .precio-fila{display:flex;align-items:baseline;justify-content:center;gap:12px}
@@ -886,8 +891,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
         </ul>
       </div>
       <div>
-        <div class="cta-wrap">
-          <span class="sello">Oferta de lanzamiento · 40% OFF · <s class="sello-antes">S/ 249</s> S/ 149</span>
+        <div class="cta-wrap cta-dos">
+          <span class="sello sello-dos">Oferta de lanzamiento · 40% OFF<span class="sello-extra">Accede al descuento gratis</span></span>
           <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
         </div>
         <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
@@ -1054,7 +1059,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 </section>
 
 <div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.webp" alt="" loading="lazy" decoding="async"></span></div>
-<!-- ============ NUESTRO CONTENIDO (los 10 Reels del estilo nuevo (desde el 10 jul 2026) con más alcance relativo según Sandcastles, sin temas repetidos; reemplaza a los testimonios) ============ -->
+<!-- ============ NUESTRO CONTENIDO (los 10 Reels del estilo nuevo (desde el 10 jul 2026) con más alcance relativo según Sandcastles, sin temas repetidos y solo los que pasan las 10 mil vistas; reemplaza a los testimonios) ============ -->
 <section class="sec" style="padding-top:54px;padding-bottom:54px" data-screen-label="04b Nuestro contenido">
   <div class="envase">
     <h2 class="titulo centro">Nuestro <span class="teal">contenido</span></h2>
@@ -1074,12 +1079,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
           <div class="testi-txt"><h3>¿Cuántas repeticiones hacer?</h3><a class="video-ig" href="https://www.instagram.com/reel/Da1EebCTLoF/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
         <article class="testi video" data-reel="Dbef5AOTRIz"><div class="video-media"><img src="assets/contenido/Dbef5AOTRIz.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cuánto descansar entre series?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">19 mil vistas</span></div>
           <div class="testi-txt"><h3>¿Cuánto descansar entre series?</h3><a class="video-ig" href="https://www.instagram.com/reel/Dbef5AOTRIz/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
-        <article class="testi video" data-reel="DdSURs9zdxc"><div class="video-media"><img src="assets/contenido/DdSURs9zdxc.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿El alcohol te hace perder músculo?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button></div>
-          <div class="testi-txt"><h3>¿El alcohol te hace perder músculo?</h3><a class="video-ig" href="https://www.instagram.com/reel/DdSURs9zdxc/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
-        <article class="testi video" data-reel="Dd2eSD0MH9B"><div class="video-media"><img src="assets/contenido/Dd2eSD0MH9B.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cuántas veces entrenar cada músculo?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button></div>
-          <div class="testi-txt"><h3>¿Cuántas veces entrenar cada músculo?</h3><a class="video-ig" href="https://www.instagram.com/reel/Dd2eSD0MH9B/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
-        <article class="testi video" data-reel="Db4GMNOTYb1"><div class="video-media"><img src="assets/contenido/Db4GMNOTYb1.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: 5 carbohidratos para perder peso"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button></div>
-          <div class="testi-txt"><h3>5 carbohidratos para perder peso</h3><a class="video-ig" href="https://www.instagram.com/reel/Db4GMNOTYb1/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
       </div>
       <button type="button" class="lado izq" id="car-izq" aria-label="Video anterior"><i class="ph-light ph-caret-left"></i></button>
       <button type="button" class="lado der" id="car-der" aria-label="Siguiente video"><i class="ph-light ph-caret-right"></i></button>
@@ -1253,14 +1252,23 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 })();
 
 
-/* Nuestro contenido: al tocar play se carga ahí mismo el reproductor de Instagram (antes no se carga nada de Instagram) */
+/* Nuestro contenido: al tocar play se abre el reproductor de Instagram en una ventana grande (antes no se carga nada de Instagram) */
 (function(){
+  var M=document.createElement('div'); M.className='video-modal'; M.hidden=true; M.setAttribute('role','dialog'); M.setAttribute('aria-modal','true');
+  M.innerHTML='<button type="button" class="video-modal-x" aria-label="Cerrar video"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="video-modal-caja"></div>';
+  document.body.appendChild(M);
+  var caja=M.querySelector('.video-modal-caja'), x=M.querySelector('.video-modal-x'), antes=null;
+  function cerrar(){ M.hidden=true; caja.innerHTML=''; document.documentElement.style.overflow=''; if(antes&&antes.focus) antes.focus({preventScroll:true}); }
+  x.addEventListener('click',cerrar); M.addEventListener('click',function(e){ if(e.target===M) cerrar(); });
+  document.addEventListener('keydown',function(e){ if(!M.hidden&&e.key==='Escape') cerrar(); });
   [].forEach.call(document.querySelectorAll('.testi.video .video-play'),function(b){
     b.addEventListener('click',function(){
-      var card=b.closest('.testi'), id=card.getAttribute('data-reel'), m=card.querySelector('.video-media');
+      var card=b.closest('.testi'), id=card.getAttribute('data-reel');
+      antes=b; M.hidden=false; document.documentElement.style.overflow='hidden';
+      var w=Math.min(400,innerWidth-32);
       var f=document.createElement('iframe'); f.src='https://www.instagram.com/reel/'+id+'/embed/'; f.title=b.getAttribute('aria-label'); f.allow='autoplay; encrypted-media; picture-in-picture'; f.setAttribute('allowfullscreen','');
-      f.style.height=Math.round(m.clientWidth*16/9+200)+'px'; m.classList.add('jugando'); m.appendChild(f); b.remove(); var v=m.querySelector('.video-vistas'); if(v) v.remove();
-      if(window.eccEvento) try{window.eccEvento('contenido_play',id+' · '+card.querySelector('h3').textContent.trim().slice(0,60),null,'contenido_play',null)}catch(x){}
+      f.style.height=Math.round(w*16/9+140)+'px'; caja.appendChild(f); x.focus({preventScroll:true});
+      if(window.eccEvento) try{window.eccEvento('contenido_play',id+' · '+card.querySelector('h3').textContent.trim().slice(0,60),null,'contenido_play',null)}catch(e){}
     });
   });
 })();
@@ -1289,8 +1297,8 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   addEventListener('resize',marcar); marcar();
   /* arrastrar con el mouse (en touch ya desliza solo) */
   var x0=0,s0=0,activo=false,movio=false;
-  p.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;activo=true;movio=false;x0=e.clientX;s0=p.scrollLeft;p.setPointerCapture(e.pointerId)});
-  p.addEventListener('pointermove',function(e){if(!activo)return;var dx=e.clientX-x0;if(Math.abs(dx)>4){movio=true;p.classList.add('arrastrando')}if(movio)p.scrollLeft=s0-dx});
+  p.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;activo=true;movio=false;x0=e.clientX;s0=p.scrollLeft});
+  p.addEventListener('pointermove',function(e){if(!activo)return;var dx=e.clientX-x0;if(Math.abs(dx)>4&&!movio){movio=true;p.classList.add('arrastrando');try{p.setPointerCapture(e.pointerId)}catch(x){}}if(movio)p.scrollLeft=s0-dx});
   function soltar(e){if(!activo)return;activo=false;if(!movio)return;var dx=e.clientX-x0;p.classList.remove('arrastrando');var k=idx(p.scrollLeft);if(Math.abs(dx)>40){var k0=idx(s0);k=dx<0?Math.max(k,k0+1):Math.min(k,k0-1)}a(k)}
   p.addEventListener('pointerup',soltar); p.addEventListener('pointercancel',soltar);
   p.addEventListener('click',function(e){if(movio){e.preventDefault();e.stopPropagation();movio=false}},true);
