@@ -62,6 +62,14 @@ const GRUPOS = [
 ] as const;
 const VERDE = '#0f9d58';
 
+/**
+ * Campañas que no llevan a la web (reconocimiento / Reels promocionados): quien llega por ellas entra desde el perfil
+ * y se cuenta como «Instagram y Facebook orgánico». Agregar una fila por campaña nueva de este tipo.
+ */
+const CAMPANAS_SIN_ENLACE = [
+  { nombre: 'ECC | Awareness', anuncios: 'Reel «Cardio vs Pesas»', desde: '2026-10-21', grupo: 'Instagram y Facebook orgánico' as const },
+];
+
 /** Cambio frente al periodo anterior. `puntos` = diferencia en puntos porcentuales (para tasas). */
 function Cambio({ ahora, antes, puntos }: { ahora: number; antes: number | undefined; puntos?: boolean }) {
   if (antes == null) return null;
@@ -1116,6 +1124,20 @@ export default function Tablero({ correo, versiones }: { correo: string; version
                 </tbody>
               </table>
             </div>
+            {CAMPANAS_SIN_ENLACE.map((c) => {
+              const dias = datos?.porDia ?? [];
+              const media = (xs: typeof dias) => (xs.length ? Math.round((xs.reduce((t, d) => t + d.plataformas[c.grupo], 0) / xs.length) * 10) / 10 : null);
+              const antes = media(dias.filter((d) => d.fecha < c.desde));
+              const despues = media(dias.filter((d) => d.fecha >= c.desde));
+              return (
+                <div key={c.nombre} className="mt-4 rounded-xl border border-[#f1d3e0] bg-[#fdf3f7] px-4 py-3 text-[13px] text-[#0A2540]">
+                  <b>Campaña «{c.nombre}»</b> desde el {diaCorto(c.desde)} ({c.anuncios}): no tiene enlace a la web, así que quien llega por ella entra desde el perfil y se cuenta en <b>{c.grupo}</b>.
+                  {despues !== null && antes !== null && (
+                    <> En este periodo: <b className="tabular-nums">{despues}</b> personas por día desde que empezó, frente a <span className="tabular-nums">{antes}</span> por día antes.</>
+                  )}
+                </div>
+              );
+            })}
           </Caja>
         </Bloque>
 
