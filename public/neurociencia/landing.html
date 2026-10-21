@@ -369,6 +369,23 @@ p{margin:0}
 .pista.empuja .testi{animation:empuja .95s cubic-bezier(.3,.7,.3,1)}
 @keyframes empuja{0%,100%{translate:0}40%{translate:-42px}70%{translate:6px}}
 @media (prefers-reduced-motion:reduce){.pista.empuja .testi{animation:none}}
+/* tarjetas de video (Nuestro contenido): portada 9:16, se reproduce ahí mismo con el reproductor de Instagram */
+.video-media{position:relative;aspect-ratio:9/16;background:var(--navy);overflow:hidden}
+.video-media img{width:100%;height:100%;object-fit:cover;display:block}
+.video-play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:0;background:rgba(255,255,255,.94);color:var(--navy);display:grid;place-items:center;cursor:pointer;box-shadow:0 14px 30px -10px rgba(1,13,21,.6);transition:transform .2s}
+.video-play svg{margin-left:3px}
+.video-play:hover{transform:scale(1.07)}
+.video-vistas{position:absolute;left:8px;bottom:8px;background:rgba(10,37,64,.85);color:#fff;font:600 11px/1 "Poppins";letter-spacing:.04em;padding:6px 8px;border-radius:6px}
+.video-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.video .testi-txt{gap:8px}
+.video-ig{display:inline-flex;align-items:center;gap:6px;font:600 12.5px/1 "Poppins";color:var(--teal);text-decoration:none}
+.video-ig:hover{text-decoration:underline}
+.ig-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 24px;border-radius:999px;background:#fff;border:1.5px solid var(--teal);color:var(--navy);font:600 14.5px/1 "Poppins";text-decoration:none;box-shadow:var(--suave-card)}
+.ig-btn i{font-size:21px;color:var(--teal)}
+.ig-btn:hover{background:var(--celeste-2)}
+.testi.video{flex-basis:68%}
+@media (min-width:768px){.testi.video{flex-basis:calc((100% - 32px)/3)}}
+@media (min-width:1024px){.testi.video{flex-basis:calc((100% - 48px)/4)}}
 .aviso{margin-top:14px;font-size:12.5px;color:var(--suave);text-align:center}
 
 /* ---------- revistas (debajo del CTA del hero) ---------- */
@@ -1035,32 +1052,37 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 </section>
 
 <div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.webp" alt="" loading="lazy" decoding="async"></span></div>
-<!-- ============ TESTIMONIOS (carrusel) ============ -->
-<section class="sec" style="padding-top:54px;padding-bottom:54px" data-screen-label="04b Más prueba social">
+<!-- ============ NUESTRO CONTENIDO (carrusel de los 10 Reels con más alcance relativo según Sandcastles; reemplaza a los testimonios) ============ -->
+<section class="sec" style="padding-top:54px;padding-bottom:54px" data-screen-label="04b Nuestro contenido">
   <div class="envase">
-    <h2 class="titulo centro">Personas como tú, que <span class="teal">dejaron de volver a empezar</span></h2>
+    <h2 class="titulo centro">Nuestro <span class="teal">contenido</span></h2>
     <div class="carrusel">
       <div class="pista" id="pista">
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-1-antes.webp" alt="Héctor V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-1-despues.webp" alt="Héctor V, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«Me dijeron que era mi genética.»</h3><div class="testi-quien"><b>Héctor V, 27 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Me decían que por mi genética no iba a ganar músculo. En el programa aprendí a entrenar con base científica y a comer con un plan nutricional flexible, y <b>gané en menos de un año todo lo que no había ganado en 5.</b></p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-2-antes.webp" alt="Luis F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-2-despues.webp" alt="Luis F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«Por fin pude ganar músculo.»</h3><div class="testi-quien"><b>Luis F, 31 · Nueva York, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Probé dietas, suplementos y rutinas, sin constancia. Con un entrenamiento basado en la última ciencia y entendiendo la psicología del cambio de hábitos, entrenar se volvió parte de mi vida: <b>en menos de 8 meses gané músculo como nunca antes.</b></p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-6-antes.webp" alt="Juan Manuel M, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-6-despues.webp" alt="Juan Manuel M, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«Bajé de peso sin pasar hambre.»</h3><div class="testi-quien"><b>Juan Manuel M, 35 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Llevaba años subiendo y bajando de peso con dietas que no me duraban dos semanas. Entendí el balance energético y armé un plan que sostengo incluso comiendo fuera. Bajé sin pasar hambre y, <b>por primera vez, no lo he vuelto a recuperar.</b></p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-7-antes.webp" alt="Gerardo G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-7-despues.webp" alt="Gerardo G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
-          <div class="testi-txt"><h3>«Dejé de entrenar a ciegas.»</h3><div class="testi-quien"><b>Gerardo G, 35 · Ciudad de México, México</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Iba al gym, copiaba rutinas de TikTok y cada semana cambiaba de plan. Me cansaba y no veía avance. En el programa entendí por fin cómo progresar con sobrecarga progresiva y a comer lo suficiente sin pasarme. Neta, <b>en 8 semanas gané músculo como no lo había logrado en años</b>, y ahora sé exactamente qué hacer cada día.</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-3-antes.webp" alt="Rodolfo V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-3-despues.webp" alt="Rodolfo V, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
-          <div class="testi-txt"><h3>«Estoy más fit que nunca.»</h3><div class="testi-quien"><b>Rodolfo V, 31 · Santiago, Chile</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Entrené pesas harto tiempo y solo ganaba fuerza: nunca lograba bajar mi porcentaje de grasa. Ordené mi entrenamiento y mi nutrición, y <b>en 8 semanas logré resultados sorprendentes</b> que mantengo hasta hoy. Lo mejor: ahora soy autónomo, ¿cachai?</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-8-antes.webp" alt="Gabriel G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-8-despues.webp" alt="Gabriel G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
-          <div class="testi-txt"><h3>«Bajé 5% de grasa en 8 semanas.»</h3><div class="testi-quien"><b>Gabriel G, 25 · Montevideo, Uruguay</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Entrenaba bien, pero me quedaba esa capa de grasa que no se iba con nada, aunque comiera "limpio". En el programa entendí que no era cuestión de comer menos todo el tiempo, sino de ordenar las calorías y la proteína. Y, <b>en 8 semanas bajé 5% de grasa corporal</b> sin dejar de salir con mis amigos, y por fin se me marca el abdomen.</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-4-antes.webp" alt="Diego L, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-4-despues.webp" alt="Diego L, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">4 MESES</span></figure></div>
-          <div class="testi-txt"><h3>«Dejé las dietas extremas y gané músculo.»</h3><div class="testi-quien"><b>Diego L, 34 · Buenos Aires, Argentina</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Antes de cada viaje dejaba de comer; volvía, engordaba y otra vez a cortar. Nadie me explicó que sin músculo no te ves definido. Entrenando 3 veces por semana <b>gané 5 kilos de músculo en 4 meses</b>, y con una nutrición flexible como y salgo sin culpa. Posta.</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-5-antes.webp" alt="Alejandro F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-5-despues.webp" alt="Alejandro F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«El problema no era yo, era el plan.»</h3><div class="testi-quien"><b>Alejandro F, 29 · Lima, Perú</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Siempre empezaba el lunes con todo y para el miércoles ya estaba full cansado. Pensaba que me faltaba disciplina. Con un plan y una estrategia claros, ahora entreno 3 veces por semana, como lo que me gusta y <b>en poco tiempo ya veía resultados.</b></p></details></div></article>
+        <article class="testi video" data-reel="DYUW1a3zZ85"><div class="video-media"><img src="assets/contenido/DYUW1a3zZ85.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cardio o pesas primero?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">269 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Cardio o pesas primero?</h3><a class="video-ig" href="https://www.instagram.com/reel/DYUW1a3zZ85/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DY2tq87TeGF"><div class="video-media"><img src="assets/contenido/DY2tq87TeGF.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: La memoria muscular existe"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">339 mil vistas</span></div>
+          <div class="testi-txt"><h3>La memoria muscular existe</h3><a class="video-ig" href="https://www.instagram.com/reel/DY2tq87TeGF/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DeQSohGstTr"><div class="video-media"><img src="assets/contenido/DeQSohGstTr.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿El café es bueno para el corazón?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">150 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿El café es bueno para el corazón?</h3><a class="video-ig" href="https://www.instagram.com/reel/DeQSohGstTr/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DdAICFYTdlB"><div class="video-media"><img src="assets/contenido/DdAICFYTdlB.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: Tus huesos también se entrenan"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">119 mil vistas</span></div>
+          <div class="testi-txt"><h3>Tus huesos también se entrenan</h3><a class="video-ig" href="https://www.instagram.com/reel/DdAICFYTdlB/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="Dd9nbGtz1Cf"><div class="video-media"><img src="assets/contenido/Dd9nbGtz1Cf.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cardio o pesas para perder grasa?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">37 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Cardio o pesas para perder grasa?</h3><a class="video-ig" href="https://www.instagram.com/reel/Dd9nbGtz1Cf/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DcPh8WlMcIO"><div class="video-media"><img src="assets/contenido/DcPh8WlMcIO.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: No te saltes el día de piernas"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">36 mil vistas</span></div>
+          <div class="testi-txt"><h3>No te saltes el día de piernas</h3><a class="video-ig" href="https://www.instagram.com/reel/DcPh8WlMcIO/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DcUfdisz3Wd"><div class="video-media"><img src="assets/contenido/DcUfdisz3Wd.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Más series es más músculo?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">36 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Más series es más músculo?</h3><a class="video-ig" href="https://www.instagram.com/reel/DcUfdisz3Wd/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DYlDxPeMBPu"><div class="video-media"><img src="assets/contenido/DYlDxPeMBPu.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: Músculo con 2 entrenamientos a la semana"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">14 mil vistas</span></div>
+          <div class="testi-txt"><h3>Músculo con 2 entrenamientos a la semana</h3><a class="video-ig" href="https://www.instagram.com/reel/DYlDxPeMBPu/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="Da1EebCTLoF"><div class="video-media"><img src="assets/contenido/Da1EebCTLoF.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cuántas repeticiones hacer?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">24 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Cuántas repeticiones hacer?</h3><a class="video-ig" href="https://www.instagram.com/reel/Da1EebCTLoF/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="Dbef5AOTRIz"><div class="video-media"><img src="assets/contenido/Dbef5AOTRIz.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cuánto descansar entre series?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">19 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Cuánto descansar entre series?</h3><a class="video-ig" href="https://www.instagram.com/reel/Dbef5AOTRIz/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
       </div>
-      <button type="button" class="lado izq" id="car-izq" aria-label="Testimonio anterior"><i class="ph-light ph-caret-left"></i></button>
-      <button type="button" class="lado der" id="car-der" aria-label="Siguiente testimonio"><i class="ph-light ph-caret-right"></i></button>
+      <button type="button" class="lado izq" id="car-izq" aria-label="Video anterior"><i class="ph-light ph-caret-left"></i></button>
+      <button type="button" class="lado der" id="car-der" aria-label="Siguiente video"><i class="ph-light ph-caret-right"></i></button>
     </div>
+    <div class="centro" style="margin-top:22px"><a class="ig-btn" href="https://www.instagram.com/entrena.con.ciencia/" target="_blank" rel="noopener"><i class="ph-fill ph-instagram-logo"></i>Ver más en Instagram</a></div>
   </div>
 </section>
 
@@ -1229,6 +1251,17 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 })();
 
 
+/* Nuestro contenido: al tocar play se carga ahí mismo el reproductor de Instagram (antes no se carga nada de Instagram) */
+(function(){
+  [].forEach.call(document.querySelectorAll('.testi.video .video-play'),function(b){
+    b.addEventListener('click',function(){
+      var card=b.closest('.testi'), id=card.getAttribute('data-reel'), m=card.querySelector('.video-media');
+      var f=document.createElement('iframe'); f.src='https://www.instagram.com/reel/'+id+'/embed/'; f.title=b.getAttribute('aria-label'); f.allow='autoplay; encrypted-media; picture-in-picture'; f.setAttribute('allowfullscreen','');
+      m.appendChild(f); b.remove(); var v=m.querySelector('.video-vistas'); if(v) v.remove();
+      if(window.eccEvento) try{window.eccEvento('contenido_play',id+' · '+card.querySelector('h3').textContent.trim().slice(0,60),null,'contenido_play',null)}catch(x){}
+    });
+  });
+})();
 /* Carrusel de testimonios: flechas a los costados, arrastre con el mouse y scroll-snap */
 (function(){
   var p=document.getElementById('pista'), iz=document.getElementById('car-izq'), de=document.getElementById('car-der');
@@ -1239,7 +1272,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   function a(k){var P=pos(),max=p.scrollWidth-p.clientWidth;k=Math.max(0,Math.min(P.length-1,k));while(k>0&&P[k]===P[k-1])k--;p.scrollTo({left:P[k],behavior:'smooth'});iz.disabled=P[k]<=4;de.disabled=P[k]>=max-4}
   function marcar(){iz.disabled=p.scrollLeft<=4; de.disabled=p.scrollLeft+p.clientWidth>=p.scrollWidth-4}
   /* las flechas van a media altura de las fotos, para no tapar el texto */
-  function ubicar(){var f=cards[0].querySelector('.testi-fotos');if(!f)return;var y=f.getBoundingClientRect().top-p.getBoundingClientRect().top+f.offsetHeight/2;iz.style.top=de.style.top=y+'px'}
+  function ubicar(){var f=cards[0].querySelector('.testi-fotos,.video-media');if(!f)return;var y=f.getBoundingClientRect().top-p.getBoundingClientRect().top+f.offsetHeight/2;iz.style.top=de.style.top=y+'px'}
   addEventListener('resize',ubicar); addEventListener('load',ubicar); ubicar();
   function ir(dir){var P=pos(),k=idx(p.scrollLeft)+dir;while(k>0&&k<P.length&&P[k]===P[idx(p.scrollLeft)])k+=dir;a(k)}
   iz.addEventListener('click',function(){ir(-1)}); de.addEventListener('click',function(){ir(1)});
