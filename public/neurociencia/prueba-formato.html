@@ -656,6 +656,8 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .ecc-lista-precio s{font:500 13px/1 "Poppins";color:#3E5260;text-decoration-thickness:1.5px}
 .ecc-lista-precio b{font:700 24px/1 "Poppins";letter-spacing:.01em;word-spacing:.08em;color:#0A2540}
 .ecc-lista-precio span{font:600 10px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:#017FA7}
+.ecc-gratis{display:inline-flex;align-items:center;gap:5px;vertical-align:.2em;margin-left:4px;padding:6px 11px;border-radius:999px;background:#0B7A3E;color:#fff;font:700 12px/1 "Poppins";letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 0 4px rgba(11,122,62,.15);white-space:nowrap}
+.ecc-gratis::before{content:"";width:12px;height:12px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 .ecc-lista-info{list-style:none;margin:0;padding:12px 14px;display:grid;gap:9px;border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde)}
 .ecc-lista-info li{display:grid;grid-template-columns:20px 1fr;gap:9px;font-size:13.5px;line-height:1.4;color:#0A2540}
 .ecc-lista-info i{font-size:19px;color:#017FA7;line-height:1.05}
@@ -1179,7 +1181,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     <form class="ecc-lista-form" novalidate>
       <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera</span><span class="ecc-lista-off">40% OFF</span></span>
       <p class="ecc-lista-precio" aria-label="Precio de lanzamiento: 149 soles en vez de 249"><s>S/ 249</s><b>S/ 149</b></p>
-      <h2 id="ecc-lista-titulo">Accede a nuestra oferta de lanzamiento</h2>
+      <h2 id="ecc-lista-titulo">Accede a nuestra oferta de lanzamiento <span class="ecc-gratis">Gratis</span></h2>
       <ul class="ecc-lista-info">
         <li><i class="ph-fill ph-check-circle"></i><span><b>Inscribirte no tiene costo.</b> No pedimos pago ni tarjeta.</span></li>
         <li><i class="ph-fill ph-tag"></i><span>Cuando se lance el programa, te enviamos al correo <b>tu cupón de 40% de descuento</b>.</span></li>
