@@ -13,6 +13,8 @@ export const VERSIONES = [
   { id: 'v2', nombre: 'Lista de espera gratis', desde: '2026-10-11T19:06:00-05:00' },
   // Testimonios antes de las preguntas y sin el recuadro "Qué incluye" de arriba (publicado en producción 10:44).
   { id: 'v3', nombre: 'Post modificaciones web (testimonios y qué incluye)', desde: '2026-10-20T10:45:00-05:00' },
+  // Precio visible otra vez: S/ 249 tachado → S/ 149 en el hero y en la caja de la oferta.
+  { id: 'v4', nombre: 'Precio en la web (S/ 149)', desde: '2026-10-21T23:59:00-05:00' },
 ];
 
 /**
@@ -805,15 +807,20 @@ export type DatosPanel = Awaited<ReturnType<typeof leerPanel>>;
  * Pestaña "Desde el cambio": cómo navega la gente en la versión actual frente a la anterior completa.
  * Sin APIs de anuncios (solo lo que se mide en la página).
  */
-export async function leerCambio({ incluirEquipo, fuente = 'todo' }: { incluirEquipo: boolean; fuente?: Fuente }) {
-  const actual = VERSIONES_PANEL[VERSIONES_PANEL.length - 1];
-  const previa = VERSIONES_PANEL[VERSIONES_PANEL.length - 2] ?? actual;
+export async function leerCambio({ incluirEquipo, fuente = 'todo', version }: { incluirEquipo: boolean; fuente?: Fuente; version?: string }) {
+  // Cada cambio se compara con la versión anterior; el "después" termina cuando empieza la versión siguiente.
+  let i = VERSIONES_PANEL.findIndex((v) => v.id === version);
+  if (i < 0) i = VERSIONES_PANEL.length - 1;
+  const actual = VERSIONES_PANEL[i];
+  const previa = VERSIONES_PANEL[i - 1] ?? actual;
+  const siguiente = VERSIONES_PANEL[i + 1];
   const cambio = new Date(actual.desde).toISOString();
+  const fin = siguiente && Date.parse(siguiente.desde) < Date.now() ? new Date(siguiente.desde).toISOString() : new Date().toISOString();
   const tramo = async (desde: string, hasta: string) => {
     const d = calcularPanel({ ...(await leerRango(desde, hasta)), incluirEquipo, fuente });
     return { desde, hasta, kpis: d.kpis, navegacion: d.navegacion, embudo: d.embudo };
   };
-  const [antes, despues] = await Promise.all([tramo(new Date(previa.desde).toISOString(), cambio), tramo(cambio, new Date().toISOString())]);
+  const [antes, despues] = await Promise.all([tramo(new Date(previa.desde).toISOString(), cambio), tramo(cambio, fin)]);
   return { generado: new Date().toISOString(), version: actual, previa, antes, despues };
 }
 export type DatosCambio = Awaited<ReturnType<typeof leerCambio>>;
