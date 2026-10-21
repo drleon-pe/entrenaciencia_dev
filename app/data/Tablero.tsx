@@ -338,28 +338,13 @@ function CambioPlataforma({ d, nombre, color }: { d: DatosCambio; nombre: string
   );
 }
 
-/** Una pestaña por cambio grande de la página (desde v3). */
-const CAMBIOS: Record<string, { pestana: string; titulo: string; sub: string; nota?: string }> = {
-  v3: {
-    pestana: 'Post modificaciones web (testimonios y qué incluye)',
-    titulo: 'Post modificaciones web (testimonios y qué incluye)',
-    sub: 'Desde el 20 oct los testimonios van antes de las preguntas frecuentes y ya no está el recuadro de arriba de «Qué incluye». Aquí se compara cómo navega la gente antes y después, separado por plataforma',
-    nota: 'Las secciones vistas, los testimonios abiertos y las preguntas abiertas se miden desde el 20 oct (en la versión anterior no se registraban), por eso solo aparecen en «desde el cambio».',
-  },
-  v4: {
-    pestana: 'Precio en la web',
-    titulo: 'Precio en la web (S/ 249 → S/ 149)',
-    sub: 'Desde el 21 oct se ve el precio: S/ 249 tachado y S/ 149 de lanzamiento en el sello del botón de arriba y en la caja de la oferta. Aquí se compara cómo navega y se inscribe la gente antes y después, separado por plataforma',
-  },
-};
-
-/** Pestaña de un cambio de la página: antes vs. después, separado en Meta y TikTok. */
-function VistaCambio({ incluirEquipo, version }: { incluirEquipo: boolean; version: string }) {
+/** Pestaña del cambio de testimonios (antes de las preguntas): antes vs. después, separado en Meta y TikTok. */
+function VistaCambio({ incluirEquipo }: { incluirEquipo: boolean }) {
   const [d, setD] = useState<{ meta: DatosCambio; tiktok: DatosCambio } | null>(null);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const uno = async (fuente: 'meta' | 'tiktok') => {
-      const r = await fetch(`/api/data/cambio?equipo=${incluirEquipo ? '1' : '0'}&fuente=${fuente}&version=${version}`, { cache: 'no-store' });
+      const r = await fetch(`/api/data/cambio?equipo=${incluirEquipo ? '1' : '0'}&fuente=${fuente}`, { cache: 'no-store' });
       if (r.status === 401) {
         window.location.href = '/data/login';
         throw new Error('Sesión vencida');
@@ -379,12 +364,11 @@ function VistaCambio({ incluirEquipo, version }: { incluirEquipo: boolean; versi
     cargar();
     const id = setInterval(() => document.visibilityState === 'visible' && cargar(), 30_000);
     return () => clearInterval(id);
-  }, [incluirEquipo, version]);
+  }, [incluirEquipo]);
 
   if (error) return <p className="text-sm text-[#b42318]">No se pudieron cargar los datos del cambio: {error}</p>;
   if (!d) return null;
   const v = d.meta;
-  const txt = CAMBIOS[version] ?? { pestana: v.version.nombre, titulo: v.version.nombre, sub: 'Antes vs. después del cambio, separado por plataforma' };
   const horas = Math.round((Date.parse(v.generado) - Date.parse(v.despues.desde)) / 3_600_000);
   const resumen: string[] = [];
   for (const [nombre, x] of [['Instagram y Facebook', d.meta], ['TikTok', d.tiktok]] as const) {
@@ -396,11 +380,10 @@ function VistaCambio({ incluirEquipo, version }: { incluirEquipo: boolean; versi
     );
   }
   return (
-    <Bloque n="Δ" titulo={txt.titulo} sub={txt.sub} resumen={resumen}>
+    <Bloque n="Δ" titulo="Post modificaciones web (testimonios y qué incluye)" sub="Desde el 20 oct los testimonios van antes de las preguntas frecuentes y ya no está el recuadro de arriba de «Qué incluye». Aquí se compara cómo navega la gente antes y después, separado por plataforma" resumen={resumen}>
     <div className="space-y-4">
       <p className={`text-[13px] ${C.suave}`}>
-        Publicado el {fechaHora(v.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}).
-        {Date.parse(v.despues.hasta) < Date.parse(v.generado) - 60_000 && <> «Desde el cambio» llega hasta {fechaHora(v.despues.hasta)}, cuando entró el cambio siguiente.</>} <b>Antes</b> = versión &quot;{v.previa.nombre}&quot; ({fechaHora(v.antes.desde)} – {fechaHora(v.antes.hasta)}).
+        Publicado el {fechaHora(v.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}). <b>Antes</b> = versión &quot;{v.previa.nombre}&quot; ({fechaHora(v.antes.desde)} – {fechaHora(v.antes.hasta)}).
         Instagram y Facebook incluye anuncios de Meta y orgánico; TikTok, anuncios y orgánico.
       </p>
       <div className="grid lg:grid-cols-2 gap-6 items-start">
@@ -408,7 +391,8 @@ function VistaCambio({ incluirEquipo, version }: { incluirEquipo: boolean; versi
         <CambioPlataforma d={d.tiktok} nombre="TikTok" color="#6250d6" />
       </div>
       <p className={`text-xs ${C.tenue}`}>
-        * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. «Real» = menos de 5% de probabilidad de que la diferencia sea casualidad.{txt.nota ? ` ${txt.nota}` : ''}
+        * Menos de {MUESTRA_MINIMA} personas: el porcentaje todavía puede cambiar mucho. «Real» = menos de 5% de probabilidad de que la diferencia sea casualidad. Las secciones vistas, los testimonios abiertos y las
+        preguntas abiertas se miden desde el 20 oct (en la versión anterior no se registraban), por eso solo aparecen en «desde el cambio».
       </p>
     </div>
     </Bloque>
@@ -702,7 +686,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const [periodoId, setPeriodoId] = useState('7d');
   const [incluirEquipo, setIncluirEquipo] = useState(false);
   const [fuente, setFuente] = useState<'todo' | 'meta' | 'tiktok'>('todo');
-  const [verCambio, setVerCambio] = useState<string | null>(null);
+  const [verCambio, setVerCambio] = useState(false);
   const [vistaAnuncios, setVistaAnuncios] = useState<'porAnuncio' | 'porUbicacion' | 'porConjunto' | 'porCampana'>('porCampana');
   const [plataformaAnuncios, setPlataformaAnuncios] = useState<'Meta' | 'TikTok' | 'Otros'>('Meta');
   const [datos, setDatos] = useState<DatosPanel | null>(null);
@@ -717,8 +701,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const [movNuevos, setMovNuevos] = useState<Set<string>>(new Set());
 
   // En "Desde el cambio" todo el tablero muestra el periodo de la versión actual.
-  const cambios = versiones.filter((v) => CAMBIOS[v.id] && Date.parse(v.desde) <= Date.now());
-  const periodo = opciones.find((p) => p.id === (verCambio ?? periodoId)) ?? opciones.find((p) => p.id === periodoId)!;
+  const idCambio = versiones[versiones.length - 1].id;
+  const periodo = opciones.find((p) => p.id === (verCambio ? idCambio : periodoId)) ?? opciones.find((p) => p.id === periodoId)!;
 
   const cargar = useCallback(async () => {
     setCargando(true);
@@ -894,8 +878,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
               <h1 className="panel-titulo text-white">Panel de la landing /neurociencia</h1>
             </div>
           </div>
-          {verCambio && <span className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white">{CAMBIOS[verCambio]?.pestana} · {fechaHora(periodo.desde)}</span>}
-          <select hidden={!!verCambio} value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
+          {verCambio && <span className="rounded-lg border border-white/20 px-3 py-2 text-sm text-white">Post modificaciones web (testimonios y qué incluye) · {fechaHora(periodo.desde)}</span>}
+          <select hidden={verCambio} value={periodoId} onChange={(e) => setPeriodoId(e.target.value)} className={campo} aria-label="Periodo">
             {opciones.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.nombre}
@@ -922,23 +906,23 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             { id: 'todo', nombre: 'Todo' },
             { id: 'meta', nombre: 'Instagram y Facebook' },
             { id: 'tiktok', nombre: 'TikTok' },
-            ...cambios.map((v) => ({ id: v.id, nombre: `${CAMBIOS[v.id].pestana} · ${diaCorto(new Date(v.desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' }))}`, cambio: true })),
-          ] as { id: string; nombre: string; cambio?: boolean }[]).map((t) => {
-            const activa = t.cambio ? verCambio === t.id : !verCambio && fuente === t.id;
+            { id: 'cambio', nombre: `Post modificaciones web (testimonios y qué incluye)${versiones.length > 1 ? ` · ${diaCorto(new Date(versiones[versiones.length - 1].desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' }))}` : ''}` },
+          ] as const).map((t) => {
+            const activa = t.id === 'cambio' ? verCambio : !verCambio && fuente === t.id;
             return (
             <button
               key={t.id}
               role="tab"
               aria-selected={activa}
               onClick={() => {
-                if (t.cambio) {
-                  setVerCambio(t.id);
+                if (t.id === 'cambio') {
+                  setVerCambio(true);
                   setFuente('todo');
                   setPlataformaAnuncios('Meta');
                   return;
                 }
-                setVerCambio(null);
-                setFuente(t.id as 'todo' | 'meta' | 'tiktok');
+                setVerCambio(false);
+                setFuente(t.id);
                 setPlataformaAnuncios(t.id === 'tiktok' ? 'TikTok' : 'Meta');
               }}
               className={`px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-[3px] -mb-px ${activa ? 'border-[#017FA7] text-[#0A2540]' : 'border-transparent text-[#5b6f7d] hover:text-[#0A2540]'}`}
@@ -1006,7 +990,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         </div>
         </div>
 
-        {verCambio && <VistaCambio key={verCambio} incluirEquipo={incluirEquipo} version={verCambio} />}
+        {verCambio && <VistaCambio incluirEquipo={incluirEquipo} />}
 
         <Bloque n={1} id="origen" titulo="¿De dónde viene la gente?" sub="Cuántas personas entran cada día y por qué plataforma llegan" resumen={resOrigen}>
           <Caja>
