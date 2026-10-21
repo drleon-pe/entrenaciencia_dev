@@ -101,6 +101,13 @@ export function plataforma(v: Fila): '' | 'Meta' | 'TikTok' {
   const src = limpiar(v.utm_source);
   if (/^(facebook|instagram|messenger|whatsapp|audience|an|threads|others?)(_|$)/i.test(src) && Boolean(limpiar(v.utm_content))) return 'Meta';
   if (/^tiktok/i.test(src) && (/^(paid|cpc|ads?|pago)$/i.test(limpiar(v.utm_medium)) || Boolean(limpiar(v.utm_campaign)))) return 'TikTok';
+  // Clic de anuncio que perdió sus etiquetas: Meta pega fbclid y TikTok ttclid a cada clic pagado. Así un medio pagado
+  // nunca cae en "Otros" (que es solo lo orgánico). El link de la bio de Instagram lleva utm_source=ig y no entra aquí.
+  if (!src) {
+    const ref = s(v.referrer);
+    if (/[?&]ttclid=/.test(ref)) return 'TikTok';
+    if (/[?&]fbclid=/.test(ref)) return 'Meta';
+  }
   return '';
 }
 export function esAnuncio(v: Fila): boolean {
@@ -138,6 +145,7 @@ const UBICACIONES: Record<string, string> = {
 function ubicacion(v: Fila): string {
   if (plataforma(v) === 'TikTok') return 'TikTok';
   const src = limpiar(v.utm_source).toLowerCase();
+  if (!src) return 'Meta · ubicación desconocida (link sin UTM)';
   if (UBICACIONES[src]) return UBICACIONES[src];
   const [red, ...resto] = src.split('_');
   return `${red.replace(/^\w/, (c) => c.toUpperCase())} · ${resto.join(' ').replace(/\bmobile\b/g, '').trim() || 'otra'}`;
@@ -147,6 +155,7 @@ function ubicacion(v: Fila): string {
 function nombreAnuncio(v: Fila): string {
   const n = etiqueta(v.utm_content);
   if (n) return n;
+  if (!limpiar(v.utm_source) && plataforma(v)) return `${plataforma(v)} · clic sin etiquetas`;
   // Los links de TikTok necesitan utm_content=__CID_NAME__ para saber de qué anuncio vino cada persona.
   return plataforma(v) === 'TikTok' ? 'TikTok · sin nombre de anuncio (falta utm_content en el link)' : '';
 }
@@ -154,6 +163,7 @@ function nombreConjunto(v: Fila): string {
   return plataforma(v) === 'TikTok' ? etiqueta(v.utm_term) || 'TikTok · sin nombre de grupo' : etiqueta(v.utm_campaign);
 }
 function nombreCampana(v: Fila): string {
+  if (!limpiar(v.utm_source) && plataforma(v)) return `${plataforma(v)} · sin etiquetas (link sin UTM)`;
   return plataforma(v) === 'TikTok' ? etiqueta(v.utm_campaign) || 'TikTok · sin nombre de campaña' : etiqueta(v.utm_medium);
 }
 
