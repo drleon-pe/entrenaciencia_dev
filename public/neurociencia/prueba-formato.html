@@ -555,6 +555,14 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .badge.am{background:var(--amarillo);color:var(--navy-2)}
 .incluye{border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde);padding:16px}
 .incluye > b{display:block;font:600 12px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:12px}
+.sello-antes{font-weight:500;text-decoration-thickness:1.5px}
+.precio{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.precio-rotulo{font:600 12px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.precio-fila{display:flex;align-items:baseline;justify-content:center;gap:12px}
+.precio-antes{font:500 20px/1 "Poppins";color:var(--suave);text-decoration:line-through;text-decoration-thickness:2px}
+.precio-ahora{font:800 clamp(44px,11vw,56px)/1 "Poppins";letter-spacing:-.02em;color:var(--navy)}
+.precio-off{align-self:center;background:var(--amarillo);color:var(--navy-2);font:700 12px/1 "Poppins";letter-spacing:.06em;padding:6px 10px;border-radius:999px}
+.precio-nota{margin:0;font-size:14px;line-height:1.45;color:var(--suave)}
 .incluye ul,.beneficios{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 .incluye li,.beneficios li{display:grid;grid-template-columns:22px 1fr;gap:9px;font-size:14.5px;line-height:1.4;font-weight:500}
 .incluye li i,.beneficios li i{font-size:20px;color:var(--teal)}
@@ -623,6 +631,10 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .ecc-lista-modal.on .ecc-lista-caja{transform:none;opacity:1}
 .ecc-lista-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:#EEF4F8;color:#0A2540;display:grid;place-items:center;cursor:pointer}
 .ecc-lista-form{display:flex;flex-direction:column;gap:14px}
+.ecc-lista-info{list-style:none;margin:0;padding:12px 14px;display:grid;gap:9px;border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde)}
+.ecc-lista-info li{display:grid;grid-template-columns:20px 1fr;gap:9px;font-size:13.5px;line-height:1.4;color:#0A2540}
+.ecc-lista-info i{font-size:19px;color:#017FA7;line-height:1.05}
+.ecc-lista-info li.regalo-lista svg{color:#9A6A00;margin-top:1px}
 .ecc-lista-badges{display:inline-flex;align-items:center;flex-wrap:wrap;gap:10px;padding-right:44px}
 .ecc-lista-eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 11px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:#017FA7}
 .ecc-lista-eyebrow i{font-size:16px;color:#FFC300}
@@ -852,7 +864,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       </div>
       <div>
         <div class="cta-wrap">
-          <span class="sello">Oferta de lanzamiento · 40% OFF</span>
+          <span class="sello">Oferta de lanzamiento · 40% OFF · <s class="sello-antes">S/ 249</s> S/ 149</span>
           <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
         </div>
         <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
@@ -1094,6 +1106,11 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <li><i class="ph-fill ph-check-circle"></i>Comunidad Privada</li>
           </ul>
         </div>
+        <div class="precio" aria-label="Precio de lanzamiento: 149 soles en vez de 249">
+          <span class="precio-rotulo">Precio de lanzamiento</span>
+          <div class="precio-fila"><s class="precio-antes">S/ 249</s><b class="precio-ahora">S/ 149</b><span class="precio-off">40% OFF</span></div>
+          <p class="precio-nota">Incluye el curso <b style="color:var(--navy)">+ 1er mes gratis</b></p>
+        </div>
         <div class="cta-wrap" style="align-items:center;margin:4px auto 0"><span class="sello">Oferta de lanzamiento · 40% OFF</span><a class="cta" href="#lista" data-ecc-lista id="cta-oferta">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a></div>
         <p class="micro" style="margin-top:-4px"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
         <div class="sellos">
@@ -1139,6 +1156,11 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     <form class="ecc-lista-form" novalidate>
       <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera</span><span class="ecc-lista-off">40% OFF</span></span>
       <h2 id="ecc-lista-titulo">Accede a nuestra oferta de lanzamiento</h2>
+      <ul class="ecc-lista-info">
+        <li><i class="ph-fill ph-check-circle"></i><span><b>Inscribirte no tiene costo.</b> No pedimos pago ni tarjeta.</span></li>
+        <li><i class="ph-fill ph-tag"></i><span>Cuando se lance el programa, te enviamos al correo <b>tu cupón de 40% de descuento</b>.</span></li>
+        <li class="regalo-lista"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Incluye el curso <b>+ regalos</b>: 1 mes de la app, Protocolos para Días Difíciles y Comunidad Privada. <b>Los regalos son solo para la lista de espera</b>; después del lanzamiento ya no se incluyen.</span></li>
+      </ul>
       <label class="ecc-campo"><span>Nombre</span><input id="ecc-l-nombre" name="nombre" type="text" autocomplete="given-name" required maxlength="80" placeholder="Tu nombre"></label>
       <label class="ecc-campo"><span>Correo</span><input id="ecc-l-correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="120" placeholder="tu@correo.com"></label>
       <div class="ecc-campo" hidden style="display:none"><label for="ecc-l-cel">WhatsApp <em>(opcional)</em></label>
