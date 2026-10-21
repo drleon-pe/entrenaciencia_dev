@@ -271,6 +271,19 @@ async function leerRango(desdePedido: string, hasta: string) {
   return { visitas, eventos, inscritos, equipoHistorico: [...new Set(equipoHistorico.map((v) => s(v.anonymous_id)))] };
 }
 
+/** Último clic real de anuncio por campaña («Plataforma|Campaña» → hora), sin robots de revisión. */
+function ultimosClicsPorCampana(visitas: Fila[]): Record<string, string> {
+  const paises = paisesAnuncios();
+  const r: Record<string, string> = {};
+  for (const v of visitas) {
+    if (!esAnuncio(v) || !paises.includes(s(v.country).toUpperCase()) || ROBOT_UA.test(s(v.user_agent))) continue;
+    if (MACRO_SIN_REEMPLAZAR.test([v.utm_source, v.utm_medium, v.utm_campaign, v.utm_content, v.utm_term].map(s).join('|'))) continue;
+    const k = `${plataforma(v)}|${nombreCampana(v) || '(sin nombre de campaña)'}`;
+    if ((r[k] ?? '') < s(v.created_at)) r[k] = s(v.created_at);
+  }
+  return r;
+}
+
 export async function leerPanel({ desde, hasta, incluirEquipo, fuente = 'todo' }: Filtros) {
   // Periodo anterior para comparar: el mismo tramo corrido hacia atrás. Si el periodo sigue abierto
   // ("Hoy", "Últimos 7 días"), se corre en días enteros y se corta a la misma hora (hoy hasta las 10:00 vs. ayer hasta las 10:00).
@@ -282,8 +295,14 @@ export async function leerPanel({ desde, hasta, incluirEquipo, fuente = 'todo' }
   const antesDesde = new Date(ini - corrimiento).toISOString();
   const antesHasta = new Date(fin - corrimiento).toISOString();
 
-  const [actual, anterior] = await Promise.all([leerRango(desde, hasta), leerRango(antesDesde, antesHasta)]);
-  const datos = calcularPanel({ ...actual, incluirEquipo, fuente });
+  // Últimas 24 horas, sea cual sea el periodo elegido: dice qué campañas están activas ahora.
+  const hace24 = new Date(Date.now() - 24 * 3600_000).toISOString();
+  const [actual, anterior, reciente] = await Promise.all([
+    leerRango(desde, hasta),
+    leerRango(antesDesde, antesHasta),
+    leerRango(hace24, new Date(Date.now() + 60_000).toISOString()),
+  ]);
+  const datos = calcularPanel({ ...actual, incluirEquipo, fuente, ultimosClics: ultimosClicsPorCampana(reciente.visitas) });
   const previo = calcularPanel({ ...anterior, incluirEquipo, fuente });
   // Si el periodo anterior empieza antes de la lista de espera (11 oct), está incompleto: compararlo daría "▲ 5000%".
   const completo = Date.parse(antesDesde) >= Date.parse(INICIO_DATOS);
@@ -298,6 +317,7 @@ export function calcularPanel({
   incluirEquipo,
   fuente = 'todo',
   equipoHistorico = [],
+  ultimosClics,
 }: {
   visitas: Fila[];
   eventos: Fila[];
@@ -305,6 +325,8 @@ export function calcularPanel({
   incluirEquipo: boolean;
   fuente?: Fuente;
   equipoHistorico?: string[];
+  /** Último clic real por campaña en las últimas 24 h (para marcarla activa aunque el periodo elegido sea otro). */
+  ultimosClics?: Record<string, string>;
 }) {
   // --- Limpieza: equipo y robots de revisión de Meta y TikTok ---
   const prefijos = equipo();
@@ -535,8 +557,8 @@ export function calcularPanel({
       (g.anuncios.get(a) ?? g.anuncios.set(a, []).get(a)!).push(id);
     }
     // Activa = tuvo clics reales en las últimas 24 horas (sin las APIs no se sabe si está pausada; esto la delata).
-    const ultimaClic = new Map<string, string>();
-    for (const v of V) {
+    const ultimaClic = new Map<string, string>(Object.entries(ultimosClics ?? {}));
+    if (!ultimosClics) for (const v of V) {
       if (!esAnuncio(v) || robots.has(s(v.anonymous_id))) continue;
       const k = `${plataforma(v)}|${nombreCampana(v) || '(sin nombre de campaña)'}`;
       if ((ultimaClic.get(k) ?? '') < s(v.created_at)) ultimaClic.set(k, s(v.created_at));
