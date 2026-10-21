@@ -314,7 +314,7 @@ function CambioPlataforma({ d, nombre, color }: { d: DatosCambio; nombre: string
       </div>
       <div className="grid grid-cols-2 gap-2">
         <Tarjeta titulo="Llegaron a testimonios" valor={secc.personasConSecciones ? `${vio('Testimonios')?.pct ?? 0}%` : '–'} ayuda={secc.personasConSecciones ? `${vio('Testimonios')?.n ?? 0} de ${secc.personasConSecciones} con secciones medidas` : 'todavía sin datos'} />
-        <Tarjeta titulo="Abrieron un testimonio" valor={`${acc(secc, 'Abrió un testimonio').pct}%`} ayuda={`${acc(secc, 'Abrió un testimonio').n} personas`} />
+        <Tarjeta titulo="Abrieron un testimonio o video" valor={`${acc(secc, 'Abrió un testimonio o video').pct}%`} ayuda={`${acc(secc, 'Abrió un testimonio o video').n} personas`} />
         <Tarjeta titulo="Llegaron al final" valor={`${d.despues.kpis.leyeronFinal}%`} ayuda={`antes ${d.antes.kpis.leyeronFinal}%`} />
         <Tarjeta titulo="Se inscriben (CVR)" valor={`${d.despues.kpis.conversion}%`} ayuda={`${d.despues.kpis.inscritos} inscritos · antes ${d.antes.kpis.conversion}%`} destacada />
       </div>
@@ -341,15 +341,16 @@ function CambioPlataforma({ d, nombre, color }: { d: DatosCambio; nombre: string
 /** Una pestaña por cambio grande de la página (desde v3). */
 const CAMBIOS: Record<string, { pestana: string; titulo: string; sub: string; nota?: string }> = {
   v3: {
-    pestana: 'Post modificaciones web (testimonios y qué incluye)',
-    titulo: 'Post modificaciones web (testimonios y qué incluye)',
+    pestana: 'Cambio web 1',
+    titulo: 'Cambio web 1: testimonios y qué incluye',
     sub: 'Desde el 20 oct los testimonios van antes de las preguntas frecuentes y ya no está el recuadro de arriba de «Qué incluye». Aquí se compara cómo navega la gente antes y después, separado por plataforma',
     nota: 'Las secciones vistas, los testimonios abiertos y las preguntas abiertas se miden desde el 20 oct (en la versión anterior no se registraban), por eso solo aparecen en «desde el cambio».',
   },
   v4: {
-    pestana: 'Precio en la web',
-    titulo: 'Precio en la web (S/ 249 → S/ 149)',
-    sub: 'Desde el 21 oct se ve el precio: S/ 249 tachado y S/ 149 de lanzamiento en el sello del botón de arriba y en la caja de la oferta. Aquí se compara cómo navega y se inscribe la gente antes y después, separado por plataforma',
+    pestana: 'Cambio web 2',
+    titulo: 'Cambio web 2: precio y nuestro contenido',
+    sub: 'Desde el 21 oct a las 12:26 se ve el precio (S/ 249 tachado → S/ 149) en la caja de la oferta y en el formulario, el formulario dice «Gratis» y que recibes tu cupón de 40%, y en lugar de los testimonios está «Nuestro contenido» con 7 Reels. Aquí se compara cómo navega y se inscribe la gente antes y después, separado por plataforma',
+    nota: 'Desde este cambio, la sección «Testimonios» del recorrido es «Nuestro contenido» (los videos); abrir un video cuenta en «abrieron un testimonio o video».',
   },
 };
 

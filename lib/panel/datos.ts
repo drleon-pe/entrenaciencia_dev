@@ -12,9 +12,10 @@ export const VERSIONES = [
   { id: 'v1', nombre: 'Reserva por US$5', desde: '2026-10-07T00:00:00-05:00' },
   { id: 'v2', nombre: 'Lista de espera gratis', desde: '2026-10-11T19:06:00-05:00' },
   // Testimonios antes de las preguntas y sin el recuadro "Qué incluye" de arriba (publicado en producción 10:44).
-  { id: 'v3', nombre: 'Post modificaciones web (testimonios y qué incluye)', desde: '2026-10-20T10:45:00-05:00' },
-  // Precio visible otra vez: S/ 249 tachado → S/ 149 en el hero y en la caja de la oferta.
-  { id: 'v4', nombre: 'Precio en la web (S/ 149)', desde: '2026-10-21T23:59:00-05:00' },
+  { id: 'v3', nombre: 'Cambio web 1 (testimonios y qué incluye)', desde: '2026-10-20T10:45:00-05:00' },
+  // Cambio web 2 (publicado en producción 12:26): precio S/ 249 → S/ 149 en la caja de la oferta y en el formulario,
+  // formulario con "Gratis" y dos puntos (sin costo y cupón), y "Nuestro contenido" (7 Reels) en lugar de los testimonios.
+  { id: 'v4', nombre: 'Cambio web 2 (precio y nuestro contenido)', desde: '2026-10-21T12:26:00-05:00' },
 ];
 
 /**
@@ -231,7 +232,7 @@ function mediana(xs: number[]): number | null {
 /** Nombre legible de cada evento de la landing (feed en vivo y recorrido de cada inscrito). */
 const NOMBRES: Record<string, string> = {
   scroll_25: 'Bajó al 25%', scroll_50: 'Bajó a la mitad', scroll_75: 'Bajó al 75%', scroll_100: 'Llegó al final',
-  video_play: 'Dio play al video', vsl_sonido: 'Activó el sonido del video', testimonio_ver: 'Abrió un testimonio',
+  video_play: 'Dio play al video', vsl_sonido: 'Activó el sonido del video', testimonio_ver: 'Abrió un testimonio', contenido_play: 'Abrió un video de Nuestro contenido',
   faq_abrir: 'Abrió una pregunta', cta_click: 'Clic en botón', checkout_click: 'Clic en reservar', lista_abrir: 'Abrió el registro',
   lista_espera: 'Se inscribió', salida: 'Salió', seccion_ver: 'Vio la sección',
   video_25: 'Vio el 25% del video', video_50: 'Vio la mitad del video', video_75: 'Vio el 75% del video', video_100: 'Vio el video completo',
@@ -415,7 +416,8 @@ export function calcularPanel({
   const mitad = leyo(50);
   const final = leyo(100);
   const sonido = hizo((e) => e.event_type === 'vsl_sonido' || e.event_type === 'video_play');
-  const testimonios = hizo((e) => e.event_type === 'testimonio_ver');
+  // Desde el cambio web 2 los testimonios son videos de «Nuestro contenido»: abrir uno cuenta igual.
+  const testimonios = hizo((e) => e.event_type === 'testimonio_ver' || e.event_type === 'contenido_play');
   const registro = hizo((e) => ['lista_abrir', 'cta_click', 'checkout_click'].includes(s(e.event_type)));
   const inscritosIds = new Set([...hizo((e) => e.event_type === 'lista_espera'), ...L.map((l) => s(l.anonymous_id))]);
   // Si alguien se inscribió, también abrió el registro (por si el evento de apertura no llegó).
@@ -452,7 +454,7 @@ export function calcularPanel({
   const interacciones = [
     { nombre: 'Llegaron al final', n: cuantos(personas, final) },
     { nombre: 'Activaron el video', n: cuantos(personas, sonido) },
-    { nombre: 'Abrieron un testimonio', n: cuantos(personas, testimonios) },
+    { nombre: 'Abrieron un testimonio o video', n: cuantos(personas, testimonios) },
   ].map((x) => ({ ...x, pct: pct(x.n, n) }));
 
   // --- Flujo diario (hora de Lima) ---
@@ -642,7 +644,7 @@ export function calcularPanel({
     profundidad: [cuenta('Bajó al 25%', leyo(25)), cuenta('Bajó a la mitad', mitad), cuenta('Bajó al 75%', leyo(75)), cuenta('Llegó al final', final)],
     acciones: [
       cuenta('Activó el video', sonido),
-      cuenta('Abrió un testimonio', testimonios),
+      cuenta('Abrió un testimonio o video', testimonios),
       cuenta('Abrió una pregunta', hizo((e) => e.event_type === 'faq_abrir')),
       cuenta('Abrió el registro', registro),
       cuenta('Se inscribió', inscritosIds),
@@ -685,7 +687,7 @@ export function calcularPanel({
       fila('Activó el sonido del video', '¿Qué hacen?', sonido),
       fila('Vio la mitad del video', '¿Qué hacen?', videoPct(50)),
       fila('Vio el video completo', '¿Qué hacen?', videoPct(100)),
-      fila('Abrió un testimonio', '¿Qué hacen?', testimonios),
+      fila('Abrió un testimonio o video', '¿Qué hacen?', testimonios),
       fila('Abrió una pregunta', '¿Qué hacen?', hizo((e) => e.event_type === 'faq_abrir')),
       fila('Abrió el registro', '¿Qué hacen?', registro),
       fila('Se inscribió', '¿Qué hacen?', inscritosIds),
