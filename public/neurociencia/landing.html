@@ -369,6 +369,28 @@ p{margin:0}
 .pista.empuja .testi{animation:empuja .95s cubic-bezier(.3,.7,.3,1)}
 @keyframes empuja{0%,100%{translate:0}40%{translate:-42px}70%{translate:6px}}
 @media (prefers-reduced-motion:reduce){.pista.empuja .testi{animation:none}}
+/* tarjetas de video (Nuestro contenido): portada 9:16, se reproduce ahí mismo con el reproductor de Instagram */
+.video-media{position:relative;aspect-ratio:9/16;background:var(--navy);overflow:hidden}
+.video-media img{width:100%;height:100%;object-fit:cover;display:block}
+.video-play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:0;background:rgba(255,255,255,.94);color:var(--navy);display:grid;place-items:center;cursor:pointer;box-shadow:0 14px 30px -10px rgba(1,13,21,.6);transition:transform .2s}
+.video-play svg{margin-left:3px}
+.video-play:hover{transform:scale(1.07)}
+.video-vistas{position:absolute;left:8px;bottom:8px;background:rgba(10,37,64,.85);color:#fff;font:600 11px/1 "Poppins";letter-spacing:.04em;padding:6px 8px;border-radius:6px}
+.video-modal{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px 16px;background:rgba(1,13,21,.82)}
+.video-modal[hidden]{display:none}
+.video-modal-caja{position:relative;width:min(400px,100%);max-height:calc(100svh - 80px);overflow:auto;border-radius:16px;background:#fff}
+.video-modal iframe{display:block;width:100%;border:0}
+.video-modal-x{align-self:center;flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#0A2540;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
+.video .testi-txt{gap:8px}
+.video-ig{display:inline-flex;align-items:center;gap:6px;font:600 12.5px/1 "Poppins";color:var(--teal);text-decoration:none}
+.video-ig:hover{text-decoration:underline}
+.ig-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 24px;border-radius:999px;background:#fff;border:1.5px solid var(--teal);color:var(--navy);font:600 14.5px/1 "Poppins";text-decoration:none;box-shadow:var(--suave-card)}
+.ig-btn i{font-size:21px;color:var(--teal)}
+.ig-btn:hover{background:var(--celeste-2)}
+.testi.video{flex-basis:46%}
+@media (max-width:767px){.video-play{width:48px;height:48px;margin:-24px 0 0 -24px}.video-play svg{width:20px;height:20px}.video .testi-txt{padding:10px 12px 12px}.video .testi-txt h3{font-size:14px}.video-ig{font-size:11.5px}.video-vistas{font-size:10px;padding:5px 6px}}
+@media (min-width:768px){.testi.video{flex-basis:calc((100% - 32px)/3)}}
+@media (min-width:1024px){.testi.video{flex-basis:calc((100% - 48px)/4)}}
 .aviso{margin-top:14px;font-size:12.5px;color:var(--suave);text-align:center}
 
 /* ---------- revistas (debajo del CTA del hero) ---------- */
@@ -555,12 +577,11 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .badge.am{background:var(--amarillo);color:var(--navy-2)}
 .incluye{border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde);padding:16px}
 .incluye > b{display:block;font:600 12px/1 "Poppins";letter-spacing:.14em;color:var(--teal);margin-bottom:12px}
-.sello-antes{font-weight:500;text-decoration-thickness:1.5px}
 .precio{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .precio-rotulo{font:600 12px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
 .precio-fila{display:flex;align-items:baseline;justify-content:center;gap:12px}
-.precio-antes{font:500 20px/1 "Poppins";color:var(--suave);text-decoration:line-through;text-decoration-thickness:2px}
-.precio-ahora{font:800 clamp(44px,11vw,56px)/1 "Poppins";letter-spacing:-.02em;color:var(--navy)}
+.precio-antes{font:500 18px/1 "Poppins";color:var(--suave);text-decoration:line-through;text-decoration-thickness:2px}
+.precio-ahora{font:700 clamp(34px,8.6vw,42px)/1 "Poppins";letter-spacing:.01em;color:var(--navy);word-spacing:.08em}
 .precio-off{align-self:center;background:var(--amarillo);color:var(--navy-2);font:700 12px/1 "Poppins";letter-spacing:.06em;padding:6px 10px;border-radius:999px}
 .precio-nota{margin:0;font-size:14px;line-height:1.45;color:var(--suave)}
 .incluye ul,.beneficios{list-style:none;margin:0;padding:0;display:grid;gap:9px}
@@ -631,11 +652,18 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .ecc-lista-modal.on .ecc-lista-caja{transform:none;opacity:1}
 .ecc-lista-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:#EEF4F8;color:#0A2540;display:grid;place-items:center;cursor:pointer}
 .ecc-lista-form{display:flex;flex-direction:column;gap:14px}
+.ecc-lista-precio{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;margin:8px 0 10px}
+.ecc-lista-precio s{font:500 13px/1 "Poppins";color:#3E5260;text-decoration-thickness:1.5px}
+.ecc-lista-precio b{font:700 24px/1 "Poppins";letter-spacing:.01em;word-spacing:.08em;color:#0A2540}
+.ecc-lista-precio .ecc-lista-off{margin-top:4px}
+.ecc-lista-precio span:not(.ecc-lista-off){font:600 10px/1 "Poppins";letter-spacing:.14em;text-transform:uppercase;color:#017FA7}
+.ecc-lista-pills{display:inline-flex;align-items:center;gap:8px}
+.ecc-gratis{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;background:#0B7A3E;color:#fff;font:700 12px/1 "Poppins";letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 0 4px rgba(11,122,62,.15);white-space:nowrap}
+.ecc-gratis::before{content:"";width:12px;height:12px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 .ecc-lista-info{list-style:none;margin:0;padding:12px 14px;display:grid;gap:9px;border-radius:14px;background:var(--celeste-2);border:1px solid var(--borde)}
 .ecc-lista-info li{display:grid;grid-template-columns:20px 1fr;gap:9px;font-size:13.5px;line-height:1.4;color:#0A2540}
 .ecc-lista-info i{font-size:19px;color:#017FA7;line-height:1.05}
-.ecc-lista-info li.regalo-lista svg{color:#9A6A00;margin-top:1px}
-.ecc-lista-badges{display:inline-flex;align-items:center;flex-wrap:wrap;gap:10px;padding-right:44px}
+.ecc-lista-badges{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;padding:0 44px}
 .ecc-lista-eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 11px/1 "Poppins";letter-spacing:.16em;text-transform:uppercase;color:#017FA7}
 .ecc-lista-eyebrow i{font-size:16px;color:#FFC300}
 .ecc-lista-off{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:#FFC300;color:#010D15;font:700 12px/1 "Poppins";letter-spacing:.08em}
@@ -864,7 +892,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
       </div>
       <div>
         <div class="cta-wrap">
-          <span class="sello">Oferta de lanzamiento · 40% OFF · <s class="sello-antes">S/ 249</s> S/ 149</span>
+          <span class="sello">Oferta de lanzamiento · 40% OFF</span>
           <a class="cta" href="#lista" data-ecc-lista id="cta-hero">Inscríbete en la lista de espera <i class="ph-light ph-arrow-right"></i></a>
         </div>
         <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Inscríbete <b>gratis</b>, sin pago ni tarjeta.</span></p>
@@ -1031,32 +1059,31 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 </section>
 
 <div class="separador borde" aria-hidden="true"><span><img src="assets/isotipo-ecc.webp" alt="" loading="lazy" decoding="async"></span></div>
-<!-- ============ TESTIMONIOS (carrusel) ============ -->
-<section class="sec" style="padding-top:54px;padding-bottom:54px" data-screen-label="04b Más prueba social">
+<!-- ============ NUESTRO CONTENIDO (los 10 Reels del estilo nuevo (desde el 10 jul 2026) con más alcance relativo según Sandcastles, sin temas repetidos y solo los que pasan las 10 mil vistas; reemplaza a los testimonios) ============ -->
+<section class="sec" style="padding-top:54px;padding-bottom:54px" data-screen-label="04b Nuestro contenido">
   <div class="envase">
-    <h2 class="titulo centro">Personas como tú, que <span class="teal">dejaron de volver a empezar</span></h2>
+    <h2 class="titulo centro">Nuestro <span class="teal">contenido</span></h2>
     <div class="carrusel">
       <div class="pista" id="pista">
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-1-antes.webp" alt="Héctor V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-1-despues.webp" alt="Héctor V, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«Me dijeron que era mi genética.»</h3><div class="testi-quien"><b>Héctor V, 27 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Me decían que por mi genética no iba a ganar músculo. En el programa aprendí a entrenar con base científica y a comer con un plan nutricional flexible, y <b>gané en menos de un año todo lo que no había ganado en 5.</b></p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-2-antes.webp" alt="Luis F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-2-despues.webp" alt="Luis F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«Por fin pude ganar músculo.»</h3><div class="testi-quien"><b>Luis F, 31 · Nueva York, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Probé dietas, suplementos y rutinas, sin constancia. Con un entrenamiento basado en la última ciencia y entendiendo la psicología del cambio de hábitos, entrenar se volvió parte de mi vida: <b>en menos de 8 meses gané músculo como nunca antes.</b></p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-6-antes.webp" alt="Juan Manuel M, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-6-despues.webp" alt="Juan Manuel M, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«Bajé de peso sin pasar hambre.»</h3><div class="testi-quien"><b>Juan Manuel M, 35 · Miami, USA</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Llevaba años subiendo y bajando de peso con dietas que no me duraban dos semanas. Entendí el balance energético y armé un plan que sostengo incluso comiendo fuera. Bajé sin pasar hambre y, <b>por primera vez, no lo he vuelto a recuperar.</b></p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-7-antes.webp" alt="Gerardo G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-7-despues.webp" alt="Gerardo G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
-          <div class="testi-txt"><h3>«Dejé de entrenar a ciegas.»</h3><div class="testi-quien"><b>Gerardo G, 35 · Ciudad de México, México</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Iba al gym, copiaba rutinas de TikTok y cada semana cambiaba de plan. Me cansaba y no veía avance. En el programa entendí por fin cómo progresar con sobrecarga progresiva y a comer lo suficiente sin pasarme. Neta, <b>en 8 semanas gané músculo como no lo había logrado en años</b>, y ahora sé exactamente qué hacer cada día.</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-3-antes.webp" alt="Rodolfo V, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-3-despues.webp" alt="Rodolfo V, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
-          <div class="testi-txt"><h3>«Estoy más fit que nunca.»</h3><div class="testi-quien"><b>Rodolfo V, 31 · Santiago, Chile</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Entrené pesas harto tiempo y solo ganaba fuerza: nunca lograba bajar mi porcentaje de grasa. Ordené mi entrenamiento y mi nutrición, y <b>en 8 semanas logré resultados sorprendentes</b> que mantengo hasta hoy. Lo mejor: ahora soy autónomo, ¿cachai?</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-8-antes.webp" alt="Gabriel G, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-8-despues.webp" alt="Gabriel G, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">8 SEMANAS</span></figure></div>
-          <div class="testi-txt"><h3>«Bajé 5% de grasa en 8 semanas.»</h3><div class="testi-quien"><b>Gabriel G, 25 · Montevideo, Uruguay</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Entrenaba bien, pero me quedaba esa capa de grasa que no se iba con nada, aunque comiera "limpio". En el programa entendí que no era cuestión de comer menos todo el tiempo, sino de ordenar las calorías y la proteína. Y, <b>en 8 semanas bajé 5% de grasa corporal</b> sin dejar de salir con mis amigos, y por fin se me marca el abdomen.</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-4-antes.webp" alt="Diego L, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-4-despues.webp" alt="Diego L, después" loading="lazy"><figcaption>DESPUÉS</figcaption><span class="testi-plazo">4 MESES</span></figure></div>
-          <div class="testi-txt"><h3>«Dejé las dietas extremas y gané músculo.»</h3><div class="testi-quien"><b>Diego L, 34 · Buenos Aires, Argentina</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Antes de cada viaje dejaba de comer; volvía, engordaba y otra vez a cortar. Nadie me explicó que sin músculo no te ves definido. Entrenando 3 veces por semana <b>gané 5 kilos de músculo en 4 meses</b>, y con una nutrición flexible como y salgo sin culpa. Posta.</p></details></div></article>
-        <article class="testi"><div class="testi-fotos"><figure><img src="assets/testimonios/testimonio-5-antes.webp" alt="Alejandro F, antes" loading="lazy"><figcaption>ANTES</figcaption></figure><figure><img src="assets/testimonios/testimonio-5-despues.webp" alt="Alejandro F, después" loading="lazy"><figcaption>DESPUÉS</figcaption></figure></div>
-          <div class="testi-txt"><h3>«El problema no era yo, era el plan.»</h3><div class="testi-quien"><b>Alejandro F, 29 · Lima, Perú</b><small>ALUMNO DEL PROGRAMA</small></div><details class="testi-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><p>Siempre empezaba el lunes con todo y para el miércoles ya estaba full cansado. Pensaba que me faltaba disciplina. Con un plan y una estrategia claros, ahora entreno 3 veces por semana, como lo que me gusta y <b>en poco tiempo ya veía resultados.</b></p></details></div></article>
+        <article class="testi video" data-reel="DeQSohGstTr"><div class="video-media"><img src="assets/contenido/DeQSohGstTr.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿El café es bueno para el corazón?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">150 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿El café es bueno para el corazón?</h3><a class="video-ig" href="https://www.instagram.com/reel/DeQSohGstTr/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DdAICFYTdlB"><div class="video-media"><img src="assets/contenido/DdAICFYTdlB.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: Tus huesos también se entrenan"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">119 mil vistas</span></div>
+          <div class="testi-txt"><h3>Tus huesos también se entrenan</h3><a class="video-ig" href="https://www.instagram.com/reel/DdAICFYTdlB/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="Dd9nbGtz1Cf"><div class="video-media"><img src="assets/contenido/Dd9nbGtz1Cf.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cardio o pesas para perder grasa?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">37 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Cardio o pesas para perder grasa?</h3><a class="video-ig" href="https://www.instagram.com/reel/Dd9nbGtz1Cf/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DcPh8WlMcIO"><div class="video-media"><img src="assets/contenido/DcPh8WlMcIO.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: No te saltes el día de piernas"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">36 mil vistas</span></div>
+          <div class="testi-txt"><h3>No te saltes el día de piernas</h3><a class="video-ig" href="https://www.instagram.com/reel/DcPh8WlMcIO/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="DcUfdisz3Wd"><div class="video-media"><img src="assets/contenido/DcUfdisz3Wd.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Más series es más músculo?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">36 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Más series es más músculo?</h3><a class="video-ig" href="https://www.instagram.com/reel/DcUfdisz3Wd/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="Da1EebCTLoF"><div class="video-media"><img src="assets/contenido/Da1EebCTLoF.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cuántas repeticiones hacer?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">24 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Cuántas repeticiones hacer?</h3><a class="video-ig" href="https://www.instagram.com/reel/Da1EebCTLoF/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
+        <article class="testi video" data-reel="Dbef5AOTRIz"><div class="video-media"><img src="assets/contenido/Dbef5AOTRIz.webp" alt="" loading="lazy"><button type="button" class="video-play" aria-label="Reproducir: ¿Cuánto descansar entre series?"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></button><span class="video-vistas">19 mil vistas</span></div>
+          <div class="testi-txt"><h3>¿Cuánto descansar entre series?</h3><a class="video-ig" href="https://www.instagram.com/reel/Dbef5AOTRIz/" target="_blank" rel="noopener">Ver en Instagram <i class="ph-light ph-arrow-right"></i></a></div></article>
       </div>
-      <button type="button" class="lado izq" id="car-izq" aria-label="Testimonio anterior"><i class="ph-light ph-caret-left"></i></button>
-      <button type="button" class="lado der" id="car-der" aria-label="Siguiente testimonio"><i class="ph-light ph-caret-right"></i></button>
+      <button type="button" class="lado izq" id="car-izq" aria-label="Video anterior"><i class="ph-light ph-caret-left"></i></button>
+      <button type="button" class="lado der" id="car-der" aria-label="Siguiente video"><i class="ph-light ph-caret-right"></i></button>
     </div>
+    <div class="centro" style="margin-top:22px"><a class="ig-btn" href="https://www.instagram.com/entrena.con.ciencia/" target="_blank" rel="noopener"><i class="ph-fill ph-instagram-logo"></i>Ver más en Instagram</a></div>
   </div>
 </section>
 
@@ -1154,12 +1181,12 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   <div class="ecc-lista-caja" role="document">
     <button type="button" class="ecc-lista-x" data-cerrar aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     <form class="ecc-lista-form" novalidate>
-      <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera</span><span class="ecc-lista-off">40% OFF</span></span>
+      <span class="ecc-lista-badges"><span class="ecc-lista-eyebrow"><i class="ph-fill ph-bell-ringing"></i>Lista de espera</span><span class="ecc-gratis">Gratis</span></span>
+      <p class="ecc-lista-precio" aria-label="Precio de lanzamiento: 149 soles en vez de 249"><s>S/ 249</s><b>S/ 149</b><span class="ecc-lista-off">40% OFF</span></p>
       <h2 id="ecc-lista-titulo">Accede a nuestra oferta de lanzamiento</h2>
       <ul class="ecc-lista-info">
         <li><i class="ph-fill ph-check-circle"></i><span><b>Inscribirte no tiene costo.</b> No pedimos pago ni tarjeta.</span></li>
         <li><i class="ph-fill ph-tag"></i><span>Cuando se lance el programa, te enviamos al correo <b>tu cupón de 40% de descuento</b>.</span></li>
-        <li class="regalo-lista"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm-1-4h18v4H3V7Zm9 0v14M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7Zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Incluye el curso <b>+ regalos</b>: 1 mes de la app, Protocolos para Días Difíciles y Comunidad Privada. <b>Los regalos son solo para la lista de espera</b>; después del lanzamiento ya no se incluyen.</span></li>
       </ul>
       <label class="ecc-campo"><span>Nombre</span><input id="ecc-l-nombre" name="nombre" type="text" autocomplete="given-name" required maxlength="80" placeholder="Tu nombre"></label>
       <label class="ecc-campo"><span>Correo</span><input id="ecc-l-correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required maxlength="120" placeholder="tu@correo.com"></label>
@@ -1224,6 +1251,26 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 })();
 
 
+/* Nuestro contenido: al tocar play se abre el reproductor de Instagram en una ventana grande (antes no se carga nada de Instagram) */
+(function(){
+  var M=document.createElement('div'); M.className='video-modal'; M.hidden=true; M.setAttribute('role','dialog'); M.setAttribute('aria-modal','true');
+  M.innerHTML='<button type="button" class="video-modal-x" aria-label="Cerrar video"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="video-modal-caja"></div>';
+  document.body.appendChild(M);
+  var caja=M.querySelector('.video-modal-caja'), x=M.querySelector('.video-modal-x'), antes=null;
+  function cerrar(){ M.hidden=true; caja.innerHTML=''; document.documentElement.style.overflow=''; if(antes&&antes.focus) antes.focus({preventScroll:true}); }
+  x.addEventListener('click',cerrar); M.addEventListener('click',function(e){ if(e.target===M) cerrar(); });
+  document.addEventListener('keydown',function(e){ if(!M.hidden&&e.key==='Escape') cerrar(); });
+  [].forEach.call(document.querySelectorAll('.testi.video .video-play'),function(b){
+    b.addEventListener('click',function(){
+      var card=b.closest('.testi'), id=card.getAttribute('data-reel');
+      antes=b; M.hidden=false; document.documentElement.style.overflow='hidden';
+      var w=Math.min(400,innerWidth-32);
+      var f=document.createElement('iframe'); f.src='https://www.instagram.com/reel/'+id+'/embed/'; f.title=b.getAttribute('aria-label'); f.allow='autoplay; encrypted-media; picture-in-picture'; f.setAttribute('allowfullscreen','');
+      f.style.height=Math.round(w*16/9+140)+'px'; caja.appendChild(f); x.focus({preventScroll:true});
+      if(window.eccEvento) try{window.eccEvento('contenido_play',id+' · '+card.querySelector('h3').textContent.trim().slice(0,60),null,'contenido_play',null)}catch(e){}
+    });
+  });
+})();
 /* Carrusel de testimonios: flechas a los costados, arrastre con el mouse y scroll-snap */
 (function(){
   var p=document.getElementById('pista'), iz=document.getElementById('car-izq'), de=document.getElementById('car-der');
@@ -1234,7 +1281,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   function a(k){var P=pos(),max=p.scrollWidth-p.clientWidth;k=Math.max(0,Math.min(P.length-1,k));while(k>0&&P[k]===P[k-1])k--;p.scrollTo({left:P[k],behavior:'smooth'});iz.disabled=P[k]<=4;de.disabled=P[k]>=max-4}
   function marcar(){iz.disabled=p.scrollLeft<=4; de.disabled=p.scrollLeft+p.clientWidth>=p.scrollWidth-4}
   /* las flechas van a media altura de las fotos, para no tapar el texto */
-  function ubicar(){var f=cards[0].querySelector('.testi-fotos');if(!f)return;var y=f.getBoundingClientRect().top-p.getBoundingClientRect().top+f.offsetHeight/2;iz.style.top=de.style.top=y+'px'}
+  function ubicar(){var f=cards[0].querySelector('.testi-fotos,.video-media');if(!f)return;var y=f.getBoundingClientRect().top-p.getBoundingClientRect().top+f.offsetHeight/2;iz.style.top=de.style.top=y+'px'}
   addEventListener('resize',ubicar); addEventListener('load',ubicar); ubicar();
   function ir(dir){var P=pos(),k=idx(p.scrollLeft)+dir;while(k>0&&k<P.length&&P[k]===P[idx(p.scrollLeft)])k+=dir;a(k)}
   iz.addEventListener('click',function(){ir(-1)}); de.addEventListener('click',function(){ir(1)});
@@ -1249,8 +1296,8 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   addEventListener('resize',marcar); marcar();
   /* arrastrar con el mouse (en touch ya desliza solo) */
   var x0=0,s0=0,activo=false,movio=false;
-  p.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;activo=true;movio=false;x0=e.clientX;s0=p.scrollLeft;p.setPointerCapture(e.pointerId)});
-  p.addEventListener('pointermove',function(e){if(!activo)return;var dx=e.clientX-x0;if(Math.abs(dx)>4){movio=true;p.classList.add('arrastrando')}if(movio)p.scrollLeft=s0-dx});
+  p.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0)return;activo=true;movio=false;x0=e.clientX;s0=p.scrollLeft});
+  p.addEventListener('pointermove',function(e){if(!activo)return;var dx=e.clientX-x0;if(Math.abs(dx)>4&&!movio){movio=true;p.classList.add('arrastrando');try{p.setPointerCapture(e.pointerId)}catch(x){}}if(movio)p.scrollLeft=s0-dx});
   function soltar(e){if(!activo)return;activo=false;if(!movio)return;var dx=e.clientX-x0;p.classList.remove('arrastrando');var k=idx(p.scrollLeft);if(Math.abs(dx)>40){var k0=idx(s0);k=dx<0?Math.max(k,k0+1):Math.min(k,k0-1)}a(k)}
   p.addEventListener('pointerup',soltar); p.addEventListener('pointercancel',soltar);
   p.addEventListener('click',function(e){if(movio){e.preventDefault();e.stopPropagation();movio=false}},true);
