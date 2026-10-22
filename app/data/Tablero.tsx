@@ -358,7 +358,7 @@ const CAMBIOS: Record<string, { pestana: string; titulo: string; sub: string; no
   v5: {
     pestana: 'Cambio web 3',
     titulo: 'Cambio web 3: sin precio',
-    sub: 'Se quitó el precio (S/ 249 → S/ 149) de la caja de la oferta y del formulario; el formulario sigue diciendo «Gratis» y 40% OFF. Aquí se compara si se inscribe más gente sin el precio, separado por plataforma',
+    sub: 'Desde el 21 oct a las 21:37 se quitó el precio (S/ 249 → S/ 149) de la caja de la oferta y del formulario; el formulario sigue diciendo «Gratis» y 40% OFF. Aquí se compara si se inscribe más gente sin el precio, separado por plataforma',
   },
 };
 
