@@ -19,7 +19,9 @@ function inicioDiaLima(diasAtras = 0): string {
   return d.toISOString();
 }
 
-function periodos(versiones: Version[]): Periodo[] {
+function periodos(todas: Version[]): Periodo[] {
+  // Una versión con fecha futura todavía no está publicada: no se ofrece como periodo.
+  const versiones = todas.filter((v) => Date.parse(v.desde) <= Date.now());
   const lista: Periodo[] = versiones
     .map((v, i) => ({
       id: v.id,
@@ -352,6 +354,11 @@ const CAMBIOS: Record<string, { pestana: string; titulo: string; sub: string; no
     titulo: 'Cambio web 2: precio y nuestro contenido',
     sub: 'Desde el 21 oct a las 12:26 se ve el precio (S/ 249 tachado → S/ 149) en la caja de la oferta y en el formulario, el formulario dice «Gratis» y que recibes tu cupón de 40%, y en lugar de los testimonios está «Nuestro contenido» con 7 Reels. Aquí se compara cómo navega y se inscribe la gente antes y después, separado por plataforma',
     nota: 'Desde este cambio, la sección «Testimonios» del recorrido es «Nuestro contenido» (los videos); abrir un video cuenta en «abrieron un testimonio o video».',
+  },
+  v5: {
+    pestana: 'Cambio web 3',
+    titulo: 'Cambio web 3: sin precio',
+    sub: 'Se quitó el precio (S/ 249 → S/ 149) de la caja de la oferta y del formulario; el formulario sigue diciendo «Gratis» y 40% OFF. Aquí se compara si se inscribe más gente sin el precio, separado por plataforma',
   },
 };
 

@@ -16,6 +16,8 @@ export const VERSIONES = [
   // Cambio web 2 (publicado en producción 12:26): precio S/ 249 → S/ 149 en la caja de la oferta y en el formulario,
   // formulario con "Gratis" y dos puntos (sin costo y cupón), y "Nuestro contenido" (7 Reels) en lugar de los testimonios.
   { id: 'v4', nombre: 'Cambio web 2 (precio y nuestro contenido)', desde: '2026-10-21T12:26:00-05:00' },
+  // Cambio web 3: sin precios (ni en la caja de la oferta ni en el formulario). La hora se fija al publicarlo en producción.
+  { id: 'v5', nombre: 'Cambio web 3 (sin precio)', desde: '2099-01-01T00:00:00-05:00' },
 ];
 
 /**
