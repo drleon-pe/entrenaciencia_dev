@@ -57,10 +57,11 @@ const AZUL = '#017FA7';
  */
 const GRUPOS = [
   { id: 'Anuncios Meta', corto: 'Anuncios Meta', color: '#2a78d6' },
-  { id: 'Instagram y Facebook orgánico', corto: 'IG/FB orgánico', color: '#d55181' },
+  { id: 'Meta orgánico', corto: 'Meta orgánico', color: '#d55181' },
   { id: 'Anuncios TikTok', corto: 'Anuncios TikTok', color: '#6250d6' },
   { id: 'TikTok orgánico', corto: 'TikTok orgánico', color: '#1baf7a' },
   { id: 'Otros', corto: 'Otros', color: '#eb6834' },
+  { id: 'Sin datos de llegada', corto: 'Sin datos', color: '#9aa8b2' },
 ] as const;
 const VERDE = '#0f9d58';
 
@@ -396,7 +397,7 @@ function VistaCambio({ incluirEquipo, version }: { incluirEquipo: boolean; versi
   const txt = CAMBIOS[version] ?? { pestana: v.version.nombre, titulo: v.version.nombre, sub: 'Antes vs. después del cambio, separado por plataforma' };
   const horas = Math.round((Date.parse(v.generado) - Date.parse(v.despues.desde)) / 3_600_000);
   const resumen: string[] = [];
-  for (const [nombre, x] of [['Instagram y Facebook', d.meta], ['TikTok', d.tiktok]] as const) {
+  for (const [nombre, x] of [['Meta', d.meta], ['TikTok', d.tiktok]] as const) {
     const a = x.antes.kpis, b = x.despues.kpis;
     if (!b.personas) continue;
     const t = x.despues.navegacion.secciones.find((s) => s.nombre === 'Testimonios');
@@ -410,10 +411,10 @@ function VistaCambio({ incluirEquipo, version }: { incluirEquipo: boolean; versi
       <p className={`text-[13px] ${C.suave}`}>
         Publicado el {fechaHora(v.despues.desde)} (hace {horas < 48 ? `${horas} h` : `${Math.round(horas / 24)} días`}).
         {Date.parse(v.despues.hasta) < Date.parse(v.generado) - 60_000 && <> «Desde el cambio» llega hasta {fechaHora(v.despues.hasta)}, cuando entró el cambio siguiente.</>} <b>Antes</b> = versión &quot;{v.previa.nombre}&quot; ({fechaHora(v.antes.desde)} – {fechaHora(v.antes.hasta)}).
-        Instagram y Facebook incluye anuncios de Meta y orgánico; TikTok, anuncios y orgánico.
+        Meta (Instagram y Facebook) incluye anuncios y orgánico; TikTok, anuncios y orgánico.
       </p>
       <div className="grid lg:grid-cols-2 gap-6 items-start">
-        <CambioPlataforma d={d.meta} nombre="Instagram y Facebook (Meta)" color="#2a78d6" />
+        <CambioPlataforma d={d.meta} nombre="Meta" color="#2a78d6" />
         <CambioPlataforma d={d.tiktok} nombre="TikTok" color="#6250d6" />
       </div>
       <p className={`text-xs ${C.tenue}`}>
@@ -441,7 +442,7 @@ function Comportamiento({ c: todo }: { c: DatosPanel['comportamiento'] }) {
             {c.columnas.map((col) => (
               <th key={col.nombre} className={`font-medium px-2 pb-2 whitespace-nowrap ${col.nombre === 'Todos' ? 'text-[#0A2540]' : ''}`}>
                 {col.nombre !== 'Todos' && <i className="w-2 h-2 rounded-sm inline-block mr-1 align-middle" style={{ background: colores[col.nombre] }} />}
-                {col.nombre === 'Instagram y Facebook orgánico' ? 'IG/FB orgánico' : col.nombre}
+                {col.nombre}
                 <span className={`block text-[11px] font-normal ${C.tenue}`}>{col.personas} personas</span>
               </th>
             ))}
@@ -726,7 +727,8 @@ export default function Tablero({ correo, versiones }: { correo: string; version
   const [movNuevos, setMovNuevos] = useState<Set<string>>(new Set());
 
   // En "Desde el cambio" todo el tablero muestra el periodo de la versión actual.
-  const cambios = versiones.filter((v) => CAMBIOS[v.id] && Date.parse(v.desde) <= Date.now());
+  // Solo se muestra la pestaña del último cambio de la web (Cambio web 1 y 2 se quitaron a pedido del Dr. León).
+  const cambios = versiones.filter((v) => CAMBIOS[v.id] && Date.parse(v.desde) <= Date.now() && v.id !== 'v3' && v.id !== 'v4');
   const periodo = opciones.find((p) => p.id === (verCambio ?? periodoId)) ?? opciones.find((p) => p.id === periodoId)!;
 
   const cargar = useCallback(async () => {
@@ -929,7 +931,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
         <div className="max-w-6xl mx-auto px-4 flex gap-1 overflow-x-auto" role="tablist">
           {([
             { id: 'todo', nombre: 'Todo' },
-            { id: 'meta', nombre: 'Instagram y Facebook' },
+            { id: 'meta', nombre: 'Meta' },
             { id: 'tiktok', nombre: 'TikTok' },
             ...cambios.map((v) => ({ id: v.id, nombre: `${CAMBIOS[v.id].pestana} · ${diaCorto(new Date(v.desde).toLocaleDateString('en-CA', { timeZone: 'America/Lima' }))}`, cambio: true })),
           ] as { id: string; nombre: string; cambio?: boolean }[]).map((t) => {
@@ -1019,7 +1021,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
 
         <Bloque n={1} id="origen" titulo="¿De dónde viene la gente?" sub="Cuántas personas entran cada día y por qué plataforma llegan" resumen={resOrigen}>
           <Caja>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-5">
               {GRUPOS.map((g) => {
                 const t = datos?.trafico.find((x) => x.nombre === g.id);
                 return (
@@ -1090,7 +1092,7 @@ export default function Tablero({ correo, versiones }: { correo: string; version
             </div>
             <div className={`flex flex-wrap gap-x-4 gap-y-1 text-xs ${C.suave} mt-3`}>
               {GRUPOS.map((g) => (
-                <span key={g.id} className="flex items-center gap-1.5"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: g.color }} /> {g.id === 'Otros' ? 'Otros (directo, web, WhatsApp, Google…)' : g.id}</span>
+                <span key={g.id} className="flex items-center gap-1.5"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: g.color }} /> {g.id === 'Otros' ? 'Otros (directo, web, WhatsApp, Google…)' : g.id === 'Sin datos de llegada' ? 'Sin datos de llegada (solo llegaron sus clics: no se sabe por dónde entraron)' : g.id}</span>
               ))}
             </div>
             <div className="overflow-x-auto -mx-1 mt-4">

@@ -249,14 +249,19 @@ const CANALES_FUENTE: Record<Exclude<Fuente, 'todo'>, string[]> = {
 };
 
 /** Grupos de tráfico por plataforma, en el orden en que se muestran. */
-export const GRUPOS_TRAFICO = ['Anuncios Meta', 'Instagram y Facebook orgánico', 'Anuncios TikTok', 'TikTok orgánico', 'Otros'] as const;
+/**
+ * «Sin datos de llegada» va aparte de «Otros»: son personas de las que solo llegaron sus clics (el aviso de visita se
+ * perdió, sobre todo el 19–20 oct) y no se sabe si vinieron de un anuncio o no. Meterlas en «Otros» (orgánico) lo distorsiona.
+ */
+export const GRUPOS_TRAFICO = ['Anuncios Meta', 'Meta orgánico', 'Anuncios TikTok', 'TikTok orgánico', 'Otros', 'Sin datos de llegada'] as const;
 export type GrupoTrafico = (typeof GRUPOS_TRAFICO)[number];
 export function grupoTrafico(v: Fila): GrupoTrafico {
   const c = canal(v);
   if (c === 'Anuncios Meta') return 'Anuncios Meta';
-  if (c === 'Instagram orgánico' || c === 'Facebook orgánico') return 'Instagram y Facebook orgánico';
+  if (c === 'Instagram orgánico' || c === 'Facebook orgánico') return 'Meta orgánico';
   if (c === 'Anuncios TikTok') return 'Anuncios TikTok';
   if (c === 'TikTok') return 'TikTok orgánico';
+  if (c === 'Sin origen registrado') return 'Sin datos de llegada';
   return 'Otros';
 }
 
@@ -437,7 +442,8 @@ export function calcularPanel({
   const grupos = {
     todos: personas,
     anuncios: personas.filter(deAnuncio),
-    organico: personas.filter((id) => !deAnuncio(id)),
+    // «Sin anuncio» = orgánico conocido; quien no tiene datos de llegada no se puede saber y no entra aquí.
+    organico: personas.filter((id) => !deAnuncio(id) && canalDe.get(id) !== 'Sin origen registrado'),
   };
   const cuantos = (ids: string[], set: Set<string>) => ids.filter((id) => set.has(id)).length;
   const pasos: [string, Set<string> | null][] = [
