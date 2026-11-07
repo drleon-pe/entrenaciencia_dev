@@ -709,7 +709,7 @@ function VistaCampanas({ campanas, plataforma }: { campanas: Campanas; plataform
 
 export default function Tablero({ correo, versiones }: { correo: string; versiones: Version[] }) {
   const opciones = useMemo(() => periodos(versiones), [versiones]);
-  const [periodoId, setPeriodoId] = useState('7d');
+  const [periodoId, setPeriodoId] = useState('todo');
   const [incluirEquipo, setIncluirEquipo] = useState(false);
   const [fuente, setFuente] = useState<'todo' | 'meta' | 'tiktok'>('todo');
   const [verCambio, setVerCambio] = useState<string | null>(null);
