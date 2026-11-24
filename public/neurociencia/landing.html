@@ -633,7 +633,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .barra{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--navy);padding:9px 16px calc(8px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 30px -12px rgba(1,13,21,.5)}
 .barra.on{transform:none}
 .barra .cta-wrap{max-width:440px;display:flex;margin:0 auto}
-.barra .cta{min-height:44px;padding-top:10px;padding-bottom:10px;font-size:14px;background:var(--teal);color:#fff;box-shadow:none}
+.barra .cta{min-height:44px;padding-top:10px;padding-bottom:10px;font-size:14px;background:var(--amarillo);color:var(--navy-2);box-shadow:none}
 .barra .sello{background:#fff;color:var(--navy)}
 .barra p{margin:0 0 6px;text-align:center;font-size:12.5px;line-height:1.3;color:#fff;font-weight:500}
 .barra p b{color:var(--amarillo);font-weight:700}
@@ -643,8 +643,10 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .barra-botones{display:flex;align-items:stretch;gap:8px;max-width:440px;margin:0 auto}
 .barra-botones .cta-wrap{flex:1;min-width:0;margin:0;max-width:none}
 .barra .barra-botones .cta{padding-left:12px;padding-right:12px;font-size:13.5px;white-space:nowrap}
-.barra .barra-planes{flex:none;width:auto;margin:0;min-height:44px;padding:6px 12px;font-size:12.5px;font-weight:500;background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
-.barra .barra-planes:hover{background:rgba(255,255,255,.1)}
+.barra .barra-planes{flex:none;width:auto;margin:0;min-height:44px;padding:6px 16px;font-size:13px;font-weight:600;background:var(--teal);color:#fff;border:0}
+.barra .barra-planes:hover{background:#016E91}
+/* en el celular la barra queda en una sola fila: sin el texto de arriba, solo los dos botones */
+@media (max-width:859px){.barra p{display:none}.barra{padding-top:10px}}
 
 /* ---------- testimonios discretos (tarjetas chicas en una fila que se desliza) ---------- */
 .ecc-ej[hidden]{display:none!important}
