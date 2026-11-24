@@ -669,6 +669,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 /* caras: se ven unas 4 a la vez, la elegida al centro, y los costados se desvanecen para que se note que hay más */
 .hs-caras{box-sizing:border-box;display:flex;gap:16px;width:100%;max-width:380px;margin:0 auto;overflow-x:auto;padding:4px 8px 16px;scroll-padding:0 8px;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 82%,transparent)}
 .hs-caras::-webkit-scrollbar{display:none}
+.hs-caras[hidden],.hs-nav[hidden]{display:none!important}
 .hs-cara{flex:none;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;gap:7px;padding:0;border:0;background:none;cursor:pointer;font:600 12px/1 "Poppins";color:var(--suave)}
 .hs-anillo{display:block;width:64px;height:64px;padding:3px;border-radius:50%;background:var(--borde);transition:transform .2s}
 .hs-anillo img{display:block;width:100%;height:100%;border-radius:50%;border:2px solid #fff;object-fit:cover;object-position:50% 22%}
@@ -1195,17 +1196,27 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     <p class="testis-tit">Personas como tú, que <span class="teal">dejaron de volver a empezar</span></p>
     <div class="hs" id="historias">
       <div class="hs-caras" role="tablist" aria-label="Historias de alumnos">
-        <button type="button" class="hs-cara" role="tab" id="hs-t1" aria-controls="hs-1" aria-selected="true"><span class="hs-anillo"><img src="assets/testimonios/testimonio-1-despues.webp" alt="" loading="lazy"></span><b>Héctor</b></button>
-        <button type="button" class="hs-cara" role="tab" id="hs-t2" aria-controls="hs-2" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-2-despues.webp" alt="" loading="lazy"></span><b>Luis</b></button>
-        <button type="button" class="hs-cara" role="tab" id="hs-t3" aria-controls="hs-3" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-6-despues.webp" alt="" loading="lazy"></span><b>Juan</b></button>
-        <button type="button" class="hs-cara" role="tab" id="hs-t4" aria-controls="hs-4" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-7-despues.webp" alt="" loading="lazy"></span><b>Gerardo</b></button>
-        <button type="button" class="hs-cara" role="tab" id="hs-t5" aria-controls="hs-5" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-3-despues.webp" alt="" loading="lazy"></span><b>Rodolfo</b></button>
-        <button type="button" class="hs-cara" role="tab" id="hs-t6" aria-controls="hs-6" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-8-despues.webp" alt="" loading="lazy"></span><b>Gabriel</b></button>
-        <button type="button" class="hs-cara" role="tab" id="hs-t7" aria-controls="hs-7" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-4-despues.webp" alt="" loading="lazy"></span><b>Diego</b></button>
-        <button type="button" class="hs-cara" role="tab" id="hs-t8" aria-controls="hs-8" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-5-despues.webp" alt="" loading="lazy"></span><b>Alejandro</b></button>
+        <button type="button" class="hs-cara" role="tab" id="hs-t0" aria-controls="hs-0" aria-selected="true"><span class="hs-anillo"><img src="assets/leon-despues.webp" alt="" loading="lazy"></span><b>Dr. León</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t1" aria-controls="hs-1" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-1-despues.webp" alt="" loading="lazy"></span><b>Héctor</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t2" aria-controls="hs-2" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-2-despues.webp" alt="" loading="lazy"></span><b>Luis</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t3" aria-controls="hs-3" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-6-despues.webp" alt="" loading="lazy"></span><b>Juan</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t4" aria-controls="hs-4" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-7-despues.webp" alt="" loading="lazy"></span><b>Gerardo</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t5" aria-controls="hs-5" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-3-despues.webp" alt="" loading="lazy"></span><b>Rodolfo</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t6" aria-controls="hs-6" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-8-despues.webp" alt="" loading="lazy"></span><b>Gabriel</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t7" aria-controls="hs-7" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-4-despues.webp" alt="" loading="lazy"></span><b>Diego</b></button>
+        <button type="button" class="hs-cara" data-ej role="tab" id="hs-t8" aria-controls="hs-8" aria-selected="false" tabindex="-1"><span class="hs-anillo"><img src="assets/testimonios/testimonio-5-despues.webp" alt="" loading="lazy"></span><b>Alejandro</b></button>
       </div>
       <div class="hs-escena">
-        <article class="hs-panel on" id="hs-1" role="tabpanel" aria-labelledby="hs-t1">
+        <article class="hs-panel on" id="hs-0" role="tabpanel" aria-labelledby="hs-t0">
+          <div class="hs-fotos"><figure><img src="assets/leon-antes.webp" alt="Dr. Gonzalo León, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/leon-despues.webp" alt="Dr. Gonzalo León, después" loading="lazy"><figcaption>Después</figcaption><span class="hs-plazo">120 kg → 85 kg</span></figure></div>
+          <div class="hs-txt">
+            <span class="hs-comillas" aria-hidden="true">“</span>
+            <h3>Llegué a pesar 120 kilos.</h3>
+            <p class="hs-quien"><b>Dr. Gonzalo León, 30</b> · Médico de Entrena con Ciencia<small>Creador del programa</small></p>
+            <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Empecé medicina y llegué a pesar 120 kilos. Con poca energía y vergüenza cada vez que me veía al espejo, <b>decidí cambiar mi vida por completo.</b> Hoy, con un equipo de nutricionistas, entrenadores y profesionales en neurociencia, ayudo a personas como tú a cambiar su vida.</p></div></details>
+          </div>
+        </article>
+        <article class="hs-panel" data-ej id="hs-1" role="tabpanel" aria-labelledby="hs-t1">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-1-antes.webp" alt="Héctor V, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-1-despues.webp" alt="Héctor V, después" loading="lazy"><figcaption>Después</figcaption></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1214,7 +1225,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Me decían que por mi genética no iba a ganar músculo. En el programa aprendí a entrenar con base científica y a comer con un plan nutricional flexible, y <b>gané en menos de un año todo lo que no había ganado en 5.</b></p></div></details>
           </div>
         </article>
-        <article class="hs-panel" id="hs-2" role="tabpanel" aria-labelledby="hs-t2">
+        <article class="hs-panel" data-ej id="hs-2" role="tabpanel" aria-labelledby="hs-t2">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-2-antes.webp" alt="Luis F, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-2-despues.webp" alt="Luis F, después" loading="lazy"><figcaption>Después</figcaption></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1223,7 +1234,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Probé dietas, suplementos y rutinas, sin constancia. Con un entrenamiento basado en la última ciencia y entendiendo la psicología del cambio de hábitos, entrenar se volvió parte de mi vida: <b>en menos de 8 meses gané músculo como nunca antes.</b></p></div></details>
           </div>
         </article>
-        <article class="hs-panel" id="hs-3" role="tabpanel" aria-labelledby="hs-t3">
+        <article class="hs-panel" data-ej id="hs-3" role="tabpanel" aria-labelledby="hs-t3">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-6-antes.webp" alt="Juan Manuel M, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-6-despues.webp" alt="Juan Manuel M, después" loading="lazy"><figcaption>Después</figcaption></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1232,7 +1243,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Llevaba años subiendo y bajando de peso con dietas que no me duraban dos semanas. Entendí el balance energético y armé un plan que sostengo incluso comiendo fuera. Bajé sin pasar hambre y, <b>por primera vez, no lo he vuelto a recuperar.</b></p></div></details>
           </div>
         </article>
-        <article class="hs-panel" id="hs-4" role="tabpanel" aria-labelledby="hs-t4">
+        <article class="hs-panel" data-ej id="hs-4" role="tabpanel" aria-labelledby="hs-t4">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-7-antes.webp" alt="Gerardo G, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-7-despues.webp" alt="Gerardo G, después" loading="lazy"><figcaption>Después</figcaption><span class="hs-plazo">8 semanas</span></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1241,7 +1252,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Iba al gym, copiaba rutinas de TikTok y cada semana cambiaba de plan. Me cansaba y no veía avance. En el programa entendí por fin cómo progresar con sobrecarga progresiva y a comer lo suficiente sin pasarme. Neta, <b>en 8 semanas gané músculo como no lo había logrado en años</b>, y ahora sé exactamente qué hacer cada día.</p></div></details>
           </div>
         </article>
-        <article class="hs-panel" id="hs-5" role="tabpanel" aria-labelledby="hs-t5">
+        <article class="hs-panel" data-ej id="hs-5" role="tabpanel" aria-labelledby="hs-t5">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-3-antes.webp" alt="Rodolfo V, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-3-despues.webp" alt="Rodolfo V, después" loading="lazy"><figcaption>Después</figcaption><span class="hs-plazo">8 semanas</span></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1250,7 +1261,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Entrené pesas harto tiempo y solo ganaba fuerza: nunca lograba bajar mi porcentaje de grasa. Ordené mi entrenamiento y mi nutrición, y <b>en 8 semanas logré resultados sorprendentes</b> que mantengo hasta hoy. Lo mejor: ahora soy autónomo, ¿cachai?</p></div></details>
           </div>
         </article>
-        <article class="hs-panel" id="hs-6" role="tabpanel" aria-labelledby="hs-t6">
+        <article class="hs-panel" data-ej id="hs-6" role="tabpanel" aria-labelledby="hs-t6">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-8-antes.webp" alt="Gabriel G, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-8-despues.webp" alt="Gabriel G, después" loading="lazy"><figcaption>Después</figcaption><span class="hs-plazo">8 semanas</span></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1259,7 +1270,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Entrenaba bien, pero me quedaba esa capa de grasa que no se iba con nada, aunque comiera "limpio". En el programa entendí que no era cuestión de comer menos todo el tiempo, sino de ordenar las calorías y la proteína. Y, <b>en 8 semanas bajé 5% de grasa corporal</b> sin dejar de salir con mis amigos, y por fin se me marca el abdomen.</p></div></details>
           </div>
         </article>
-        <article class="hs-panel" id="hs-7" role="tabpanel" aria-labelledby="hs-t7">
+        <article class="hs-panel" data-ej id="hs-7" role="tabpanel" aria-labelledby="hs-t7">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-4-antes.webp" alt="Diego L, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-4-despues.webp" alt="Diego L, después" loading="lazy"><figcaption>Después</figcaption><span class="hs-plazo">4 meses</span></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1268,7 +1279,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Antes de cada viaje dejaba de comer; volvía, engordaba y otra vez a cortar. Nadie me explicó que sin músculo no te ves definido. Entrenando 3 veces por semana <b>gané 5 kilos de músculo en 4 meses</b>, y con una nutrición flexible como y salgo sin culpa. Posta.</p></div></details>
           </div>
         </article>
-        <article class="hs-panel" id="hs-8" role="tabpanel" aria-labelledby="hs-t8">
+        <article class="hs-panel" data-ej id="hs-8" role="tabpanel" aria-labelledby="hs-t8">
           <div class="hs-fotos"><figure><img src="assets/testimonios/testimonio-5-antes.webp" alt="Alejandro F, antes" loading="lazy"><figcaption>Antes</figcaption></figure><figure><img src="assets/testimonios/testimonio-5-despues.webp" alt="Alejandro F, después" loading="lazy"><figcaption>Después</figcaption></figure></div>
           <div class="hs-txt">
             <span class="hs-comillas" aria-hidden="true">“</span>
@@ -1277,7 +1288,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
             <details class="tm-mas"><summary>Leer testimonio <i class="ph-light ph-caret-down"></i></summary><div class="tm-relato"><p>Siempre empezaba el lunes con todo y para el miércoles ya estaba full cansado. Pensaba que me faltaba disciplina. Con un plan y una estrategia claros, ahora entreno 3 veces por semana, como lo que me gusta y <b>en poco tiempo ya veía resultados.</b></p></div></details>
           </div>
         </article>
-        <div class="hs-nav"><button type="button" class="hs-ant" aria-label="Historia anterior"><i class="ph-light ph-caret-left"></i></button><span class="hs-num" aria-live="polite">1 / 8</span><button type="button" class="hs-sig" aria-label="Siguiente historia"><i class="ph-light ph-caret-right"></i></button></div>
+        <div class="hs-nav"><button type="button" class="hs-ant" aria-label="Historia anterior"><i class="ph-light ph-caret-left"></i></button><span class="hs-num" aria-live="polite">1 / 9</span><button type="button" class="hs-sig" aria-label="Siguiente historia"><i class="ph-light ph-caret-right"></i></button></div>
       </div>
     </div>
   </div>
@@ -1290,7 +1301,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     <h2 class="titulo centro">Preguntas <span class="teal">Frecuentes</span></h2>
     <div class="faq">
       <details><summary>He tratado de transformar mi cuerpo antes. ¿Por qué esta vez sería distinto?<i class="ph-light ph-plus"></i></summary><p>Nuestro programa empieza por enseñarte <b>neurociencia del cambio</b> en vez de simplemente darte un plan de acción para el entrenamiento y tu nutrición; te ayudamos a diseñar un sistema que funcione con tu estilo de vida. Nadie te dice que será fácil, pero desarrollar <span class="hl">la habilidad de ser constante</span> es lo más importante para ver resultados.</p></details>
-      <details><summary>Quiero empezar con el programa, pero me preocupa no tener tiempo.<i class="ph-light ph-plus"></i></summary><p>No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que no necesitas entrenar todos los días para ver cambios: tu rutina es de <b>solo 3 veces por semana</b>, un poco más que la dosis mínima efectiva: lo necesario para que veas resultados sin <span class="hl">quitarte más tiempo del necesario</span>. Además, tu rutina tiene <b>una versión solo con mancuernas</b>, para entrenar en casa, y <b>otra con las máquinas del gimnasio</b>, para que elijas la que mejor te funciona.</p></details>
+      <details><summary>Quiero empezar con el programa, pero me preocupa no tener tiempo.<i class="ph-light ph-plus"></i></summary><p>No te preocupes. Este es un problema muy común. La última ciencia del deporte ha demostrado que no necesitas entrenar todos los días para ver cambios: tu rutina es de <b>solo 3 veces por semana</b>, un poco más que la dosis mínima efectiva: lo necesario para que veas resultados sin <span class="hl">quitarte más tiempo del necesario</span>.</p></details>
       <details><summary>Soy principiante y no sé nada. ¿Voy a poder entender el material?<i class="ph-light ph-plus"></i></summary><p><b>El programa está diseñado con principiantes en mente.</b> Hemos creado los módulos de fundamentos de entrenamiento y nutrición para explicarte qué tienes que hacer al detalle. La idea es llevar tus conocimientos de principiante a intermedio con el programa para que tengas los fundamentos correctos para <span class="hl">progresar por tu cuenta</span>.</p></details>
       <details><summary>¿Tengo que dejar de comer lo que me gusta?<i class="ph-light ph-plus"></i></summary><p><b>No.</b> Un plan que te saca de la comida familiar del domingo es <span class="hl">un plan que vas a abandonar</span>, y eso ya lo sabemos. Hay un protocolo específico para comer fuera y para las reuniones.</p></details>
       <details><summary>¿Cuánto voy a bajar y en cuánto tiempo?<i class="ph-light ph-plus"></i></summary><p>Es difícil prometerte un número exacto, ya que varía entre persona y persona. Pero <b>perder entre 1 y 2% de tu peso corporal al mes</b> es un <span class="hl">objetivo realizable</span>.</p></details>
@@ -1418,9 +1429,11 @@ var LINK_3MESES = "https://pay.hotmart.com/I108643325X?off=27uzwc4y";
   document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('[data-link]'); if(a) armar(a); },true);
 })();
 
-/* Testimonios de ejemplo: se ven en local y en la demo de Vercel; en entrenaciencia.com (producción) solo con ?ejemplo=1 */
+/* Testimonios: la historia del Dr. León es real y se ve siempre. Los 8 de ejemplo (data-ej) se ven en local y en la demo
+   de Vercel; en entrenaciencia.com (producción) se quitan, salvo con ?ejemplo=1. */
 (function(){
-  if(/(^|\.)entrenaciencia\.com$/.test(location.hostname) && !/[?&]ejemplo=1\b/.test(location.search)) return;
+  if(/(^|\.)entrenaciencia\.com$/.test(location.hostname) && !/[?&]ejemplo=1\b/.test(location.search))
+    [].forEach.call(document.querySelectorAll('[data-ej]'),function(e){ e.parentNode.removeChild(e); });
   [].forEach.call(document.querySelectorAll('.ecc-ej'),function(e){ e.hidden=false; });
 })();
 
@@ -1432,7 +1445,8 @@ var LINK_3MESES = "https://pay.hotmart.com/I108643325X?off=27uzwc4y";
   var H=document.getElementById('historias'); if(!H) return;
   var caras=[].slice.call(H.querySelectorAll('.hs-cara')), pan=[].slice.call(H.querySelectorAll('.hs-panel')), fila=H.querySelector('.hs-caras'), num=H.querySelector('.hs-num'), N=pan.length, i=0, salto=null;
   function copia(c){ var x=c.cloneNode(true); x.removeAttribute('id'); x.removeAttribute('role'); x.removeAttribute('aria-controls'); x.removeAttribute('aria-selected'); x.setAttribute('aria-hidden','true'); x.tabIndex=-1; return x; }
-  var antes=caras.map(copia), despues=caras.map(copia);
+  if(N<2){ fila.hidden=true; H.querySelector('.hs-nav').hidden=true; }
+  var antes=N<2?[]:caras.map(copia), despues=N<2?[]:caras.map(copia);
   antes.forEach(function(x){ fila.insertBefore(x,caras[0]); }); despues.forEach(function(x){ fila.appendChild(x); });
   var todas=antes.concat(caras,despues);
   function centrar(b,suave){ var rf=fila.getBoundingClientRect(), rc=b.getBoundingClientRect(); fila.scrollTo({left:fila.scrollLeft+rc.left-rf.left-(rf.width-rc.width)/2,behavior:suave?'smooth':'auto'}); }
@@ -1443,10 +1457,10 @@ var LINK_3MESES = "https://pay.hotmart.com/I108643325X?off=27uzwc4y";
     pan.forEach(function(p,k){ p.classList.toggle('on',k===i); });
     caras.forEach(function(c,k){ c.setAttribute('aria-selected',k===i?'true':'false'); c.tabIndex=k===i?0:-1; });
     todas.forEach(function(c,k){ c.classList.toggle('on',k%N===i); });
-    [].forEach.call(pan[i].querySelectorAll('.hs-barras i'),function(x,k){ x.classList.remove('activo'); x.classList.toggle('lleno',k<i||(quieto&&k===i)); void x.offsetWidth; if(k===i&&!quieto) x.classList.add('activo'); });
+    [].forEach.call(pan[i].querySelectorAll('.hs-barras i'),function(x,k){ x.classList.remove('activo'); x.classList.toggle('lleno',k<i||(quieto&&k===i)); void x.offsetWidth; if(k===i&&!quieto&&N>1) x.classList.add('activo'); });
     num.textContent=(i+1)+' / '+N;
-    clearTimeout(salto); centrar(todas[vuelta*N+i],!inicio);
-    if(vuelta!==1) salto=setTimeout(function(){ centrar(caras[i],false); },500);
+    if(N>1){ clearTimeout(salto); centrar(todas[vuelta*N+i],!inicio);
+      if(vuelta!==1) salto=setTimeout(function(){ centrar(caras[i],false); },500); }
     pausa();
   }
   pan.forEach(function(p){
