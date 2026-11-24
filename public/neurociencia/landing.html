@@ -734,7 +734,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 /* ---------- botón secundario: baja a los planes ---------- */
 /* "Ver planes" baja al cierre ("Transforma tu Cuerpo" y "Así funciona"); el margen deja el título bajo la cabecera fija */
 #oferta{scroll-margin-top:30px}
-.cta-sec{display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;min-height:44px;margin:12px auto 0;padding:10px 24px;border:1.5px solid var(--teal);border-radius:999px;background:#fff;color:var(--teal);font:600 14.5px/1 "Poppins";text-decoration:none;transition:background .2s}
+.cta-sec{display:flex;align-items:center;justify-content:center;gap:8px;text-transform:uppercase;letter-spacing:.02em;width:fit-content;min-height:44px;margin:12px auto 0;padding:10px 24px;border:1.5px solid var(--teal);border-radius:999px;background:#fff;color:var(--teal);font:600 14.5px/1 "Poppins";text-decoration:none;transition:background .2s}
 .cta-sec:hover{background:var(--celeste-2)}
 .cta-sec i{font-size:16px}
 
@@ -1691,9 +1691,10 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   if(window.ResizeObserver) new ResizeObserver(pedir).observe(M);
 })();
 
-/* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando la sección de la app (y su botón) o los planes están en pantalla */
+/* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando en pantalla ya hay un botón de la página
+   (Accede gratis o Ver planes), la caja «Ese es el método…», la sección de la app o los planes */
 (function(){
-  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('planes'),document.getElementById('app'),document.querySelector('#app + .centro')].filter(Boolean);
+  var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('planes'),document.getElementById('app'),document.querySelector('#app + .centro'),document.querySelector('.metodo-ecc')].concat([].slice.call(document.querySelectorAll('main .cta, main .cta-sec'))).filter(Boolean);
   function ver(){var pasoHero=hero.getBoundingClientRect().bottom<0;var tapa=tapan.some(function(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var on=pasoHero&&!tapa;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');[].forEach.call(b.querySelectorAll('a'),function(a){a.tabIndex=on?0:-1})}
   addEventListener('scroll',ver,{passive:true}); addEventListener('resize',ver); ver();
 })();
