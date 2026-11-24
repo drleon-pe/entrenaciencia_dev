@@ -672,10 +672,11 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .hs-fotos{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .hs-fotos figure{position:relative;margin:0}
 .hs-fotos img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%}
-.hs-fotos figcaption{position:absolute;left:10px;top:24px;padding:4px 8px;border-radius:6px;background:rgba(10,37,64,.85);color:#fff;font:600 9.5px/1 "Poppins";letter-spacing:.1em;text-transform:uppercase}
+.hs-fotos figcaption{position:absolute;left:10px;top:10px;padding:4px 8px;border-radius:6px;background:rgba(10,37,64,.85);color:#fff;font:600 9.5px/1 "Poppins";letter-spacing:.1em;text-transform:uppercase}
 .hs-fotos figure+figure figcaption{background:var(--amarillo);color:var(--navy-2)}
 .hs-plazo{position:absolute;right:10px;bottom:10px;padding:6px 10px;border-radius:999px;background:#fff;color:var(--navy);font:700 11px/1 "Poppins";letter-spacing:.03em;box-shadow:0 6px 14px -8px rgba(10,37,64,.6)}
-.hs-barras{position:absolute;top:10px;left:10px;right:10px;z-index:2;display:flex;gap:4px;pointer-events:none}
+/* las barras no se ven, pero siguen midiendo los 8 s de cada historia (con display:none la animación no correría) */
+.hs-barras{position:absolute;top:10px;left:10px;right:10px;z-index:2;display:flex;gap:4px;pointer-events:none;opacity:0}
 .hs-barras i{position:relative;flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.45);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .hs-barras i::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
 .hs-barras i.lleno::after{transform:scaleX(1)}
