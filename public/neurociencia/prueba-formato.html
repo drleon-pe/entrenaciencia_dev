@@ -160,6 +160,8 @@ p{margin:0}
 @keyframes mini-entra{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
 .vsl-mini-x{display:none;position:fixed;right:18px;bottom:calc(var(--mb) + var(--mw) * .5625 - 34px);z-index:61;width:28px;height:28px;border:0;border-radius:50%;background:rgba(10,37,64,.88);color:#fff;place-items:center;cursor:pointer}
 .hero-foto.mini .vsl-mini-x{display:grid}
+.hero-foto.mini video{touch-action:none;cursor:grab}
+.hero-foto.mini video:active{cursor:grabbing}
 @media (prefers-reduced-motion:reduce){.hero-foto.mini video{animation:none}}
 .vsl-sonido[hidden]{display:none}
 @keyframes latido{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.05)}}
@@ -650,10 +652,11 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .barra-botones{display:flex;align-items:stretch;gap:8px;max-width:440px;margin:0 auto}
 .barra-botones .cta-wrap{flex:1;min-width:0;margin:0;max-width:none}
 .barra .barra-botones .cta{padding-left:12px;padding-right:12px;font-size:13.5px;white-space:nowrap}
-.barra .barra-planes{flex:none;width:auto;margin:0;min-height:44px;padding:6px 16px;font-size:13px;font-weight:600;background:var(--teal);color:#fff;border:0}
+.barra .barra-planes{flex:none;width:auto;margin:0;min-height:44px;padding:6px 16px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;background:var(--teal);color:#fff;border:0}
 .barra .barra-planes:hover{background:#016E91}
 /* en el celular la barra queda en una sola fila: sin el texto de arriba, solo los dos botones */
-@media (max-width:859px){.barra p{display:none}.barra{padding-top:10px}}
+/* mismo aire arriba y abajo: el margen del iPhone (barra de inicio) se reparte entre los dos lados para que los botones queden centrados */
+@media (max-width:859px){.barra p{display:none}.barra{padding-top:calc(12px + env(safe-area-inset-bottom) * .5);padding-bottom:calc(12px + env(safe-area-inset-bottom) * .5)}}
 
 /* ---------- testimonios discretos (tarjetas chicas en una fila que se desliza) ---------- */
 .ecc-ej[hidden]{display:none!important}
@@ -1492,7 +1495,22 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   x.innerHTML='<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
   box.appendChild(x);
   var fuera=false, cerrado=false;
-  function mini(){ box.classList.toggle('mini', fuera && !cerrado && !v.muted && !v.paused && !v.ended); }
+  /* se puede arrastrar a cualquier parte de la pantalla para que no tape el texto; la posición se recuerda mientras dure la visita */
+  var pos=null, arr=null, movio=false;
+  function aplicar(){
+    var on=box.classList.contains('mini');
+    if(!on||!pos){ ['left','top','right','bottom'].forEach(function(k){ v.style[k]=''; x.style[k]=''; }); return; }
+    var w=v.offsetWidth, h=v.offsetHeight, cab=(document.querySelector('.cabecera')||{offsetHeight:0}).offsetHeight;
+    pos.l=Math.max(8,Math.min(innerWidth-w-8,pos.l)); pos.t=Math.max(cab+8,Math.min(innerHeight-h-8,pos.t));
+    v.style.left=pos.l+'px'; v.style.top=pos.t+'px'; v.style.right=v.style.bottom='auto';
+    x.style.left=(pos.l+w-34)+'px'; x.style.top=(pos.t+6)+'px'; x.style.right=x.style.bottom='auto';
+  }
+  function mini(){ box.classList.toggle('mini', fuera && !cerrado && !v.muted && !v.paused && !v.ended); aplicar(); }
+  v.addEventListener('pointerdown',function(e){ if(!box.classList.contains('mini')) return; var r=v.getBoundingClientRect(); arr={x:e.clientX,y:e.clientY,l:r.left,t:r.top}; movio=false; try{ v.setPointerCapture(e.pointerId); }catch(er){} });
+  v.addEventListener('pointermove',function(e){ if(!arr) return; var dx=e.clientX-arr.x, dy=e.clientY-arr.y; if(!movio&&Math.abs(dx)+Math.abs(dy)<8) return; movio=true; pos={l:arr.l+dx,t:arr.t+dy}; aplicar(); });
+  function soltar(){ arr=null; } v.addEventListener('pointerup',soltar); v.addEventListener('pointercancel',soltar);
+  v.addEventListener('click',function(e){ if(movio){ e.preventDefault(); e.stopImmediatePropagation(); movio=false; } },true);
+  addEventListener('resize',aplicar);
   x.addEventListener('click',function(){ cerrado=true; v.pause(); mini(); });
   v.addEventListener('play',function(){ cerrado=false; mini(); }); v.addEventListener('pause',mini); v.addEventListener('ended',mini); v.addEventListener('volumechange',mini);
   if(window.IntersectionObserver) new IntersectionObserver(function(en){ fuera=en[0].intersectionRatio<.35; mini(); },{threshold:[0,.35,1]}).observe(box);
