@@ -103,7 +103,7 @@ p{margin:0}
 .anuncio span{display:block;margin-top:2px;font-size:12px;color:#CFE3F0}
 .anuncio span em{font-style:normal;font-weight:600;color:var(--amarillo)}
 .cabecera{position:sticky;top:0;z-index:40;background:var(--navy);box-shadow:0 10px 24px -16px rgba(1,13,21,.7)}
-.cabecera .envase{height:74px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cabecera .envase{height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 16px/1.02 "Poppins";letter-spacing:.02em}
 .logo img{width:28px;height:28px}
 .logo-txt{display:flex;flex-direction:column;line-height:1.02;text-transform:uppercase}
@@ -774,7 +774,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .sec{padding:96px 0}
   .anuncio b,.anuncio span{display:inline}
   .anuncio span{margin-left:10px}
-  .cabecera .envase{height:72px}
+  .cabecera .envase{height:64px}
   .cabecera .logo{font-size:16px;gap:9px}
   .cabecera .logo img{width:34px;height:34px}
   .cabecera .btn-mini{padding:13px 22px;font-size:13.5px}
@@ -934,7 +934,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .checks{gap:5px}
   .checks li{font-size:14.5px}
   .anuncio{padding:6px 16px 7px}
-  .cabecera .envase{height:66px}
+  .cabecera .envase{height:58px}
 }
 @media (prefers-reduced-motion:reduce){.marquesina{animation-duration:80s}}
 </style>
@@ -944,10 +944,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 <header class="cabecera">
   <div class="envase">
     <a class="logo" href="#" aria-label="Entrena con Ciencia"><img src="assets/isotipo-ecc.webp" alt=""><span class="logo-txt"><span>ENTRENA</span><span>CON CIENCIA</span></span></a>
-    <div class="timer" id="timer" aria-label="Tiempo para que termine la oferta">
-      <span class="timer-tit">La oferta termina en</span>
-      <span class="timer-num"><span><b data-t="d">--</b><small>días</small></span><i>:</i><span><b data-t="h">--</b><small>hrs</small></span><i>:</i><span><b data-t="m">--</b><small>min</small></span></span>
-    </div>
   </div>
 </header>
 
@@ -1506,20 +1502,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
   if(window.IntersectionObserver) new IntersectionObserver(function(en){ fuera=en[0].intersectionRatio<.35; mini(); },{threshold:[0,.35,1]}).observe(box);
 })();
 
-/* Contador en ciclos de 7 días: igual para todos, cada ciclo termina el lunes a las 00:00 de Lima
-   (pedido del Dr. León para la prueba; la regla de la landing es contar hasta una fecha fija).
-   El lanzamiento (FIN_OFERTA, lunes 7 dic) coincide con el cierre de un ciclo: ahí el contador se detiene. */
-(function(){
-  var FIN_OFERTA=Date.parse('2026-12-07T00:00:00-05:00'), ANCLA=Date.parse('2026-10-12T00:00:00-05:00'), SEMANA=7*864e5;
-  var T=document.getElementById('timer'); if(!T) return;
-  var el={}; ['d','h','m'].forEach(function(k){el[k]=T.querySelector('[data-t="'+k+'"]')});
-  function dos(n){return (n<10?'0':'')+n}
-  function pinta(){var ahora=Date.now(), fin=ahora>=FIN_OFERTA?FIN_OFERTA:Math.min(FIN_OFERTA,ANCLA+Math.ceil((ahora-ANCLA+1)/SEMANA)*SEMANA);
-    var r=Math.max(0,fin-ahora),t=Math.floor(r/1000);
-    el.d.textContent=dos(Math.floor(t/86400)); el.h.textContent=dos(Math.floor(t%86400/3600)); el.m.textContent=dos(Math.floor(t%3600/60)); 
-    if(ahora>=FIN_OFERTA){T.querySelector('.timer-tit').textContent='Ya lanzamos'; clearInterval(iv)}}
-  var iv=setInterval(pinta,1000); pinta();
-})();
+/* (Contador de oferta quitado: la página de venta ya no tiene oferta con fecha de término.) */
 
 
 /* Nuestro contenido: al tocar play se abre el reproductor de Instagram en una ventana grande (antes no se carga nada de Instagram) */
