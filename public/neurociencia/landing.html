@@ -639,6 +639,12 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .barra p b{color:var(--amarillo);font-weight:700}
 .barra .cta-wrap{padding-top:0}
 .barra p i{color:var(--cyan)}
+/* el botón principal ocupa casi todo el ancho; "Ver planes" va al lado, más chico y solo con borde */
+.barra-botones{display:flex;align-items:stretch;gap:8px;max-width:440px;margin:0 auto}
+.barra-botones .cta-wrap{flex:1;min-width:0;margin:0;max-width:none}
+.barra .barra-botones .cta{padding-left:12px;padding-right:12px;font-size:13.5px;white-space:nowrap}
+.barra .barra-planes{flex:none;width:auto;margin:0;min-height:44px;padding:6px 12px;font-size:12.5px;font-weight:500;background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.barra .barra-planes:hover{background:rgba(255,255,255,.1)}
 
 /* ---------- testimonios discretos (tarjetas chicas en una fila que se desliza) ---------- */
 .ecc-ej[hidden]{display:none!important}
@@ -715,9 +721,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 .cta-sec{display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;min-height:44px;margin:12px auto 0;padding:10px 24px;border:1.5px solid var(--teal);border-radius:999px;background:#fff;color:var(--teal);font:600 14.5px/1 "Poppins";text-decoration:none;transition:background .2s}
 .cta-sec:hover{background:var(--celeste-2)}
 .cta-sec i{font-size:16px}
-/* hero: en escritorio "Ver planes" va bajo la caja "Esta vez es distinto" para equilibrar las dos columnas */
-.cta-sec.solo-escritorio{display:none}
-@media (min-width:860px){.cta-sec.solo-escritorio{display:flex;margin-top:16px}.cta-sec.solo-celular{display:none}}
 
 /* ---------- planes (precios) ---------- */
 .planes-wrap{max-width:900px;margin:32px auto 0;scroll-margin-top:24px}
@@ -840,6 +843,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
   .barra{padding-top:8px}
   .barra .envase{display:flex;align-items:center;justify-content:space-between;gap:24px}
   .barra .cta-wrap{margin:0;max-width:380px}
+  .barra .barra-botones{margin:0;max-width:520px;flex:0 1 520px}
   .barra p{margin:0;font-size:14px;text-align:left}
 }
 /* ventanas de escritorio bajas: se compacta para que el botón quede a la vista */
@@ -943,7 +947,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
     </div>
       <span class="hero-flecha" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 4v14M6 12l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <p class="remate" id="tras-hero"><small>ESTA VEZ ES DISTINTO</small>Deja de volver a empezar.</p>
-      <a class="cta-sec solo-escritorio" href="#planes">Ver planes <i class="ph-light ph-caret-down"></i></a>
     </div>
     <div class="hero-col">
       <div class="confianza">
@@ -968,7 +971,6 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
           <a class="cta ecc-cta" href="#planes" data-link="modulo0" id="cta-hero">Ver gratis el Módulo 0 <i class="ph-light ph-arrow-right"></i></a>
         </div>
         <p class="micro"><i class="ph-fill ph-lock-simple candado"></i><span>Regístrate <b>gratis</b> y conoce el programa antes de comprar.</span></p>
-        <a class="cta-sec solo-celular" href="#planes">Ver planes <i class="ph-light ph-caret-down"></i></a>
       </div>
       <a class="desliza" href="#revistas" aria-label="Desliza para ver más"><span>Desliza</span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="f1" d="M6 5.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path class="f2" d="M6 12.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
@@ -1170,7 +1172,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 </section>
 
 <!-- ============ TESTIMONIOS (discretos) ============ -->
-<!-- Por ahora son EJEMPLOS: solo se ven en localhost o con ?ejemplo=1 (sin sello, a pedido del Dr. León).
+<!-- Por ahora son EJEMPLOS: se ven en local y en la demo de Vercel; en entrenaciencia.com solo con ?ejemplo=1 (sin sello, a pedido del Dr. León).
      En producción la sección queda oculta hasta tener testimonios reales con permiso firmado. -->
 <section class="sec testis ecc-ej" hidden data-screen-label="04c Testimonios">
   <div class="envase">
@@ -1376,7 +1378,7 @@ section[data-screen-label="02 Por qué funciona"]{background:linear-gradient(180
 <div class="barra" id="barra" aria-hidden="true">
   <div class="envase">
     <p><i class="ph-fill ph-check-circle"></i> Conoce el programa <b>gratis</b> antes de comprar</p>
-    <div class="cta-wrap"><a class="cta ecc-cta" href="#planes" data-link="modulo0" tabindex="-1">Ver gratis el Módulo 0</a></div>
+    <div class="barra-botones"><div class="cta-wrap"><a class="cta ecc-cta" href="#planes" data-link="modulo0" tabindex="-1">Ver gratis el Módulo 0</a></div><a class="cta-sec barra-planes" href="#planes" tabindex="-1">Ver planes</a></div>
   </div>
 </div>
 
@@ -1400,9 +1402,9 @@ var LINK_3MESES = "https://pay.hotmart.com/I108643325X?off=27uzwc4y";
   document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('[data-link]'); if(a) armar(a); },true);
 })();
 
-/* Testimonios de ejemplo: solo en localhost o con ?ejemplo=1 (nunca en producción) */
+/* Testimonios de ejemplo: se ven en local y en la demo de Vercel; en entrenaciencia.com (producción) solo con ?ejemplo=1 */
 (function(){
-  if(!/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && !/[?&]ejemplo=1\b/.test(location.search)) return;
+  if(/(^|\.)entrenaciencia\.com$/.test(location.hostname) && !/[?&]ejemplo=1\b/.test(location.search)) return;
   [].forEach.call(document.querySelectorAll('.ecc-ej'),function(e){ e.hidden=false; });
 })();
 
@@ -1651,7 +1653,7 @@ addEventListener('pageshow',function(){if(!location.hash)scrollTo(0,0)});
 /* Barra fija inferior: aparece al pasar el botón del hero y se esconde cuando la sección de la app (y su botón) o los planes están en pantalla */
 (function(){
   var b=document.getElementById('barra'), hero=document.getElementById('cta-hero'), tapan=[document.getElementById('planes'),document.getElementById('app'),document.querySelector('#app + .centro')].filter(Boolean);
-  function ver(){var pasoHero=hero.getBoundingClientRect().bottom<0;var tapa=tapan.some(function(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var on=pasoHero&&!tapa;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');b.querySelector('a').tabIndex=on?0:-1}
+  function ver(){var pasoHero=hero.getBoundingClientRect().bottom<0;var tapa=tapan.some(function(el){var r=el.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0});var on=pasoHero&&!tapa;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');[].forEach.call(b.querySelectorAll('a'),function(a){a.tabIndex=on?0:-1})}
   addEventListener('scroll',ver,{passive:true}); addEventListener('resize',ver); ver();
 })();
 </script>
